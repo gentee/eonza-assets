@@ -43,7 +43,7 @@
 
             <v-list-item-content>
               <div>[[.App.Title]]</div>
-              <v-list-item-subtitle>v1.0.0+1</v-list-item-subtitle>
+              <v-list-item-subtitle>v[[.Version]]</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 
@@ -95,11 +95,6 @@
     <router-view></router-view>
     {{ text }}
     </v-content>
-  <!--v-footer padless color="blue-grey darken-1">
-    <v-col class="text-center white--text">
-      [[.App.Copyright]]
-    </v-col>
-  </v-footer-->
 </v-app>
 <script src="/js/vue.min.js"></script>
 <script src="/js/vue-router.min.js"></script>
@@ -144,7 +139,7 @@ new Vue({
 
 function appData() { 
     return {
-      title: 'OOOPS',
+      title: "Start",
       tab: null,
       tabs: 3,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
