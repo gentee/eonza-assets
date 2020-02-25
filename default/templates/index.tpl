@@ -26,7 +26,7 @@
     </v-app-bar>
       <v-navigation-drawer
         app
-        absolute
+//        absolute
         dark
         v-model="drawer"
       >
@@ -49,7 +49,7 @@
 
           <v-divider></v-divider>
 
-          <v-list-item to="/foo" @click="change"
+          <v-list-item :to="item.route" @click="change"
             v-for="item in navitems"
             :key="item.title"
             v-if="item.id <= 2"
@@ -65,7 +65,7 @@
           </v-list-item>
 
           <v-divider></v-divider>
-          <v-list-item
+          <v-list-item :to="item.route" @click="change"
             v-for="item in navitems"
             :key="item.title"
             v-if="item.id > 2"
@@ -99,22 +99,36 @@
 <script src="/js/vue.min.js"></script>
 <script src="/js/vue-router.min.js"></script>
 <script src="/js/vuetify.min.js"></script>
+
+[[template "home"]]
+[[template "editor"]]
+[[template "about"]]
+
 <script>
-const Foo = {
-  template: `
-  <div>Foo component!</div>`
+
+const Scripts = {
+  template: '#home'
 };
-const Bar = {
-  template: '<div>Bar component!</div>'
+
+const Editor = {
+  template: '#editor'
+};
+
+const About = {
+  template: '#about'
 };
 
 const routes = [{
-    path: '/foo',
-    component: Foo
+    path: '/',
+    component: Scripts
   },
   {
-    path: '/bar',
-    component: Bar
+    path: '/editor',
+    component: Editor
+  },
+  {
+    path: '/about',
+    component: About
   },
 ];
 
@@ -146,10 +160,10 @@ function appData() {
 
       drawer: true,
       navitems: [
-        { id: 1, title: 'Scripts', icon: 'fa-play-circle' },
-        { id: 2, title: 'Editor', icon: 'fa-edit' },
-        { id: 3, title: 'Support', icon: 'fa-life-ring' },
-        { id: 4, title: 'About', icon: 'fa-info-circle' },
+        { id: 1, title: 'Scripts', icon: 'fa-play-circle', route: '/' },
+        { id: 2, title: 'Editor', icon: 'fa-edit', route: '/editor' },
+        { id: 3, title: 'About', icon: 'fa-info-circle', route: '/about' },
+//        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
     }
 }
