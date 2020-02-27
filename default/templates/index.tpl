@@ -19,14 +19,15 @@
 <body>
 <div id = "app">
     <v-app>
-    <v-app-bar app  color="blue darken-1" dense dark>
-      <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
-      <v-toolbar-title>{{title}}</v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-app-bar>
+      <v-app-bar app  color="blue darken-1" dense dark>
+        <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
+        <v-toolbar-title>{{title}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+      </v-app-bar>
+
       <v-navigation-drawer
         app
-//        absolute
+        absolute
         dark
         v-model="drawer"
       >
@@ -49,10 +50,10 @@
 
           <v-divider></v-divider>
 
-          <v-list-item :to="item.route" @click="change"
+          <v-list-item :to="item.route" @click="change(item.id)"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id <= 2"
+            v-if="item.id < 2"
             link
           >
             <div style="width: 48px;">
@@ -65,10 +66,10 @@
           </v-list-item>
 
           <v-divider></v-divider>
-          <v-list-item :to="item.route" @click="change"
+          <v-list-item :to="item.route" @click="change(item.id)"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id > 2"
+            v-if="item.id > 1"
             link
             dense
           >
@@ -93,7 +94,6 @@
 
     <v-content app>
     <router-view></router-view>
-    {{ text }}
     </v-content>
 </v-app>
 <script src="/js/vue.min.js"></script>
@@ -102,33 +102,23 @@
 
 [[template "home"]]
 [[template "editor"]]
-[[template "about"]]
+[[template "help" .]]
 
 <script>
-
-const Scripts = {
-  template: '#home'
-};
-
-const Editor = {
-  template: '#editor'
-};
-
-const About = {
-  template: '#about'
-};
-
 const routes = [{
     path: '/',
+    name: 0,
     component: Scripts
   },
   {
     path: '/editor',
+    name: 1,
     component: Editor
   },
   {
-    path: '/about',
-    component: About
+    path: '/help',
+    name: 2,
+    component: Help,
   },
 ];
 
@@ -141,28 +131,26 @@ new Vue({
       },
     }),
     el: '#app',
-    data: appData(),
+    data: appData,
     router,
     methods: {
-      change() {
-        console.log('OK');
-        this.title = 'Start';
+      change(id) {
+        this.title = this.navitems[id].title;
       }
+    },
+    mounted() {
+      this.change(this.$route.name);
     }
 })
 
 function appData() { 
     return {
-      title: "Start",
-      tab: null,
-      tabs: 3,
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-
+      title: "",
       drawer: true,
       navitems: [
-        { id: 1, title: 'Scripts', icon: 'fa-play-circle', route: '/' },
-        { id: 2, title: 'Editor', icon: 'fa-edit', route: '/editor' },
-        { id: 3, title: 'About', icon: 'fa-info-circle', route: '/about' },
+        { id: 0, title: [[lang "scripts"]], icon: 'fa-play-circle', route: '/' },
+        { id: 1, title: [[lang "editor"]], icon: 'fa-edit', route: '/editor' },
+        { id: 2, title: [[lang "help"]], icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
     }

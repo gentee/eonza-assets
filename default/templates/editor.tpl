@@ -5,3 +5,9 @@
     </v-layout>
   </v-container>
 </script>
+
+<script>
+const Editor = {
+  template: '#editor'
+};
+</script>
