@@ -18,11 +18,18 @@
 </head>
 <body>
 <div id = "app">
-    <v-app>
+  <v-app>
       <v-app-bar app  color="blue darken-1" dense dark>
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn color="lime darken-2" class="font-weight-bold">
+            <v-icon left>fa-plus</v-icon>&nbsp;New Script
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon v-if="develop" @click="reload">
+            <v-icon>fa-redo-alt</v-icon>
+        </v-btn>
       </v-app-bar>
 
       <v-navigation-drawer
@@ -71,14 +78,14 @@
             :key="item.title"
             v-if="item.id > 1"
             link
-            dense
+            чdense
           >
             <div style="width: 48px;">
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon size="32px">{{ item.icon }}</v-icon>
             </div>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title  class="font-weight-bold">{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -95,10 +102,12 @@
     <v-content app>
     <router-view></router-view>
     </v-content>
-</v-app>
+  </v-app>
+</div>
 <script src="/js/vue.min.js"></script>
 <script src="/js/vue-router.min.js"></script>
 <script src="/js/vuetify.min.js"></script>
+<script src="/js/axios.min.js"></script>
 
 [[template "home"]]
 [[template "editor"]]
@@ -136,6 +145,11 @@ new Vue({
     methods: {
       change(id) {
         this.title = this.navitems[id].title;
+      },
+      reload() {
+        axios
+        .get('/api/reload')
+        .then(response => (location.reload(true)));
       }
     },
     mounted() {
@@ -147,6 +161,7 @@ function appData() {
     return {
       title: "",
       drawer: true,
+      develop: [[.Develop]],
       navitems: [
         { id: 0, title: [[lang "scripts"]], icon: 'fa-play-circle', route: '/' },
         { id: 1, title: [[lang "editor"]], icon: 'fa-edit', route: '/editor' },
@@ -156,6 +171,7 @@ function appData() {
     }
 }
 </script>
+
 </body>
 </html>
 
