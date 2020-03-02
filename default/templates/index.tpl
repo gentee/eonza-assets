@@ -27,9 +27,28 @@
             <v-icon left>fa-plus</v-icon>&nbsp;New Script
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn icon v-if="develop" @click="reload">
-            <v-icon>fa-redo-alt</v-icon>
-        </v-btn>
+          <v-menu bottom left :open-on-hover = true >
+            <template v-slot:activator="{ on }">
+              <v-btn
+                dark
+                icon
+                v-on="on"
+              >
+                <v-icon>fa-ellipsis-v</v-icon>
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item
+                v-for="(item, i) in activemenu()"
+                :key="i"
+                @click=item.onclick
+              >
+                <v-icon class="pr-2">{{ item.icon }}</v-icon>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
       </v-app-bar>
 
       <v-navigation-drawer
@@ -78,7 +97,6 @@
             :key="item.title"
             v-if="item.id > 1"
             link
-            чdense
           >
             <div style="width: 48px;">
               <v-icon size="32px">{{ item.icon }}</v-icon>
@@ -102,6 +120,7 @@
     <v-content app>
     <router-view></router-view>
     </v-content>
+    <dlg-question :show="question" :title="asktitle" @close="question = false" v-on:yes="cmd" />
   </v-app>
 </div>
 <script src="/js/vue.min.js"></script>
@@ -109,9 +128,10 @@
 <script src="/js/vuetify.min.js"></script>
 <script src="/js/axios.min.js"></script>
 
-[[template "home"]]
-[[template "editor"]]
+[[template "home" .]]
+[[template "editor" .]]
 [[template "help" .]]
+[[template "dialogs"]]
 
 <script>
 const routes = [{
@@ -150,6 +170,20 @@ new Vue({
         axios
         .get('/api/reload')
         .then(response => (location.reload(true)));
+      },
+      exit(par) {
+        this.question = false;
+/*        axios
+        .get('/api/reload')
+        .then(response => (location.reload(true)));*/
+      },
+      confirm( title, fn ) {
+        this.asktitle = title;
+        this.cmd = fn;
+        this.question = true;
+      },
+      activemenu() {
+        return this.menus.filter( (i) => !i.hide );
       }
     },
     mounted() {
@@ -168,6 +202,15 @@ function appData() {
         { id: 2, title: [[lang "help"]], icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
+      menus: [
+        { title: [[lang "refresh"]], icon: "fa-redo-alt", onclick: this.reload, 
+             hide: [[not .Develop]]},
+        { title: [[lang "exit"]], icon: "fa-power-off", 
+          onclick: () => {this.confirm([[lang "exitconfirm"]], this.exit);} },
+      ],
+      question: false,
+      asktitle: "",
+      cmd: null,
     }
 }
 </script>

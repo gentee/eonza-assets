@@ -1,7 +1,14 @@
 about: О программе
 editor: Редактор
+exit: Выход
+exitconfirm: Вы уверены что хотите выйти из программы?
 help: Помощь
 licagreement: Лицензионное соглашение
+parameters: Параметры
+refresh: Обновить
+script: Скрипт
 scripts: Скрипты
+settings: Настройки
+sourcecode: Исходный код
 support: Служба поддержки
 version: Версия

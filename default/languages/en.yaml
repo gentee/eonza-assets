@@ -1,7 +1,14 @@
 about: About
 editor: Editor
+exit: Exit
+exitconfirm: Are you sure to exit the program?
 help: Help
 licagreement: License Agreement
+parameters: Parameters
+refresh: Refresh
+script: Script
 scripts: Scripts
+settings: Settings
+sourcecode: Source Code
 support: Technical Support
 version: Version
