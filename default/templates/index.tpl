@@ -19,7 +19,7 @@
 <body>
 <div id = "app">
   <v-app>
-      <v-app-bar app  color="blue darken-1" dense dark>
+      <v-app-bar app color="blue darken-1" dense dark v-if="work">
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -131,6 +131,7 @@
 [[template "home" .]]
 [[template "editor" .]]
 [[template "help" .]]
+[[template "shutdown"]]
 [[template "dialogs"]]
 
 <script>
@@ -148,6 +149,11 @@ const routes = [{
     path: '/help',
     name: 2,
     component: Help,
+  },
+  {
+    path: '/shutdown',
+    name: 3,
+    component: Shutdown,
   },
 ];
 
@@ -171,11 +177,13 @@ new Vue({
         .get('/api/reload')
         .then(response => (location.reload(true)));
       },
-      exit(par) {
+      exit() {
         this.question = false;
-/*        axios
-        .get('/api/reload')
-        .then(response => (location.reload(true)));*/
+        this.drawer = false;
+        this.work = false;
+        axios
+        .get('/api/exit')
+        .then(response => (router.push('shutdown')));
       },
       confirm( title, fn ) {
         this.asktitle = title;
@@ -195,6 +203,7 @@ function appData() {
     return {
       title: "",
       drawer: true,
+      work: true,
       develop: [[.Develop]],
       navitems: [
         { id: 0, title: [[lang "scripts"]], icon: 'fa-play-circle', route: '/' },
@@ -206,7 +215,7 @@ function appData() {
         { title: [[lang "refresh"]], icon: "fa-redo-alt", onclick: this.reload, 
              hide: [[not .Develop]]},
         { title: [[lang "exit"]], icon: "fa-power-off", 
-          onclick: () => {this.confirm([[lang "exitconfirm"]], this.exit);} },
+          onclick: () => this.confirm([[lang "exitconfirm"]], this.exit) },
       ],
       question: false,
       asktitle: "",

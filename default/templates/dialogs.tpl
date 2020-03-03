@@ -1,5 +1,5 @@
 <script type="text/x-template" id="dlg-question">
-    <v-dialog v-model="show" max-width="500" persistent = true>
+    <v-dialog v-model="show" max-width="600" persistent = true>
       <v-card>
         <v-card-title classx="py-4">
           <v-icon size="2em" color="blue darken-2" class="mr-4 my-4">fa-question-circle

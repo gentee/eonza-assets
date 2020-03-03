@@ -1,7 +1,8 @@
 about: About
 editor: Editor
 exit: Exit
-exitconfirm: Are you sure to exit the program?
+exitconfirm: Are you sure you want to exit the program?
+exitalert: The program has just been closed
 help: Help
 licagreement: License Agreement
 parameters: Parameters
