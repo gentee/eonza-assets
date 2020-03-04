@@ -5,11 +5,17 @@ exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
 help: Help
 licagreement: License Agreement
+newscript: New Script
+no: No
+ok: OK
 parameters: Parameters
 refresh: Refresh
+run: Run
+save: Save
 script: Script
 scripts: Scripts
 settings: Settings
 sourcecode: Source Code
 support: Technical Support
 version: Version
+yes: Yes

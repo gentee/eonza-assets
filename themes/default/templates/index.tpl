@@ -23,7 +23,7 @@
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="lime darken-2" class="font-weight-bold">
+        <v-btn color="primary" to="/editor?scriptname=new" @click="change(1)" class="white red--background font-weight-bold" outlined v-if="$route.name != 1">
             <v-icon left>fa-plus</v-icon>&nbsp;New Script
         </v-btn>
         <v-spacer></v-spacer>
