@@ -1,5 +1,6 @@
 about: About
 editor: Editor
+erropen: The %s script has not been found
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed

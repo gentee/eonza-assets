@@ -77,7 +77,21 @@ const Editor = Vue.component('editor', {
         if (!this.loaded || !!par) {
             this.load(par);
         }
-    } 
+    },
+    computed: {
+        script: {
+            get() { return store.state.script },
+            set(value) { store.commit('updateScript', value) }
+        },
+        changed: {
+            get() { return store.state.changed },
+            set(value) { store.commit('updateChanged', value) }
+        },
+        loaded: {
+            get() { return store.state.loaded },
+            set(value) { store.commit('updateLoaded', value) }
+        },
+    }
 });
 
 function editorData() {
@@ -86,12 +100,6 @@ function editorData() {
       develop: [[.Develop]],
       error: false,
       errtitle: '',
-      changed: false,
-      loaded: false,
-      script: {
-          settings: {
-          },
-      },
     }
 }
 </script>

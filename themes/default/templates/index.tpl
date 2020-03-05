@@ -127,6 +127,7 @@
 <script src="/js/vue-router.min.js"></script>
 <script src="/js/vuetify.min.js"></script>
 <script src="/js/axios.min.js"></script>
+<script src="/js/vuex.min.js"></script>
 
 [[template "home" .]]
 [[template "editor" .]]
@@ -159,6 +160,28 @@ const routes = [{
 
 const router = new VueRouter({ routes });
 
+const store = new Vuex.Store({
+  state: {
+      changed: false,
+      loaded: false,
+      script: {
+          settings: {
+          },
+      },
+  },
+  mutations: {
+    updateScript (state, script) {
+      state.script = script;
+    },
+    updateLoaded (state, loaded) {
+      state.loaded = loaded;
+    },
+    updateChanged (state, loaded) {
+      state.changed = changed;
+    }
+  }
+})
+
 new Vue({
     vuetify: new Vuetify({
       icons: {
@@ -168,6 +191,7 @@ new Vue({
     el: '#app',
     data: appData,
     router,
+    store,
     methods: {
       change(id) {
         this.title = this.navitems[id].title;
