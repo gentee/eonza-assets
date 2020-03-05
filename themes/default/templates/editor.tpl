@@ -6,7 +6,7 @@
         <v-btn color="primary" class="mx-2" @click="load('new')" >
             <v-icon left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
-        <v-btn color="primary" class="mx-2" :disabled="!changed">
+        <v-btn color="primary" class="mx-2" :disabled="!changed" @click="this.$root.save">
             <v-icon left>fa-save</v-icon>&nbsp;[[lang "save"]]
         </v-btn>
         <v-btn color="primary" class="mx-2"  v-if="loaded">
@@ -29,8 +29,15 @@
        <v-tab-item>  
         1
        </v-tab-item>
-       <v-tab-item >
-         2
+       <v-tab-item>
+        <v-container>
+          <v-text-field v-model="script.settings.name" @change="ischanged"
+           label="[[lang "uniquename"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
+            ></v-text-field>
+          <v-text-field v-model="script.settings.title" @change="ischanged"
+          label="[[lang "title"]]" counter maxlength="64"
+        ></v-text-field>
+        </v-container>
         </v-tab-item>
        <v-tab-item >
          3
@@ -49,15 +56,20 @@ const Editor = Vue.component('editor', {
     template: '#editor',
     data: editorData,
     methods: {
+        ischanged() {
+            if (!this.changed) {
+                this.changed = true;
+            }
+        },
         errmsg( title ) {
             this.errtitle = title;
             this.error = true;
         },
-        load(scriptname) {
-            // if (this.changed) Do you want to save the current project?
+        open() {
+            console.log('OPEN');
             this.loaded = false;
             axios
-            .get('/api/script' + ( !!scriptname ? '?name='+scriptname : ''))
+            .get('/api/script' + ( !!this.toopen ? '?name='+this.toopen : ''))
             .then(response => {
                 if (response.data.error) {
                     this.errmsg(response.data.error);
@@ -67,6 +79,10 @@ const Editor = Vue.component('editor', {
                 this.loaded = true;
             })
             .catch(error => this.errmsg(error));
+        },
+        load(scriptname) {
+            this.toopen = scriptname;
+            this.$root.checkChanged(this.open);
         } 
     },
     mounted: function() {
@@ -100,6 +116,7 @@ function editorData() {
       develop: [[.Develop]],
       error: false,
       errtitle: '',
+      toopen: '',
     }
 }
 </script>

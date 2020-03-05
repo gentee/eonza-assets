@@ -9,13 +9,13 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary"
-            @click="yes()"  class="ma-2"
+            @click="click(btn.Yes)"  class="ma-2"
           >
             [[lang "yes"]]
           </v-btn>
           <v-btn
             color="primary" outlined
-            @click="close()"  class="ma-2"
+            @click="click(btn.No)"  class="ma-2"
           >
             [[lang "no"]]
           </v-btn>
@@ -26,24 +26,26 @@
 </script>
 
 <script>
+const btn = {
+    No: 0,
+    Yes: 1,
+}
+
 Vue.component('dlg-question', {
     template: '#dlg-question',
     props: ['show', 'title'],
     methods: {
-        close: function () {
-            this.$emit('close');
-        },
-        yes: function () {
-            this.$emit('yes');
+        click: function (par) {
+            this.$emit('btn', par);
         },
         keyProcess: function(event) {
             switch (event.keyCode) {
                 case 13:
                 case 32: 
-                   this.yes();
+                   this.click(btn.Yes);
                    break;
                 case 27: 
-                   this.close();
+                   this.click(btn.No);
                    break;
             }
         }

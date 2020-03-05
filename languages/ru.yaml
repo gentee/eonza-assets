@@ -13,10 +13,13 @@ parameters: Параметры
 refresh: Обновить
 run: Запустить
 save: Сохранить
+savescript: Скрипт '%s' был изменён. Хотите сохранить его?
 script: Скрипт
 scripts: Скрипты
 settings: Настройки
 sourcecode: Исходный код
 support: Служба поддержки
+title: Название
 version: Версия
+uniquename: Уникальное имя
 yes: Да

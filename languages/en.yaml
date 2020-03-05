@@ -13,10 +13,13 @@ parameters: Parameters
 refresh: Refresh
 run: Run
 save: Save
+savescript: The '%s' script was changed. Would you like to save it?
 script: Script
 scripts: Scripts
 settings: Settings
 sourcecode: Source Code
 support: Technical Support
+title: Title
 version: Version
+uniquename: Unique Name
 yes: Yes

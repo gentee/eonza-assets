@@ -120,7 +120,7 @@
     <v-content app>
     <router-view></router-view>
     </v-content>
-    <dlg-question :show="question" :title="asktitle" @close="question = false" v-on:yes="cmd" />
+    <dlg-question :show="question" :title="asktitle" v-on:btn="cmd" />
   </v-app>
 </div>
 <script src="/js/vue.min.js"></script>
@@ -176,7 +176,7 @@ const store = new Vuex.Store({
     updateLoaded (state, loaded) {
       state.loaded = loaded;
     },
-    updateChanged (state, loaded) {
+    updateChanged (state, changed) {
       state.changed = changed;
     }
   }
@@ -196,18 +196,45 @@ new Vue({
       change(id) {
         this.title = this.navitems[id].title;
       },
-      reload() {
-        axios
-        .get('/api/reload')
-        .then(response => (location.reload(true)));
+      saveScript() {
+        store.commit('updateChanged', false);
+        console.log('SAVE');
       },
-      exit() {
+      checkChanged(fn) {
+        if (store.state.changed) {
+          let parent = this;
+           this.confirm( format([[lang "savescript"]], store.state.script.settings.title), 
+            function( par ){
+             parent.question = false;
+             if (par == btn.Yes) {
+               parent.saveScript();
+             } else {
+               store.commit('updateChanged', false);
+             }
+             fn();
+           });
+        } else {
+          fn();
+        }
+      },
+      reload() {
+        this.checkChanged(()=> {
+          axios
+          .get('/api/reload')
+          .then(response => (location.reload(true)));
+        });
+      },
+      exit( par ) {
         this.question = false;
-        this.drawer = false;
-        this.work = false;
-        axios
-        .get('/api/exit')
-        .then(response => (router.push('shutdown')));
+        if (par == btn.Yes) {
+          this.checkChanged(()=> {
+            this.drawer = false;
+            this.work = false;
+            axios
+            .get('/api/exit')
+            .then(response => (router.push('shutdown')));
+          });
+        }
       },
       confirm( title, fn ) {
         this.asktitle = title;
@@ -246,6 +273,11 @@ function appData() {
       cmd: null,
     }
 }
+
+function format(pattern, par) {
+    return pattern.replace('%s', par);
+}
+
 </script>
 
 </body>
