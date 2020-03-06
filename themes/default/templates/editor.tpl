@@ -33,9 +33,9 @@
         <v-container>
           <v-text-field v-model="script.settings.name" @change="ischanged"
            label="[[lang "uniquename"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
-            ></v-text-field>
+            :rules="[rules.required, rules.unique]"></v-text-field>
           <v-text-field v-model="script.settings.title" @change="ischanged"
-          label="[[lang "title"]]" counter maxlength="64"
+          label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
         ></v-text-field>
         </v-container>
         </v-tab-item>
@@ -75,7 +75,6 @@ const Editor = Vue.component('editor', {
                     return
                 }
                 this.script = response.data;
-                console.log('OPEN', this.script);
                 this.loaded = true;
             })
             .catch(error => this.errmsg(error));
@@ -112,11 +111,18 @@ const Editor = Vue.component('editor', {
 
 function editorData() {
     return {
-      tab: null,
-      develop: [[.Develop]],
-      error: false,
-      errtitle: '',
-      toopen: '',
+        tab: null,
+        develop: [[.Develop]],
+        error: false,
+        errtitle: '',
+        toopen: '',
+        rules: {
+          required: value => !!value || [[lang "required"]],
+          unique: value => {
+            const pattern = /^[a-z\d\._-]+$/
+            return pattern.test(value) || [[lang "invalidvalue"]]
+          },
+        },
     }
 }
 </script>

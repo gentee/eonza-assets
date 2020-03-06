@@ -206,7 +206,7 @@ new Vue({
         .then(response => { 
           if (!response.data.error) {
             store.commit('updateChanged', false);
-            if (!!callback) {
+            if (typeof callback == 'function') {
               callback();
             }
           } else {
