@@ -1,9 +1,14 @@
 <script type="text/x-template" id="dlg-question">
     <v-dialog v-model="show" max-width="600" persistent = true>
+      <div>
+
       <v-card>
         <v-card-title classx="py-4">
-          <v-icon size="2em" color="blue darken-2" class="mr-4 my-4">fa-question-circle
-          </v-icon>{{title}}
+        <div style="width: 100%;">
+        <v-icon size="2em" color="blue darken-2" class="mr-4 my-4" style="float: left;">fa-question-circle
+        </v-icon>
+          <div>{{title}}</div>
+        </div>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-actions>
@@ -22,6 +27,8 @@
 
         </v-card-actions>
       </v-card>
+
+      </div>
     </v-dialog>
 </script>
 
@@ -67,8 +74,10 @@ Vue.component('dlg-question', {
     <v-dialog v-model="show" max-width="600" persistent = true>
       <v-card>
         <v-card-title classx="py-4">
-          <v-icon size="2em" color="error" class="mr-4 my-4">fa-times-circle
-          </v-icon>{{title}}
+        <div style="width: 100%;">
+          <v-icon size="2em" color="error" class="mr-4 my-4" style="float: left;">fa-times-circle
+          </v-icon><div>{{title}}</div>
+        </div>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-actions>

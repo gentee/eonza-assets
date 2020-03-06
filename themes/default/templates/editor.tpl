@@ -6,7 +6,7 @@
         <v-btn color="primary" class="mx-2" @click="load('new')" >
             <v-icon left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
-        <v-btn color="primary" class="mx-2" :disabled="!changed" @click="this.$root.save">
+        <v-btn color="primary" class="mx-2" :disabled="!changed" @click="this.$root.saveScript">
             <v-icon left>fa-save</v-icon>&nbsp;[[lang "save"]]
         </v-btn>
         <v-btn color="primary" class="mx-2"  v-if="loaded">
@@ -47,7 +47,7 @@
         </v-tab-item>
 
     </v-tabs-items>
-    <dlg-error :show="error" :title="errtitle" @close="error = false"/>
+    <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
   </v-container>
 </script>
 
@@ -66,7 +66,6 @@ const Editor = Vue.component('editor', {
             this.error = true;
         },
         open() {
-            console.log('OPEN');
             this.loaded = false;
             axios
             .get('/api/script' + ( !!this.toopen ? '?name='+this.toopen : ''))
@@ -76,6 +75,7 @@ const Editor = Vue.component('editor', {
                     return
                 }
                 this.script = response.data;
+                console.log('OPEN', this.script);
                 this.loaded = true;
             })
             .catch(error => this.errmsg(error));

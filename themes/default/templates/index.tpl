@@ -116,11 +116,11 @@
     </div>
     </div>
       </v-navigation-drawer>
-
     <v-content app>
     <router-view></router-view>
     </v-content>
-    <dlg-question :show="question" :title="asktitle" v-on:btn="cmd" />
+    <dlg-question :show="question" :title="asktitle" v-on:btn="cmd"></dlg-question>
+    <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
   </v-app>
 </div>
 <script src="/js/vue.min.js"></script>
@@ -193,12 +193,26 @@ new Vue({
     router,
     store,
     methods: {
+      errmsg( title ) {
+        this.errtitle = title;
+        this.error = true;
+      },
       change(id) {
         this.title = this.navitems[id].title;
       },
-      saveScript() {
-        store.commit('updateChanged', false);
-        console.log('SAVE');
+      saveScript(callback) {
+        axios
+        .post('/api/script', store.state.script)
+        .then(response => { 
+          if (!response.data.error) {
+            store.commit('updateChanged', false);
+            if (!!callback) {
+              callback();
+            }
+          } else {
+            this.errmsg(response.data.error);
+          }
+        });
       },
       checkChanged(fn) {
         if (store.state.changed) {
@@ -207,7 +221,8 @@ new Vue({
             function( par ){
              parent.question = false;
              if (par == btn.Yes) {
-               parent.saveScript();
+                parent.saveScript(fn);
+                return; 
              } else {
                store.commit('updateChanged', false);
              }
@@ -271,6 +286,8 @@ function appData() {
       question: false,
       asktitle: "",
       cmd: null,
+      error: false,
+      errtitle: '',
     }
 }
 
