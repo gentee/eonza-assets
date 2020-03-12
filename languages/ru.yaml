@@ -1,13 +1,17 @@
 about: О программе
 editor: Редактор
+errnickname: Пользователь '%s' уже существует
 erropen: Скрипт %s не найден
 exit: Выход
 exitconfirm: Вы уверены, что хотите выйти из программы?
 exitalert: Программа только что была закрыта
 help: Помощь
+history: История
 invalidfield: Значение поля '%s' некорректно
 invalidvalue: Значение некорректно
 licagreement: Лицензионное соглашение
+menu: Меню
+nickname: Псевдоним
 newscript: Новый скрипт
 no: Нет
 ok: OK

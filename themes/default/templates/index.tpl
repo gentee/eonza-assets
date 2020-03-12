@@ -7,6 +7,7 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/vuetify.min.css">
+  <link rel="stylesheet" href="/css/icons.css">
   <script src="/js/fontawesome.min.js"></script>
   <script src="/js/solid.min.js"></script>
   <script src="/js/brands.min.js"></script>
@@ -185,7 +186,7 @@ const store = new Vuex.Store({
 new Vue({
     vuetify: new Vuetify({
       icons: {
-        iconfont: 'faSvg',
+        iconfont: 'fa' || 'faSvg', //'faSvg',
       },
     }),
     el: '#app',
@@ -262,6 +263,7 @@ new Vue({
     },
     mounted() {
       this.change(this.$route.name);
+      console.log('OK', this.$vuetify.icons);
     }
 })
 

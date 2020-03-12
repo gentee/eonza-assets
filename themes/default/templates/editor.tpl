@@ -3,6 +3,14 @@
   <v-toolbar dense flat=true>
       <v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+       <v-btn icon color="primary" :disabled="!script.history" v-on="on">
+        <v-icon>fa-history</v-icon>
+      </v-btn>
+      </template>
+      <span>[[lang "history"]]</span>
+    </v-tooltip>
         <v-btn color="primary" class="mx-2" @click="load('new')" >
             <v-icon left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
@@ -12,11 +20,10 @@
         <v-btn color="primary" class="mx-2"  v-if="loaded">
             <v-icon left>fa-play</v-icon>&nbsp;[[lang "run"]]
         </v-btn>
-      <v-btn icon color="primary"  v-if="loaded">
-        <v-icon>fa-caret-square-down</v-icon>
-      </v-btn>
+        <v-btn color="primary" class="mx-2" v-if="loaded">
+            <v-icon>fa-caret-down</v-icon>&nbsp;[[lang "menu"]]
+        </v-btn>
         <v-spacer></v-spacer>
-
     </v-toolbar>
     <v-tabs v-model="tab"  v-if="loaded">
         <v-tab>[[lang "script"]]</v-tab>
