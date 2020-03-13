@@ -1,4 +1,5 @@
 about: О программе
+delete: Удалить
 editor: Редактор
 errnickname: Пользователь '%s' уже существует
 erropen: Скрипт %s не найден
@@ -16,13 +17,16 @@ newscript: Новый скрипт
 no: Нет
 ok: OK
 parameters: Параметры
+recently: Недавно запущенные
 refresh: Обновить
 required: Это поле обязательно
 run: Запустить
 save: Сохранить
+saveasnew: Сохранить как новый
 savescript: Скрипт '%s' был изменён. Хотите сохранить его?
 script: Скрипт
 scripts: Скрипты
+search: Поиск
 settings: Настройки
 sourcecode: Исходный код
 support: Служба поддержки

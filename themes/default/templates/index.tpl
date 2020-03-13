@@ -140,7 +140,7 @@
 const routes = [{
     path: '/',
     name: 0,
-    component: Scripts
+    component: Home
   },
   {
     path: '/editor',
@@ -207,6 +207,10 @@ new Vue({
         .then(response => { 
           if (!response.data.error) {
             store.commit('updateChanged', false);
+            if (store.state.script.original != store.state.script.settings.name) {
+              store.state.script.original = store.state.script.settings.name;
+              store.commit('updateScript', store.state.script);
+            }
             if (typeof callback == 'function') {
               callback();
             }
@@ -263,7 +267,6 @@ new Vue({
     },
     mounted() {
       this.change(this.$route.name);
-      console.log('OK', this.$vuetify.icons);
     }
 })
 

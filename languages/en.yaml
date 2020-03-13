@@ -1,4 +1,5 @@
 about: About
+delete: Delete
 editor: Editor
 errnickname: The '%s' user has already existed
 erropen: The %s script has not been found
@@ -16,13 +17,16 @@ newscript: New Script
 no: No
 ok: OK
 parameters: Parameters
+recently: Recently Launched
 refresh: Refresh
 required: This field is required
 run: Run
 save: Save
+saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?
 script: Script
 scripts: Scripts
+search: Search
 settings: Settings
 sourcecode: Source Code
 support: Technical Support

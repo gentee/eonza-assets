@@ -3,7 +3,7 @@
   <v-toolbar dense flat=true>
       <v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-menu bottom left>
+        <v-menu left>
             <template v-slot:activator="{ on: history }">
                <v-tooltip bottom>
                 <template v-slot:activator="{ on: tooltip }">
@@ -35,12 +35,29 @@
         <v-btn color="primary" class="mx-2" :disabled="!changed" @click="this.$root.saveScript">
             <v-icon left>fa-save</v-icon>&nbsp;[[lang "save"]]
         </v-btn>
+        <v-btn color="primary" class="mx-2" @click="saveas"
+             v-if="!!script.original && script.original != script.settings.name">
+            <v-icon left>fa-save</v-icon>&nbsp;[[lang "saveasnew"]]
+        </v-btn>
         <v-btn color="primary" class="mx-2"  v-if="loaded">
             <v-icon left>fa-play</v-icon>&nbsp;[[lang "run"]]
         </v-btn>
-        <v-btn color="primary" class="mx-2" v-if="loaded">
-            <v-icon>fa-caret-down</v-icon>&nbsp;[[lang "menu"]]
-        </v-btn>
+          <v-menu bottom left v-if="loaded" offset-y v-if="!!script.original">
+            <template v-slot:activator="{ on }">
+               <v-btn color="primary" class="mx-2" v-on="on">
+               <v-icon>fa-caret-down</v-icon>&nbsp;[[lang "menu"]]
+               </v-btn>
+            </template>
+            <v-list dense>
+              <v-list-item
+                v-for="(item, i) in menu"
+                :key="i"
+                @click=item.onclick
+              >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         <v-spacer></v-spacer>
     </v-toolbar>
     <v-tabs v-model="tab"  v-if="loaded">
@@ -86,6 +103,18 @@ const Editor = Vue.component('editor', {
                 this.changed = true;
             }
         },
+        delete() {
+            axios
+            .post('/api/delete?name=' + store.state.script.original)
+            .then(response => {
+                if (response.data.error) {
+                    this.errmsg(response.data.error);
+                    return
+                }
+                this.load('');
+            })
+            .catch(error => this.errmsg(error));
+        },
         errmsg( title ) {
             this.errtitle = title;
             this.error = true;
@@ -111,7 +140,11 @@ const Editor = Vue.component('editor', {
         load(scriptname) {
             this.toopen = scriptname;
             this.$root.checkChanged(this.open);
-        } 
+        },
+        saveas() {
+            this.script.original = '';
+            this.$root.saveScript();
+        }
     },
     mounted: function() {
         let par = '';
@@ -145,6 +178,9 @@ function editorData() {
         error: false,
         errtitle: '',
         toopen: '',
+        menu: [
+            { title: [[lang "delete"]], onclick: this.delete },
+        ],
         rules: {
           required: value => !!value || [[lang "required"]],
           unique: value => {
