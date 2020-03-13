@@ -3,14 +3,32 @@
   <v-toolbar dense flat=true>
       <v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip bottom>
-      <template v-slot:activator="{ on }">
-       <v-btn icon color="primary" :disabled="!script.history" v-on="on">
-        <v-icon>fa-history</v-icon>
-      </v-btn>
-      </template>
-      <span>[[lang "history"]]</span>
-    </v-tooltip>
+        <v-menu bottom left>
+            <template v-slot:activator="{ on: history }">
+               <v-tooltip bottom>
+                <template v-slot:activator="{ on: tooltip }">
+                    <v-btn
+                        icon
+                        color="primary"
+                        v-on="{ ...tooltip, ...history }"
+                        :disabled="!script.history"
+                    >
+                        <v-icon>fa-history</v-icon>
+                    </v-btn>
+                </template>
+                <span>[[lang "history"]]</span>
+                </v-tooltip>
+            </template>
+            <v-list dense>
+              <v-list-item
+                v-for="(item, i) in script.history"
+                :key="i"
+                @click="load(item.name)"
+              >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         <v-btn color="primary" class="mx-2" @click="load('new')" >
             <v-icon left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
@@ -80,6 +98,10 @@ const Editor = Vue.component('editor', {
                 if (response.data.error) {
                     this.errmsg(response.data.error);
                     return
+                }
+                if (!!response.data.history) {
+                    response.data.history = response.data.history.filter( 
+                           (i) => i.name != response.data.settings.name );
                 }
                 this.script = response.data;
                 this.loaded = true;
