@@ -22,10 +22,10 @@
   <v-app>
       <v-app-bar app color="blue darken-1" dense dark v-if="work">
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
-        <v-toolbar-title>{{title}}</v-toolbar-title>
+        <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="primary" to="/editor?scriptname=new" @click="change(1)" class="white red--background font-weight-bold" outlined v-if="$route.name != 1">
-            <v-icon left>fa-plus</v-icon>&nbsp;New Script
+        <v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name != 1">
+            <v-icon left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
         <v-spacer></v-spacer>
           <v-menu bottom left :open-on-hover = true >
@@ -77,7 +77,7 @@
 
           <v-divider></v-divider>
 
-          <v-list-item :to="item.route" @click="change(item.id)"
+          <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
             v-if="item.id < 2"
@@ -93,7 +93,7 @@
           </v-list-item>
 
           <v-divider></v-divider>
-          <v-list-item :to="item.route" @click="change(item.id)"
+          <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
             v-if="item.id > 1"
@@ -163,6 +163,7 @@ const router = new VueRouter({ routes });
 
 const store = new Vuex.Store({
   state: {
+      title: '',
       changed: false,
       loaded: false,
       script: {
@@ -171,6 +172,9 @@ const store = new Vuex.Store({
       },
   },
   mutations: {
+    updateTitle (state, title) {
+      state.title = title;
+    },
     updateScript (state, script) {
       state.script = script;
     },
@@ -197,9 +201,6 @@ new Vue({
       errmsg( title ) {
         this.errtitle = title;
         this.error = true;
-      },
-      change(id) {
-        this.title = this.navitems[id].title;
       },
       saveScript(callback) {
         axios
@@ -265,14 +266,10 @@ new Vue({
         return this.menus.filter( (i) => !i.hide );
       }
     },
-    mounted() {
-      this.change(this.$route.name);
-    }
 })
 
 function appData() { 
     return {
-      title: "",
       drawer: true,
       work: true,
       develop: [[.Develop]],

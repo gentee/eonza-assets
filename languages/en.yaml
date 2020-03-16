@@ -1,5 +1,6 @@
 about: About
 delete: Delete
+edit: Edit
 editor: Editor
 errnickname: The '%s' user has already existed
 erropen: The %s script has not been found
@@ -11,6 +12,7 @@ history: History
 invalidfield: The value of '%s' field is invalid
 invalidvalue: The value is invalid
 licagreement: License Agreement
+list: List
 menu: Menu
 nickname: Nickname
 newscript: New Script
@@ -26,7 +28,7 @@ saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?
 script: Script
 scripts: Scripts
-search: Search
+search: Search scripts for...
 settings: Settings
 sourcecode: Source Code
 support: Technical Support

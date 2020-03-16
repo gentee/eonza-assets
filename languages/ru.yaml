@@ -1,5 +1,6 @@
 about: О программе
 delete: Удалить
+edit: Редактировать
 editor: Редактор
 errnickname: Пользователь '%s' уже существует
 erropen: Скрипт %s не найден
@@ -11,6 +12,7 @@ history: История
 invalidfield: Значение поля '%s' некорректно
 invalidvalue: Значение некорректно
 licagreement: Лицензионное соглашение
+list: Список
 menu: Меню
 nickname: Псевдоним
 newscript: Новый скрипт
@@ -26,7 +28,7 @@ saveasnew: Сохранить как новый
 savescript: Скрипт '%s' был изменён. Хотите сохранить его?
 script: Скрипт
 scripts: Скрипты
-search: Поиск
+search: Поиск скриптов
 settings: Настройки
 sourcecode: Исходный код
 support: Служба поддержки

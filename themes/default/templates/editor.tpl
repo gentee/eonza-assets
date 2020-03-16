@@ -147,6 +147,7 @@ const Editor = Vue.component('editor', {
         }
     },
     mounted: function() {
+        store.commit('updateTitle', [[lang "editor"]]);
         let par = '';
         if (this.$route.query.scriptname) {
             par = this.$route.query.scriptname

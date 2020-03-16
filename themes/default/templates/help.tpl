@@ -31,6 +31,10 @@
 const Help = {
     template: '#help',
     data: helpData,
+    mounted: function() {
+        store.commit('updateTitle', [[lang "help"]]);
+    },
+
 };
 
 function helpData() {
