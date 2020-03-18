@@ -39,7 +39,7 @@
              v-if="!!script.original && script.original != script.settings.name">
             <v-icon left>fa-save</v-icon>&nbsp;[[lang "saveasnew"]]
         </v-btn>
-        <v-btn color="primary" class="mx-2"  v-if="loaded">
+        <v-btn color="primary" class="mx-2"  v-if="loaded && !script.settings.unrun">
             <v-icon left>fa-play</v-icon>&nbsp;[[lang "run"]]
         </v-btn>
           <v-menu bottom left v-if="loaded" offset-y v-if="!!script.original">
@@ -74,26 +74,112 @@
        <v-tab-item>
         <v-container>
           <v-text-field v-model="script.settings.name" @change="ischanged"
-           label="[[lang "uniquename"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
+           label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
             :rules="[rules.required, rules.unique]"></v-text-field>
           <v-text-field v-model="script.settings.title" @change="ischanged"
           label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
         ></v-text-field>
+        <v-textarea  v-model="script.settings.desc" @change="ischanged"
+         label="[[lang "desc"]]" rows="2" dense
+         ></v-textarea>
+        <v-checkbox v-model="script.settings.unrun"  @change="ischanged"
+            label="[[lang "unrun"]]"
+        ></v-checkbox>
         </v-container>
         </v-tab-item>
-       <v-tab-item >
-         3
-        </v-tab-item>
         <v-tab-item >
-         4
-        </v-tab-item>
 
+  <v-data-table
+    disable-filtering disable-pagination disable-sort hide-default-footer
+    :headers="headParams"
+    :items="script.params"
+  >
+    <template v-slot:top>
+        <v-dialog v-model="dlgParams" max-width="600px">
+          <template v-slot:activator="{ on }">
+            <v-btn color="primary" dark class="mb-2" v-on="on">[[lang "newitem"]]</v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="headline">{{ dlgParamTitle }}</span>
+            </v-card-title>
+
+            <v-card-text>
+              <v-container>
+                <v-text-field v-model="editedItem.name"
+                 label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
+                 :rules="[rules.required, rules.unique]"></v-text-field>
+                <v-text-field v-model="editedItem.title"
+                 label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
+                ></v-text-field>
+                <v-select label="[[lang "type"]]"
+                    v-model="editedItem.type"
+                    :items="PTypes" 
+                    ></v-select>
+                <v-text-field v-model="editedItem.default"
+                 label="[[lang "defvalue"]]"
+                ></v-text-field>
+                <v-textarea  v-model="editedItem.more"
+                label="[[lang "additional"]]" auto-grow dense
+                ></v-textarea>
+              </v-container>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn class="ma-2" color="primary" @click="saveParams">[[lang "save"]]</v-btn>
+              <v-btn class="ma-2" color="primary" text outlined  @click="closeParams">[[lang "cancel"]]</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+    </template>
+     <template v-slot:body="{ items }">
+        <tbody>
+          <tr v-for="(item, index) in items" :key="item.name">
+            <td>{{ item.name }}</td>
+            <td>{{item.title}}</td>
+            <td>{{ PTypes[item.type].text }}</td>
+            <td>{{item.default}}</td>
+            <td>{{item.more}}</td>
+            <td><span @click="editParams(index)" class="mr-2">
+                <v-icon small @click="">fa-pencil-alt</v-icon>
+                </span>
+                <span @click="moveParams(index, -1)" class="mr-2" v-show="index>0">
+                <v-icon small @click="">fa-angle-up</v-icon></span>
+                <span @click="moveParams(index, 1)" class="mr-2" v-show="index<items.length-1">
+                <v-icon small @click="">fa-angle-down</v-icon></span>
+                <span @click="deleteParams(index)" class="mr-2">
+                <v-icon small @click="">fa-times</v-icon></span>
+            </td>
+          </tr>
+        </tbody>
+      </template>
+    <!--template v-slot:no-data>
+      <v-btn color="primary" click="initialize">[[lang "newitem"]]</v-btn>
+    </template-->
+  </v-data-table>
+         
+        </v-tab-item>
+        <v-tab-item class="pt-3">
+         <v-textarea  v-model="script.code" @change="ischanged"
+         label="[[lang "sourcecode"]]" auto-grow dense
+         ></v-textarea>
+        </v-tab-item>
     </v-tabs-items>
-    <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
   </v-container>
 </script>
 
 <script>
+const PCheckbox = 0;
+const PTextarea = 1;
+const PTypes = [
+    {text: [[lang "checkbox"]], value: 0},
+    {text: [[lang "textarea"]], value: 1}
+]
+
+const pattern = /^[a-z][a-z\d\._-]*$/
+
+
 const Editor = Vue.component('editor', {
     template: '#editor',
     data: editorData,
@@ -108,16 +194,12 @@ const Editor = Vue.component('editor', {
             .post('/api/delete?name=' + store.state.script.original)
             .then(response => {
                 if (response.data.error) {
-                    this.errmsg(response.data.error);
+                    this.$root.errmsg(response.data.error);
                     return
                 }
                 this.load('');
             })
-            .catch(error => this.errmsg(error));
-        },
-        errmsg( title ) {
-            this.errtitle = title;
-            this.error = true;
+            .catch(error => this.$root.errmsg(error));
         },
         open() {
             this.loaded = false;
@@ -125,17 +207,19 @@ const Editor = Vue.component('editor', {
             .get('/api/script' + ( !!this.toopen ? '?name='+this.toopen : ''))
             .then(response => {
                 if (response.data.error) {
-                    this.errmsg(response.data.error);
+                    this.$root.errmsg(response.data.error);
                     return
                 }
                 if (!!response.data.history) {
                     response.data.history = response.data.history.filter( 
                            (i) => i.name != response.data.settings.name );
                 }
+                if (!response.data.params) 
+                    response.data.params = [];
                 this.script = response.data;
                 this.loaded = true;
             })
-            .catch(error => this.errmsg(error));
+            .catch(error => this.$root.errmsg(error));
         },
         load(scriptname) {
             this.toopen = scriptname;
@@ -144,7 +228,53 @@ const Editor = Vue.component('editor', {
         saveas() {
             this.script.original = '';
             this.$root.saveScript();
-        }
+        },
+        closeParams () {
+            this.dlgParams = false
+            this.editedIndex = -1
+            this.editedItem = {type: 0}
+        },
+        deleteParams (index) {
+            let root = this.$root;
+            let parent = this;
+            this.$root.confirm( [[lang "delconfirm"]], 
+            function( par ){
+                root.question = false;
+                if (par == btn.Yes) {
+                    parent.script.params.splice(index, 1)
+                    parent.ischanged()
+                }
+           });               
+        },
+        editParams (index) {
+            this.editedIndex = index
+            this.editedItem = Object.assign({}, this.script.params[index])
+//            this.editedItem = JSON.parse(JSON.stringify(item));
+            this.dlgParams = true
+        },
+        moveParams (index, direct) {
+            const tmp = this.script.params[index+direct];
+            this.$set(this.script.params, index+direct, this.script.params[index]);
+            this.$set(this.script.params, index, tmp);
+            this.ischanged()
+        },
+        saveParams () {
+            if (!this.editedItem.name || !pattern.test(this.editedItem.name)) {
+                this.$root.errmsg(format([[lang "invalidfield"]], [[lang "name"]]))
+                return
+            }
+            if (!this.editedItem.title) {
+                this.$root.errmsg(format([[lang "invalidfield"]], [[lang "title"]]))
+                return
+            }
+            if (this.editedIndex > -1) {
+                this.$set(this.script.params, this.editedIndex, Object.assign({}, this.editedItem))
+            } else {
+                this.script.params.push(this.editedItem);
+            }
+            this.ischanged()
+            this.closeParams()
+        },
     },
     mounted: function() {
         store.commit('updateTitle', [[lang "editor"]]);
@@ -169,15 +299,21 @@ const Editor = Vue.component('editor', {
             get() { return store.state.loaded },
             set(value) { store.commit('updateLoaded', value) }
         },
-    }
+        dlgParamTitle () {
+            return this.editedIndex === -1 ? [[lang "newitem"]] : [[lang "edititem"]]
+        },
+    },
+    watch: {
+      dlgParams (val) {
+        val || this.closeParams()
+      },
+    },
 });
 
 function editorData() {
     return {
         tab: null,
         develop: [[.Develop]],
-        error: false,
-        errtitle: '',
         toopen: '',
         menu: [
             { title: [[lang "delete"]], onclick: this.delete },
@@ -185,10 +321,32 @@ function editorData() {
         rules: {
           required: value => !!value || [[lang "required"]],
           unique: value => {
-            const pattern = /^[a-z\d\._-]+$/
             return pattern.test(value) || [[lang "invalidvalue"]]
           },
         },
+        dlgParams: false,
+        editedIndex: -1,
+        editedItem: {type: 0},
+        headParams: [{
+            text: [[lang "name"]],
+            value: 'name',
+            },{
+            text: [[lang "title"]],
+            value: 'title',
+            },{
+            text: [[lang "type"]],
+            value: 'type',
+            },{
+            text: [[lang "defvalue"]],
+            value: 'default',
+            },{
+            text: [[lang "additional"]],
+            value: 'more',
+            },{
+            text: [[lang "actions"]],
+            value: 'actions',
+            },
+        ],
     }
 }
 </script>

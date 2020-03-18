@@ -15,7 +15,8 @@
 }
 
 .fa,
-.fas {
+.fas,
+.far {
   font-family: 'Font Awesome 5 Free';
   font-weight: normal; }
 
@@ -204,6 +205,18 @@
 .fa-inverse {
   color: #fff; }
 
+.fa-dot-circle:before {
+  content: "\e900";
+}
+.fa-circle:before {
+  content: "\e901";
+}
+.fa-check-square:before {
+  content: "\e902";
+}
+.fa-square:before {
+  content: "\e903";
+}
 .fa-caret-right:before {
   content: "\e900";
 }

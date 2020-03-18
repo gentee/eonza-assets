@@ -17,14 +17,15 @@
         </v-btn>
         </div>
         <v-layout class="d-flex flex-wrap">
-         <v-card class="ma-2"
+         <v-card
           v-for="(item, i) in curlist"
-          :key="i"
-        >
+          :key="i" style="max-width: 350px;"
+          class="ma-2 d-flex flex-column justify-space-between"
+        > 
           <v-card-title v-text="item.title"></v-card-title>
-          <v-card-subtitle v-text="item.name"></v-card-subtitle>
-          <div class="d-flex justify-space-around">
-          <v-btn class="ma-2" color="primary" small>
+          <v-card-subtitle v-text="desc(item)"></v-card-subtitle>
+          <div class="d-flex justify-space-around mb-2">
+          <v-btn class="ma-2" color="primary" small v-if="!item.unrun">
            <v-icon left>fa-play</v-icon> [[lang "run"]]
           </v-btn>
           <v-tooltip top>
@@ -73,11 +74,32 @@ const Home = {
         for (let key in this.list) {
           let val = this.list[key];
           if (!val.title) continue;
-          if (!!this.search && !val.title.toLowerCase().includes(this.search.toLowerCase())) continue;
+          let weight = 0;
+          if (!!this.search) {
+            const lower = this.search.toLowerCase();
+            if (val.title.toLowerCase().includes(lower)) {
+               weight = 2;
+            }
+            if (val.desc && val.desc.toLowerCase().includes(lower)) {
+              weight += 1;
+            }
+            if (!weight) continue;
+          } 
+          val.weight = weight;
           ret.push(val);
         }
+        ret.sort(function(a,b) {
+          if (a.weight != b.weight) return a.weight - b.weight;
+          return a.title.localeCompare(b.title);
+        });
         this.curlist = ret;
-     }
+    },
+    desc(item) {
+      if (item.desc) {
+        return item.desc;
+      } 
+      return item.name;
+    }
   },
   mounted: function() {
     store.commit('updateTitle', [[lang "scripts"]]);

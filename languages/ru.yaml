@@ -1,6 +1,14 @@
 about: О программе
+actions: Действия
+additional: Дополнительные настройки
+cancel: Отмена
+checkbox: Чекбокс
+defvalue: Значение по умолчанию
+delconfirm: Вы уверены что хотите удалить выделенный элемент(ы)?
 delete: Удалить
+desc: Описание
 edit: Редактировать
+edititem: Редактирование элемента
 editor: Редактор
 errnickname: Пользователь '%s' уже существует
 erropen: Скрипт %s не найден
@@ -14,6 +22,8 @@ invalidvalue: Значение некорректно
 licagreement: Лицензионное соглашение
 list: Список
 menu: Меню
+name: Имя
+newitem: Новый элемент
 nickname: Псевдоним
 newscript: Новый скрипт
 no: Нет
@@ -32,7 +42,9 @@ search: Поиск скриптов
 settings: Настройки
 sourcecode: Исходный код
 support: Служба поддержки
+textarea: Многострочный текст
 title: Название
+type: Тип
 version: Версия
-uniquename: Уникальное имя
+unrun: Незапускаемый скрипт
 yes: Да

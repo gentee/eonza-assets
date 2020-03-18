@@ -1,6 +1,14 @@
 about: About
+actions: Actions
+additional: Additional Settings
+cancel: Cancel
+checkbox: Checkbox
+defvalue: Default Value
+delconfirm: Are you sure you want to delete the selected item(s)?
 delete: Delete
+desc: Description
 edit: Edit
+edititem: Edit Item
 editor: Editor
 errnickname: The '%s' user has already existed
 erropen: The %s script has not been found
@@ -14,7 +22,9 @@ invalidvalue: The value is invalid
 licagreement: License Agreement
 list: List
 menu: Menu
+name: Name
 nickname: Nickname
+newitem: New Item
 newscript: New Script
 no: No
 ok: OK
@@ -32,7 +42,9 @@ search: Search scripts for...
 settings: Settings
 sourcecode: Source Code
 support: Technical Support
+textarea: Multi-line text
 title: Title
+type: Type
 version: Version
-uniquename: Unique Name
+unrun: Unrunnable script
 yes: Yes

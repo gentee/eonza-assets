@@ -8,6 +8,7 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/vuetify.min.css">
   <link rel="stylesheet" href="/css/icons.css">
+  <!--link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet"-->
   <script src="/js/fontawesome.min.js"></script>
   <script src="/js/solid.min.js"></script>
   <script src="/js/brands.min.js"></script>
