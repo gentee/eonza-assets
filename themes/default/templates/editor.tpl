@@ -30,22 +30,22 @@
             </v-list>
           </v-menu>
         <v-btn color="primary" class="mx-2" @click="load('new')" >
-            <v-icon left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
+            <v-icon left small>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
         <v-btn color="primary" class="mx-2" :disabled="!changed" @click="this.$root.saveScript">
-            <v-icon left>fa-save</v-icon>&nbsp;[[lang "save"]]
+            <v-icon left small>fa-save</v-icon>&nbsp;[[lang "save"]]
         </v-btn>
         <v-btn color="primary" class="mx-2" @click="saveas"
              v-if="!!script.original && script.original != script.settings.name">
-            <v-icon left>fa-save</v-icon>&nbsp;[[lang "saveasnew"]]
+            <v-icon left small>fa-save</v-icon>&nbsp;[[lang "saveasnew"]]
         </v-btn>
         <v-btn color="primary" class="mx-2"  v-if="loaded && !script.settings.unrun">
-            <v-icon left>fa-play</v-icon>&nbsp;[[lang "run"]]
+            <v-icon left small>fa-play</v-icon>&nbsp;[[lang "run"]]
         </v-btn>
           <v-menu bottom left v-if="loaded" offset-y v-if="!!script.original">
             <template v-slot:activator="{ on }">
                <v-btn color="primary" class="mx-2" v-on="on">
-               <v-icon>fa-caret-down</v-icon>&nbsp;[[lang "menu"]]
+               <v-icon left small>fa-caret-down</v-icon>&nbsp;[[lang "menu"]]
                </v-btn>
             </template>
             <v-list dense>
@@ -69,7 +69,11 @@
 
      <v-tabs-items v-model="tab"  v-if="loaded">
        <v-tab-item>  
-        1
+        <v-container fluid class="py-4 pr-5 d-flex flex-wrap flex-sm-nowrap"
+        >
+        <tree :list="tree" class="flex-grow-0 flex-shrink-1"></tree>
+        <card classx="flex-grow-1 flex-shrink-0"></card>
+        </v-container>
        </v-tab-item>
        <v-tab-item>
         <v-container>
@@ -216,6 +220,7 @@ const Editor = Vue.component('editor', {
                 }
                 if (!response.data.params) 
                     response.data.params = [];
+                response.data.tree = this.tree
                 this.script = response.data;
                 this.loaded = true;
             })
@@ -345,6 +350,56 @@ function editorData() {
             },{
             text: [[lang "actions"]],
             value: 'actions',
+            },
+        ],
+        tree: [
+            {
+            id: 1,
+            name: 'Applications :',
+            children: [
+                { id: 2, name: 'Calendar : app' },
+                { id: 3, name: 'Chrome : app' },
+                { id: 4, name: 'Webstorm : app' },
+            ],
+            },
+            {
+            id: 5,
+            name: 'Documents :',
+            children: [
+                {
+                id: 6,
+                name: 'vuetify :',
+                children: [
+                    {
+                    id: 7,
+                    name: 'src :',
+                    children: [
+                        { id: 8, name: 'index : ts' },
+                        { id: 9, name: 'bootstrap : ts' },
+                    ],
+                    },
+                ],
+                },
+                {
+                id: 10,
+                name: 'material2 :',
+                children: [
+                    {
+                    id: 11,
+                    name: 'src :',
+                    children: [
+                        { id: 12, name: 'v-btn : ts' },
+                        { id: 13, name: 'v-card : ts' },
+                        { id: 14, name: 'v-window : ts' },
+                    ],
+                    },
+                ],
+                },
+            ],
+            },
+            {
+            id: 15,
+            name: 'Downloads :',
             },
         ],
     }

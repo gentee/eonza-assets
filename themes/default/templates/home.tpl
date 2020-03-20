@@ -24,9 +24,9 @@
         > 
           <v-card-title v-text="item.title"></v-card-title>
           <v-card-subtitle v-text="desc(item)"></v-card-subtitle>
-          <div class="d-flex justify-space-around mb-2">
+          <div class="d-flex justify-space-around mb-2 align-end">
           <v-btn class="ma-2" color="primary" small v-if="!item.unrun">
-           <v-icon left>fa-play</v-icon> [[lang "run"]]
+           <v-icon left small>fa-play</v-icon> [[lang "run"]]
           </v-btn>
           <v-tooltip top>
             <template v-slot:activator="{ on }">

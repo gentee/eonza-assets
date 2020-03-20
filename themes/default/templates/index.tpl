@@ -7,16 +7,9 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/vuetify.min.css">
-  <link rel="stylesheet" href="/css/icons.css">
+  <link rel="stylesheet" href="/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/css/eonza.css">
   <!--link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet"-->
-  <script src="/js/fontawesome.min.js"></script>
-  <script src="/js/solid.min.js"></script>
-  <script src="/js/brands.min.js"></script>
-  <style type="text/css">
-  body {
-      font-family: Verdana,Arial;
-  }
-  </style>
 </head>
 <body>
 <div id = "app">
@@ -26,7 +19,7 @@
         <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name != 1">
-            <v-icon left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
+            <v-icon small left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
         <v-spacer></v-spacer>
           <v-menu bottom left :open-on-hover = true >
@@ -46,7 +39,7 @@
                 :key="i"
                 @click=item.onclick
               >
-                <v-icon class="pr-2">{{ item.icon }}</v-icon>
+                <v-icon small class="pr-2">{{ item.icon }}</v-icon>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
@@ -132,6 +125,8 @@
 <script src="/js/vuex.min.js"></script>
 
 [[template "home" .]]
+[[template "tree" .]]
+[[template "card" .]]
 [[template "editor" .]]
 [[template "help" .]]
 [[template "shutdown"]]
@@ -191,7 +186,7 @@ const store = new Vuex.Store({
 new Vue({
     vuetify: new Vuetify({
       icons: {
-        iconfont: 'fa' || 'faSvg', //'faSvg',
+        iconfont: 'fa',// || 'faSvg'
       },
     }),
     el: '#app',
