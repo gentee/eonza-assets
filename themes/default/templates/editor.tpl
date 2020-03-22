@@ -71,7 +71,7 @@
        <v-tab-item>  
         <v-container fluid class="py-4 pr-5 d-flex flex-wrap flex-sm-nowrap"
         >
-        <tree :list="tree" class="flex-grow-0 flex-shrink-1"></tree>
+        <tree :list="script.tree" class="flex-grow-0 flex-shrink-1"></tree>
         <card classx="flex-grow-1 flex-shrink-0"></card>
         </v-container>
        </v-tab-item>
@@ -222,6 +222,11 @@ const Editor = Vue.component('editor', {
                     response.data.params = [];
                 response.data.tree = this.tree
                 this.script = response.data;
+                if (this.script.tree && this.script.tree.length > 0) {
+                  this.active = this.script.tree[0];
+                } else {
+                  this.active = {};
+                }
                 this.loaded = true;
             })
             .catch(error => this.$root.errmsg(error));
@@ -304,6 +309,10 @@ const Editor = Vue.component('editor', {
             get() { return store.state.loaded },
             set(value) { store.commit('updateLoaded', value) }
         },
+        active: {
+            get() { return store.state.active },
+            set(value) { store.commit('updateActive', value) }
+        },
         dlgParamTitle () {
             return this.editedIndex === -1 ? [[lang "newitem"]] : [[lang "edititem"]]
         },
@@ -352,12 +361,12 @@ function editorData() {
             value: 'actions',
             },
         ],
-        tree: [
+              tree: [
             {
             id: 1,
             name: 'Applications :',
             children: [
-                { id: 2, name: 'Calendar : app' },
+                { id: 2, name: 'Calendar : app', desc: 'This is a short description of this command' },
                 { id: 3, name: 'Chrome : app' },
                 { id: 4, name: 'Webstorm : app' },
             ],
@@ -365,6 +374,8 @@ function editorData() {
             {
             id: 5,
             name: 'Documents :',
+            expanded: true,
+            desc: 'This is a very long description of this command with some additional settings',
             children: [
                 {
                 id: 6,
@@ -387,6 +398,7 @@ function editorData() {
                     {
                     id: 11,
                     name: 'src :',
+                    active: true,
                     children: [
                         { id: 12, name: 'v-btn : ts' },
                         { id: 13, name: 'v-card : ts' },
@@ -402,6 +414,7 @@ function editorData() {
             name: 'Downloads :',
             },
         ],
+
     }
 }
 </script>

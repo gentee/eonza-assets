@@ -40,4 +40,31 @@ body {
     font-family: Verdana,Arial;
 }
 
+.folders {
+    list-style: none;
+}
+
+.sub {
+    list-style: none;
+    border-left: 2px dotted #aaa;
+}
+
+.tree-item {
+    padding: 4px 5px;
+    cursor: pointer;
+}
+
+.sub-active {
+    list-style: none;
+    border-left: 2px dotted #1976D2;
+}
+
+.cmd-active > .tree-item {
+    background-color: #1976D2;
+    color: #fff;
+}
+
+.enz-active {
+    color: #f00;
+}
 

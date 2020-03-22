@@ -162,6 +162,7 @@ const store = new Vuex.Store({
       title: '',
       changed: false,
       loaded: false,
+      active: {},
       script: {
           settings: {
           },
@@ -179,7 +180,10 @@ const store = new Vuex.Store({
     },
     updateChanged (state, changed) {
       state.changed = changed;
-    }
+    },
+    updateActive (state, active) {
+      state.active = active;
+    },
   }
 })
 
