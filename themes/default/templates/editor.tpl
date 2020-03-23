@@ -68,16 +68,13 @@
         <v-tab v-if="develop">[[lang "sourcecode"]]</v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab"  v-if="loaded">
-       <v-tab-item>  
-        <v-container fluid class="py-4 pr-5 d-flex flex-wrap flex-sm-nowrap"
-        >
+    <!--v-tabs-items v-model="tab"  v-if="loaded"-->
+    <div v-show="loaded && tab==0" style="height: calc(100% - 106px);overflow-y:auto;display:flex;" 
+          class="py-4 pr-5 flex-wrap flex-sm-nowrap">  
         <tree :list="script.tree" class="flex-grow-0 flex-shrink-1"></tree>
-        <card classx="flex-grow-1 flex-shrink-0"></card>
-        </v-container>
-       </v-tab-item>
-       <v-tab-item>
-        <v-container>
+        <card></card>
+    </div>
+    <div v-show="loaded && tab==1"  style="height: calc(100% - 106px);overflow-y:auto;">  
           <v-text-field v-model="script.settings.name" @change="ischanged"
            label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
             :rules="[rules.required, rules.unique]"></v-text-field>
@@ -90,87 +87,83 @@
         <v-checkbox v-model="script.settings.unrun"  @change="ischanged"
             label="[[lang "unrun"]]"
         ></v-checkbox>
-        </v-container>
-        </v-tab-item>
-        <v-tab-item >
+    </div>
+    <div v-show="loaded && tab==2"  style="height: calc(100% - 106px);overflow-y:auto;">  
+        <v-data-table
+          disable-filtering disable-pagination disable-sort hide-default-footer
+          :headers="headParams"
+          :items="script.params"
+        >
+          <template v-slot:top>
+              <v-dialog v-model="dlgParams" max-width="600px">
+                <template v-slot:activator="{ on }">
+                  <v-btn color="primary" dark class="mb-2" v-on="on">[[lang "newitem"]]</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">{{ dlgParamTitle }}</span>
+                  </v-card-title>
 
-  <v-data-table
-    disable-filtering disable-pagination disable-sort hide-default-footer
-    :headers="headParams"
-    :items="script.params"
-  >
-    <template v-slot:top>
-        <v-dialog v-model="dlgParams" max-width="600px">
-          <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">[[lang "newitem"]]</v-btn>
+                  <v-card-text>
+                    <v-container>
+                      <v-text-field v-model="editedItem.name"
+                      label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
+                      :rules="[rules.required, rules.unique]"></v-text-field>
+                      <v-text-field v-model="editedItem.title"
+                      label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
+                      ></v-text-field>
+                      <v-select label="[[lang "type"]]"
+                          v-model="editedItem.type"
+                          :items="PTypes" 
+                          ></v-select>
+                      <v-text-field v-model="editedItem.default"
+                      label="[[lang "defvalue"]]"
+                      ></v-text-field>
+                      <v-textarea  v-model="editedItem.more"
+                      label="[[lang "additional"]]" auto-grow dense
+                      ></v-textarea>
+                    </v-container>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="ma-2" color="primary" @click="saveParams">[[lang "save"]]</v-btn>
+                    <v-btn class="ma-2" color="primary" text outlined  @click="closeParams">[[lang "cancel"]]</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
           </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">{{ dlgParamTitle }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <v-container>
-                <v-text-field v-model="editedItem.name"
-                 label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
-                 :rules="[rules.required, rules.unique]"></v-text-field>
-                <v-text-field v-model="editedItem.title"
-                 label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
-                ></v-text-field>
-                <v-select label="[[lang "type"]]"
-                    v-model="editedItem.type"
-                    :items="PTypes" 
-                    ></v-select>
-                <v-text-field v-model="editedItem.default"
-                 label="[[lang "defvalue"]]"
-                ></v-text-field>
-                <v-textarea  v-model="editedItem.more"
-                label="[[lang "additional"]]" auto-grow dense
-                ></v-textarea>
-              </v-container>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn class="ma-2" color="primary" @click="saveParams">[[lang "save"]]</v-btn>
-              <v-btn class="ma-2" color="primary" text outlined  @click="closeParams">[[lang "cancel"]]</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-    </template>
-     <template v-slot:body="{ items }">
-        <tbody>
-          <tr v-for="(item, index) in items" :key="item.name">
-            <td>{{ item.name }}</td>
-            <td>{{item.title}}</td>
-            <td>{{ PTypes[item.type].text }}</td>
-            <td>{{item.default}}</td>
-            <td>{{item.more}}</td>
-            <td><span @click="editParams(index)" class="mr-2">
-                <v-icon small @click="">fa-pencil-alt</v-icon>
-                </span>
-                <span @click="moveParams(index, -1)" class="mr-2" v-show="index>0">
-                <v-icon small @click="">fa-angle-up</v-icon></span>
-                <span @click="moveParams(index, 1)" class="mr-2" v-show="index<items.length-1">
-                <v-icon small @click="">fa-angle-down</v-icon></span>
-                <span @click="deleteParams(index)" class="mr-2">
-                <v-icon small @click="">fa-times</v-icon></span>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    <!--template v-slot:no-data>
-      <v-btn color="primary" click="initialize">[[lang "newitem"]]</v-btn>
-    </template-->
-  </v-data-table>
-         
-        </v-tab-item>
-        <v-tab-item class="pt-3">
+          <template v-slot:body="{ items }">
+              <tbody>
+                <tr v-for="(item, index) in items" :key="item.name">
+                  <td>{{ item.name }}</td>
+                  <td>{{item.title}}</td>
+                  <td>{{ PTypes[item.type].text }}</td>
+                  <td>{{item.default}}</td>
+                  <td>{{item.more}}</td>
+                  <td><span @click="editParams(index)" class="mr-2">
+                      <v-icon small @click="">fa-pencil-alt</v-icon>
+                      </span>
+                      <span @click="moveParams(index, -1)" class="mr-2" v-show="index>0">
+                      <v-icon small @click="">fa-angle-up</v-icon></span>
+                      <span @click="moveParams(index, 1)" class="mr-2" v-show="index<items.length-1">
+                      <v-icon small @click="">fa-angle-down</v-icon></span>
+                      <span @click="deleteParams(index)" class="mr-2">
+                      <v-icon small @click="">fa-times</v-icon></span>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          <!--template v-slot:no-data>
+            <v-btn color="primary" click="initialize">[[lang "newitem"]]</v-btn>
+          </template-->
+        </v-data-table>
+      </div>
+      <div v-show="loaded && tab==3" class="pt-3" style="height: calc(100% - 106px);overflow-y:auto;">  
          <v-textarea  v-model="script.code" @change="ischanged"
          label="[[lang "sourcecode"]]" auto-grow dense
          ></v-textarea>
-        </v-tab-item>
-    </v-tabs-items>
+      </div>
   </v-container>
 </script>
 

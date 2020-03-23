@@ -19,7 +19,7 @@
 </script>
 
 <script type="text/x-template" id="tree">
-  <v-container style="max-width: 550px; min-width:300px;borderx: 1px solid #000;">
+  <div style="max-width: 550px; min-width:450px;max-height: 100%;padding-right: 16px;">
     <div class="pb-2">
        <v-btn small icon @click="" color="primary">
        <v-icon small @click="">fa-expand-arrows-alt</v-icon></v-btn>
@@ -41,11 +41,11 @@
        <v-btn small icon @click="" color="primary">
        <v-icon small @click="">fa-times</v-icon></v-btn>
     </div>
-    <ul class="folders" style="padding-left: 0px;" v-if="list && list.length > 0" vxshow="folder.open">
+    <ul class="folders" style="padding-left: 0px; max-height: calc(100% - 36px);overflow-y: auto;" v-if="list && list.length > 0" vxshow="folder.open">
       <treeitem v-for="(child,index) in list" :item="list[index]" :qqq="my"></treeitem>
     </ul>
     <div class="folder-empty" v-else v-show="!list.leaf && list.open">No Data</div>
-  </v-container>
+  </div>
 </script>
 
 <script>

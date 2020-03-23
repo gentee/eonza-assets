@@ -1,13 +1,16 @@
 <script type="text/x-template" id="card">
-    <v-container elevation-1 class="pa-6">
+    <div class="pa-6" style="max-height: 100%;overflow-y: auto;border-left: 2px solid #ddd;">
      <v-text-field v-model="active.name"
     label="[[lang "name"]]" 
     ></v-text-field>
 
-    <span>Ooops {{active.name}}
+    <p>Ooops {{active.name}}
     dsdsdsdsds wed nweijd wedhb wejdb wedbwedbwe jdwebdjhwebdjhwb dwejhdbwejhdb wjhdbwejhbwe djhwebdjh   we b djhwebd  jhwbdjhwbdwjhdb wjhdbwjhdbw ejhbwedjhwebdjh d
-    </span>
-    </v-container>
+    </p>
+    <p>Ooops {{active.name}}
+    dsdsdsdsds wed nweijd wedhb wejdb wedbwedbwe jdwebdjhwebdjhwb dwejhdbwejhdb wjhdbwejhbwe djhwebdjh   we b djhwebd  jhwbdjhwbdwjhdb wjhdbwjhdbw ejhbwedjhwebdjh d
+    </p>
+    </div>
 </script>
 
 <script>
