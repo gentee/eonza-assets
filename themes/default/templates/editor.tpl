@@ -1,6 +1,6 @@
 <script type="text/x-template" id="editor">
-  <v-container fluid>
-  <v-toolbar dense flat=true>
+  <v-container style="height:100%;">
+    <v-toolbar dense flat=true>
       <v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
         <v-menu left>
@@ -60,6 +60,7 @@
           </v-menu>
         <v-spacer></v-spacer>
     </v-toolbar>
+
     <v-tabs v-model="tab"  v-if="loaded">
         <v-tab>[[lang "script"]]</v-tab>
         <v-tab>[[lang "settings"]]</v-tab>
@@ -67,7 +68,7 @@
         <v-tab v-if="develop">[[lang "sourcecode"]]</v-tab>
     </v-tabs>
 
-     <v-tabs-items v-model="tab"  v-if="loaded">
+    <v-tabs-items v-model="tab"  v-if="loaded">
        <v-tab-item>  
         <v-container fluid class="py-4 pr-5 d-flex flex-wrap flex-sm-nowrap"
         >
@@ -374,7 +375,7 @@ function editorData() {
             {
             id: 5,
             name: 'Documents :',
-            expanded: true,
+            open: true,
             desc: 'This is a very long description of this command with some additional settings',
             children: [
                 {

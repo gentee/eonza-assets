@@ -2,22 +2,30 @@
     <li v-bind:class="[isactive ? 'cmd-active' : 'cmd']" >
         <div class="tree-item" v-on:click="toActive">
          <v-btn small icon @click="expand"><v-icon small class="mb-1 mr-1" 
-         :color="color">{{ item.expanded ? 
+         :color="color">{{ item.open ? 
                   'fa-folder-open' : 'fa-folder' }}</v-icon></v-btn>
-         <span v-bind:class="[isactive ? 'enz-active' : '']" >{{ item.name }} {{item.active}} </span>
+         <v-text v-bind:class="[isactive ? 'enz-active' : '']" >{{ item.name }} {{item.active}} </v-text>
+         <v-btn small v-show="isactive" icon @click=""><v-icon small class="mb-1 mx-2" 
+         color="white">fa-plus-square</v-icon></v-btn>
          <div style="font-size: smaller; padding-left: 4px;color: #888;">{{item.desc}}</div>
         </div>
-    <ul v-bind:class="[isactive ? 'sub-active' : 'sub']" v-if="item.children && item.children.length > 0" v-show="item.expanded">
+    <ul v-bind:class="[isactive ? 'sub-active' : 'sub']" v-if="item.children && item.children.length > 0" v-show="item.open">
       <treeitem v-for="(child, index) in item.children" :item="item.children[index]"  :qqq="`subtest`"></treeitem>
     </ul>
-    <div class="folder-empty" v-else v-show="!item.leaf && item.expanded">No Data</div>
+    <div class="folder-empty" v-if="isactive && !item.children && item.open">
+       <v-btn color="primary" small class="mx-4 my-2"><v-icon small left>fa-plus</v-icon>New child</v-btn>
+    </div>
     </li>
 </script>
 
 <script type="text/x-template" id="tree">
   <v-container style="max-width: 550px; min-width:300px;borderx: 1px solid #000;">
     <div class="pb-2">
-       <v-btn color="primary" small class="mr-2"><v-icon small left>fa-plus</v-icon>New</v-btn><v-btn color="primary" small class="mr-2"><v-icon small left>fa-plus-square</v-icon>New Child</v-btn>
+       <v-btn small icon @click="" color="primary">
+       <v-icon small @click="">fa-expand-arrows-alt</v-icon></v-btn>
+       <v-btn small icon @click="" color="primary">
+       <v-icon small @click="">fa-compress-arrows-alt</v-icon></v-btn>
+       <v-btn color="primary" small class="mx-2"><v-icon small left>fa-plus</v-icon>New</v-btn>
        <v-btn small icon @click="" color="primary">
        <v-icon small @click="">fa-angle-up</v-icon></v-btn>
        <v-btn small icon @click="" color="primary">
@@ -33,10 +41,10 @@
        <v-btn small icon @click="" color="primary">
        <v-icon small @click="">fa-times</v-icon></v-btn>
     </div>
-    <ul class="folders" style="padding-left: 0px;" v-if="list && list.length > 0" vxshow="folder.expanded">
+    <ul class="folders" style="padding-left: 0px;" v-if="list && list.length > 0" vxshow="folder.open">
       <treeitem v-for="(child,index) in list" :item="list[index]" :qqq="my"></treeitem>
     </ul>
-    <div class="folder-empty" v-else v-show="!list.leaf && list.expanded">No Data</div>
+    <div class="folder-empty" v-else v-show="!list.leaf && list.open">No Data</div>
   </v-container>
 </script>
 
@@ -61,8 +69,9 @@ Vue.component('treeitem', {
             }
         },
         expand(e) {
-            this.item.expanded = !this.item.expanded
-            this.$forceUpdate();
+            //this.item.open = !this.item.open
+            this.$set(this.item, 'open',  !this.item.open);
+            //this.$forceUpdate();
             if (this.active == this.item) {
                 e.stopPropagation();
             }

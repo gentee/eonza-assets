@@ -1,22 +1,22 @@
 <script type="text/x-template" id="home">
-  <v-container fluid>
+  <v-container style="height:100%;">
     <v-tabs v-model="tab">
         <v-tab>[[lang "list"]]</v-tab>
         <v-tab>[[lang "recently"]]</v-tab>
     </v-tabs>
 
-     <v-tabs-items v-model="tab">
-      <v-tab-item>  
+    <div style="height:calc(100% - 48px);" v-show="tab==0">
         <div class="d-flex pt-5">
-        <v-text-field class="mx-2" append-icon="fa-search" v-model="search" 
-          label="[[lang "search"]]"
-          outlined @input="tosearch"
-        ></v-text-field>
-        <v-btn @click="clearsearch" class="mt-3" icon color="primary" v-if="!!search">
-          <v-icon>fa-times</v-icon>
-        </v-btn>
+          <v-text-field class="mx-2" append-icon="fa-search" v-model="search" 
+            label="[[lang "search"]]"
+            outlined @input="tosearch"
+          ></v-text-field>
+          <v-btn @click="clearsearch" class="mt-3" icon color="primary" v-if="!!search">
+            <v-icon>fa-times</v-icon>
+          </v-btn>
         </div>
-        <v-layout class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap" 
+        style="max-height:calc(100% - 106px);overflow-y: auto;">
          <v-card
           v-for="(item, i) in curlist"
           :key="i" style="max-width: 350px;"
@@ -38,13 +38,11 @@
           </v-tooltip>
           </div>
           </v-card>
-        </v-layout>
-      </v-tab-item>
-      <v-tab-item >
-         2
-        </v-tab-item>
-    </v-tabs-items>
-    <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
+      </div>
+    </div>
+    <div style="height:calc(100% - 48px);" v-show="tab==1">
+        Recently launched
+    </div>
   </v-container>
 </script>
 
@@ -55,10 +53,6 @@ const Home = {
   methods: {
     edit(name) {
       this.$router.push('/editor?scriptname=' + name);
-    },
-    errmsg( title ) {
-      this.errtitle = title;
-      this.error = true;
     },
     clearsearch() {
       this.search = '';
@@ -107,13 +101,13 @@ const Home = {
     .get('/api/list')
     .then(response => {
         if (response.data.error) {
-            this.errmsg(response.data.error);
+            this.$root.errmsg(response.data.error);
             return
         }
         this.list = response.data.list;
         this.viewlist();
     })
-    .catch(error => this.errmsg(error));
+    .catch(error => this.$root.errmsg(error));
   },
 };
 
@@ -122,8 +116,6 @@ function homeData() {
         tab: null,
         list: null,
         search: '',
-        error: false,
-        errtitle: '',
         curlist: null,
     }
 }

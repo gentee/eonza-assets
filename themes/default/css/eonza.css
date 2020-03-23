@@ -36,9 +36,27 @@
     font-family: 'Font Awesome 5 Free';
     font-weight: 900; }
   
+
+html {
+    overflow: hidden;
+}
+
 body {
     font-family: Verdana,Arial;
+    height:100vh;
 }
+
+#app {
+    height:100%;
+}
+
+v-content {
+    height:100%;
+}
+
+/*.v-tab-items {
+    height:100%;
+}*/
 
 .folders {
     list-style: none;

@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id = "app">
-  <v-app>
+  <v-app  style="height:100%;">
       <v-app-bar app color="blue darken-1" dense dark v-if="work">
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
@@ -111,7 +111,7 @@
     </div>
     </div>
       </v-navigation-drawer>
-    <v-content app>
+    <v-content app style="height:100%;">
     <router-view></router-view>
     </v-content>
     <dlg-question :show="question" :title="asktitle" v-on:btn="cmd"></dlg-question>
