@@ -163,6 +163,7 @@ const store = new Vuex.Store({
       changed: false,
       loaded: false,
       active: {},
+      list: null,
       script: {
           settings: {
           },
@@ -183,6 +184,9 @@ const store = new Vuex.Store({
     },
     updateActive (state, active) {
       state.active = active;
+    },
+    updateList (state, list) {
+      state.list = list;
     },
   }
 })
@@ -264,7 +268,56 @@ new Vue({
       },
       activemenu() {
         return this.menus.filter( (i) => !i.hide );
-      }
+      },
+      loadList( fn ) {
+        axios
+        .get('/api/list?cache='+this.cache)
+        .then(response => {
+            if (response.data.error) {
+                this.errmsg(response.data.error);
+                return
+            }
+            if (response.data.cache != this.cache) {
+              store.commit('updateList', response.data.list);
+              this.cache = response.data.cache;
+            }
+            if (!!fn && typeof fn == 'function') {
+              fn();
+            }
+        })
+        .catch(error => this.errmsg(error));
+      },
+      filterList(search) {
+            let ret = [];
+            for (let key in store.state.list) {
+              let val = store.state.list[key];
+              if (!val.title) continue;
+              let weight = 0;
+              if (!!search) {
+                const lower = search.toLowerCase();
+                if (val.name.startsWith(lower)) {
+                  weight = 8;
+                }
+                if (val.title.toLowerCase().includes(lower)) {
+                  weight += 4;
+                }
+                if (val.desc && val.desc.toLowerCase().includes(lower)) {
+                  weight += 2;
+                }
+                if (!weight) continue;
+                if (!val.embedded) {
+                  weight += 1;
+                }
+              } 
+              val.weight = weight;
+              ret.push(val);
+            }
+            ret.sort(function(a,b) {
+              if (a.weight != b.weight) return a.weight - b.weight;
+              return a.title.localeCompare(b.title);
+            });
+            return ret;
+        },
     },
 })
 
@@ -290,11 +343,19 @@ function appData() {
       cmd: null,
       error: false,
       errtitle: '',
+      cache: 0,
     }
 }
 
 function format(pattern, par) {
     return pattern.replace('%s', par);
+}
+
+function desc(item) {
+  if (item.desc) {
+    return item.desc;
+  } 
+  return item.name;
 }
 
 </script>

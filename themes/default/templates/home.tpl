@@ -64,57 +64,21 @@ const Home = {
       } 
     },
     viewlist() {
-        let ret = [];
-        for (let key in this.list) {
-          let val = this.list[key];
-          if (!val.title) continue;
-          let weight = 0;
-          if (!!this.search) {
-            const lower = this.search.toLowerCase();
-            if (val.title.toLowerCase().includes(lower)) {
-               weight = 2;
-            }
-            if (val.desc && val.desc.toLowerCase().includes(lower)) {
-              weight += 1;
-            }
-            if (!weight) continue;
-          } 
-          val.weight = weight;
-          ret.push(val);
-        }
-        ret.sort(function(a,b) {
-          if (a.weight != b.weight) return a.weight - b.weight;
-          return a.title.localeCompare(b.title);
-        });
-        this.curlist = ret;
+        this.curlist = this.$root.filterList(this.search);
     },
-    desc(item) {
-      if (item.desc) {
-        return item.desc;
-      } 
-      return item.name;
-    }
+  },
+  computed: {
+    list: function() { return store.state.list },
   },
   mounted: function() {
     store.commit('updateTitle', [[lang "scripts"]]);
-    axios
-    .get('/api/list')
-    .then(response => {
-        if (response.data.error) {
-            this.$root.errmsg(response.data.error);
-            return
-        }
-        this.list = response.data.list;
-        this.viewlist();
-    })
-    .catch(error => this.$root.errmsg(error));
+    this.$root.loadList(this.viewlist);
   },
 };
 
 function homeData() {
     return {
         tab: null,
-        list: null,
         search: '',
         curlist: null,
     }

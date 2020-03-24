@@ -24,6 +24,7 @@ list: List
 menu: Menu
 name: Name
 nickname: Nickname
+new: New
 newitem: New Item
 newscript: New Script
 no: No
