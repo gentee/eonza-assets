@@ -1,5 +1,5 @@
 <script type="text/x-template" id="card">
-    <div class="pa-6" style="max-height: 100%;overflow-y: auto;border-left: 2px solid #ddd;">
+    <div class="pa-6" v-if="active" style="max-height: 100%;overflow-y: auto;border-left: 2px solid #ddd;">
      <v-text-field v-model="active.name"
     label="[[lang "name"]]" 
     ></v-text-field>

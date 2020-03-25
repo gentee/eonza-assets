@@ -1,12 +1,17 @@
 about: О программе
 actions: Действия
+addcmd: Добавить новую команду в скрипт
 additional: Дополнительные настройки
 cancel: Отмена
 checkbox: Чекбокс
+collapseall: Свернуть все
+copy: Копировать
 defvalue: Значение по умолчанию
 delconfirm: Вы уверены что хотите удалить выделенный элемент(ы)?
 delete: Удалить
 desc: Описание
+disena: Отключить/Включить
+dup: Клонировать
 edit: Редактировать
 edititem: Редактирование элемента
 editor: Редактор
@@ -15,6 +20,7 @@ erropen: Скрипт %s не найден
 exit: Выход
 exitconfirm: Вы уверены, что хотите выйти из программы?
 exitalert: Программа только что была закрыта
+expandall: Раскрыть все
 help: Помощь
 history: История
 invalidfield: Значение поля '%s' некорректно
@@ -22,7 +28,11 @@ invalidvalue: Значение некорректно
 licagreement: Лицензионное соглашение
 list: Список
 menu: Меню
+movedown: Сдвинуть вниз
+moveup: Сдвинуть вниз
 name: Имя
+new: Добавить
+newchild: Добавить внутреннюю команду
 newitem: Новый элемент
 nickname: Псевдоним
 new: Добавить
@@ -30,6 +40,7 @@ newscript: Новый скрипт
 no: Нет
 ok: OK
 parameters: Параметры
+paste: Вставить
 recently: Недавно запущенные
 refresh: Обновить
 required: Это поле обязательно

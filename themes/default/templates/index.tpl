@@ -165,6 +165,7 @@ const store = new Vuex.Store({
       loaded: false,
       active: {},
       list: null,
+      clipboard: null,
       script: {
           settings: {
           },
@@ -188,6 +189,9 @@ const store = new Vuex.Store({
     },
     updateList (state, list) {
       state.list = list;
+    },
+    updateClipboard (state, value) {
+      state.clipboard = value;
     },
   }
 })

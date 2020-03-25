@@ -145,9 +145,9 @@
                       <v-icon small @click="">fa-pencil-alt</v-icon>
                       </span>
                       <span @click="moveParams(index, -1)" class="mr-2" v-show="index>0">
-                      <v-icon small @click="">fa-angle-up</v-icon></span>
+                      <v-icon small @click="">fa-angle-double-up</v-icon></span>
                       <span @click="moveParams(index, 1)" class="mr-2" v-show="index<items.length-1">
-                      <v-icon small @click="">fa-angle-down</v-icon></span>
+                      <v-icon small @click="">fa-angle-double-down</v-icon></span>
                       <span @click="deleteParams(index)" class="mr-2">
                       <v-icon small @click="">fa-times</v-icon></span>
                   </td>
