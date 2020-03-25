@@ -116,6 +116,7 @@
     </v-content>
     <dlg-question :show="question" :title="asktitle" v-on:btn="cmd"></dlg-question>
     <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
+    <dlg-commands :show="newcmd" v-on:cmdname="newcmdfn"></dlg-commands>
   </v-app>
 </div>
 <script src="/js/vue.min.js"></script>
@@ -261,6 +262,14 @@ new Vue({
           });
         }
       },
+      newCommand( fn ) {
+        this.newcmdfn = (par) => {
+          console.log('newcmd', par)
+          this.newcmd = false;
+          fn(par);
+        }
+        this.newcmd = true;
+      },
       confirm( title, fn ) {
         this.asktitle = title;
         this.cmd = fn;
@@ -344,6 +353,8 @@ function appData() {
       error: false,
       errtitle: '',
       cache: 0,
+      newcmd: false,
+      newcmdfn: null,
     }
 }
 

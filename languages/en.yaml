@@ -40,6 +40,7 @@ savescript: The '%s' script was changed. Would you like to save it?
 script: Script
 scripts: Scripts
 search: Search scripts for...
+selcmd: Click on the script to add
 settings: Settings
 sourcecode: Source Code
 support: Technical Support

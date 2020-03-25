@@ -13,7 +13,7 @@
       <treeitem v-for="(child, index) in item.children" :item="item.children[index]"></treeitem>
     </ul>
     <div class="folder-empty" v-if="isactive && !item.children && item.open">
-       <v-btn color="primary" small class="mx-4 my-2"><v-icon small left>fa-plus</v-icon>New child</v-btn>
+       <v-btn color="primary" small class="mx-4 my-2" @click="newChild"><v-icon small left>fa-plus</v-icon>New child</v-btn>
     </div>
     </li>
 </script>
@@ -45,7 +45,6 @@
       <treeitem v-for="(child,index) in list" :item="list[index]"></treeitem>
     </ul>
     <div class="folder-empty" v-else v-show="list && list.open">No Data</div>
-    <dlg-commands :show="newcmd" @close="newcmd = false"></dlg-commands>
   </div>
 </script>
 
@@ -62,7 +61,9 @@ Vue.component('treeitem', {
             if (!this.item.open) {
                this.expand(e);
             }
-            this.$parent.newCommand()
+            this.$root.newCommand(function(par) {
+                console.log('get', par)
+            })
         },
         toActive(e) {
             if (this.active == this.item) {
@@ -81,7 +82,7 @@ Vue.component('treeitem', {
     computed: {
         active: {
             get() { return store.state.active },
-            set(value) { store.commit('updateActive', value) }
+            set(value) { console.log('active', value); store.commit('updateActive', value) }
         },
         isactive() { 
             return this.item == this.active },
@@ -104,7 +105,9 @@ Vue.component('tree', {
     },
     methods: {
         newCommand() {
-            this.newcmd = true;
+            this.$root.newCommand(function(par) {
+                console.log('get', par)
+            })
         }
     },
     computed: {
@@ -117,7 +120,6 @@ Vue.component('tree', {
 
 function treeData() {
     return {
-        newcmd: false,
     }
 }
 

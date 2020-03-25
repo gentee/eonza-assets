@@ -128,7 +128,7 @@ Vue.component('dlg-error', {
 <script type="text/x-template" id="dlg-commands">
     <v-dialog v-model="show" max-width="700" persistent = true scrollable>
       <v-card>
-        <v-card-title>Click on the script to add</v-card-title>
+        <v-card-title>[[lang "selcmd"]]</v-card-title>
         <v-divider></v-divider>
         <div class="d-flex pt-4 px-2">
           <v-text-field class="mx-2" append-icon="fa-search" v-model="search" 
@@ -157,7 +157,7 @@ Vue.component('dlg-error', {
           <v-spacer></v-spacer>
           <v-btn
             color="primary" outlined
-            @click="close"  class="ma-2"
+            @click="close('')"  class="ma-2"
           >
             [[lang "cancel"]]
           </v-btn>
@@ -184,18 +184,18 @@ Vue.component('dlg-commands', {
 //          this.$forceUpdate();
           }
         },
-        selectScript(i) {
-          console.log(i);
+        selectScript(name) {
+          this.close(name)
         },
-        close: function () {
-            this.$emit('close');
+        close: function (par) {
+            this.$emit('cmdname', par)
         },
         keyProcess: function(event) {
             switch (event.keyCode) {
 //                case 13:
 //                case 32: 
                 case 27: 
-                   this.close();
+                   this.close('');
                    break;
             }
         }
