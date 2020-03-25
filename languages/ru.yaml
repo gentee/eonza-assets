@@ -34,9 +34,8 @@ name: Имя
 new: Добавить
 newchild: Добавить внутреннюю команду
 newitem: Новый элемент
-nickname: Псевдоним
-new: Добавить
 newscript: Новый скрипт
+nickname: Псевдоним
 no: Нет
 ok: OK
 parameters: Параметры

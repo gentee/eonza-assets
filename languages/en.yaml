@@ -31,11 +31,11 @@ menu: Menu
 movedown: Move Down
 moveup: Move Up
 name: Name
-nickname: Nickname
 new: New
-newchild: Add new child command
+newchild: Add a new child command
 newitem: New Item
 newscript: New Script
+nickname: Nickname
 no: No
 ok: OK
 parameters: Parameters

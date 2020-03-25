@@ -4,7 +4,7 @@
          <v-btn small icon @click="expand"><v-icon small class="mb-1 mr-1" 
          :color="color">{{ item.open ? 
                   'fa-folder-open' : 'fa-folder' }}</v-icon></v-btn>
-         <v-text v-bind:class="[isactive ? 'enz-active' : '']" >{{ item.name }} {{item.active}} </v-text>
+         <v-text v-bind:class="[isactive ? 'enz-active' : '']" >{{ cmds[item.name].title }}</v-text>
          <v-tooltip bottom>
             <template v-slot:activator="{ on }">
          <v-btn small v-show="isactive" icon @click.stop="newChild" v-on="on"><v-icon small class="mb-1 mx-2" 
@@ -16,7 +16,7 @@
          <div style="font-size: smaller; padding-left: 4px;color: #888;">{{item.desc}}</div>
         </div>
     <ul v-bind:class="[isactive ? 'sub-active' : 'sub']" v-if="item.children && item.children.length > 0" v-show="item.open">
-      <treeitem v-for="(child, index) in item.children" :item="item.children[index]"></treeitem>
+      <treeitem v-for="child in item.children" :item="child"></treeitem>
     </ul>
     <div class="folder-empty" v-if="isactive && !item.children && item.open">
        <v-btn color="primary" small class="mx-4 my-2" @click="newChild" style="text-transform:none"><v-icon small left>fa-plus</v-icon>[[lang "newchild"]]</v-btn>
@@ -30,17 +30,17 @@
         <v-tooltip top v-for="btn in btns">
             <template v-slot:activator="{ on }">
                 <v-btn small :icon="!btn.title" @click=btn.click color="primary"
-                    :class="{'mx-2': !!btn.title}"
-                    :disabled="(btn.active && !active) || (btn.clip && !clipboard)" v-on="on">
+                    :class="{'mx-2': !!btn.title}" v-on="on" 
+                    :disabled="isdisable(btn)">
                     <v-icon small :left="btn.title">{{btn.icon}}</v-icon>{{btn.title}}</v-btn>
             </template>
            <span>{{btn.hint}}</span>
         </v-tooltip>
     </div>
-    <ul class="folders" style="padding-left: 0px; max-height: calc(100% - 36px);overflow-y: auto;" v-if="list && list.length > 0" vxshow="folder.open">
-      <treeitem v-for="(child,index) in list" :item="list[index]"></treeitem>
+    <ul class="folders" style="padding-left: 0px; max-height: calc(100% - 36px);overflow-y: auto;" v-if="obj.children && obj.children.length > 0" vxshow="folder.open">
+      <treeitem v-for="child in obj.children" :item="child"></treeitem>
     </ul>
-    <div class="folder-empty" v-else v-show="list && list.open">No Data</div>
+    <div class="folder-empty" v-else v-show="obj && obj.open">No Data</div>
   </div>
 </script>
 
@@ -57,8 +57,22 @@ Vue.component('treeitem', {
             if (!this.item.open) {
                this.expand(e);
             }
+            let comp = this;
+            let cmds = this.cmds;
+            let obj = this.active;
             this.$root.newCommand(function(par) {
-                console.log('get', par)
+                if (!!par && cmds[par]) {
+                    let cmd = cmds[par];
+                    let item = {
+                        name: cmd.name,
+                        parent: obj,
+                    }
+                    if (!obj.children) {
+                        obj.children = [];
+                    }
+                    obj.children.push(item);
+                    comp.active = item;
+                }
             })
         },
         toActive(e) {
@@ -76,6 +90,7 @@ Vue.component('treeitem', {
         }
     },
     computed: {
+        cmds: () => { return store.state.list },
         active: {
             get() { return store.state.active },
             set(value) { store.commit('updateActive', value) }
@@ -97,12 +112,44 @@ Vue.component('tree', {
     template: '#tree',
     data: treeData,
     props: {
-        list: Array,
+        obj: Object,
     },
     methods: {
+        isdisable(btn) {
+            if (!btn.disable) return false;
+            if (btn.disable & disActive && !this.active) {
+                return true;
+            }
+            if (btn.disable & disClip && !this.clipboard) {
+                return true;
+            }
+            if (btn.disable & disFirst && this.active == this.active.parent.children[0]) {
+                return true;
+            }
+            if (btn.disable & disLast && 
+                this.active == this.active.parent.children[this.active.parent.children.length-1] ) {
+                return true;
+            }
+            return false;
+        },
         newCommand() {
+            let comp = this;
+            let cmds = this.cmds;
+            let obj = this.active ? this.active.parent : this.obj;
             this.$root.newCommand(function(par) {
-                console.log('get', par)
+                if (!!par && cmds[par]) {
+                    let cmd = cmds[par];
+                    let item = {
+                        name: cmd.name,
+                        parent: obj,
+                    }
+                    if (!comp.active || comp.active == obj.children[length-1]) {
+                        obj.children.push(item);
+                    } else {
+                        obj.children.splice(obj.children.indexOf(comp.active)+1, 0, item);
+                    }
+                    comp.active = item;
+                }
             })
         },
     },
@@ -120,19 +167,24 @@ Vue.component('tree', {
     },
 });
 
+const disActive = 1
+const disClip = 2
+const disFirst = 4
+const disLast = 8
+
 function treeData() {
     return {
         btns: [
-            {icon: 'fa-expand-arrows-alt', hint: [[lang "expandall"]], active: true},
-            {icon: 'fa-compress-arrows-alt', hint: [[lang "collapseall"]], active: true},
+            {icon: 'fa-expand-arrows-alt', hint: [[lang "expandall"]], disable: disActive},
+            {icon: 'fa-compress-arrows-alt', hint: [[lang "collapseall"]], disable: disActive},
             {icon: 'fa-plus', hint: [[lang "addcmd"]], title: [[lang "new"]], click: this.newCommand },
-            {icon: 'fa-angle-double-up', hint: [[lang "moveup"]], active: true},
-            {icon: 'fa-angle-double-down', hint: [[lang "movedown"]], active: true},
-            {icon: 'fa-copy', hint: [[lang "copy"]], active: true, click: this.test},
-            {icon: 'fa-paste', hint: [[lang "paste"]], clip: true},
-            {icon: 'fa-clone', hint: [[lang "dup"]], active: true},
-            {icon: 'fa-ban', hint: [[lang "disena"]], active: true},
-            {icon: 'fa-times', hint: [[lang "delete"]], active: true},
+            {icon: 'fa-angle-double-up', hint: [[lang "moveup"]], disable: disActive | disFirst},
+            {icon: 'fa-angle-double-down', hint: [[lang "movedown"]], disable: disActive | disLast},
+            {icon: 'fa-copy', hint: [[lang "copy"]], disable: disActive },
+            {icon: 'fa-paste', hint: [[lang "paste"]], disable: disClip},
+            {icon: 'fa-clone', hint: [[lang "dup"]], disable: disActive},
+            {icon: 'fa-ban', hint: [[lang "disena"]], disable: disActive},
+            {icon: 'fa-times', hint: [[lang "delete"]], disable: disActive},
         ]
     }
 }

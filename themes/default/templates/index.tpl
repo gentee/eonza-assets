@@ -163,12 +163,15 @@ const store = new Vuex.Store({
       title: '',
       changed: false,
       loaded: false,
-      active: {},
+      active: null,
       list: null,
       clipboard: null,
       script: {
           settings: {
           },
+          tree: {
+            children: [],
+          }
       },
   },
   mutations: {
@@ -268,7 +271,6 @@ new Vue({
       },
       newCommand( fn ) {
         this.newcmdfn = (par) => {
-          console.log('newcmd', par)
           this.newcmd = false;
           fn(par);
         }

@@ -71,7 +71,7 @@
     <!--v-tabs-items v-model="tab"  v-if="loaded"-->
     <div v-show="loaded && tab==0" style="height: calc(100% - 106px);overflow-y:auto;display:flex;" 
           class="py-4 pr-5 flex-wrap flex-sm-nowrap">  
-        <tree :list="script.tree" class="flex-grow-0 flex-shrink-1"></tree>
+        <tree :obj="script.tree" class="flex-grow-0 flex-shrink-1"></tree>
         <card></card>
     </div>
     <div v-show="loaded && tab==1"  style="height: calc(100% - 106px);overflow-y:auto;">  
@@ -214,12 +214,15 @@ const Editor = Vue.component('editor', {
                 }
                 if (!response.data.params) 
                     response.data.params = [];
-                response.data.tree = this.tree
+                //response.data.tree = this.tree
+                if (!response.data.tree) {
+                  response.data.tree = {children: []};
+                }
                 this.script = response.data;
                 if (this.script.tree && this.script.tree.length > 0) {
                   this.active = this.script.tree[0];
                 } else {
-                  this.active = {};
+                  this.active = null;
                 }
                 this.loaded = true;
             })
@@ -355,7 +358,7 @@ function editorData() {
             value: 'actions',
             },
         ],
-              tree: [
+/*              tree: [
             {
             id: 1,
             name: 'Applications :',
@@ -408,7 +411,7 @@ function editorData() {
             name: 'Downloads :',
             },
         ],
-
+*/
     }
 }
 </script>
