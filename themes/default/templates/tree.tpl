@@ -1,13 +1,12 @@
 <script type="text/x-template" id="treeitem">
-    <li v-bind:class="[isactive ? 'cmd-active' : 'cmd']" >
+    <li v-bind:class="[isactive ? 'cmd-active' : '']" >
         <div class="tree-item" v-on:click="toActive">
          <v-btn small icon @click="expand"><v-icon small class="mb-1 mr-1" 
-         :color="color">{{ item.open ? 
-                  'fa-folder-open' : 'fa-folder' }}</v-icon></v-btn>
-         <v-text v-bind:class="[isactive ? 'enz-active' : '']" >{{ cmds[item.name].title }}</v-text>
-         <v-tooltip bottom>
+         :color="color">{{ icon }}</v-icon></v-btn>
+         <v-text>{{ cmds[item.name].title }}</v-text>
+         <v-tooltip bottom v-if="isfolder">
             <template v-slot:activator="{ on }">
-         <v-btn small v-show="isactive" icon @click.stop="newChild" v-on="on"><v-icon small class="mb-1 mx-2" 
+         <v-btn small icon @click.stop="newChild" v-on="on"><v-icon small class="mb-1 mx-2" 
          color="white">fa-plus-square</v-icon></v-btn>
             </template>
            <span>[[lang "newchild"]]</span>
@@ -18,7 +17,7 @@
     <ul v-bind:class="[isactive ? 'sub-active' : 'sub']" v-if="item.children && item.children.length > 0" v-show="item.open">
       <treeitem v-for="child in item.children" :item="child"></treeitem>
     </ul>
-    <div class="folder-empty" v-if="isactive && !item.children && item.open">
+    <div v-if="!item.children && item.open">
        <v-btn color="primary" small class="mx-4 my-2" @click="newChild" style="text-transform:none"><v-icon small left>fa-plus</v-icon>[[lang "newchild"]]</v-btn>
     </div>
     </li>
@@ -113,8 +112,17 @@ Vue.component('treeitem', {
     },
     computed: {
         cmds: () => { return store.state.list },
+        icon() {
+            const cmd = this.cmds[this.item.name]
+            if (cmd && cmd.folder) {
+                return this.item.open ? 'fa-folder-open' : 'fa-folder'
+            }
+            return 'fa-cog'
+        },
         isactive() { 
             return this.item == this.active },
+        isfolder() { 
+            return this.item == this.active && this.cmds[this.item.name].folder },
         color() {
             return this.isactive ? 'white' : 'grey darken-1';
         },

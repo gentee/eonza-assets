@@ -54,10 +54,6 @@ v-content {
     height:100%;
 }
 
-/*.v-tab-items {
-    height:100%;
-}*/
-
 .folders {
     list-style: none;
 }
@@ -80,9 +76,5 @@ v-content {
 .cmd-active > .tree-item {
     background-color: #1976D2;
     color: #fff;
-}
-
-.enz-active {
-    color: #f00;
 }
 
