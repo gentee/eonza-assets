@@ -17,7 +17,7 @@
     <ul v-bind:class="[isactive ? 'sub-active' : 'sub']" v-if="item.children && item.children.length > 0" v-show="item.open">
       <treeitem v-for="child in item.children" :item="child"></treeitem>
     </ul>
-    <div v-if="!item.children && item.open">
+    <div v-if="!item.children && item.open && isactive">
        <v-btn color="primary" small class="mx-4 my-2" @click="newChild" style="text-transform:none"><v-icon small left>fa-plus</v-icon>[[lang "newchild"]]</v-btn>
     </div>
     </li>
@@ -104,6 +104,9 @@ Vue.component('treeitem', {
             }
         },
         expand(e) {
+            if (!this.cmds[this.item.name].folder) {
+                return;
+            }
             this.$set(this.item, 'open',  !this.item.open);
             if (this.active == this.item) {
                 e.stopPropagation();
@@ -142,6 +145,28 @@ Vue.component('tree', {
         obj: Array,
     },
     methods: {
+        enumAll(parent, fn) {
+            let list = this.obj;
+            if (parent) {
+                list = parent ? parent : [];
+            }
+            for (i=0; i<list.length; i++) {
+                if (this.cmds[list[i].name].folder) {
+                    if (list[i].children && list[i].children.length > 0) {
+                        fn(list[i]);
+                        this.enumAll(list[i].children, fn);
+                    }
+                }
+            }
+        },
+        expandAll(parent) {
+            this.enumAll(null, v => v.open = true);
+            this.active = this.obj[0];
+        },
+        collapseAll(parent) {
+            this.enumAll(null, v => v.open = false);
+            this.active = this.obj[0];
+        },
         isDisable(btn) {
             if (!btn.disable) return false;
             if (btn.disable & disActive && !this.active) {
@@ -204,8 +229,10 @@ const disLast = 8
 function treeData() {
     return {
         btns: [
-            {icon: 'fa-expand-arrows-alt', hint: [[lang "expandall"]], disable: disActive},
-            {icon: 'fa-compress-arrows-alt', hint: [[lang "collapseall"]], disable: disActive},
+            {icon: 'fa-expand-arrows-alt', hint: [[lang "expandall"]], disable: disActive,
+               click: this.expandAll },
+            {icon: 'fa-compress-arrows-alt', hint: [[lang "collapseall"]], disable: disActive,
+               click: this.collapseAll},
             {icon: 'fa-plus', hint: [[lang "addcmd"]], title: [[lang "new"]], click: this.newCommand },
             {icon: 'fa-angle-double-up', hint: [[lang "moveup"]], disable: disActive | disFirst},
             {icon: 'fa-angle-double-down', hint: [[lang "movedown"]], disable: disActive | disLast},
