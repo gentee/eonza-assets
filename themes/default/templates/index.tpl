@@ -134,6 +134,7 @@
 [[template "dialogs"]]
 
 <script>
+
 const routes = [{
     path: '/',
     name: 0,
@@ -216,7 +217,7 @@ new Vue({
       },
       saveScript(callback) {
         axios
-        .post('/api/script', store.state.script)
+        .post('/api/script', omit(store.state.script))
         .then(response => { 
           if (!response.data.error) {
             store.commit('updateChanged', false);
@@ -362,6 +363,26 @@ function appData() {
       newcmd: false,
       newcmdfn: null,
     }
+}
+
+function omit(obj) {
+  if (obj instanceof Array) {
+     let ret = [];
+     for (let i=0; i<obj.length; i++) {
+       ret.push(omit( obj[i] ));
+     }
+     return ret;
+  }
+  if (typeof obj == 'object') {
+    let ret = {}
+    for (const key in obj) {
+      if (!key.startsWith('__')) {
+        ret[key] = omit(obj[key])
+      }
+    }
+    return ret;
+  }
+  return obj;
 }
 
 function format(pattern, par) {

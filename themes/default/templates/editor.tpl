@@ -75,16 +75,16 @@
         <card></card>
     </div>
     <div v-show="loaded && tab==1"  style="height: calc(100% - 106px);overflow-y:auto;">  
-          <v-text-field v-model="script.settings.name" @change="ischanged"
+          <v-text-field v-model="script.settings.name" @change="change"
            label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
             :rules="[rules.required, rules.unique]"></v-text-field>
-          <v-text-field v-model="script.settings.title" @change="ischanged"
+          <v-text-field v-model="script.settings.title" @change="change"
           label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
         ></v-text-field>
-        <v-textarea  v-model="script.settings.desc" @change="ischanged"
+        <v-textarea  v-model="script.settings.desc" @change="change"
          label="[[lang "desc"]]" rows="2" dense
          ></v-textarea>
-        <v-checkbox v-model="script.settings.unrun"  @change="ischanged"
+        <v-checkbox v-model="script.settings.unrun"  @change="change"
             label="[[lang "unrun"]]"
         ></v-checkbox>
     </div>
@@ -108,7 +108,7 @@
                     <v-container>
                       <v-text-field v-model="editedItem.name"
                       label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
-                      :rules="[rules.required, rules.unique]"></v-text-field>
+                      :rules="[rules.required, rules.name]"></v-text-field>
                       <v-text-field v-model="editedItem.title"
                       label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
                       ></v-text-field>
@@ -160,7 +160,7 @@
         </v-data-table>
       </div>
       <div v-show="loaded && tab==3" class="pt-3" style="height: calc(100% - 106px);overflow-y:auto;">  
-         <v-textarea  v-model="script.code" @change="ischanged"
+         <v-textarea  v-model="script.code" @change="change"
          label="[[lang "sourcecode"]]" auto-grow dense
          ></v-textarea>
       </div>
@@ -175,18 +175,14 @@ const PTypes = [
     {text: [[lang "textarea"]], value: 1}
 ]
 
-const pattern = /^[a-z][a-z\d\._-]*$/
-
+const patScript = /^[a-z][a-z\d\._-]*$/
+const patName = /^[a-z][a-z\d\_]*$/
 
 const Editor = Vue.component('editor', {
     template: '#editor',
     data: editorData,
+    mixins: [changed],
     methods: {
-        ischanged() {
-            if (!this.changed) {
-                this.changed = true;
-            }
-        },
         delete() {
             axios
             .post('/api/delete?name=' + store.state.script.original)
@@ -216,9 +212,11 @@ const Editor = Vue.component('editor', {
                     response.data.params = [];
                 //response.data.tree = this.tree
                 if (!response.data.tree) {
-                  response.data.tree = {children: []};
-                }
+                  response.data.tree = [];
+                } 
                 this.script = response.data;
+                addsysinfo(this.script.tree, null)
+                console.log(this.script.tree);
                 if (this.script.tree && this.script.tree.length > 0) {
                   this.active = this.script.tree[0];
                 } else {
@@ -249,7 +247,7 @@ const Editor = Vue.component('editor', {
                 root.question = false;
                 if (par == btn.Yes) {
                     parent.script.params.splice(index, 1)
-                    parent.ischanged()
+                    parent.change()
                 }
            });               
         },
@@ -263,10 +261,10 @@ const Editor = Vue.component('editor', {
             const tmp = this.script.params[index+direct];
             this.$set(this.script.params, index+direct, this.script.params[index]);
             this.$set(this.script.params, index, tmp);
-            this.ischanged()
+            this.change()
         },
         saveParams () {
-            if (!this.editedItem.name || !pattern.test(this.editedItem.name)) {
+            if (!this.editedItem.name || !patName.test(this.editedItem.name)) {
                 this.$root.errmsg(format([[lang "invalidfield"]], [[lang "name"]]))
                 return
             }
@@ -279,7 +277,7 @@ const Editor = Vue.component('editor', {
             } else {
                 this.script.params.push(this.editedItem);
             }
-            this.ischanged()
+            this.change()
             this.closeParams()
         },
     },
@@ -298,17 +296,13 @@ const Editor = Vue.component('editor', {
             get() { return store.state.script },
             set(value) { store.commit('updateScript', value) }
         },
-        changed: {
+/*        changed: {
             get() { return store.state.changed },
             set(value) { store.commit('updateChanged', value) }
-        },
+        },*/
         loaded: {
             get() { return store.state.loaded },
             set(value) { store.commit('updateLoaded', value) }
-        },
-        active: {
-            get() { return store.state.active },
-            set(value) { store.commit('updateActive', value) }
         },
         dlgParamTitle () {
             return this.editedIndex === -1 ? [[lang "newitem"]] : [[lang "edititem"]]
@@ -332,7 +326,10 @@ function editorData() {
         rules: {
           required: value => !!value || [[lang "required"]],
           unique: value => {
-            return pattern.test(value) || [[lang "invalidvalue"]]
+            return patScript.test(value) || [[lang "invalidvalue"]]
+          },
+          name: value => {
+            return patName.test(value) || [[lang "invalidvalue"]]
           },
         },
         dlgParams: false,
@@ -358,60 +355,16 @@ function editorData() {
             value: 'actions',
             },
         ],
-/*              tree: [
-            {
-            id: 1,
-            name: 'Applications :',
-            children: [
-                { id: 2, name: 'Calendar : app', desc: 'This is a short description of this command' },
-                { id: 3, name: 'Chrome : app' },
-                { id: 4, name: 'Webstorm : app' },
-            ],
-            },
-            {
-            id: 5,
-            name: 'Documents :',
-            open: true,
-            desc: 'This is a very long description of this command with some additional settings',
-            children: [
-                {
-                id: 6,
-                name: 'vuetify :',
-                children: [
-                    {
-                    id: 7,
-                    name: 'src :',
-                    children: [
-                        { id: 8, name: 'index : ts' },
-                        { id: 9, name: 'bootstrap : ts' },
-                    ],
-                    },
-                ],
-                },
-                {
-                id: 10,
-                name: 'material2 :',
-                children: [
-                    {
-                    id: 11,
-                    name: 'src :',
-                    active: true,
-                    children: [
-                        { id: 12, name: 'v-btn : ts' },
-                        { id: 13, name: 'v-card : ts' },
-                        { id: 14, name: 'v-window : ts' },
-                    ],
-                    },
-                ],
-                },
-            ],
-            },
-            {
-            id: 15,
-            name: 'Downloads :',
-            },
-        ],
-*/
     }
 }
+
+function addsysinfo(data, parent) {
+   for (let i = 0; i<data.length; i++) {
+     data[i].__parent = parent;
+     if (data[i].children && data[i].children.length > 0) {
+         addsysinfo(data[i].children, data[i]);
+     }
+   }
+}
+
 </script>

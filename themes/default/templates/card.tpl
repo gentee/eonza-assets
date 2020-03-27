@@ -17,17 +17,11 @@
 
 Vue.component('card', {
     template: '#card',
+    mixins: [changed],
     data: cardData,
     props: {
 //        item: Object,
     },
-    computed: {
-        active: {
-            get() { return store.state.active },
-            set(value) { store.commit('updateActive', value) }
-        },
-    },
-
 });
 
 function cardData() {

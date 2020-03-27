@@ -31,23 +31,44 @@
             <template v-slot:activator="{ on }">
                 <v-btn small :icon="!btn.title" @click=btn.click color="primary"
                     :class="{'mx-2': !!btn.title}" v-on="on" 
-                    :disabled="isdisable(btn)">
+                    :disabled="isDisable(btn)">
                     <v-icon small :left="btn.title">{{btn.icon}}</v-icon>{{btn.title}}</v-btn>
             </template>
            <span>{{btn.hint}}</span>
         </v-tooltip>
     </div>
-    <ul class="folders" style="padding-left: 0px; max-height: calc(100% - 36px);overflow-y: auto;" v-if="obj.children && obj.children.length > 0" vxshow="folder.open">
-      <treeitem v-for="child in obj.children" :item="child"></treeitem>
+    <ul class="folders" style="padding-left: 0px; max-height: calc(100% - 36px);overflow-y: auto;" v-if="obj.length > 0" vxshow="folder.open">
+      <treeitem v-for="child in obj" :item="child"></treeitem>
     </ul>
-    <div class="folder-empty" v-else v-show="obj && obj.open">No Data</div>
+    <!--div v-else>No Data</div-->
   </div>
 </script>
 
 <script>
 
+const changed = {
+  methods: {
+    change() {
+      if (!this.changed) {
+        this.changed = true;
+      }
+    },
+  },
+  computed: {
+    active: {
+        get() { return store.state.active },
+        set(value) { store.commit('updateActive', value) }
+    },
+    changed: {
+        get() { return store.state.changed },
+        set(value) { store.commit('updateChanged', value) }
+    },
+  }
+}
+
 Vue.component('treeitem', {
     template: '#treeitem',
+    mixins: [changed],
     data: treeItemData,
     props: {
         item: Object,
@@ -65,13 +86,14 @@ Vue.component('treeitem', {
                     let cmd = cmds[par];
                     let item = {
                         name: cmd.name,
-                        parent: obj,
+                        __parent: obj,
                     }
                     if (!obj.children) {
                         obj.children = [];
                     }
                     obj.children.push(item);
                     comp.active = item;
+                    comp.change();
                 }
             })
         },
@@ -91,10 +113,6 @@ Vue.component('treeitem', {
     },
     computed: {
         cmds: () => { return store.state.list },
-        active: {
-            get() { return store.state.active },
-            set(value) { store.commit('updateActive', value) }
-        },
         isactive() { 
             return this.item == this.active },
         color() {
@@ -110,12 +128,13 @@ function treeItemData() {
 
 Vue.component('tree', {
     template: '#tree',
+    mixins: [changed],
     data: treeData,
     props: {
-        obj: Object,
+        obj: Array,
     },
     methods: {
-        isdisable(btn) {
+        isDisable(btn) {
             if (!btn.disable) return false;
             if (btn.disable & disActive && !this.active) {
                 return true;
@@ -123,11 +142,11 @@ Vue.component('tree', {
             if (btn.disable & disClip && !this.clipboard) {
                 return true;
             }
-            if (btn.disable & disFirst && this.active == this.active.parent.children[0]) {
+            let list = this.active.__parent ? this.active.__parent.children : this.obj;
+            if (btn.disable & disFirst && this.active == list[0]) {
                 return true;
             }
-            if (btn.disable & disLast && 
-                this.active == this.active.parent.children[this.active.parent.children.length-1] ) {
+            if (btn.disable & disLast && this.active == list[list.length-1] ) {
                 return true;
             }
             return false;
@@ -135,31 +154,33 @@ Vue.component('tree', {
         newCommand() {
             let comp = this;
             let cmds = this.cmds;
-            let obj = this.active ? this.active.parent : this.obj;
+            let parent = this.active ? this.active.__parent : null;
             this.$root.newCommand(function(par) {
                 if (!!par && cmds[par]) {
                     let cmd = cmds[par];
                     let item = {
                         name: cmd.name,
-                        parent: obj,
+                        __parent: parent,
                     }
-                    if (!comp.active || comp.active == obj.children[length-1]) {
-                        obj.children.push(item);
+                    let list = []
+                    if (parent) {
+                        list = parent.children;
                     } else {
-                        obj.children.splice(obj.children.indexOf(comp.active)+1, 0, item);
+                        list = comp.obj;
+                    }
+                    if (!comp.active || comp.active == list[length-1]) {
+                        list.push(item);
+                    } else {
+                        list.splice(list.indexOf(comp.active)+1, 0, item);
                     }
                     comp.active = item;
+                    comp.change();
                 }
             })
         },
     },
     computed: {
         cmds: () => { return store.state.list },
-//        active: () => { return store.state.active },
-        active: {
-            get() { return store.state.active },
-            set(value) { store.commit('updateActive', value) }
-        },
         clipboard: () => { return store.state.clipboard },
     },
     mounted: function() {
