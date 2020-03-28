@@ -216,7 +216,6 @@ const Editor = Vue.component('editor', {
                 } 
                 this.script = response.data;
                 addsysinfo(this.script.tree, null)
-                console.log(this.script.tree);
                 if (this.script.tree && this.script.tree.length > 0) {
                   this.active = this.script.tree[0];
                 } else {

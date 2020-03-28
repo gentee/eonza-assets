@@ -17,8 +17,9 @@
     <ul v-bind:class="[isactive ? 'sub-active' : 'sub']" v-if="item.children && item.children.length > 0" v-show="item.open">
       <treeitem v-for="child in item.children" :item="child"></treeitem>
     </ul>
-    <div v-if="!item.children && item.open && isactive">
+    <div v-if="!item.children && item.open && isactive" class="d-flex">
        <v-btn color="primary" small class="mx-4 my-2" @click="newChild" style="text-transform:none"><v-icon small left>fa-plus</v-icon>[[lang "newchild"]]</v-btn>
+       <v-btn v-if="clipboard" icon color="primary" small class="mx-4 my-2" @click="pasteChild"><v-icon small>fa-paste</v-icon></v-btn>
     </div>
     </li>
 </script>
@@ -73,6 +74,17 @@ Vue.component('treeitem', {
         item: Object,
     },
     methods: {
+        pasteChild() {
+            if (!this.clipboard || this.active != this.item || (this.item.children && 
+                 this.item.children.length > 0)) {
+                return
+            }
+            let item = clone(this.clipboard);
+            item.__parent = this.item;
+            addsysinfo(item.children, item)
+            this.$set(this.item, 'children', [item] );
+            this.change();
+        },
         newChild(e) {
             if (!this.item.open) {
                this.expand(e);
@@ -111,7 +123,7 @@ Vue.component('treeitem', {
             if (this.active == this.item) {
                 e.stopPropagation();
             }
-        }
+        },
     },
     computed: {
         cmds: () => { return store.state.list },
@@ -122,6 +134,7 @@ Vue.component('treeitem', {
             }
             return 'fa-cog'
         },
+        clipboard: () => { return store.state.clipboard  },
         isactive() { 
             return this.item == this.active },
         isfolder() { 
@@ -167,6 +180,31 @@ Vue.component('tree', {
             this.enumAll(null, v => v.open = false);
             this.active = this.obj[0];
         },
+        move(direct) {
+            let list = this.obj;
+            if (this.active.__parent) {
+                list = this.active.__parent.children
+            }
+            index = list.indexOf(this.active)
+            if ((direct < 0 && index>0) || (direct > 0 && index < list.length-1) ) 
+            {
+                const tmp = list[index+direct];
+                this.$set(list, index+direct, list[index]);
+                this.$set(list, index, tmp);
+            }
+            this.change()
+        },
+        moveUp() {
+            this.move(-1);
+        },
+        moveDown() {
+            this.move(1);
+        },
+        copy() {
+            if (this.active) {
+                this.clipboard = clone(this.active);
+            }
+        },
         isDisable(btn) {
             if (!btn.disable) return false;
             if (btn.disable & disActive && !this.active) {
@@ -184,6 +222,29 @@ Vue.component('tree', {
             }
             return false;
         },
+        paste() {
+            if (!this.clipboard) {
+                return
+            }
+            let parent = this.active ? this.active.__parent : null;
+            let list = []
+            if (parent) {
+                list = parent.children;
+            } else {
+                list = this.obj;
+            }
+            let item = clone(this.clipboard);
+            item.__parent = parent;
+            if (!this.active || this.active == list[list.length-1]) {
+                list.push(item);
+            } else {
+                list.splice(list.indexOf(this.active)+1, 0, item);
+            }
+            addsysinfo(item.children, item)
+            this.active = item
+            this.change();
+        },
+
         newCommand() {
             let comp = this;
             let cmds = this.cmds;
@@ -201,7 +262,7 @@ Vue.component('tree', {
                     } else {
                         list = comp.obj;
                     }
-                    if (!comp.active || comp.active == list[length-1]) {
+                    if (!comp.active || comp.active == list[list.length-1]) {
                         list.push(item);
                     } else {
                         list.splice(list.indexOf(comp.active)+1, 0, item);
@@ -214,7 +275,10 @@ Vue.component('tree', {
     },
     computed: {
         cmds: () => { return store.state.list },
-        clipboard: () => { return store.state.clipboard },
+        clipboard: {
+            get() { return store.state.clipboard  },
+            set(value) { store.commit('updateClipboard', value) }
+        },
     },
     mounted: function() {
         this.$root.loadList();
@@ -234,10 +298,12 @@ function treeData() {
             {icon: 'fa-compress-arrows-alt', hint: [[lang "collapseall"]], disable: disActive,
                click: this.collapseAll},
             {icon: 'fa-plus', hint: [[lang "addcmd"]], title: [[lang "new"]], click: this.newCommand },
-            {icon: 'fa-angle-double-up', hint: [[lang "moveup"]], disable: disActive | disFirst},
-            {icon: 'fa-angle-double-down', hint: [[lang "movedown"]], disable: disActive | disLast},
-            {icon: 'fa-copy', hint: [[lang "copy"]], disable: disActive },
-            {icon: 'fa-paste', hint: [[lang "paste"]], disable: disClip},
+            {icon: 'fa-angle-double-up', hint: [[lang "moveup"]], disable: disActive | disFirst,
+              click: this.moveUp},
+            {icon: 'fa-angle-double-down', hint: [[lang "movedown"]], 
+              disable: disActive | disLast, click: this.moveDown},
+            {icon: 'fa-copy', hint: [[lang "copy"]], disable: disActive, click: this.copy },
+            {icon: 'fa-paste', hint: [[lang "paste"]], disable: disClip, click: this.paste },
             {icon: 'fa-clone', hint: [[lang "dup"]], disable: disActive},
             {icon: 'fa-ban', hint: [[lang "disena"]], disable: disActive},
             {icon: 'fa-times', hint: [[lang "delete"]], disable: disActive},

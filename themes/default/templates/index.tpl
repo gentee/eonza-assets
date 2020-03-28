@@ -396,6 +396,10 @@ function desc(item) {
   return item.name;
 }
 
+function clone(src) {
+  return JSON.parse(JSON.stringify(omit(src)));
+}
+
 </script>
 
 </body>
