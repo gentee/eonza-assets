@@ -3,7 +3,7 @@
         <div class="tree-item" v-on:click="toActive">
          <v-btn small icon @click="expand"><v-icon small class="mb-1 mr-1" 
          :color="color">{{ icon() }}</v-icon></v-btn>
-         <v-text>{{ cmds[item.name].title }}</v-text>
+         <v-text :class="[item.disable ? 'ban' : '' ]">{{ cmds[item.name].title }}<small>{{ count() }}</small></v-text>
          <v-tooltip bottom v-if="isfolder">
             <template v-slot:activator="{ on }">
          <v-btn small icon @click.stop="newChild" v-on="on"><v-icon small class="mb-1 mx-2" 
@@ -122,7 +122,16 @@ Vue.component('treeitem', {
             }
             this.$forceUpdate();
         },
+        count() {
+            if (this.item.children && this.item.children.length > 0) {
+                return ` (${this.item.children.length})`
+            }
+            return '';
+        },
         icon() {
+            if (this.item.disable) {
+                return 'fa-ban'
+            }
             const cmd = this.cmds[this.item.name]
             if (cmd && cmd.folder) {
                 return this.item.open ? 'fa-folder-open' : 'fa-folder'
@@ -261,6 +270,39 @@ Vue.component('tree', {
                 }
             })
         },
+        disable() {
+            if (this.active) {
+                this.$set(this.active, 'disable',  !this.active.disable);
+                this.change();
+            }
+        },
+        del() {
+            if (this.active) {
+                let comp = this;
+                this.$root.confirm( [[lang "delconfirm"]], 
+                function( par ){
+                    comp.$root.question = false;
+                    if (par == btn.Yes) {
+                        let owner = comp.active.__parent
+                        let parent = owner ? owner.children : comp.obj
+                        let index = parent.indexOf(comp.active)
+                        if (index>=0) {
+                            parent.splice(index, 1)
+                            if (index < parent.length ) {
+                                comp.active = parent[index]
+                            } else if (index > 0) {
+                                comp.active = parent[index-1]
+                            } else if ( owner ){
+                                comp.active = owner
+                            } else {
+                                comp.active = null
+                            }
+                            comp.change();
+                        }
+                    }
+                }); 
+            }
+        }
     },
     computed: {
         cmds: () => { return store.state.list },
@@ -294,8 +336,8 @@ function treeData() {
             {icon: 'fa-copy', hint: [[lang "copy"]], disable: disActive, click: this.copy },
             {icon: 'fa-paste', hint: [[lang "paste"]], disable: disClip, click: this.paste },
             {icon: 'fa-clone', hint: [[lang "dup"]], disable: disActive, click: this.dup },
-            {icon: 'fa-ban', hint: [[lang "disena"]], disable: disActive},
-            {icon: 'fa-times', hint: [[lang "delete"]], disable: disActive},
+            {icon: 'fa-ban', hint: [[lang "disena"]], disable: disActive, click: this.disable}, 
+            {icon: 'fa-times', hint: [[lang "delete"]], disable: disActive, click: this.del},
         ]
     }
 }

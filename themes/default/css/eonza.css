@@ -54,6 +54,10 @@ v-content {
     height:100%;
 }
 
+.ban {
+    text-decoration: line-through;
+}
+
 .folders {
     list-style: none;
 }
