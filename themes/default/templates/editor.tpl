@@ -358,6 +358,9 @@ function editorData() {
 }
 
 function addsysinfo(data, parent) {
+  if (!data) {
+    return
+  }
    for (let i = 0; i<data.length; i++) {
      data[i].__parent = parent;
      if (data[i].children && data[i].children.length > 0) {

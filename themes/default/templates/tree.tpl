@@ -2,7 +2,7 @@
     <li v-bind:class="[isactive ? 'cmd-active' : '']" >
         <div class="tree-item" v-on:click="toActive">
          <v-btn small icon @click="expand"><v-icon small class="mb-1 mr-1" 
-         :color="color">{{ icon }}</v-icon></v-btn>
+         :color="color">{{ icon() }}</v-icon></v-btn>
          <v-text>{{ cmds[item.name].title }}</v-text>
          <v-tooltip bottom v-if="isfolder">
             <template v-slot:activator="{ on }">
@@ -74,37 +74,34 @@ Vue.component('treeitem', {
         item: Object,
     },
     methods: {
+        addChild( item ) {
+            item.__parent = this.item;
+            if (!this.item.children) {
+                this.item.children = [];
+            }
+            this.item.children.push(item)
+            this.active = item;
+            this.change();
+        },
         pasteChild() {
             if (!this.clipboard || this.active != this.item || (this.item.children && 
                  this.item.children.length > 0)) {
                 return
             }
             let item = clone(this.clipboard);
-            item.__parent = this.item;
             addsysinfo(item.children, item)
-            this.$set(this.item, 'children', [item] );
-            this.change();
+            this.addChild(item)
         },
         newChild(e) {
             if (!this.item.open) {
                this.expand(e);
             }
             let comp = this;
-            let cmds = this.cmds;
-            let obj = this.active;
             this.$root.newCommand(function(par) {
-                if (!!par && cmds[par]) {
-                    let cmd = cmds[par];
-                    let item = {
-                        name: cmd.name,
-                        __parent: obj,
-                    }
-                    if (!obj.children) {
-                        obj.children = [];
-                    }
-                    obj.children.push(item);
-                    comp.active = item;
-                    comp.change();
+                if (!!par && comp.cmds[par]) {
+                    comp.addChild({
+                        name: comp.cmds[par].name,
+                    })
                 }
             })
         },
@@ -123,10 +120,8 @@ Vue.component('treeitem', {
             if (this.active == this.item) {
                 e.stopPropagation();
             }
+            this.$forceUpdate();
         },
-    },
-    computed: {
-        cmds: () => { return store.state.list },
         icon() {
             const cmd = this.cmds[this.item.name]
             if (cmd && cmd.folder) {
@@ -134,6 +129,9 @@ Vue.component('treeitem', {
             }
             return 'fa-cog'
         },
+    },
+    computed: {
+        cmds: () => { return store.state.list },
         clipboard: () => { return store.state.clipboard  },
         isactive() { 
             return this.item == this.active },
@@ -158,12 +156,8 @@ Vue.component('tree', {
         obj: Array,
     },
     methods: {
-        enumAll(parent, fn) {
-            let list = this.obj;
-            if (parent) {
-                list = parent ? parent : [];
-            }
-            for (i=0; i<list.length; i++) {
+        enumAll(list, fn) {
+            for (let i=0; i<list.length; i++) {
                 if (this.cmds[list[i].name].folder) {
                     if (list[i].children && list[i].children.length > 0) {
                         fn(list[i]);
@@ -173,11 +167,13 @@ Vue.component('tree', {
             }
         },
         expandAll(parent) {
-            this.enumAll(null, v => v.open = true);
+            this.enumAll(this.obj, v => v.open = true);
+            this.$forceUpdate();
             this.active = this.obj[0];
         },
         collapseAll(parent) {
-            this.enumAll(null, v => v.open = false);
+            this.enumAll(this.obj, v => v.open = false);
+            this.$forceUpdate();
             this.active = this.obj[0];
         },
         move(direct) {
@@ -222,10 +218,7 @@ Vue.component('tree', {
             }
             return false;
         },
-        paste() {
-            if (!this.clipboard) {
-                return
-            }
+        addItem(item) {
             let parent = this.active ? this.active.__parent : null;
             let list = []
             if (parent) {
@@ -233,42 +226,38 @@ Vue.component('tree', {
             } else {
                 list = this.obj;
             }
-            let item = clone(this.clipboard);
             item.__parent = parent;
             if (!this.active || this.active == list[list.length-1]) {
                 list.push(item);
             } else {
                 list.splice(list.indexOf(this.active)+1, 0, item);
             }
-            addsysinfo(item.children, item)
-            this.active = item
+            this.active = item;
             this.change();
         },
-
+        paste() {
+            if (!this.clipboard) {
+                return
+            }
+            let item = clone(this.clipboard)
+            addsysinfo(item.children, item)
+            this.addItem(item)
+        },
+        dup() {
+            if (!this.active) {
+                return;
+            }
+            let item = clone(this.active)
+            addsysinfo(item.children, item)
+            this.addItem(item)
+        },
         newCommand() {
             let comp = this;
-            let cmds = this.cmds;
-            let parent = this.active ? this.active.__parent : null;
             this.$root.newCommand(function(par) {
-                if (!!par && cmds[par]) {
-                    let cmd = cmds[par];
-                    let item = {
-                        name: cmd.name,
-                        __parent: parent,
-                    }
-                    let list = []
-                    if (parent) {
-                        list = parent.children;
-                    } else {
-                        list = comp.obj;
-                    }
-                    if (!comp.active || comp.active == list[list.length-1]) {
-                        list.push(item);
-                    } else {
-                        list.splice(list.indexOf(comp.active)+1, 0, item);
-                    }
-                    comp.active = item;
-                    comp.change();
+                if (!!par && comp.cmds[par]) {
+                    comp.addItem({
+                        name: comp.cmds[par].name,
+                    })
                 }
             })
         },
@@ -304,7 +293,7 @@ function treeData() {
               disable: disActive | disLast, click: this.moveDown},
             {icon: 'fa-copy', hint: [[lang "copy"]], disable: disActive, click: this.copy },
             {icon: 'fa-paste', hint: [[lang "paste"]], disable: disClip, click: this.paste },
-            {icon: 'fa-clone', hint: [[lang "dup"]], disable: disActive},
+            {icon: 'fa-clone', hint: [[lang "dup"]], disable: disActive, click: this.dup },
             {icon: 'fa-ban', hint: [[lang "disena"]], disable: disActive},
             {icon: 'fa-times', hint: [[lang "delete"]], disable: disActive},
         ]
