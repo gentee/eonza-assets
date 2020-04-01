@@ -12,7 +12,7 @@
            <span>[[lang "newchild"]]</span>
         </v-tooltip>
 
-         <div style="font-size: smaller; padding-left: 4px;color: #888;">{{item.desc}}</div>
+         <div :class="fordesc" style="font-size: smaller; padding-left: 4px;">{{item.values._desc}}</div>
         </div>
     <ul v-bind:class="[isactive ? 'sub-active' : 'sub']" v-if="item.children && item.children.length > 0" v-show="item.open">
       <treeitem v-for="child in item.children" :item="child"></treeitem>
@@ -101,6 +101,7 @@ Vue.component('treeitem', {
                 if (!!par && comp.cmds[par]) {
                     comp.addChild({
                         name: comp.cmds[par].name,
+                        values: {},
                     })
                 }
             })
@@ -140,6 +141,9 @@ Vue.component('treeitem', {
         },
     },
     computed: {
+        fordesc() {
+            return this.item == this.active ? 'desca' : 'desc'
+        },
         cmds: () => { return store.state.list },
         clipboard: () => { return store.state.clipboard  },
         isactive() { 
@@ -266,6 +270,7 @@ Vue.component('tree', {
                 if (!!par && comp.cmds[par]) {
                     comp.addItem({
                         name: comp.cmds[par].name,
+                        values: {},
                     })
                 }
             })
@@ -279,26 +284,23 @@ Vue.component('tree', {
         del() {
             if (this.active) {
                 let comp = this;
-                this.$root.confirm( [[lang "delconfirm"]], 
-                function( par ){
-                    comp.$root.question = false;
-                    if (par == btn.Yes) {
-                        let owner = comp.active.__parent
-                        let parent = owner ? owner.children : comp.obj
-                        let index = parent.indexOf(comp.active)
-                        if (index>=0) {
-                            parent.splice(index, 1)
-                            if (index < parent.length ) {
-                                comp.active = parent[index]
-                            } else if (index > 0) {
-                                comp.active = parent[index-1]
-                            } else if ( owner ){
-                                comp.active = owner
-                            } else {
-                                comp.active = null
-                            }
-                            comp.change();
+                this.$root.confirmYes( [[lang "delconfirm"]], 
+                function(){
+                    let owner = comp.active.__parent
+                    let parent = owner ? owner.children : comp.obj
+                    let index = parent.indexOf(comp.active)
+                    if (index>=0) {
+                        parent.splice(index, 1)
+                        if (index < parent.length ) {
+                            comp.active = parent[index]
+                        } else if (index > 0) {
+                            comp.active = parent[index-1]
+                        } else if ( owner ){
+                            comp.active = owner
+                        } else {
+                            comp.active = null
                         }
+                        comp.change();
                     }
                 }); 
             }

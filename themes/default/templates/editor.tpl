@@ -39,7 +39,9 @@
              v-if="!!script.original && script.original != script.settings.name">
             <v-icon left small>fa-save</v-icon>&nbsp;[[lang "saveasnew"]]
         </v-btn>
-        <v-btn color="primary" class="mx-2"  v-if="loaded && !script.settings.unrun">
+        <v-btn color="primary" class="mx-2"  v-if="loaded && !script.settings.unrun" 
+            :disabled="!script.original"
+             @click="$root.run(script.original)">
             <v-icon left small>fa-play</v-icon>&nbsp;[[lang "run"]]
         </v-btn>
           <v-menu bottom left v-if="loaded" offset-y v-if="!!script.original">
@@ -75,13 +77,13 @@
         <card></card>
     </div>
     <div v-show="loaded && tab==1"  style="height: calc(100% - 106px);overflow-y:auto;">  
-          <v-text-field v-model="script.settings.name" @change="change"
+          <v-text-field v-model="script.settings.name" @input="change"
            label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
             :rules="[rules.required, rules.unique]"></v-text-field>
-          <v-text-field v-model="script.settings.title" @change="change"
+          <v-text-field v-model="script.settings.title" @input="change"
           label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
         ></v-text-field>
-        <v-textarea  v-model="script.settings.desc" @change="change"
+        <v-textarea  v-model="script.settings.desc" @input="change"
          label="[[lang "desc"]]" rows="2" dense
          ></v-textarea>
         <v-checkbox v-model="script.settings.unrun"  @change="change"
@@ -160,7 +162,7 @@
         </v-data-table>
       </div>
       <div v-show="loaded && tab==3" class="pt-3" style="height: calc(100% - 106px);overflow-y:auto;">  
-         <v-textarea  v-model="script.code" @change="change"
+         <v-textarea  v-model="script.code" @input="change"
          label="[[lang "sourcecode"]]" auto-grow dense
          ></v-textarea>
       </div>
@@ -171,8 +173,8 @@
 const PCheckbox = 0;
 const PTextarea = 1;
 const PTypes = [
-    {text: [[lang "checkbox"]], value: 0},
-    {text: [[lang "textarea"]], value: 1}
+    {text: [[lang "checkbox"]], value: 0, comp: 'c-checkbox'},
+    {text: [[lang "textarea"]], value: 1, comp: 'c-textarea'}
 ]
 
 const patScript = /^[a-z][a-z\d\._-]*$/
@@ -184,16 +186,20 @@ const Editor = Vue.component('editor', {
     mixins: [changed],
     methods: {
         delete() {
-            axios
-            .post('/api/delete?name=' + store.state.script.original)
-            .then(response => {
-                if (response.data.error) {
-                    this.$root.errmsg(response.data.error);
-                    return
-                }
-                this.load('');
-            })
-            .catch(error => this.$root.errmsg(error));
+          let comp = this;
+          this.$root.confirmYes( [[lang "delscript"]], 
+            function(){
+                axios
+                .post('/api/delete?name=' + comp.script.original)
+                .then(response => {
+                    if (response.data.error) {
+                        comp.$root.errmsg(response.data.error);
+                        return
+                    }
+                    comp.load('');
+                })
+                .catch(error => this.$root.errmsg(error));
+           }); 
         },
         open() {
             this.loaded = false;
@@ -239,15 +245,11 @@ const Editor = Vue.component('editor', {
             this.editedItem = {type: 0}
         },
         deleteParams (index) {
-            let root = this.$root;
-            let parent = this;
-            this.$root.confirm( [[lang "delconfirm"]], 
-            function( par ){
-                root.question = false;
-                if (par == btn.Yes) {
-                    parent.script.params.splice(index, 1)
-                    parent.change()
-                }
+            let comp = this;
+            this.$root.confirmYes( [[lang "delconfirm"]], 
+            function(){
+                comp.script.params.splice(index, 1)
+                comp.change()
            });               
         },
         editParams (index) {
@@ -363,6 +365,9 @@ function addsysinfo(data, parent) {
   }
    for (let i = 0; i<data.length; i++) {
      data[i].__parent = parent;
+     if (!data[i].values) {
+       data[i].values = {};
+     }
      if (data[i].children && data[i].children.length > 0) {
          addsysinfo(data[i].children, data[i]);
      }

@@ -127,6 +127,7 @@
 
 [[template "home" .]]
 [[template "tree" .]]
+[[template "dyncomp" .]]
 [[template "card" .]]
 [[template "editor" .]]
 [[template "help" .]]
@@ -215,6 +216,17 @@ new Vue({
         this.errtitle = title;
         this.error = true;
       },
+      run(name) {
+        axios
+        .get('/api/run?name=' + name)
+        .then(response => {
+            if (response.data.error) {
+                this.$root.errmsg(response.data.error);
+                return
+            }
+        })
+        .catch(error => this.$root.errmsg(error));
+      },
       saveScript(callback) {
         axios
         .post('/api/script', omit(store.state.script))
@@ -280,6 +292,16 @@ new Vue({
       confirm( title, fn ) {
         this.asktitle = title;
         this.cmd = fn;
+        this.question = true;
+      },
+      confirmYes( title, fn ) {
+        this.asktitle = title;
+        this.cmd = (par) => {
+          this.question = false;
+          if (par == btn.Yes) {
+             fn();
+          }
+        }
         this.question = true;
       },
       activemenu() {

@@ -54,6 +54,22 @@ v-content {
     height:100%;
 }
 
+.card {
+    background-color: #E3F2FD;
+}
+
+.cardd {
+    background-color: #eee;
+}
+
+.desc {
+    color: #888;
+}
+
+.desca {
+    color: #fff;
+}
+
 .ban {
     text-decoration: line-through;
 }
