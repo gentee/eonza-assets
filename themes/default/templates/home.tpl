@@ -15,33 +15,10 @@
             <v-icon>fa-times</v-icon>
           </v-btn>
         </div>
-        <div class="d-flex flex-wrap" 
-        style="max-height:calc(100% - 106px);overflow-y: auto;">
-         <v-card
-          v-for="(item, i) in curlist"
-          :key="i" style="max-width: 350px;"
-          class="ma-2 d-flex flex-column justify-space-between"
-        > 
-          <v-card-title v-text="item.title"></v-card-title>
-          <v-card-subtitle v-text="desc(item)"></v-card-subtitle>
-          <div class="d-flex justify-space-around mb-2 align-end">
-          <v-btn class="ma-2" color="primary" small v-if="!item.unrun" @click="$root.run(item.name)">
-           <v-icon left small>fa-play</v-icon> [[lang "run"]]
-          </v-btn>
-          <v-tooltip top>
-            <template v-slot:activator="{ on }">
-                          <v-btn @click="edit(item.name)" icon color="primary" v-on="on"  >
-                              <v-icon>fa-edit</v-icon>
-                          </v-btn>
-            </template>
-            <span>[[lang "edit"]]</span>
-          </v-tooltip>
-          </div>
-          </v-card>
-      </div>
+        <cardlist :list="curlist"></cardlist>
     </div>
-    <div style="height:calc(100% - 48px);" v-show="tab==1">
-        Recently launched
+    <div style="height:calc(100% - 48px);" v-show="tab==1" class="pt-4">
+        <cardlist :list="runlist"></cardlist>
     </div>
   </v-container>
 </script>
@@ -51,9 +28,6 @@ const Home = {
   template: '#home',
   data: homeData,
   methods: {
-    edit(name) {
-      this.$router.push('/editor?scriptname=' + name);
-    },
     clearsearch() {
       this.search = '';
       this.viewlist();
@@ -66,6 +40,22 @@ const Home = {
     viewlist() {
         this.curlist = this.$root.filterList(this.search);
     },
+  },
+  watch: {
+    tab(newValue) {
+      if (newValue==1) {
+        axios
+        .get('/api/listrun')
+        .then(response => {
+            if (response.data.error) {
+                this.errmsg(response.data.error);
+                return
+            }
+            this.runlist = response.data.list
+        })
+        .catch(error => this.errmsg(error));
+      }
+    }
   },
   computed: {
     list: function() { return store.state.list },
@@ -81,6 +71,7 @@ function homeData() {
         tab: null,
         search: '',
         curlist: null,
+        runlist: null,
     }
 }
 </script>

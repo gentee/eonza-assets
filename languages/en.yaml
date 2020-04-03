@@ -59,5 +59,6 @@ textarea: Multi-line text
 title: Title
 type: Type
 version: Version
+unknownuser: Unknown user id %x
 unrun: Unrunnable script
 yes: Yes

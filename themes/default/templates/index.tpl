@@ -133,6 +133,7 @@
 [[template "help" .]]
 [[template "shutdown"]]
 [[template "dialogs"]]
+[[template "cardlist" .]]
 
 <script>
 
@@ -316,7 +317,7 @@ new Vue({
                 return
             }
             if (response.data.cache != this.cache) {
-              store.commit('updateList', response.data.list);
+              store.commit('updateList', response.data.map);
               this.cache = response.data.cache;
             }
             if (!!fn && typeof fn == 'function') {
@@ -351,7 +352,7 @@ new Vue({
               ret.push(val);
             }
             ret.sort(function(a,b) {
-              if (a.weight != b.weight) return a.weight - b.weight;
+              if (a.weight != b.weight) return b.weight - a.weight;
               return a.title.localeCompare(b.title);
             });
             return ret;
