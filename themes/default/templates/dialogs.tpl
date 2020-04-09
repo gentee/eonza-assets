@@ -223,4 +223,21 @@ function dlgCommandsData() {
         search: '',
     }
 }
+
+const stActive = 1
+const stWaiting = 2
+const stSuspended = 3
+const stFinished = 4
+const stTerminated = 5
+const stFailed = 6
+
+const statusList = [
+    '', [[lang "active"]], [[lang "waiting"]], [[lang "suspended"]],
+    [[lang "finished"]], [[lang "terminated"]], [[lang "failed"]],
+ ]
+const statusColor = [
+    '#fff', '#4CAF50', '#0277BD', '#E65100',
+    '#fff', '#212121', '#F44336',
+ ]
+
 </script>

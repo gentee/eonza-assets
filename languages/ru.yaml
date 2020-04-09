@@ -1,5 +1,6 @@
 about: О программе
 actions: Действия
+active: Активный
 addcmd: Добавить новую команду в скрипт
 additional: Дополнительные настройки
 cancel: Отмена
@@ -22,6 +23,8 @@ exit: Выход
 exitconfirm: Вы уверены, что хотите выйти из программы?
 exitalert: Программа только что была закрыта
 expandall: Раскрыть все
+failed: Ошибка
+finished: Завершен
 help: Помощь
 history: История
 invalidfield: Значение поля '%s' некорректно
@@ -55,10 +58,13 @@ selcmd: Нажмите на скрипт чтобы добавить его
 settings: Настройки
 sourcecode: Исходный код
 support: Служба поддержки
+suspended: Остановлен
+terminated: Прерван
 textarea: Многострочный текст
 title: Название
 type: Тип
 version: Версия
 unknownuser: Неизвестный пользователь %x
 unrun: Незапускаемый скрипт
+waiting: Ожидание
 yes: Да

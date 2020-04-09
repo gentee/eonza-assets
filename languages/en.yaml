@@ -1,5 +1,6 @@
 about: About
 actions: Actions
+active: Active
 addcmd: Add a new command to the script
 additional: Additional Settings
 cancel: Cancel
@@ -22,6 +23,8 @@ exit: Exit
 exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
 expandall: Expand All
+failed: Failed
+finished: Finished
 help: Help
 history: History
 invalidfield: The value of '%s' field is invalid
@@ -55,10 +58,13 @@ selcmd: Click on the script to add
 settings: Settings
 sourcecode: Source Code
 support: Technical Support
+suspended: Suspended
+terminated: Terminated
 textarea: Multi-line text
 title: Title
 type: Type
 version: Version
 unknownuser: Unknown user id %x
 unrun: Unrunnable script
+waiting: Waiting
 yes: Yes
