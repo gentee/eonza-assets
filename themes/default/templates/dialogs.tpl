@@ -236,8 +236,12 @@ const statusList = [
     [[lang "finished"]], [[lang "terminated"]], [[lang "failed"]],
  ]
 const statusColor = [
-    '#fff', '#4CAF50', '#0277BD', '#E65100',
-    '#fff', '#212121', '#F44336',
+    '#fff', '#4CAF50', '#0277BD', '#EF6C00',
+    '#fff', '#37474F', '#F44336',
+ ]
+const statusIcon = [
+    '', '', '', '',
+    'fa-flag-checkered', 'fa-thumbs-down', 'fa-exclamation-triangle',
  ]
 
 </script>

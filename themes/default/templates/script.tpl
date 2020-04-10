@@ -16,20 +16,38 @@
       <v-app-bar app color="blue darken-1" dense dark>
         <v-toolbar-title>[[ .App.Title ]]</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-text class="mx-4 px-4" style="font-weight: bold"
-         :style="{'background-color': statusColor[status], 'color': status == stFinished ? '#000' : '#fff'}">{{statusList[status]}}</v-text>
-        <v-btn v-if="status < stSuspended" color="primary" class="white mx-2 font-weight-bold" outlined >
+        <v-chip
+        class="ma-2 font-weight-bold px-6"
+        :color="statusColor[status]"
+        :text-color="status == stFinished ? '#616161' : '#fff'"
+      >
+      <v-icon left class="pr-1" v-if="!!statusIcon[status]">{{statusIcon[status]}}</v-icon>
+      {{statusList[status]}}
+    </v-chip>
+        <v-btn v-if="status < stSuspended" color="primary" class="white mx-2 font-weight-bold" outlined @click="syscommand(1)">
             <v-icon small left>fa-pause</v-icon>&nbsp;Suspend
         </v-btn>
-        <v-btn v-if="status == stSuspended" color="primary" class="white font-weight-bold mx-2" outlined >
+        <v-btn v-if="status == stSuspended" color="primary" class="white font-weight-bold mx-2" outlined @click="syscommand(2)">
             <v-icon small left>fa-play</v-icon>&nbsp;Resume
         </v-btn>
-        <v-btn v-if="status < stFinished" color="primary" class="white mx-2 font-weight-bold" outlined >
+        <v-btn v-if="status < stFinished" color="primary" class="white mx-2 font-weight-bold" 
+        outlined @click="stop()">
             <v-icon small left>fa-times</v-icon>&nbsp;Break
         </v-btn>
         <v-spacer></v-spacer>
       </v-app-bar>
     <v-content app style="height:100%;">
+    <v-alert
+      prominent v-if="status == stFailed"
+      type="error"
+    >{{message}}
+    </v-alert>
+    <v-alert
+      prominent v-if="status == stTerminated"
+      color="blue-grey darken-3" dark
+      icon="fa-thumbs-down"
+    >[[lang "scriptterm"]]
+    </v-alert>
      <div id="output"></div>
     </v-content>
     <dlg-question :show="question" :title="asktitle" v-on:btn="cmd"></dlg-question>
@@ -39,8 +57,8 @@
 <script src="/js/vue.min.js"></script>
 <script src="/js/vue-router.min.js"></script>
 <script src="/js/vuetify.min.js"></script>
-<!--script src="/js/axios.min.js"></script>
-<script src="/js/vuex.min.js"></script-->
+<script src="/js/axios.min.js"></script>
+<!--script src="/js/vuex.min.js"></script-->
 
 [[template "dialogs"]]
 
@@ -56,25 +74,13 @@ function wsUri() {
     uri += loc.pathname + 'ws';
     return uri;
 }
- /*setTimeout(function() {
-    ws = new WebSocket(uri)
-
-    ws.onopen = function() {
-      console.log('Connected')
-    }
-
-    ws.onclose = function() {
-      console.log('Closed')
-    }
-
-    ws.onmessage = function(evt) {
+ /*
+     ws.onmessage = function(evt) {
       var out = document.getElementById('output');
       out.innerHTML += evt.data + '<br>';
     }
-}, 2000);
-    setInterval(function() {
-      ws.send('Hello, Server!');
-    }, 1000);*/
+    ws.send('Hello, Server!');
+*/
 
 new Vue({
     vuetify: new Vuetify({
@@ -85,25 +91,48 @@ new Vue({
     el: '#app',
     data: appData,
     methods: {
-      getCmd({data}) {
-        console.log( 'cmd', data );
+      stop() {
+        let restore = false
+        if (this.status != stSuspended) {
+          this.syscommand(1)
+          restore = true
+        }
+        this.confirm([[lang "stopscript"]], (par) => {
+          this.question = false;
+          if (par == btn.Yes) {
+            this.syscommand(3)
+          } else if (restore) {
+            this.syscommand(2)
+          }
+        })
+      },
+      syscommand(id) {
+        axios
+        .get('/sys?cmd=' + id)
+        .then(response => {
+            if (response.data.error) {
+                this.errmsg(response.data.error);
+                return
+            }
+        })
+        .catch(error => this.errmsg(error));
+      },
+      wsCmd({data}) {
         let cmd = JSON.parse(data);
         if (cmd.cmd == 1) {
           this.status = cmd.status;
         }
-        console.log( 'cmd', data, cmd, cmd.cmd, this.status );
+        if (cmd.message) {
+          this.message = cmd.message
+        }
+        console.log( 'cmd', cmd, cmd.cmd, this.status );
       },
       connect() {
         this.socket = new WebSocket(wsUri())
         console.log(wsUri())
-        this.socket.onopen = () => {
-           this.status = 2;
-           console.log('connected')
-        };
-        this.socket.onmessage = this.getCmd
-          this.socket.onclose = function() {
-             console.log('Closed')
-          }
+        this.socket.onopen = () => {};
+        this.socket.onmessage = this.wsCmd
+        this.socket.onclose = () => {}
       },
       errmsg( title ) {
         this.errtitle = title;
@@ -141,9 +170,6 @@ new Vue({
       this.connect();
     },
     computed: {
-      getStatus() {
-        return status[this.status]
-      }
     }
 })
 
@@ -157,6 +183,7 @@ function appData() {
           onclick: () => this.confirm([[lang "exitconfirm"]], this.exit) },
       ],
       status: 0,
+      message: '',
 
       cmd: null,
       question: false,
