@@ -6,6 +6,7 @@ additional: Additional Settings
 cancel: Cancel
 checkbox: Checkbox
 collapseall: Collapse All
+console: Console
 copy: Copy
 defvalue: Default Value
 delconfirm: Are you sure you want to delete the selected item(s)?
@@ -25,12 +26,15 @@ exitalert: The program has just been closed
 expandall: Expand All
 failed: Failed
 finished: Finished
+form: Form
 help: Help
 history: History
+info: Information
 invalidfield: The value of '%s' field is invalid
 invalidvalue: The value is invalid
 licagreement: License Agreement
 list: List
+log: Log
 menu: Menu
 movedown: Move Down
 moveup: Move Up
@@ -58,6 +62,7 @@ search: Search scripts for...
 selcmd: Click on the script to add
 settings: Settings
 sourcecode: Source Code
+stdinput: standard input
 stopscript: Do you want to stop the script execution?
 support: Technical Support
 suspended: Suspended

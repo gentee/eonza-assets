@@ -6,6 +6,7 @@ additional: Дополнительные настройки
 cancel: Отмена
 checkbox: Чекбокс
 collapseall: Свернуть все
+console: Консоль
 copy: Копировать
 defvalue: Значение по умолчанию
 delconfirm: Вы уверены, что хотите удалить выделенный элемент(ы)?
@@ -25,12 +26,15 @@ exitalert: Программа только что была закрыта
 expandall: Раскрыть все
 failed: Ошибка
 finished: Завершен
+form: Форма
 help: Помощь
 history: История
+info: Информация
 invalidfield: Значение поля '%s' некорректно
 invalidvalue: Значение некорректно
 licagreement: Лицензионное соглашение
 list: Список
+log: Лог
 menu: Меню
 movedown: Сдвинуть вниз
 moveup: Сдвинуть вниз
@@ -58,6 +62,7 @@ search: Поиск скриптов
 selcmd: Нажмите на скрипт чтобы добавить его
 settings: Настройки
 sourcecode: Исходный код
+stdinput: стандартный ввод
 stopscript: Вы хотите прекратить выполнение скрипта?
 support: Служба поддержки
 suspended: Остановлен

@@ -37,6 +37,13 @@
         <v-spacer></v-spacer>
       </v-app-bar>
     <v-content app style="height:100%;">
+    <v-tabs v-model="tab">
+        <v-tab>[[lang "info"]]</v-tab>
+        <v-tab>[[lang "form"]]</v-tab>
+        <v-tab>[[lang "console"]]</v-tab>
+        <v-tab>[[lang "log"]]</v-tab>
+    </v-tabs>
+      <div style="height:calc(100% - 48px);overflow-y:auto;border: 2px solid #0f0;" id="console">
     <v-alert
       prominent v-if="status == stFailed"
       type="error"
@@ -48,7 +55,39 @@
       icon="fa-thumbs-down"
     >[[lang "scriptterm"]]
     </v-alert>
-     <div id="output"></div>
+        <div style="border: 2px solid #f00;" v-show="tab==0">
+        Information
+        </div>
+        <div v-show="tab==1">
+          Form
+        </div>
+        <div v-show="tab==2">
+          <div class="console" id="stdout">
+          </div>
+        <div class="console" id="stdcur">
+        </div>
+        <div v-if="status < stFinished" style="padding: 0px 16px;background-color: #444;" class="d-flex justify-start align-baseline">
+        <v-text-field class="console" 
+           style="max-width: 1024px;"
+            label="standard input"
+            color="white" v-on:keyup="validateCmdLine"
+            v-model= "cmdline"
+            dark dense single-line outlined
+          ></v-text-field> <v-btn
+      :disabled="!cmdline"
+      color="primary"
+      style="text-transform:none"
+      class="ma-2 white--text"
+      @click="enterconsole"
+    >
+      <v-icon small left dark>fa-paper-plane</v-icon>
+       Enter
+    </v-btn></div>
+        </div>
+        <div v-show="tab==3">
+          Log
+        </div>
+      </div>
     </v-content>
     <dlg-question :show="question" :title="asktitle" v-on:btn="cmd"></dlg-question>
     <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
@@ -64,6 +103,10 @@
 
 <script>
 
+const WcStatus = 1
+const WcStdout = 2
+const WcStdbuf = 3
+
 function wsUri() {
     let loc = window.location;
     let uri = 'ws:';
@@ -74,13 +117,6 @@ function wsUri() {
     uri += loc.pathname + 'ws';
     return uri;
 }
- /*
-     ws.onmessage = function(evt) {
-      var out = document.getElementById('output');
-      out.innerHTML += evt.data + '<br>';
-    }
-    ws.send('Hello, Server!');
-*/
 
 new Vue({
     vuetify: new Vuetify({
@@ -91,6 +127,23 @@ new Vue({
     el: '#app',
     data: appData,
     methods: {
+      enterconsole() {
+        axios
+        .post('/stdin',{message: this.cmdline})
+        .then(response => {
+           if (response.data.error) {
+             this.errmsg(response.data.error);
+              return
+            }
+            this.cmdline = '';
+         })
+         .catch(error => this.errmsg(error));
+      },
+      validateCmdLine: function(e) {
+        if (e.keyCode === 13) {
+          this.enterconsole()
+        }      
+      },
       stop() {
         let restore = false
         if (this.status != stSuspended) {
@@ -119,17 +172,32 @@ new Vue({
       },
       wsCmd({data}) {
         let cmd = JSON.parse(data);
-        if (cmd.cmd == 1) {
-          this.status = cmd.status;
+        switch (cmd.cmd) {
+          case WcStatus:
+            this.status = cmd.status;
+            if (cmd.message) {
+              this.message = cmd.message
+            }
+            break
+          case WcStdout:
+            let shouldScroll = this.console.scrollTop + 
+                  this.console.clientHeight === this.console.scrollHeight;
+            stdout.innerHTML += cmd.message + '<br>';
+            if (shouldScroll) {
+              this.console.scrollTop = this.console.scrollHeight;
+            }
+            this.stdcur.innerHTML = '&nbsp;'
+            break
+          case WcStdbuf:
+            if (!cmd.message) {
+              cmd.message = '&nbsp;';
+            }
+            this.stdcur.innerHTML = cmd.message;
+            break
         }
-        if (cmd.message) {
-          this.message = cmd.message
-        }
-        console.log( 'cmd', cmd, cmd.cmd, this.status );
       },
       connect() {
         this.socket = new WebSocket(wsUri())
-        console.log(wsUri())
         this.socket.onopen = () => {};
         this.socket.onmessage = this.wsCmd
         this.socket.onclose = () => {}
@@ -167,6 +235,9 @@ new Vue({
       },
     },
     mounted() {
+      this.stdout = document.getElementById("stdout")
+      this.console = document.getElementById("console")
+      this.stdcur = document.getElementById("stdcur")
       this.connect();
     },
     computed: {
@@ -184,6 +255,11 @@ function appData() {
       ],
       status: 0,
       message: '',
+      tab: 0,
+      cmdline: '',
+      stdout: null,
+      console: null,
+      stdcur: null,
 
       cmd: null,
       question: false,

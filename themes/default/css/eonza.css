@@ -1,100 +1,125 @@
 @font-face {
-    font-family: 'Font Awesome 5 Brands';
-    font-style: normal;
-    font-weight: 400;
-    font-display: auto;
-    src: url("../webfonts/fa-brands-400.woff") format("woff");
+  font-family: "Font Awesome 5 Brands";
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: url("../webfonts/fa-brands-400.woff") format("woff");
   /*  src: url("../webfonts/fa-brands-400.eot");
-    src: url("../webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-brands-400.woff2") format("woff2"), url("../webfonts/fa-brands-400.woff") format("woff"), url("../webfonts/fa-brands-400.ttf") format("truetype"), url("../webfonts/fa-brands-400.svg#fontawesome") format("svg");*/ }
-  
+    src: url("../webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-brands-400.woff2") format("woff2"), url("../webfonts/fa-brands-400.woff") format("woff"), url("../webfonts/fa-brands-400.ttf") format("truetype"), url("../webfonts/fa-brands-400.svg#fontawesome") format("svg");*/
+}
+
 .fab {
-    font-family: 'Font Awesome 5 Brands';
-    font-weight: 400; }
-    @font-face {
-    font-family: 'Font Awesome 5 Free';
-    font-style: normal;
-    font-weight: 400;
-    font-display: auto;
-    src: url("../webfonts/fa-regular-400.woff") format("woff");
-    /*  src: url("../webfonts/fa-regular-400.eot");
-    src: url("../webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.woff") format("woff"), url("../webfonts/fa-regular-400.ttf") format("truetype"), url("../webfonts/fa-regular-400.svg#fontawesome") format("svg"); */ }
+  font-family: "Font Awesome 5 Brands";
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 400;
+  font-display: auto;
+  src: url("../webfonts/fa-regular-400.woff") format("woff");
+  /*  src: url("../webfonts/fa-regular-400.eot");
+    src: url("../webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-regular-400.woff2") format("woff2"), url("../webfonts/fa-regular-400.woff") format("woff"), url("../webfonts/fa-regular-400.ttf") format("truetype"), url("../webfonts/fa-regular-400.svg#fontawesome") format("svg"); */
+}
 
 .far {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 400; }
-    @font-face {
-    font-family: 'Font Awesome 5 Free';
-    font-style: normal;
-    font-weight: 900;
-    font-display: auto;
-    src: url("../webfonts/fa-solid-900.woff") format("woff");
-    /*src: url("../webfonts/fa-solid-900.eot");
-    src: url("../webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.woff") format("woff"), url("../webfonts/fa-solid-900.ttf") format("truetype"), url("../webfonts/fa-solid-900.svg#fontawesome") format("svg");*/ }
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: auto;
+  src: url("../webfonts/fa-solid-900.woff") format("woff");
+  /*src: url("../webfonts/fa-solid-900.eot");
+    src: url("../webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("../webfonts/fa-solid-900.woff2") format("woff2"), url("../webfonts/fa-solid-900.woff") format("woff"), url("../webfonts/fa-solid-900.ttf") format("truetype"), url("../webfonts/fa-solid-900.svg#fontawesome") format("svg");*/
+}
 
 .fa,
 .fas {
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900; }
-  
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
 
 html {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 body {
-    font-family: Verdana,Arial;
-    height:100vh;
+  font-family: Verdana, Arial;
+  height: 100vh;
 }
 
 #app {
-    height:100%;
+  height: 100%;
 }
 
 v-content {
-    height:100%;
+  height: 100%;
 }
 
 .card {
-    background-color: #E3F2FD;
+  background-color: #e3f2fd;
 }
 
 .cardd {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .desc {
-    color: #888;
+  color: #888;
 }
 
 .desca {
-    color: #fff;
+  color: #fff;
 }
 
 .ban {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 .folders {
-    list-style: none;
+  list-style: none;
 }
 
 .sub {
-    list-style: none;
-    border-left: 2px dotted #aaa;
+  list-style: none;
+  border-left: 2px dotted #aaa;
 }
 
 .tree-item {
-    padding: 4px 5px;
-    cursor: pointer;
+  padding: 4px 5px;
+  cursor: pointer;
 }
 
 .sub-active {
-    list-style: none;
-    border-left: 2px dotted #1976D2;
+  list-style: none;
+  border-left: 2px dotted #1976d2;
 }
 
 .cmd-active > .tree-item {
-    background-color: #1976D2;
-    color: #fff;
+  background-color: #1976d2;
+  color: #fff;
 }
 
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("../webfonts/robotomono-regular.woff") format("woff");
+  font-display: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.console {
+  font-family: "Roboto Mono";
+  background-color: #444;
+  color: #fff;
+}
+
+#stdout {
+  padding: 16px 16px 0px 16px;
+}
+#stdcur {
+  padding: 0px 16px 16px 16px;
+}
