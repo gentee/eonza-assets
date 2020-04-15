@@ -74,7 +74,7 @@
           <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id < 2"
+            v-if="item.id < 3"
             link
           >
             <div style="width: 48px;">
@@ -90,7 +90,7 @@
           <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id > 1"
+            v-if="item.id > 2"
             link
           >
             <div style="width: 48px;">
@@ -130,6 +130,7 @@
 [[template "dyncomp" .]]
 [[template "card" .]]
 [[template "editor" .]]
+[[template "tasks" .]]
 [[template "help" .]]
 [[template "shutdown"]]
 [[template "dialogs"]]
@@ -148,13 +149,18 @@ const routes = [{
     component: Editor
   },
   {
-    path: '/help',
+    path: '/tasks',
     name: 2,
+    component: Tasks
+  },
+  {
+    path: '/help',
+    name: 3,
     component: Help,
   },
   {
     path: '/shutdown',
-    name: 3,
+    name: 4,
     component: Shutdown,
   },
 ];
@@ -368,7 +374,8 @@ function appData() {
       navitems: [
         { id: 0, title: [[lang "scripts"]], icon: 'fa-play-circle', route: '/' },
         { id: 1, title: [[lang "editor"]], icon: 'fa-edit', route: '/editor' },
-        { id: 2, title: [[lang "help"]], icon: 'fa-life-ring', route: '/help' },
+        { id: 2, title: [[lang "taskmanager"]], icon: 'fa-tasks', route: '/tasks' },
+        { id: 3, title: [[lang "help"]], icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
       menus: [

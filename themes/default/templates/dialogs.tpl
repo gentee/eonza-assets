@@ -230,18 +230,19 @@ const stSuspended = 3
 const stFinished = 4
 const stTerminated = 5
 const stFailed = 6
+const stCrashed = 6
 
 const statusList = [
     '', [[lang "active"]], [[lang "waiting"]], [[lang "suspended"]],
-    [[lang "finished"]], [[lang "terminated"]], [[lang "failed"]],
+    [[lang "finished"]], [[lang "terminated"]], [[lang "failed"]], [[lang "crashed"]],
  ]
 const statusColor = [
     '#fff', '#4CAF50', '#0277BD', '#EF6C00',
-    '#fff', '#37474F', '#F44336',
+    '#fff', '#37474F', '#F44336', '#4E342E',
  ]
 const statusIcon = [
     '', '', '', '',
-    'fa-flag-checkered', 'fa-thumbs-down', 'fa-exclamation-triangle',
+    'fa-flag-checkered', 'fa-thumbs-down', 'fa-exclamation-triangle', 'fa-bug'
  ]
 
 </script>

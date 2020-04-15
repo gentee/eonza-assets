@@ -8,6 +8,7 @@ checkbox: Checkbox
 collapseall: Collapse All
 console: Console
 copy: Copy
+crashed: Crashed
 defvalue: Default Value
 delconfirm: Are you sure you want to delete the selected item(s)?
 delete: Delete
@@ -58,6 +59,7 @@ savescript: The '%s' script was changed. Would you like to save it?
 script: Script
 scripts: Scripts
 scriptterm: The script execution has been terminated
+scriptcrash: The script has crashed
 search: Search scripts for...
 selcmd: Click on the script to add
 settings: Settings
@@ -66,6 +68,7 @@ stdinput: standard input
 stopscript: Do you want to stop the script execution?
 support: Technical Support
 suspended: Suspended
+taskmanager: Task Manager
 terminated: Terminated
 textarea: Multi-line text
 title: Title

@@ -123,3 +123,23 @@ v-content {
 #stdcur {
   padding: 0px 16px 16px 16px;
 }
+
+.table {
+  margin: 16px;
+}
+
+.table td {
+  padding: 4px 8px;
+}
+
+.table tr:nth-child(even) {
+  background-color: #cfd8dc;
+}
+
+.table td:nth-child(1) {
+  text-align: right;
+}
+
+.table td:nth-child(2) {
+  font-weight: bold;
+}

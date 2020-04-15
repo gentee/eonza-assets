@@ -39,11 +39,11 @@
     <v-content app style="height:100%;">
     <v-tabs v-model="tab">
         <v-tab>[[lang "info"]]</v-tab>
-        <v-tab>[[lang "form"]]</v-tab>
-        <v-tab>[[lang "console"]]</v-tab>
-        <v-tab>[[lang "log"]]</v-tab>
+        <v-tab v-show="isform">[[lang "form"]]</v-tab>
+        <v-tab v-show="isconsole">[[lang "console"]]</v-tab>
+        <v-tab v-show="islog">[[lang "log"]]</v-tab>
     </v-tabs>
-      <div style="height:calc(100% - 48px);overflow-y:auto;border: 2px solid #0f0;" id="console">
+      <div style="height:calc(100% - 48px);overflow-y:auto;" id="console">
     <v-alert
       prominent v-if="status == stFailed"
       type="error"
@@ -55,8 +55,13 @@
       icon="fa-thumbs-down"
     >[[lang "scriptterm"]]
     </v-alert>
-        <div style="border: 2px solid #f00;" v-show="tab==0">
-        Information
+        <div v-show="tab==0">
+          <table class="table">
+          <tr><td>Name:</td><td>ejek skejsn eksneksn skensnksn</td></tr>
+          <tr><td>Status: </td><td>{{statusList[status]}}</td></tr>
+          <tr><td>Started: </td><td>esese eskeseske </td></tr>
+          <tr><td>Finished: </td><td>111</td></tr>
+          </table>
         </div>
         <div v-show="tab==1">
           Form
@@ -180,6 +185,9 @@ new Vue({
             }
             break
           case WcStdout:
+            if (!this.isconsole) {
+              this.isconsole = true
+            }
             let shouldScroll = this.console.scrollTop + 
                   this.console.clientHeight === this.console.scrollHeight;
             stdout.innerHTML += cmd.message + '<br>';
@@ -187,6 +195,9 @@ new Vue({
               this.console.scrollTop = this.console.scrollHeight;
             }
             this.stdcur.innerHTML = '&nbsp;'
+            if (this.tab==0) {
+              this.tab = 2
+            }
             break
           case WcStdbuf:
             if (!cmd.message) {
@@ -260,6 +271,9 @@ function appData() {
       stdout: null,
       console: null,
       stdcur: null,
+      isform: false,
+      isconsole: false,
+      islog: false,
 
       cmd: null,
       question: false,
