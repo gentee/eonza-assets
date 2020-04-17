@@ -132,7 +132,18 @@ v-content {
   padding: 4px 8px;
 }
 
-.table tr:nth-child(even) {
+.tdcenter {
+  text-align: center;
+}
+
+.table th {
+  padding: 4px 8px;
+  border-bottom: 1px solid #bbb;
+  color: #888;
+  background-color: #fff;
+}
+
+.table tr:nth-child(odd) {
   background-color: #cfd8dc;
 }
 

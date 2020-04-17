@@ -3,7 +3,7 @@
 <head> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>[[ .App.Title ]]</title>
+  <title>[[ .Title ]]</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/vuetify.min.css">
@@ -14,7 +14,7 @@
 <div id = "app">
   <v-app style="height:100%;">
       <v-app-bar app color="blue darken-1" dense dark>
-        <v-toolbar-title>[[ .App.Title ]]</v-toolbar-title>
+        <v-toolbar-title>[[ .Title ]]</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-chip
         class="ma-2 font-weight-bold px-6"
@@ -57,10 +57,11 @@
     </v-alert>
         <div v-show="tab==0">
           <table class="table">
-          <tr><td>Name:</td><td>ejek skejsn eksneksn skensnksn</td></tr>
-          <tr><td>Status: </td><td>{{statusList[status]}}</td></tr>
-          <tr><td>Started: </td><td>esese eskeseske </td></tr>
-          <tr><td>Finished: </td><td>111</td></tr>
+          <tr><td>ID:</td><td>[[.ID]]</td></tr>
+          <tr><td>[[lang "name"]]:</td><td>[[.Name]]</td></tr>
+          <tr><td>[[lang "status"]]: </td><td>{{statusList[status]}}</td></tr>
+          <tr><td>[[lang "start"]]: </td><td>esese eskeseske </td></tr>
+          <tr><td>[[lang "finish"]]: </td><td>111</td></tr>
           </table>
         </div>
         <div v-show="tab==1">
@@ -134,7 +135,7 @@ new Vue({
     methods: {
       enterconsole() {
         axios
-        .post('/stdin',{message: this.cmdline})
+        .post(`/stdin?taskid=${ [[.ID]] }`,{message: this.cmdline})
         .then(response => {
            if (response.data.error) {
              this.errmsg(response.data.error);
@@ -166,7 +167,7 @@ new Vue({
       },
       syscommand(id) {
         axios
-        .get('/sys?cmd=' + id)
+        .get(`/sys?cmd=${id}&taskid=${ [[.ID]] }`)
         .then(response => {
             if (response.data.error) {
                 this.errmsg(response.data.error);
@@ -257,13 +258,6 @@ new Vue({
 
 function appData() { 
     return {
-      develop: [[.Develop]],
-      menus: [
-        { title: [[lang "refresh"]], icon: "fa-redo-alt", onclick: this.reload, 
-             hide: [[not .Develop]]},
-        { title: [[lang "exit"]], icon: "fa-power-off", 
-          onclick: () => this.confirm([[lang "exitconfirm"]], this.exit) },
-      ],
       status: 0,
       message: '',
       tab: 0,

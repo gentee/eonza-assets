@@ -238,7 +238,7 @@ const statusList = [
  ]
 const statusColor = [
     '#fff', '#4CAF50', '#0277BD', '#EF6C00',
-    '#fff', '#37474F', '#F44336', '#4E342E',
+    '#fff', '#37474F', '#F44336', '#5D4037',
  ]
 const statusIcon = [
     '', '', '', '',

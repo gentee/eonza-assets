@@ -26,6 +26,7 @@ exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
 expandall: Expand All
 failed: Failed
+finish: Finish
 finished: Finished
 form: Form
 help: Help
@@ -64,6 +65,8 @@ search: Search scripts for...
 selcmd: Click on the script to add
 settings: Settings
 sourcecode: Source Code
+start: Start
+status: Status
 stdinput: standard input
 stopscript: Do you want to stop the script execution?
 support: Technical Support

@@ -174,6 +174,7 @@ const store = new Vuex.Store({
       loaded: false,
       active: null,
       list: null,
+      tasks: null,
       clipboard: null,
       script: {
           settings: {
@@ -204,6 +205,9 @@ const store = new Vuex.Store({
     },
     updateClipboard (state, value) {
       state.clipboard = value;
+    },
+    updateTasks (state, tasks) {
+      state.tasks = tasks;
     },
   }
 })
@@ -332,6 +336,19 @@ new Vue({
         })
         .catch(error => this.errmsg(error));
       },
+      loadTasks() {
+        console.log('load tasks')
+        axios
+        .get('/api/tasks')
+        .then(response => {
+            if (response.data.error) {
+                this.errmsg(response.data.error);
+                return
+            }
+            store.commit('updateTasks', response.data.list);
+        })
+        .catch(error => this.errmsg(error));
+      },
       filterList(search) {
             let ret = [];
             for (let key in store.state.list) {
@@ -364,6 +381,9 @@ new Vue({
             return ret;
         },
     },
+    mounted() {
+      this.loadTasks()
+    }
 })
 
 function appData() { 
