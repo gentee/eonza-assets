@@ -337,7 +337,6 @@ new Vue({
         .catch(error => this.errmsg(error));
       },
       loadTasks() {
-        console.log('load tasks')
         axios
         .get('/api/tasks')
         .then(response => {
@@ -348,6 +347,14 @@ new Vue({
             store.commit('updateTasks', response.data.list);
         })
         .catch(error => this.errmsg(error));
+      },
+      getTask(id) {
+         for (let i = 0; i<store.state.tasks.length; i++) {
+           if (store.state.tasks[i].id == id ) {
+             return store.state.tasks[i]
+           }
+         }
+         return null
       },
       filterList(search) {
             let ret = [];

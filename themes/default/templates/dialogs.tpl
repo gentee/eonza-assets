@@ -249,6 +249,10 @@ const WcStatus = 1
 const WcStdout = 2
 const WcStdbuf = 3
 
+const SysSuspend = 1
+const SysResume = 2
+const SysTerminate = 3
+
 function wsUri() {
     let loc = window.location;
     let uri = 'ws:';
