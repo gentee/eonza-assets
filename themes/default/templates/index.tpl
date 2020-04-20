@@ -380,9 +380,34 @@ new Vue({
             });
             return ret;
         },
+        connect() {
+          this.socket = new WebSocket(wsUri())
+          this.socket.onopen = () => {};
+          this.socket.onmessage = this.wsCmd
+          this.socket.onclose = () => {}
+        },
+        wsCmd({data}) {
+          let cmd = JSON.parse(data);
+          if (cmd.cmd == WcStatus) {
+            let list = store.state.tasks
+            for (let i=0; i < list.length; i++) {
+              if (list[i].id == cmd.taskid) {
+                list[i].status = cmd.status
+                if (cmd.message) {
+                  list[i].message = cmd.message
+                }
+                if (cmd.finish && cmd.status >= stFinished) {
+                  list[i].finish = cmd.finish
+                }
+              }
+            }
+            store.commit('updateTasks', list);
+          }
+        },
     },
     mounted() {
       this.loadTasks()
+      this.connect()
     }
 })
 
@@ -412,6 +437,7 @@ function appData() {
       cache: 0,
       newcmd: false,
       newcmdfn: null,
+      socket: null,
     }
 }
 

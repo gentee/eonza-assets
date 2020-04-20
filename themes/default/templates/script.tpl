@@ -109,21 +109,6 @@
 
 <script>
 
-const WcStatus = 1
-const WcStdout = 2
-const WcStdbuf = 3
-
-function wsUri() {
-    let loc = window.location;
-    let uri = 'ws:';
-    if (loc.protocol === 'https:') {
-      uri = 'wss:';
-    }
-    uri += '//' + loc.host;
-    uri += loc.pathname + 'ws';
-    return uri;
-}
-
 new Vue({
     vuetify: new Vuetify({
       icons: {
