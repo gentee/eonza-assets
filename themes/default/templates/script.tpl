@@ -24,6 +24,7 @@
       <v-icon left class="pr-1" v-if="!!statusIcon[status]">{{statusIcon[status]}}</v-icon>
       {{statusList[status]}}
     </v-chip>
+    [[if .IsScript]]
         <v-btn v-if="status < stSuspended" color="primary" class="white mx-2 font-weight-bold" outlined @click="syscommand(1)">
             <v-icon small left>fa-pause</v-icon>&nbsp;Suspend
         </v-btn>
@@ -34,6 +35,7 @@
         outlined @click="stop()">
             <v-icon small left>fa-times</v-icon>&nbsp;Break
         </v-btn>
+    [[end]]
         <v-spacer></v-spacer>
       </v-app-bar>
     <v-content app style="height:100%;">
@@ -55,23 +57,31 @@
       icon="fa-thumbs-down"
     >[[lang "scriptterm"]]
     </v-alert>
+    <v-alert
+      prominent v-if="status == stCrashed"
+      color="brown darken-2" dark
+      icon="fa-bug"
+    >[[lang "scriptcrash"]]
+    </v-alert>
+
         <div v-show="tab==0">
           <table class="table">
           <tr><td>ID:</td><td>[[.ID]]</td></tr>
           <tr><td>[[lang "name"]]:</td><td>[[.Name]]</td></tr>
           <tr><td>[[lang "status"]]: </td><td>{{statusList[status]}}</td></tr>
-          <tr><td>[[lang "start"]]: </td><td>esese eskeseske </td></tr>
-          <tr><td>[[lang "finish"]]: </td><td>111</td></tr>
+          <tr><td>[[lang "start"]]: </td><td>{{start}}</td></tr>
+          <tr><td>[[lang "finish"]]: </td><td>{{finish}}</td></tr>
           </table>
         </div>
         <div v-show="tab==1">
           Form
         </div>
         <div v-show="tab==2">
-          <div class="console" id="stdout">
+          <div class="console" id="stdout">[[.Stdout]]
           </div>
         <div class="console" id="stdcur">
         </div>
+       [[if .IsScript]]
         <div v-if="status < stFinished" style="padding: 0px 16px;background-color: #444;" class="d-flex justify-start align-baseline">
         <v-text-field class="console" 
            style="max-width: 1024px;"
@@ -89,6 +99,7 @@
       <v-icon small left dark>fa-paper-plane</v-icon>
        Enter
     </v-btn></div>
+        [[end]]
         </div>
         <div v-show="tab==3">
           Log
@@ -169,6 +180,9 @@ new Vue({
             if (cmd.message) {
               this.message = cmd.message
             }
+            if (cmd.finish) {
+              this.finish = cmd.finish
+            }
             break
           case WcStdout:
             if (!this.isconsole) {
@@ -235,7 +249,9 @@ new Vue({
       this.stdout = document.getElementById("stdout")
       this.console = document.getElementById("console")
       this.stdcur = document.getElementById("stdcur")
-      this.connect();
+      [[if .IsScript]]
+         this.connect();
+      [[end]]
     },
     computed: {
     }
@@ -243,15 +259,17 @@ new Vue({
 
 function appData() { 
     return {
-      status: 0,
+      status: [[.Task.Status]],
       message: '',
       tab: 0,
       cmdline: '',
+      start: [[.Start]],
+      finish: [[.Finish]],
       stdout: null,
       console: null,
       stdcur: null,
       isform: false,
-      isconsole: false,
+      isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: false,
 
       cmd: null,

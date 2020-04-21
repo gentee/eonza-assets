@@ -230,7 +230,7 @@ const stSuspended = 3
 const stFinished = 4
 const stTerminated = 5
 const stFailed = 6
-const stCrashed = 6
+const stCrashed = 7
 
 const statusList = [
     '', [[lang "active"]], [[lang "waiting"]], [[lang "suspended"]],
