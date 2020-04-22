@@ -185,6 +185,9 @@ const Editor = Vue.component('editor', {
     data: editorData,
     mixins: [changed],
     methods: {
+        runsilently() {
+          this.$root.run(this.script.original, true)
+        },
         delete() {
           let comp = this;
           this.$root.confirmYes( [[lang "delscript"]], 
@@ -322,6 +325,7 @@ function editorData() {
         develop: [[.Develop]],
         toopen: '',
         menu: [
+            { title: [[lang "runsilently"]], onclick: this.runsilently },
             { title: [[lang "delete"]], onclick: this.delete },
         ],
         rules: {

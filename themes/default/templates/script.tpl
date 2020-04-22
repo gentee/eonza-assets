@@ -261,7 +261,7 @@ function appData() {
     return {
       status: [[.Task.Status]],
       message: '',
-      tab: 0,
+      tab: [[if len .Stdout]]2[[else]]0[[end]],
       cmdline: '',
       start: [[.Start]],
       finish: [[.Finish]],

@@ -227,9 +227,9 @@ new Vue({
         this.errtitle = title;
         this.error = true;
       },
-      run(name) {
+      run(name, silent) {
         axios
-        .get('/api/run?name=' + name)
+        .get('/api/run?name=' + name + (silent ? '&silent=true' : '' ))
         .then(response => {
             if (response.data.error) {
                 this.$root.errmsg(response.data.error);

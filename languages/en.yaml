@@ -54,6 +54,7 @@ recently: Recently Launched
 refresh: Refresh
 required: This field is required
 run: Run
+runsilently: Run Silently
 save: Save
 saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?

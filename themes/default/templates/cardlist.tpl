@@ -21,6 +21,14 @@
             </template>
             <span>[[lang "edit"]]</span>
           </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+                          <v-btn @click="$root.run(item.name, true)" icon color="primary" v-on="on"  >
+                              <v-icon>fa-angle-right</v-icon>
+                          </v-btn>
+            </template>
+            <span>[[lang "runsilently"]]</span>
+          </v-tooltip>
           </div>
         </v-card>
     </div>
