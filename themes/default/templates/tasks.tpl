@@ -64,7 +64,9 @@ const Tasks = {
         return
       }
       if (task.status < stFinished ) {
-        window.open('http://localhost:' + task.port, '_blank');
+        console.log('loc', window.location.protocol, window.location);
+        window.open(window.location.protocol + '//' + window.location.hostname + ':' + task.port,
+         '_blank');
       } else {
         window.open('/task/'+task.id, '_blank');
       }
