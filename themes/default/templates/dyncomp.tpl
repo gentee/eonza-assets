@@ -6,7 +6,7 @@
 
 <script type="text/x-template" id="c-textarea">
     <v-textarea  v-model="active.values[par.name]" @input="change"
-         :label="par.title" auto-grow dense
+         :label="par.title" :options="par.options" auto-grow dense :rules="[rules]"
     ></v-textarea>
 </script>
 
@@ -30,11 +30,29 @@ Vue.component('c-textarea', {
     template: '#c-textarea',
     mixins: [changed],
     data() {return {
-
-        }
+        options: {},
+        rules: value => {
+            if (this.options.required && !value) {
+                return [[lang "required"]]
+            }
+            return true
+        },
+      }
     },
-    computed: {
-//        cmds: () => { return store.state.list },
+    mounted() {
+        if (this.par.options) {
+            let list = this.par.options.split(/\r?\n/)
+            for (let i = 0; i < list.length; i++) {
+                let pval = list[i].trim().split(':')
+                if (pval.length == 2) {
+                    let name = pval[0].trim()
+                    switch (name) {
+                        case 'required':
+                           this.options.required = !!pval[1]
+                    }
+                }
+            }
+        }
     },
     props: {
         par: Object,

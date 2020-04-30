@@ -21,6 +21,7 @@ edititem: Edit Item
 editor: Editor
 errnickname: The '%s' user has already existed
 erropen: The %s script has not been found
+errscriptname: The '%s' script has already existed
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
@@ -32,6 +33,7 @@ form: Form
 help: Help
 history: History
 info: Information
+initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
 invalidvalue: The value is invalid
 licagreement: License Agreement

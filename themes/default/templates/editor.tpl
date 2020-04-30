@@ -118,10 +118,7 @@
                           v-model="editedItem.type"
                           :items="PTypes" 
                           ></v-select>
-                      <v-text-field v-model="editedItem.default"
-                      label="[[lang "defvalue"]]"
-                      ></v-text-field>
-                      <v-textarea  v-model="editedItem.more"
+                      <v-textarea  v-model="editedItem.options"
                       label="[[lang "additional"]]" auto-grow dense
                       ></v-textarea>
                     </v-container>
@@ -141,8 +138,7 @@
                   <td>{{ item.name }}</td>
                   <td>{{item.title}}</td>
                   <td>{{ PTypes[item.type].text }}</td>
-                  <td>{{item.default}}</td>
-                  <td>{{item.more}}</td>
+                  <td>{{item.options}}</td>
                   <td><span @click="editParams(index)" class="mr-2">
                       <v-icon small @click="">fa-pencil-alt</v-icon>
                       </span>
@@ -350,11 +346,8 @@ function editorData() {
             text: [[lang "type"]],
             value: 'type',
             },{
-            text: [[lang "defvalue"]],
-            value: 'default',
-            },{
             text: [[lang "additional"]],
-            value: 'more',
+            value: 'options',
             },{
             text: [[lang "actions"]],
             value: 'actions',

@@ -270,7 +270,7 @@ Vue.component('tree', {
                 if (!!par && comp.cmds[par]) {
                     comp.addItem({
                         name: comp.cmds[par].name,
-                        values: {},
+                        values: !!comp.cmds[par].initial ? JSON.parse(comp.cmds[par].initial) : {},
                     })
                 }
             })
