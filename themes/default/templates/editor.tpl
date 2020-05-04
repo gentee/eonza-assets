@@ -52,7 +52,7 @@
             </template>
             <v-list dense>
               <v-list-item
-                v-for="(item, i) in menu"
+                v-for="(item, i) in scriptmenu()"
                 :key="i"
                 @click=item.onclick
               >
@@ -280,6 +280,12 @@ const Editor = Vue.component('editor', {
             this.change()
             this.closeParams()
         },
+        scriptmenu() {
+          return this.menu.filter( (i) => !i.ifcond || i.ifcond() );
+        },
+        canrun() {
+           return this.loaded && !this.script.settings.unrun
+        }
     },
     mounted: function() {
         store.commit('updateTitle', [[lang "editor"]]);
@@ -321,7 +327,7 @@ function editorData() {
         develop: [[.Develop]],
         toopen: '',
         menu: [
-            { title: [[lang "runsilently"]], onclick: this.runsilently },
+            { title: [[lang "runsilently"]], onclick: this.runsilently, ifcond: this.canrun },
             { title: [[lang "delete"]], onclick: this.delete },
         ],
         rules: {

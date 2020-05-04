@@ -21,7 +21,7 @@
             </template>
             <span>[[lang "edit"]]</span>
           </v-tooltip>
-          <v-tooltip top>
+          <v-tooltip top v-if="!item.unrun">
             <template v-slot:activator="{ on }">
                           <v-btn @click="$root.run(item.name, true)" icon color="primary" v-on="on"  >
                               <v-icon>fa-angle-right</v-icon>
