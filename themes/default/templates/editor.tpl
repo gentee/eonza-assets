@@ -1,7 +1,7 @@
 <script type="text/x-template" id="editor">
   <v-container style="height:100%;">
     <v-toolbar dense flat=true>
-      <v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
+      <v-icon v-if="script.embedded" left small>fa-shield-alt</v-icon><v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
         <v-menu left>
             <template v-slot:activator="{ on: history }">

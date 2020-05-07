@@ -356,11 +356,11 @@ new Vue({
          }
          return null
       },
-      filterList(search) {
+      filterList(search,all) {
             let ret = [];
             for (let key in store.state.list) {
               let val = store.state.list[key];
-              if (!val.title) continue;
+              if (!val.title || (!all && !search && val.embedded)) continue;
               let weight = 0;
               if (!!search) {
                 const lower = search.toLowerCase();

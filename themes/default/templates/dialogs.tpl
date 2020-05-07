@@ -202,7 +202,7 @@ Vue.component('dlg-commands', {
     },
     computed: {
       list: function() { return store.state.list },
-      curlist: function() { return this.$root.filterList(this.search) },
+      curlist: function() { return this.$root.filterList(this.search, true) },
     },
     mounted() {
       this.$root.loadList(this.viewlist);
