@@ -1,0 +1,14 @@
+settings:
+  name: source-code
+  title: Source Code
+  unrun: true
+params:
+- name: external
+  title: External source code
+  type: 0
+- name: code
+  title: Source Code
+  type: 1
+  options: |-
+    initial: "%body%"
+    default: "%body%"

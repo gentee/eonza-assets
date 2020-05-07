@@ -32,7 +32,7 @@
         <v-btn color="primary" class="mx-2" @click="load('new')" >
             <v-icon left small>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
         </v-btn>
-        <v-btn color="primary" class="mx-2" :disabled="!changed" @click="this.$root.saveScript">
+        <v-btn color="primary" class="mx-2" :disabled="!changed || script.embedded" @click="this.$root.saveScript">
             <v-icon left small>fa-save</v-icon>&nbsp;[[lang "save"]]
         </v-btn>
         <v-btn color="primary" class="mx-2" @click="saveas"
@@ -220,6 +220,9 @@ const Editor = Vue.component('editor', {
                   response.data.tree = [];
                 } 
                 this.script = response.data;
+                ilist = store.state.list[this.script.settings.name]
+                if (ilist)
+                   this.script.embedded = ilist.embedded
                 addsysinfo(this.script.tree, null)
                 if (this.script.tree && this.script.tree.length > 0) {
                   this.active = this.script.tree[0];
@@ -236,6 +239,7 @@ const Editor = Vue.component('editor', {
         },
         saveas() {
             this.script.original = '';
+            this.script.embedded = false;
             this.$root.saveScript();
         },
         closeParams () {
@@ -285,7 +289,13 @@ const Editor = Vue.component('editor', {
         },
         canrun() {
            return this.loaded && !this.script.settings.unrun
-        }
+        },
+        noembed() {
+           return !this.script.embedded
+        },
+        export() {
+          window.location = '/api/export?name=' + this.script.original
+        },
     },
     mounted: function() {
         store.commit('updateTitle', [[lang "editor"]]);
@@ -327,8 +337,9 @@ function editorData() {
         develop: [[.Develop]],
         toopen: '',
         menu: [
+            { title: [[lang "export"]], onclick: this.export },
             { title: [[lang "runsilently"]], onclick: this.runsilently, ifcond: this.canrun },
-            { title: [[lang "delete"]], onclick: this.delete },
+            { title: [[lang "delete"]], onclick: this.delete, ifcond: this.noembed  },
         ],
         rules: {
           required: value => !!value || [[lang "required"]],

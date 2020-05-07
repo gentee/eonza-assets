@@ -1,0 +1,10 @@
+settings:
+  name: write-console
+  title: Write To Console
+  unrun: true
+params:
+  - name: text
+    title: Text
+    type: 1
+    options: "required: true"
+code: Println( text )
