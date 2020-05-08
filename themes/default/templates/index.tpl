@@ -114,6 +114,7 @@
     <v-content app style="height:100%;">
     <router-view></router-view>
     </v-content>
+    <dlg-upload :show="upload" :title="uploadtitle" v-on:btn="cmd"></dlg-upload>
     <dlg-question :show="question" :title="asktitle" v-on:btn="cmd"></dlg-question>
     <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
     <dlg-commands :show="newcmd" v-on:cmdname="newcmdfn"></dlg-commands>
@@ -315,6 +316,16 @@ new Vue({
         }
         this.question = true;
       },
+      uploadDlg( title, fn ) {
+        this.uploadtitle = title;
+        this.cmd = (par) => {
+          this.upload = false;
+          if (par.btn == btn.OK) {
+             fn(par);
+          }
+        }
+        this.upload = true;
+      },
       activemenu() {
         return this.menus.filter( (i) => !i.hide );
       },
@@ -438,6 +449,8 @@ function appData() {
       ],
       question: false,
       asktitle: "",
+      upload: false,
+      uploadtitle: "",
       cmd: null,
       error: false,
       errtitle: '',

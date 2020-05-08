@@ -1,3 +1,85 @@
+<script type="text/x-template" id="dlg-upload">
+    <v-dialog v-model="show" max-width="600" persistent = true>
+      <div>
+
+      <v-card>
+        <v-card-title classx="py-4">
+        <div style="width: 100%;">
+          <div class="pb-3">{{title}}</div>
+          <v-cloak @drop.prevent="addDropFile" @dragover.prevent>
+          <v-file-input chips multiple label="[[lang "selectupload"]]" v-model="files"></v-file-input>
+          </v-cloak>
+          <v-checkbox v-model="overwrite" label="[[lang "overwrite"]]"></v-checkbox>
+        </div>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" :disabled="!files.length"
+            @click="click(btn.OK)"  class="ma-2"
+          >
+            [[lang "upload"]]
+          </v-btn>
+          <v-btn
+            color="primary" outlined
+            @click="click(btn.Cancel)"  class="ma-2"
+          >
+            [[lang "cancel"]]
+          </v-btn>
+
+        </v-card-actions>
+      </v-card>
+
+      </div>
+    </v-dialog>
+</script>
+
+<script>
+
+Vue.component('dlg-upload', {
+    template: '#dlg-upload',
+    props: ['show', 'title'],
+    data() {
+       return {
+         overwrite: false,
+         files: [],
+       }
+    },
+    methods: {
+        addDropFile(e) {
+          this.files = Array.from(e.dataTransfer.files);
+        },
+        click: function (par) {
+            this.$emit('btn', {btn: par, files: this.files, overwrite: this.overwrite});
+        },
+       keyProcess: function(event) {
+            switch (event.keyCode) {
+                case 13:
+                case 32: 
+                  if (this.files.length) {
+                   this.click(btn.OK);
+
+                  }
+                  break;
+                case 27: 
+                   this.click(btn.Cancel);
+                   break;
+            }
+        }
+    },
+    watch: {
+        show(newval) {
+            if (newval) {
+                this.files = []
+                window.addEventListener('keydown', this.keyProcess);
+            } else {
+                window.removeEventListener('keydown', this.keyProcess);
+            }
+        }
+    }
+});
+</script>
+
 <script type="text/x-template" id="dlg-question">
     <v-dialog v-model="show" max-width="600" persistent = true>
       <div>
@@ -36,6 +118,8 @@
 const btn = {
     No: 0,
     Yes: 1,
+    OK: 2,
+    Cancel: 3,
 }
 
 Vue.component('dlg-question', {

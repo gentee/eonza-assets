@@ -35,6 +35,8 @@ finished: Finished
 form: Form
 help: Help
 history: History
+import: Import
+importtitle: Import scripts
 info: Information
 initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
@@ -53,6 +55,7 @@ newscript: New Script
 nickname: Nickname
 no: No
 ok: OK
+overwrite: Overwrite the existing ones
 parameters: Parameters
 paste: Paste
 recently: Recently Launched
@@ -69,12 +72,14 @@ scriptterm: The script execution has been terminated
 scriptcrash: The script has crashed
 search: Search scripts for...
 selcmd: Click on the script to add
+selectupload: Select files to upload
 settings: Settings
 sourcecode: Source Code
 start: Start
 status: Status
 stdinput: standard input
 stopscript: Do you want to stop the script execution?
+submit: Submit
 support: Technical Support
 suspended: Suspended
 taskmanager: Task Manager
@@ -85,5 +90,6 @@ type: Type
 version: Version
 unknownuser: Unknown user id %x
 unrun: Unrunnable script
+upload: Upload
 waiting: Waiting
 yes: Yes

@@ -35,6 +35,8 @@ finished: Завершен
 form: Форма
 help: Помощь
 history: История
+import: Импорт
+importtitle: Импорт скриптов
 info: Информация
 initvalue: Начальное значение
 invalidfield: Значение поля '%s' некорректно
@@ -53,6 +55,7 @@ newscript: Новый скрипт
 nickname: Псевдоним
 no: Нет
 ok: OK
+overwrite: Перезаписывать существующие
 parameters: Параметры
 paste: Вставить
 recently: Недавно запущенные
@@ -69,6 +72,7 @@ scriptterm: Выполнение скрипта было прервано
 scriptcrash: Скрипт аварийно завершил работу
 search: Поиск скриптов
 selcmd: Нажмите на скрипт чтобы добавить его
+selectupload: Выберите файлы для загрузки
 settings: Настройки
 sourcecode: Исходный код
 start: Начало
@@ -85,5 +89,6 @@ type: Тип
 version: Версия
 unknownuser: Неизвестный пользователь %x
 unrun: Незапускаемый скрипт
+upload: Загрузить
 waiting: Ожидание
 yes: Да

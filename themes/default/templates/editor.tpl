@@ -1,7 +1,7 @@
 <script type="text/x-template" id="editor">
   <v-container style="height:100%;">
     <v-toolbar dense flat=true>
-      <v-icon v-if="script.embedded" left small>fa-shield-alt</v-icon><v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
+      <v-icon v-if="script.embedded" left small>fa-lock</v-icon><v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
         <v-menu left>
             <template v-slot:activator="{ on: history }">
@@ -200,22 +200,13 @@ const Editor = Vue.component('editor', {
                 .catch(error => this.$root.errmsg(error));
            }); 
         },
-        open() {
-            this.loaded = false;
-            axios
-            .get('/api/script' + ( !!this.toopen ? '?name='+this.toopen : ''))
-            .then(response => {
-                if (response.data.error) {
-                    this.$root.errmsg(response.data.error);
-                    return
-                }
+        updateScript(response) {
                 if (!!response.data.history) {
                     response.data.history = response.data.history.filter( 
                            (i) => i.name != response.data.settings.name );
                 }
                 if (!response.data.params) 
                     response.data.params = [];
-                //response.data.tree = this.tree
                 if (!response.data.tree) {
                   response.data.tree = [];
                 } 
@@ -229,6 +220,17 @@ const Editor = Vue.component('editor', {
                 } else {
                   this.active = null;
                 }
+        },
+        open() {
+            this.loaded = false;
+            axios
+            .get('/api/script' + ( !!this.toopen ? '?name='+this.toopen : ''))
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.updateScript(response)
                 this.loaded = true;
             })
             .catch(error => this.$root.errmsg(error));
@@ -293,8 +295,38 @@ const Editor = Vue.component('editor', {
         noembed() {
            return !this.script.embedded
         },
-        export() {
+        exportScript() {
           window.location = '/api/export?name=' + this.script.original
+        },
+        importScript() {
+          let comp = this
+
+          this.$root.uploadDlg([[lang "importtitle"]], function(par){
+            const formData = new FormData();
+            if (!par.files.length) return;
+            Array
+            .from(Array(par.files.length).keys())
+            .map(x => {
+               formData.append('files', par.files[x], par.files[x].name);
+            });
+            formData.set('overwrite', par.overwrite);
+            axios({
+              method: 'post',
+              url: '/api/import',
+              data: formData,
+              headers: {'Content-Type': 'multipart/form-data' }
+            })
+            .then( response => {
+                if (response.data.error) {
+                    comp.$root.errmsg(response.data.error);
+                    return
+                }
+                comp.$root.checkChanged(function(){
+                  comp.updateScript(response)
+                })
+            })
+            .catch( error => comp.$root.errmsg(error));
+          })
         },
     },
     mounted: function() {
@@ -337,7 +369,8 @@ function editorData() {
         develop: [[.Develop]],
         toopen: '',
         menu: [
-            { title: [[lang "export"]], onclick: this.export },
+            { title: [[lang "import"]], onclick: this.importScript },
+            { title: [[lang "export"]], onclick: this.exportScript },
             { title: [[lang "runsilently"]], onclick: this.runsilently, ifcond: this.canrun },
             { title: [[lang "delete"]], onclick: this.delete, ifcond: this.noembed  },
         ],
