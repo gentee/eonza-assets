@@ -1,7 +1,8 @@
 <script type="text/x-template" id="card">
     <div class="pl-6" v-if="active" style="max-height: 100%;overflow-y: auto;
          border-left: 2px solid #ddd;width: 100%;">
-        <div style="font-weight: bold;" class="pa-3" :class="forcard" >{{title}}</div>
+        <div style="font-weight: bold;" class="pa-3" :class="forcard" >{{title}}
+        <v-icon @click="jumpto" color="primary" small style="float:right;">fa-external-link-alt</v-icon></div>
         <v-text-field v-model="active.values._desc"
         label="[[lang "desc"]]" @input="change"
         ></v-text-field>
@@ -23,6 +24,12 @@ Vue.component('card', {
     props: {
 //        item: Object,
     },
+    methods: {
+        jumpto() {
+            console.log(this.$parent)
+            this.$parent.load(this.active.name)
+        }
+    }
 });
 
 function cardData() {
