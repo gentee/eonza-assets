@@ -168,10 +168,12 @@
 <script>
 const PCheckbox = 0;
 const PTextarea = 1;
+const PSingleText = 1;
 const PTypes = [
     {text: [[lang "checkbox"]], value: 0, comp: 'c-checkbox'},
-    {text: [[lang "textarea"]], value: 1, comp: 'c-textarea'}
-]
+    {text: [[lang "textarea"]], value: 1, comp: 'c-textarea'},
+    {text: [[lang "singletext"]], value: 2, comp: 'c-singletext'},
+].sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 const patScript = /^[a-z][a-z\d\._-]*$/
 const patName = /^[a-z][a-z\d\_]*$/
