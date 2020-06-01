@@ -9,6 +9,6 @@ params:
 - name: code
   title: Source Code
   type: 1
-  options: |-
+  options: 
     initial: "%body%"
     default: "%body%"

@@ -66,6 +66,7 @@ runsilently: Run Silently
 save: Save
 saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?
+select: Select
 script: Script
 scripts: Scripts
 scriptterm: The script execution has been terminated

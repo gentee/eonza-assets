@@ -168,12 +168,14 @@
 <script>
 const PCheckbox = 0;
 const PTextarea = 1;
-const PSingleText = 1;
+const PSingleText = 2;
+const PSelect = 3;
 const PTypes = [
     {text: [[lang "checkbox"]], value: 0, comp: 'c-checkbox'},
     {text: [[lang "textarea"]], value: 1, comp: 'c-textarea'},
     {text: [[lang "singletext"]], value: 2, comp: 'c-singletext'},
-].sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
+    {text: [[lang "select"]], value: 3, comp: 'c-select'},
+];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 const patScript = /^[a-z][a-z\d\._-]*$/
 const patName = /^[a-z][a-z\d\_]*$/
@@ -262,7 +264,10 @@ const Editor = Vue.component('editor', {
         editParams (index) {
             this.editedIndex = index
             this.editedItem = Object.assign({}, this.script.params[index])
-//            this.editedItem = JSON.parse(JSON.stringify(item));
+            if (!!this.editedItem.options) {
+              this.editedItem.options = JSON.stringify(this.editedItem.options)
+            }
+//            this.editedItem = JSON.stringify(item);
             this.dlgParams = true
         },
         moveParams (index, direct) {
@@ -280,6 +285,10 @@ const Editor = Vue.component('editor', {
                 this.$root.errmsg(format([[lang "invalidfield"]], [[lang "title"]]))
                 return
             }
+            if (!this.editedItem.options) {
+              this.editedItem.options = '{}'
+            }
+            this.editedItem.options = JSON.parse(this.editedItem.options);
             if (this.editedIndex > -1) {
                 this.$set(this.script.params, this.editedIndex, Object.assign({}, this.editedItem))
             } else {

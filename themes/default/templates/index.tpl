@@ -175,7 +175,7 @@ const store = new Vuex.Store({
       loaded: false,
       active: null,
       list: null,
-      tasks: null,
+      tasks: [],
       clipboard: null,
       script: {
           settings: {

@@ -16,16 +16,38 @@
     ></v-text-field>
 </script>
 
+<script type="text/x-template" id="c-select">
+    <v-select @change="change"
+        v-model="active.values[par.name]"
+        :items="par.options.items"
+        :label="par.title"
+    ></v-select>
+</script>
+
+
 <script>
 Vue.component('c-checkbox', {
     template: '#c-checkbox',
     mixins: [changed],
     data() {return {
+        }
+    },
+    props: {
+        par: Object,
+    },
+});
+
+Vue.component('c-select', {
+    template: '#c-select',
+    mixins: [changed],
+    data() {return {
 
         }
     },
-    computed: {
-//        cmds: () => { return store.state.list },
+    mounted() {
+        if (this.par.options) {
+            this.options.required = !!this.par.options.required
+        }
     },
     props: {
         par: Object,
@@ -47,17 +69,7 @@ Vue.component('c-textarea', {
     },
     mounted() {
         if (this.par.options) {
-            let list = this.par.options.split(/\r?\n/)
-            for (let i = 0; i < list.length; i++) {
-                let pval = list[i].trim().split(':')
-                if (pval.length == 2) {
-                    let name = pval[0].trim()
-                    switch (name) {
-                        case 'required':
-                           this.options.required = !!pval[1]
-                    }
-                }
-            }
+            this.options.required = !!this.par.options.required
         }
     },
     props: {
@@ -80,17 +92,7 @@ Vue.component('c-singletext', {
     },
     mounted() {
         if (this.par.options) {
-            let list = this.par.options.split(/\r?\n/)
-            for (let i = 0; i < list.length; i++) {
-                let pval = list[i].trim().split(':')
-                if (pval.length == 2) {
-                    let name = pval[0].trim()
-                    switch (name) {
-                        case 'required':
-                           this.options.required = !!pval[1]
-                    }
-                }
-            }
+            this.options.required = !!this.par.options.required
         }
     },
     props: {

@@ -6,5 +6,6 @@ params:
   - name: text
     title: Text
     type: 1
-    options: "required: true"
+    options: 
+      required: true
 code: Println( text )
