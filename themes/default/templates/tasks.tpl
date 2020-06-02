@@ -64,7 +64,6 @@ const Tasks = {
         return
       }
       if (task.status < stFinished ) {
-        console.log('loc', window.location.protocol, window.location);
         window.open(window.location.protocol + '//' + window.location.hostname + ':' + task.port,
          '_blank');
       } else {

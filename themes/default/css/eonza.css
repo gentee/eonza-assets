@@ -120,8 +120,13 @@ v-content {
 #stdout {
   padding: 16px 16px 0px 16px;
 }
+
 #stdcur {
   padding: 0px 16px 16px 16px;
+}
+
+#logout {
+  padding: 16px 16px;
 }
 
 .table {

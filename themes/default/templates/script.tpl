@@ -102,7 +102,8 @@
         [[end]]
         </div>
         <div v-show="tab==3">
-          Log
+          <div class="console" id="logout">[[.Logout]]
+          </div>
         </div>
       </div>
     </v-content>
@@ -205,6 +206,20 @@ new Vue({
             }
             this.stdcur.innerHTML = cmd.message;
             break
+          case WcLogout:
+            if (!this.islog) {
+              this.islog = true
+            }
+            let shouldLogScroll = this.console.scrollTop + 
+                  this.console.clientHeight === this.console.scrollHeight;
+            logout.innerHTML += cmd.message + '<br>';
+            if (shouldLogScroll) {
+              this.console.scrollTop = this.console.scrollHeight;
+            }
+            if (this.tab==0) {
+              this.tab = 3
+            }
+            break            
         }
       },
       connect() {
@@ -249,6 +264,7 @@ new Vue({
       this.stdout = document.getElementById("stdout")
       this.console = document.getElementById("console")
       this.stdcur = document.getElementById("stdcur")
+      this.logout = document.getElementById("logout")
       [[if .IsScript]]
          this.connect();
       [[end]]
@@ -261,16 +277,17 @@ function appData() {
     return {
       status: [[.Task.Status]],
       message: '',
-      tab: [[if len .Stdout]]2[[else]]0[[end]],
+      tab: [[if len .Stdout]]2[[else]][[if len .Logout]]3[[else]]0[[end]][[end]],
       cmdline: '',
       start: [[.Start]],
       finish: [[.Finish]],
       stdout: null,
       console: null,
+      logout: null,      
       stdcur: null,
       isform: false,
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
-      islog: false,
+      islog: [[if len .Logout]]true[[else]]false[[end]],
 
       cmd: null,
       question: false,

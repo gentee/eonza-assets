@@ -332,6 +332,7 @@ const statusIcon = [
 const WcStatus = 1
 const WcStdout = 2
 const WcStdbuf = 3
+const WcLogout = 4
 
 const SysSuspend = 1
 const SysResume = 2
