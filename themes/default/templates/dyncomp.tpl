@@ -17,9 +17,9 @@
 </script>
 
 <script type="text/x-template" id="c-select">
-    <v-select @change="change"
-        v-model="active.values[par.name]"
-        :items="par.options.items"
+    <v-select @change="changeItem"
+        v-model="curItem"
+        :items="items"
         :label="par.title"
     ></v-select>
 </script>
@@ -41,12 +41,41 @@ Vue.component('c-select', {
     template: '#c-select',
     mixins: [changed],
     data() {return {
-
+            curItem: null,
         }
     },
-    mounted() {
-        if (this.par.options) {
-            this.options.required = !!this.par.options.required
+    methods: {
+        changeItem() {
+            for (let i = 0; i < this.par.options.items.length;i++) {
+                if (this.curItem == this.par.options.items[i].title) {
+                    let cmp = this.par.options.items[i].title
+                    if (!!this.par.options.items[i].value) {
+                        cmp = this.par.options.items[i].value
+                    }
+                    this.active.values[this.par.name] = cmp
+                }
+            }
+            this.change()
+        }
+    },
+     computed: {
+        items() { 
+            let ret = []
+            console.log(this.active.values[this.par.name])
+            if (this.par.options) {
+                for (let i = 0; i < this.par.options.items.length;i++) {
+                    let val = this.par.options.items[i].title
+                    ret.push(val)
+                    let cmp = val 
+                    if (!!this.par.options.items[i].value) {
+                        cmp = this.par.options.items[i].value
+                    }
+                    if (this.active.values[this.par.name] == cmp || i==0 ) {
+                        this.curItem = val
+                    }
+                }
+            }
+            return ret
         }
     },
     props: {
@@ -60,17 +89,12 @@ Vue.component('c-textarea', {
     data() {return {
         options: {},
         rules: value => {
-            if (this.options.required && !value) {
+            if (this.par.options.required && !value) {
                 return [[lang "required"]]
             }
             return true
         },
       }
-    },
-    mounted() {
-        if (this.par.options) {
-            this.options.required = !!this.par.options.required
-        }
     },
     props: {
         par: Object,
@@ -83,17 +107,12 @@ Vue.component('c-singletext', {
     data() {return {
         options: {},
         rules: value => {
-            if (this.options.required && !value) {
+            if (this.par.options.required && !value) {
                 return [[lang "required"]]
             }
             return true
         },
       }
-    },
-    mounted() {
-        if (this.par.options) {
-            this.options.required = !!this.par.options.required
-        }
     },
     props: {
         par: Object,
