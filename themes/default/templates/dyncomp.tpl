@@ -16,6 +16,13 @@
     ></v-text-field>
 </script>
 
+<script type="text/x-template" id="c-number">
+    <v-text-field  v-model="active.values[par.name]" @input="change"
+         :label="par.title" :options="par.options" :rules="[rules]"
+         type="number">
+    </v-text-field>
+</script>
+
 <script type="text/x-template" id="c-select">
     <v-select @change="changeItem"
         v-model="curItem"
@@ -61,7 +68,6 @@ Vue.component('c-select', {
      computed: {
         items() { 
             let ret = []
-            console.log(this.active.values[this.par.name])
             if (this.par.options) {
                 for (let i = 0; i < this.par.options.items.length;i++) {
                     let val = this.par.options.items[i].title
@@ -113,6 +119,26 @@ Vue.component('c-singletext', {
             return true
         },
       }
+    },
+    props: {
+        par: Object,
+    },
+});
+
+Vue.component('c-number', {
+    template: '#c-number',
+    mixins: [changed],
+    data() {return {
+        options: {},
+        rules: value => {
+            if (this.par.options.required && !value) {
+                return [[lang "required"]]
+            }
+            return true
+        },
+      }
+    },
+    methods: {
     },
     props: {
         par: Object,
