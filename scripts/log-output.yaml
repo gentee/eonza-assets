@@ -1,0 +1,24 @@
+settings:
+  name: log-output
+  title: Log Output
+params:
+- name: level
+  title: Log Level
+  type: 3
+  options:
+    type: int
+    items:
+    - title: Error
+      value: LOG_ERROR
+    - title: Warning
+      value: LOG_WARN
+    - title: Information
+      value: LOG_INFO
+    - title: Debug
+      value: LOG_DEBUG
+- name: text
+  title: Text
+  type: 2
+  options:
+    required: true
+code: LogOutput(level, text)

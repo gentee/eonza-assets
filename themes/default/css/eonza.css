@@ -159,3 +159,15 @@ v-content {
 .table td:nth-child(2) {
   font-weight: bold;
 }
+
+.ered {
+  color: #f00;
+}
+
+.egreen {
+  color: #0f0;
+}
+
+.eyellow {
+  color: #ff0;
+}

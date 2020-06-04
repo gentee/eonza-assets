@@ -1,0 +1,11 @@
+settings:
+  name: eonza.sleep
+  title: Sleep
+params:
+- name: timeout
+  title: Timeot (msec)
+  type: 4
+  options:
+    initial: "1000"
+    required: true
+code: sleep(timeout)

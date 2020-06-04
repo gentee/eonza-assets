@@ -121,6 +121,16 @@
 
 <script>
 
+function log2color(input) {
+  let color = {'INFO': 'egreen', 'WARN': 'eyellow', 'ERROR': 'ered'}
+  for (let key in color) {
+    if (color.hasOwnProperty(key)) {
+      input = input.replace("["+key+"]", '<span class="'+color[key]+'">[' + key+ ']</span>');
+    }
+  }
+  return input
+}
+
 new Vue({
     vuetify: new Vuetify({
       icons: {
@@ -212,7 +222,7 @@ new Vue({
             }
             let shouldLogScroll = this.console.scrollTop + 
                   this.console.clientHeight === this.console.scrollHeight;
-            logout.innerHTML += cmd.message + '<br>';
+            logout.innerHTML += log2color(cmd.message) + '<br>';
             if (shouldLogScroll) {
               this.console.scrollTop = this.console.scrollHeight;
             }
