@@ -1,6 +1,7 @@
 settings:
   name: eonza.sleep
   title: Sleep
+  loglevel: 5
 params:
 - name: timeout
   title: Timeot (msec)

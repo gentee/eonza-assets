@@ -1,2 +1,3 @@
 settings:
   name: new
+  loglevel: 5

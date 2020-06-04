@@ -132,6 +132,7 @@
 [[template "card" .]]
 [[template "editor" .]]
 [[template "tasks" .]]
+[[template "settings" .]]
 [[template "help" .]]
 [[template "shutdown"]]
 [[template "dialogs"]]
@@ -155,13 +156,18 @@ const routes = [{
     component: Tasks
   },
   {
-    path: '/help',
+    path: '/settings',
     name: 3,
+    component: Settings,
+  },
+  {
+    path: '/help',
+    name: 4,
     component: Help,
   },
   {
     path: '/shutdown',
-    name: 4,
+    name: 5,
     component: Shutdown,
   },
 ];
@@ -438,7 +444,8 @@ function appData() {
         { id: 0, title: [[lang "scripts"]], icon: 'fa-play-circle', route: '/' },
         { id: 1, title: [[lang "editor"]], icon: 'fa-edit', route: '/editor' },
         { id: 2, title: [[lang "taskmanager"]], icon: 'fa-tasks', route: '/tasks' },
-        { id: 3, title: [[lang "help"]], icon: 'fa-life-ring', route: '/help' },
+        { id: 3, title: [[lang "settings"]], icon: 'fa-tools', route: '/settings' },
+        { id: 4, title: [[lang "help"]], icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
       menus: [

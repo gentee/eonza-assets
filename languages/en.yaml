@@ -9,12 +9,14 @@ collapseall: Collapse All
 console: Console
 copy: Copy
 crashed: Crashed
+debug: Debug
 defvalue: Default Value
 delconfirm: Are you sure you want to delete the selected item(s)?
 delete: Delete
 delscript: Are you sure you want to delete this script?
 depscript: The '%s' script is used in other scripts (%s)
 desc: Description
+disable: Disable
 disena: Disable/Enable
 dup: Duplicate
 edit: Edit
@@ -23,6 +25,7 @@ editor: Editor
 errembed: You can't modify/delete the embedded scripts.
 errnickname: The '%s' user has already existed
 erropen: The %s script has not been found
+error: Error
 errscriptname: The '%s' script has already existed
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
@@ -38,12 +41,14 @@ history: History
 import: Import
 importtitle: Import scripts
 info: Information
+inherit: Inherit
 initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
 invalidvalue: The value is invalid
 licagreement: License Agreement
 list: List
 log: Log
+loglevel: Log Level
 menu: Menu
 movedown: Move Down
 moveup: Move Up
@@ -68,6 +73,7 @@ save: Save
 saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?
 select: Select
+settings: Settings
 script: Script
 scripts: Scripts
 scriptterm: The script execution has been terminated
@@ -95,4 +101,5 @@ unknownuser: Unknown user id %x
 unrun: Unrunnable script
 upload: Upload
 waiting: Waiting
+warning: Warning
 yes: Yes

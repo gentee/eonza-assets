@@ -1,6 +1,7 @@
 settings:
   name: write-console
   title: Write To Console
+  loglevel: 5
   unrun: true
 params:
   - name: text

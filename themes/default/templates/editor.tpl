@@ -86,6 +86,10 @@
         <v-textarea  v-model="script.settings.desc" @input="change"
          label="[[lang "desc"]]" rows="2" dense
          ></v-textarea>
+        <v-select label="[[lang "loglevel"]]" @change="change"
+                          v-model="script.settings.loglevel"
+                          :items="LogLevel" 
+                          ></v-select>
         <v-checkbox v-model="script.settings.unrun"  @change="change"
             label="[[lang "unrun"]]"
         ></v-checkbox>
@@ -166,6 +170,15 @@
 </script>
 
 <script>
+const LogLevel = [
+    {text: [[lang "disable"]], value: 0},
+    {text: [[lang "error"]], value: 1},
+    {text: [[lang "warning"]], value: 2},
+    {text: [[lang "info"]], value: 3},
+    {text: [[lang "debug"]], value: 4},
+    {text: [[lang "inherit"]], value: 5},
+];
+
 const PCheckbox = 0;
 const PTextarea = 1;
 const PSingleText = 2;

@@ -1,6 +1,7 @@
 settings:
   name: log-output
   title: Log Output
+  loglevel: 0
 params:
 - name: level
   title: Log Level

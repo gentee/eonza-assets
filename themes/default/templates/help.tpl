@@ -7,7 +7,7 @@
 
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
           <h2 class="my-4">[[.App.Title]]</h2>
-          <h3>Freeware</h3>
+          <h3>Free, open-source automation software</h3>
           <p>[[lang "version"]]: <b>[[.Version]]</b>
           </p>
           <p>Copyright [[.App.Copyright]]
