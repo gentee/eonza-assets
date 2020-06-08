@@ -6,6 +6,7 @@ additional: Additional Settings
 cancel: Cancel
 checkbox: Checkbox
 collapseall: Collapse All
+common: Common
 console: Console
 copy: Copy
 crashed: Crashed
@@ -45,6 +46,7 @@ inherit: Inherit
 initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
 invalidvalue: The value is invalid
+language: Language
 licagreement: License Agreement
 list: List
 log: Log
@@ -53,6 +55,7 @@ menu: Menu
 movedown: Move Down
 moveup: Move Up
 name: Name
+native: English
 new: New
 newchild: Add a new child command
 newitem: New Item
@@ -64,6 +67,7 @@ ok: OK
 overwrite: Overwrite the existing ones
 parameters: Parameters
 paste: Paste
+personal: Personal
 recently: Recently Launched
 refresh: Refresh
 required: This field is required

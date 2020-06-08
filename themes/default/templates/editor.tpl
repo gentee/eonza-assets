@@ -170,6 +170,10 @@
 </script>
 
 <script>
+const Langs = [
+   [[range $key, $native := .Langs ]]{text: '[[$native]]', value: '[[$key]]'},[[end]]
+];
+
 const LogLevel = [
     {text: [[lang "disable"]], value: 0},
     {text: [[lang "error"]], value: 1},

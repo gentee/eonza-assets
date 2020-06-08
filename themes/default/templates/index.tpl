@@ -19,7 +19,7 @@
         <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name != 1">
-            <v-icon small left>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
+            <v-icon small left>fa-plus</v-icon>&nbsp;%newscript%
         </v-btn>
         <v-spacer></v-spacer>
           <v-menu bottom left :open-on-hover = true >

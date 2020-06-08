@@ -14,14 +14,12 @@
           </p>
           <h3>[[lang "support"]]</h3>
           <a href="mailto:[[.App.Email]]">[[.App.Email]]</a>
-      </div>
-      <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;"> 
-         <div class="pt-4">
-         [[html .App.License]]
-         </div>
+    </div>
+    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;"> 
+      <div class="pt-4">
+       [[html .App.License]]
       </div>
     </div>
-
   </v-container>
 </script>
 

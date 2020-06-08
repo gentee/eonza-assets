@@ -6,6 +6,7 @@ additional: Дополнительные настройки
 cancel: Отмена
 checkbox: Чекбокс
 collapseall: Свернуть все
+common: Общие
 console: Консоль
 copy: Копировать
 crashed: Сломан
@@ -45,6 +46,7 @@ inherit: Наследовать
 initvalue: Начальное значение
 invalidfield: Значение поля '%s' некорректно
 invalidvalue: Значение некорректно
+language: Язык
 licagreement: Лицензионное соглашение
 list: Список
 log: Лог
@@ -53,6 +55,7 @@ menu: Меню
 movedown: Сдвинуть вниз
 moveup: Сдвинуть вниз
 name: Имя
+native: Русский
 new: Добавить
 newchild: Добавить внутреннюю команду
 newitem: Новый элемент
@@ -64,6 +67,7 @@ ok: OK
 overwrite: Перезаписывать существующие
 parameters: Параметры
 paste: Вставить
+personal: Персональные
 recently: Недавно запущенные
 refresh: Обновить
 required: Это поле обязательно
