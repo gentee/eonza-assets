@@ -7,9 +7,9 @@
         <div style="width: 100%;">
           <div class="pb-3">{{title}}</div>
           <v-cloak @drop.prevent="addDropFile" @dragover.prevent>
-          <v-file-input chips multiple label="[[lang "selectupload"]]" v-model="files"></v-file-input>
+          <v-file-input chips multiple label="%selectupload%" v-model="files"></v-file-input>
           </v-cloak>
-          <v-checkbox v-model="overwrite" label="[[lang "overwrite"]]"></v-checkbox>
+          <v-checkbox v-model="overwrite" label="%overwrite%"></v-checkbox>
         </div>
         </v-card-title>
         <v-divider></v-divider>
@@ -18,13 +18,13 @@
           <v-btn color="primary" :disabled="!files.length"
             @click="click(btn.OK)"  class="ma-2"
           >
-            [[lang "upload"]]
+            %upload%
           </v-btn>
           <v-btn
             color="primary" outlined
             @click="click(btn.Cancel)"  class="ma-2"
           >
-            [[lang "cancel"]]
+            %cancel%
           </v-btn>
 
         </v-card-actions>
@@ -98,13 +98,13 @@ Vue.component('dlg-upload', {
           <v-btn color="primary"
             @click="click(btn.Yes)"  class="ma-2"
           >
-            [[lang "yes"]]
+            %yes%
           </v-btn>
           <v-btn
             color="primary" outlined
             @click="click(btn.No)"  class="ma-2"
           >
-            [[lang "no"]]
+            %no%
           </v-btn>
 
         </v-card-actions>
@@ -170,7 +170,7 @@ Vue.component('dlg-question', {
             color="orange darken-3" 
             @click="close()"  class="ma-2 white--text"
           >
-            [[lang "ok"]]
+            %ok%
           </v-btn>
 
         </v-card-actions>
@@ -212,11 +212,11 @@ Vue.component('dlg-error', {
 <script type="text/x-template" id="dlg-commands">
     <v-dialog v-model="show" max-width="700" persistent = true scrollable>
       <v-card>
-        <v-card-title>[[lang "selcmd"]]</v-card-title>
+        <v-card-title>%selcmd%</v-card-title>
         <v-divider></v-divider>
         <div class="d-flex pt-4 px-2">
           <v-text-field class="mx-2" append-icon="fa-search" v-model="search" 
-            label="[[lang "search"]]"
+            label="%search%"
             outlined @input="tosearch"
           ></v-text-field>
           <v-btn @click="clearsearch" class="mt-3" icon color="primary" v-if="!!search">
@@ -243,7 +243,7 @@ Vue.component('dlg-error', {
             color="primary" outlined
             @click="close('')"  class="ma-2"
           >
-            [[lang "cancel"]]
+            %cancel%
           </v-btn>
 
         </v-card-actions>
@@ -317,8 +317,8 @@ const stFailed = 6
 const stCrashed = 7
 
 const statusList = [
-    '', [[lang "active"]], [[lang "waiting"]], [[lang "suspended"]],
-    [[lang "finished"]], [[lang "terminated"]], [[lang "failed"]], [[lang "crashed"]],
+    '', '%active%', '%waiting%', '%suspended%',
+    '%finished%', '%terminated%', '%failed%', '%crashed%',
  ]
 const statusColor = [
     '#fff', '#4CAF50', '#0277BD', '#EF6C00',

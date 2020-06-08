@@ -16,7 +16,7 @@
                         <v-icon>fa-history</v-icon>
                     </v-btn>
                 </template>
-                <span>[[lang "history"]]</span>
+                <span>%history%</span>
                 </v-tooltip>
             </template>
             <v-list dense>
@@ -30,24 +30,24 @@
             </v-list>
           </v-menu>
         <v-btn color="primary" class="mx-2" @click="load('new')" >
-            <v-icon left small>fa-plus</v-icon>&nbsp;[[lang "newscript"]]
+            <v-icon left small>fa-plus</v-icon>&nbsp;%newscript%
         </v-btn>
         <v-btn color="primary" class="mx-2" :disabled="!changed || script.embedded" @click="this.$root.saveScript">
-            <v-icon left small>fa-save</v-icon>&nbsp;[[lang "save"]]
+            <v-icon left small>fa-save</v-icon>&nbsp;%save%
         </v-btn>
         <v-btn color="primary" class="mx-2" @click="saveas"
              v-if="!!script.original && script.original != script.settings.name">
-            <v-icon left small>fa-save</v-icon>&nbsp;[[lang "saveasnew"]]
+            <v-icon left small>fa-save</v-icon>&nbsp;%saveasnew%
         </v-btn>
         <v-btn color="primary" class="mx-2"  v-if="loaded && !script.settings.unrun" 
             :disabled="!script.original"
              @click="$root.run(script.original)">
-            <v-icon left small>fa-play</v-icon>&nbsp;[[lang "run"]]
+            <v-icon left small>fa-play</v-icon>&nbsp;%run%
         </v-btn>
           <v-menu bottom left v-if="loaded" offset-y v-if="!!script.original">
             <template v-slot:activator="{ on }">
                <v-btn color="primary" class="mx-2" v-on="on">
-               <v-icon left small>fa-caret-down</v-icon>&nbsp;[[lang "menu"]]
+               <v-icon left small>fa-caret-down</v-icon>&nbsp;%menu%
                </v-btn>
             </template>
             <v-list dense>
@@ -64,10 +64,10 @@
     </v-toolbar>
 
     <v-tabs v-model="tab"  v-if="loaded">
-        <v-tab>[[lang "script"]]</v-tab>
-        <v-tab>[[lang "settings"]]</v-tab>
-        <v-tab>[[lang "parameters"]]</v-tab>
-        <v-tab v-if="develop">[[lang "sourcecode"]]</v-tab>
+        <v-tab>%script%</v-tab>
+        <v-tab>%settings%</v-tab>
+        <v-tab>%parameters%</v-tab>
+        <v-tab v-if="develop">%sourcecode%</v-tab>
     </v-tabs>
 
     <!--v-tabs-items v-model="tab"  v-if="loaded"-->
@@ -78,20 +78,20 @@
     </div>
     <div v-show="loaded && tab==1"  style="height: calc(100% - 106px);overflow-y:auto;">  
           <v-text-field v-model="script.settings.name" @input="change"
-           label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
+           label="%name%" counter maxlength="32" hint="a-z, 0-9, .-_"
             :rules="[rules.required, rules.unique]"></v-text-field>
           <v-text-field v-model="script.settings.title" @input="change"
-          label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
+          label="%title%" counter maxlength="64" :rules="[rules.required]"
         ></v-text-field>
         <v-textarea  v-model="script.settings.desc" @input="change"
-         label="[[lang "desc"]]" rows="2" dense
+         label="%desc%" rows="2" dense
          ></v-textarea>
-        <v-select label="[[lang "loglevel"]]" @change="change"
+        <v-select label="%loglevel%" @change="change"
                           v-model="script.settings.loglevel"
                           :items="LogLevel" 
                           ></v-select>
         <v-checkbox v-model="script.settings.unrun"  @change="change"
-            label="[[lang "unrun"]]"
+            label="%unrun%"
         ></v-checkbox>
     </div>
     <div v-show="loaded && tab==2"  style="height: calc(100% - 106px);overflow-y:auto;">  
@@ -103,7 +103,7 @@
           <template v-slot:top>
               <v-dialog v-model="dlgParams" max-width="600px">
                 <template v-slot:activator="{ on }">
-                  <v-btn color="primary" dark class="mb-2" v-on="on">[[lang "newitem"]]</v-btn>
+                  <v-btn color="primary" dark class="mb-2" v-on="on">%newitem%</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -113,25 +113,25 @@
                   <v-card-text>
                     <v-container>
                       <v-text-field v-model="editedItem.name"
-                      label="[[lang "name"]]" counter maxlength="32" hint="a-z, 0-9, .-_"
+                      label="%name%" counter maxlength="32" hint="a-z, 0-9, .-_"
                       :rules="[rules.required, rules.name]"></v-text-field>
                       <v-text-field v-model="editedItem.title"
-                      label="[[lang "title"]]" counter maxlength="64" :rules="[rules.required]"
+                      label="%title%" counter maxlength="64" :rules="[rules.required]"
                       ></v-text-field>
-                      <v-select label="[[lang "type"]]"
+                      <v-select label="%type%"
                           v-model="editedItem.type"
                           :items="PTypes" 
                           ></v-select>
                       <v-textarea  v-model="editedItem.options"
-                      label="[[lang "additional"]]" auto-grow dense
+                      label="%additional%" auto-grow dense
                       ></v-textarea>
                     </v-container>
                   </v-card-text>
 
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="ma-2" color="primary" @click="saveParams">[[lang "save"]]</v-btn>
-                    <v-btn class="ma-2" color="primary" text outlined  @click="closeParams">[[lang "cancel"]]</v-btn>
+                    <v-btn class="ma-2" color="primary" @click="saveParams">%save%</v-btn>
+                    <v-btn class="ma-2" color="primary" text outlined  @click="closeParams">%cancel%</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -157,13 +157,13 @@
               </tbody>
             </template>
           <!--template v-slot:no-data>
-            <v-btn color="primary" click="initialize">[[lang "newitem"]]</v-btn>
+            <v-btn color="primary" click="initialize">%newitem%</v-btn>
           </template-->
         </v-data-table>
       </div>
       <div v-show="loaded && tab==3" class="pt-3" style="height: calc(100% - 106px);overflow-y:auto;">  
          <v-textarea  v-model="script.code" @input="change"
-         label="[[lang "sourcecode"]]" auto-grow dense
+         label="%sourcecode%" auto-grow dense
          ></v-textarea>
       </div>
   </v-container>
@@ -175,12 +175,12 @@ const Langs = [
 ];
 
 const LogLevel = [
-    {text: [[lang "disable"]], value: 0},
-    {text: [[lang "error"]], value: 1},
-    {text: [[lang "warning"]], value: 2},
-    {text: [[lang "info"]], value: 3},
-    {text: [[lang "debug"]], value: 4},
-    {text: [[lang "inherit"]], value: 5},
+    {text: '%disable%', value: 0},
+    {text: '%error%', value: 1},
+    {text: '%warning%', value: 2},
+    {text: '%info%', value: 3},
+    {text: '%debug%', value: 4},
+    {text: '%inherit%', value: 5},
 ];
 
 const PCheckbox = 0;
@@ -189,11 +189,11 @@ const PSingleText = 2;
 const PSelect = 3;
 const PNumber = 4;
 const PTypes = [
-    {text: [[lang "checkbox"]], value: 0, comp: 'c-checkbox'},
-    {text: [[lang "textarea"]], value: 1, comp: 'c-textarea'},
-    {text: [[lang "singletext"]], value: 2, comp: 'c-singletext'},
-    {text: [[lang "select"]], value: 3, comp: 'c-select'},
-    {text: [[lang "number"]], value: 4, comp: 'c-number'},
+    {text: '%checkbox%', value: 0, comp: 'c-checkbox'},
+    {text: '%textarea%', value: 1, comp: 'c-textarea'},
+    {text: '%singletext%', value: 2, comp: 'c-singletext'},
+    {text: '%select%', value: 3, comp: 'c-select'},
+    {text: '%number%', value: 4, comp: 'c-number'},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 const patScript = /^[a-z][a-z\d\._-]*$/
@@ -209,7 +209,7 @@ const Editor = Vue.component('editor', {
         },
         delete() {
           let comp = this;
-          this.$root.confirmYes( [[lang "delscript"]], 
+          this.$root.confirmYes( '%delscript%', 
             function(){
                 axios
                 .post('/api/delete?name=' + comp.script.original)
@@ -274,7 +274,7 @@ const Editor = Vue.component('editor', {
         },
         deleteParams (index) {
             let comp = this;
-            this.$root.confirmYes( [[lang "delconfirm"]], 
+            this.$root.confirmYes( '%delconfirm%', 
             function(){
                 comp.script.params.splice(index, 1)
                 comp.change()
@@ -297,11 +297,11 @@ const Editor = Vue.component('editor', {
         },
         saveParams () {
             if (!this.editedItem.name || !patName.test(this.editedItem.name)) {
-                this.$root.errmsg(format([[lang "invalidfield"]], [[lang "name"]]))
+                this.$root.errmsg(format("%invalidfield%", '%name%'))
                 return
             }
             if (!this.editedItem.title) {
-                this.$root.errmsg(format([[lang "invalidfield"]], [[lang "title"]]))
+                this.$root.errmsg(format("%invalidfield%", '%title%'))
                 return
             }
             if (!this.editedItem.options) {
@@ -331,7 +331,7 @@ const Editor = Vue.component('editor', {
         importScript() {
           let comp = this
 
-          this.$root.uploadDlg([[lang "importtitle"]], function(par){
+          this.$root.uploadDlg('%importtitle%', function(par){
             const formData = new FormData();
             if (!par.files.length) return;
             Array
@@ -360,7 +360,7 @@ const Editor = Vue.component('editor', {
         },
     },
     mounted: function() {
-        store.commit('updateTitle', [[lang "editor"]]);
+        store.commit('updateTitle', '%editor%');
         let par = '';
         if (this.$route.query.scriptname) {
             par = this.$route.query.scriptname
@@ -383,7 +383,7 @@ const Editor = Vue.component('editor', {
             set(value) { store.commit('updateLoaded', value) }
         },
         dlgParamTitle () {
-            return this.editedIndex === -1 ? [[lang "newitem"]] : [[lang "edititem"]]
+            return this.editedIndex === -1 ? '%newitem%' : '%edititem%'
         },
     },
     watch: {
@@ -399,37 +399,37 @@ function editorData() {
         develop: [[.Develop]],
         toopen: '',
         menu: [
-            { title: [[lang "import"]], onclick: this.importScript },
-            { title: [[lang "export"]], onclick: this.exportScript },
-            { title: [[lang "runsilently"]], onclick: this.runsilently, ifcond: this.canrun },
-            { title: [[lang "delete"]], onclick: this.delete, ifcond: this.noembed  },
+            { title: '%import%', onclick: this.importScript },
+            { title: '%export%', onclick: this.exportScript },
+            { title: '%runsilently%', onclick: this.runsilently, ifcond: this.canrun },
+            { title: '%delete%', onclick: this.delete, ifcond: this.noembed  },
         ],
         rules: {
-          required: value => !!value || [[lang "required"]],
+          required: value => !!value || '%required%',
           unique: value => {
-            return patScript.test(value) || [[lang "invalidvalue"]]
+            return patScript.test(value) || '%invalidvalue%'
           },
           name: value => {
-            return patName.test(value) || [[lang "invalidvalue"]]
+            return patName.test(value) || '%invalidvalue%'
           },
         },
         dlgParams: false,
         editedIndex: -1,
         editedItem: {type: 0},
         headParams: [{
-            text: [[lang "name"]],
+            text: '%name%',
             value: 'name',
             },{
-            text: [[lang "title"]],
+            text: '%title%',
             value: 'title',
             },{
-            text: [[lang "type"]],
+            text: '%type%',
             value: 'type',
             },{
-            text: [[lang "additional"]],
+            text: '%additional%',
             value: 'options',
             },{
-            text: [[lang "actions"]],
+            text: '%actions%',
             value: 'actions',
             },
         ],

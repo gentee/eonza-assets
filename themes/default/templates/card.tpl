@@ -4,7 +4,7 @@
         <div style="font-weight: bold;" class="pa-3" :class="forcard" >{{title}}
         <v-icon @click="jumpto" color="primary" small style="float:right;">fa-external-link-alt</v-icon></div>
         <v-text-field v-model="active.values._desc"
-        label="[[lang "desc"]]" @input="change"
+        label="%desc%" @input="change"
         ></v-text-field>
         <component v-for="comp in cmds[active.name].params"
             :is="PTypes[comp.type].comp" v-bind="{par:comp}" />

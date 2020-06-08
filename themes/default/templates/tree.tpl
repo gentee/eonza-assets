@@ -9,7 +9,7 @@
          <v-btn small icon @click.stop="newChild" v-on="on"><v-icon small class="mb-1 mx-2" 
          color="white">fa-plus-square</v-icon></v-btn>
             </template>
-           <span>[[lang "newchild"]]</span>
+           <span>%newchild%</span>
         </v-tooltip>
 
          <div :class="fordesc" style="font-size: smaller; padding-left: 4px;">{{item.values._desc}}</div>
@@ -18,7 +18,7 @@
       <treeitem v-for="child in item.children" :item="child"></treeitem>
     </ul>
     <div v-if="!item.children && item.open && isactive" class="d-flex">
-       <v-btn color="primary" small class="mx-4 my-2" @click="newChild" style="text-transform:none"><v-icon small left>fa-plus</v-icon>[[lang "newchild"]]</v-btn>
+       <v-btn color="primary" small class="mx-4 my-2" @click="newChild" style="text-transform:none"><v-icon small left>fa-plus</v-icon>%newchild%</v-btn>
        <v-btn v-if="clipboard" icon color="primary" small class="mx-4 my-2" @click="pasteChild"><v-icon small>fa-paste</v-icon></v-btn>
     </div>
     </li>
@@ -284,7 +284,7 @@ Vue.component('tree', {
         del() {
             if (this.active) {
                 let comp = this;
-                this.$root.confirmYes( [[lang "delconfirm"]], 
+                this.$root.confirmYes( '%delconfirm%', 
                 function(){
                     let owner = comp.active.__parent
                     let parent = owner ? owner.children : comp.obj
@@ -326,20 +326,20 @@ const disLast = 8
 function treeData() {
     return {
         btns: [
-            {icon: 'fa-expand-arrows-alt', hint: [[lang "expandall"]], disable: disActive,
+            {icon: 'fa-expand-arrows-alt', hint: '%expandall%', disable: disActive,
                click: this.expandAll },
-            {icon: 'fa-compress-arrows-alt', hint: [[lang "collapseall"]], disable: disActive,
+            {icon: 'fa-compress-arrows-alt', hint: '%collapseall%', disable: disActive,
                click: this.collapseAll},
-            {icon: 'fa-plus', hint: [[lang "addcmd"]], title: [[lang "new"]], click: this.newCommand },
-            {icon: 'fa-angle-double-up', hint: [[lang "moveup"]], disable: disActive | disFirst,
+            {icon: 'fa-plus', hint: '%addcmd%', title: '%new%', click: this.newCommand },
+            {icon: 'fa-angle-double-up', hint: '%moveup%', disable: disActive | disFirst,
               click: this.moveUp},
-            {icon: 'fa-angle-double-down', hint: [[lang "movedown"]], 
+            {icon: 'fa-angle-double-down', hint: '%movedown%', 
               disable: disActive | disLast, click: this.moveDown},
-            {icon: 'fa-copy', hint: [[lang "copy"]], disable: disActive, click: this.copy },
-            {icon: 'fa-paste', hint: [[lang "paste"]], disable: disClip, click: this.paste },
-            {icon: 'fa-clone', hint: [[lang "dup"]], disable: disActive, click: this.dup },
-            {icon: 'fa-ban', hint: [[lang "disena"]], disable: disActive, click: this.disable}, 
-            {icon: 'fa-times', hint: [[lang "delete"]], disable: disActive, click: this.del},
+            {icon: 'fa-copy', hint: '%copy%', disable: disActive, click: this.copy },
+            {icon: 'fa-paste', hint: '%paste%', disable: disClip, click: this.paste },
+            {icon: 'fa-clone', hint: '%dup%', disable: disActive, click: this.dup },
+            {icon: 'fa-ban', hint: '%disena%', disable: disActive, click: this.disable}, 
+            {icon: 'fa-times', hint: '%delete%', disable: disActive, click: this.del},
         ]
     }
 }

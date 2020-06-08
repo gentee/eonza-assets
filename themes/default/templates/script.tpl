@@ -26,24 +26,24 @@
     </v-chip>
     [[if .IsScript]]
         <v-btn v-if="status < stSuspended" color="primary" class="white mx-2 font-weight-bold" outlined @click="syscommand(1)">
-            <v-icon small left>fa-pause</v-icon>&nbsp;Suspend
+            <v-icon small left>fa-pause</v-icon>&nbsp;%suspend%
         </v-btn>
         <v-btn v-if="status == stSuspended" color="primary" class="white font-weight-bold mx-2" outlined @click="syscommand(2)">
-            <v-icon small left>fa-play</v-icon>&nbsp;Resume
+            <v-icon small left>fa-play</v-icon>&nbsp;%resume%
         </v-btn>
         <v-btn v-if="status < stFinished" color="primary" class="white mx-2 font-weight-bold" 
         outlined @click="stop()">
-            <v-icon small left>fa-times</v-icon>&nbsp;Break
+            <v-icon small left>fa-times</v-icon>&nbsp;%break%
         </v-btn>
     [[end]]
         <v-spacer></v-spacer>
       </v-app-bar>
     <v-content app style="height:100%;">
     <v-tabs v-model="tab">
-        <v-tab>[[lang "info"]]</v-tab>
-        <v-tab v-show="isform">[[lang "form"]]</v-tab>
-        <v-tab v-show="isconsole">[[lang "console"]]</v-tab>
-        <v-tab v-show="islog">[[lang "log"]]</v-tab>
+        <v-tab>%info%</v-tab>
+        <v-tab v-show="isform">%form%</v-tab>
+        <v-tab v-show="isconsole">%console%</v-tab>
+        <v-tab v-show="islog">%log%</v-tab>
     </v-tabs>
       <div style="height:calc(100% - 48px);overflow-y:auto;" id="console">
     <v-alert
@@ -55,22 +55,22 @@
       prominent v-if="status == stTerminated"
       color="blue-grey darken-3" dark
       icon="fa-thumbs-down"
-    >[[lang "scriptterm"]]
+    >%scriptterm%
     </v-alert>
     <v-alert
       prominent v-if="status == stCrashed"
       color="brown darken-2" dark
       icon="fa-bug"
-    >[[lang "scriptcrash"]]
+    >%scriptcrash%
     </v-alert>
 
         <div v-show="tab==0">
           <table class="table">
           <tr><td>ID:</td><td>[[.ID]]</td></tr>
-          <tr><td>[[lang "name"]]:</td><td>[[.Name]]</td></tr>
-          <tr><td>[[lang "status"]]: </td><td>{{statusList[status]}}</td></tr>
-          <tr><td>[[lang "start"]]: </td><td>{{start}}</td></tr>
-          <tr><td>[[lang "finish"]]: </td><td>{{finish}}</td></tr>
+          <tr><td>%name%:</td><td>[[.Name]]</td></tr>
+          <tr><td>%status%: </td><td>{{statusList[status]}}</td></tr>
+          <tr><td>%start%: </td><td>{{start}}</td></tr>
+          <tr><td>%finish%: </td><td>{{finish}}</td></tr>
           </table>
         </div>
         <div v-show="tab==1">
@@ -163,7 +163,7 @@ new Vue({
           this.syscommand(1)
           restore = true
         }
-        this.confirm([[lang "stopscript"]], (par) => {
+        this.confirm("%stopscript%", (par) => {
           this.question = false;
           if (par == btn.Yes) {
             this.syscommand(3)

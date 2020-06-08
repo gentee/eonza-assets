@@ -56,7 +56,7 @@ const Tasks = {
       this.syscmd(SysResume, id)
     },
     terminate(id) {
-      this.$root.confirmYes( [[lang "stopscript"]], () => this.syscmd(SysTerminate, id))
+      this.$root.confirmYes( '%stopscript%', () => this.syscmd(SysTerminate, id))
     },
     view(id) {
       let task = this.$root.getTask(id)
@@ -87,15 +87,15 @@ const Tasks = {
     list: function() { return store.state.tasks },
   },
   mounted() {
-    store.commit('updateTitle', [[lang "taskmanager"]]);
+    store.commit('updateTitle', '%taskmanager%');
     this.$root.loadTasks()
   }
 };
 
 function tasksData() {
     return {
-      heads: [ [[lang "name"]], [[lang "status"]], [[lang "start"]], [[lang "finish"]], 
-            [[lang "actions"]],
+      heads: [ '%name%', '%status%', '%start%', '%finish%', 
+            '%actions%',
 
       ]
     }

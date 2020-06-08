@@ -11,7 +11,7 @@
           <v-card-subtitle v-text="desc(item)"></v-card-subtitle>
           <div class="d-flex justify-space-around mb-2 align-end">
           <v-btn class="ma-2" color="primary" small v-if="!item.unrun" @click="$root.run(item.name)">
-           <v-icon left small>fa-play</v-icon> [[lang "run"]]
+           <v-icon left small>fa-play</v-icon> %run%
           </v-btn>
           <v-tooltip top>
             <template v-slot:activator="{ on }">
@@ -19,7 +19,7 @@
                               <v-icon>fa-edit</v-icon>
                           </v-btn>
             </template>
-            <span>[[lang "edit"]]</span>
+            <span>%edit%</span>
           </v-tooltip>
           <v-tooltip top v-if="!item.unrun">
             <template v-slot:activator="{ on }">
@@ -27,7 +27,7 @@
                               <v-icon>fa-angle-right</v-icon>
                           </v-btn>
             </template>
-            <span>[[lang "runsilently"]]</span>
+            <span>%runsilently%</span>
           </v-tooltip>
           </div>
         </v-card>

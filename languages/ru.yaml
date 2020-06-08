@@ -3,6 +3,7 @@ actions: Действия
 active: Активный
 addcmd: Добавить новую команду в скрипт
 additional: Дополнительные настройки
+break: Прервать
 cancel: Отмена
 checkbox: Чекбокс
 collapseall: Свернуть все
@@ -71,6 +72,7 @@ personal: Персональные
 recently: Недавно запущенные
 refresh: Обновить
 required: Это поле обязательно
+resume: Возобновить
 run: Запустить
 runsilently: Запустить скрытно
 save: Сохранить
@@ -93,6 +95,7 @@ status: Статус
 stdinput: стандартный ввод
 stopscript: Вы хотите прекратить выполнение скрипта?
 support: Служба поддержки
+suspend: Остановить
 suspended: Остановлен
 taskmanager: Диспетчер задач
 terminated: Прерван

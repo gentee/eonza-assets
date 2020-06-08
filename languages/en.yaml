@@ -3,6 +3,7 @@ actions: Actions
 active: Active
 addcmd: Add a new command to the script
 additional: Additional Settings
+break: Break
 cancel: Cancel
 checkbox: Checkbox
 collapseall: Collapse All
@@ -71,6 +72,7 @@ personal: Personal
 recently: Recently Launched
 refresh: Refresh
 required: This field is required
+resume: Resume
 run: Run
 runsilently: Run Silently
 save: Save
@@ -94,6 +96,7 @@ stdinput: standard input
 stopscript: Do you want to stop the script execution?
 submit: Submit
 support: Technical Support
+suspend: Suspend
 suspended: Suspended
 taskmanager: Task Manager
 terminated: Terminated

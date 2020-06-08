@@ -1,14 +1,14 @@
 <script type="text/x-template" id="home">
   <v-container style="height:100%;">
     <v-tabs v-model="tab">
-        <v-tab>[[lang "list"]]</v-tab>
-        <v-tab>[[lang "recently"]]</v-tab>
+        <v-tab>%list%</v-tab>
+        <v-tab>%recently%</v-tab>
     </v-tabs>
 
     <div style="height:calc(100% - 48px);" v-show="tab==0">
         <div class="d-flex pt-5">
           <v-text-field class="mx-2" append-icon="fa-search" v-model="search" 
-            label="[[lang "search"]]"
+            label="%search%"
             outlined @input="tosearch"
           ></v-text-field>
           <v-btn @click="clearsearch" class="mt-3" icon color="primary" v-if="!!search">
@@ -61,7 +61,7 @@ const Home = {
     list: function() { return store.state.list },
   },
   mounted: function() {
-    store.commit('updateTitle', [[lang "scripts"]]);
+    store.commit('updateTitle', '%scripts%');
     this.$root.loadList(this.viewlist);
   },
 };

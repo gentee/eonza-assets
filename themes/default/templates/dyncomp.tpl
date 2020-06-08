@@ -96,7 +96,7 @@ Vue.component('c-textarea', {
         options: {},
         rules: value => {
             if (this.par.options.required && !value) {
-                return [[lang "required"]]
+                return '%required%'
             }
             return true
         },
@@ -114,7 +114,7 @@ Vue.component('c-singletext', {
         options: {},
         rules: value => {
             if (this.par.options.required && !value) {
-                return [[lang "required"]]
+                return '%required%'
             }
             return true
         },
@@ -132,7 +132,7 @@ Vue.component('c-number', {
         options: {},
         rules: value => {
             if (this.par.options.required && !value) {
-                return [[lang "required"]]
+                return '%required%'
             }
             return true
         },

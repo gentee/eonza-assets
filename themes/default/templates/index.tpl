@@ -266,7 +266,7 @@ new Vue({
       checkChanged(fn) {
         if (store.state.changed) {
           let parent = this;
-           this.confirm( format([[lang "savescript"]], store.state.script.settings.title), 
+           this.confirm( format("%savescript%", store.state.script.settings.title), 
             function( par ){
              parent.question = false;
              if (par == btn.Yes) {
@@ -441,18 +441,18 @@ function appData() {
       work: true,
       develop: [[.Develop]],
       navitems: [
-        { id: 0, title: [[lang "scripts"]], icon: 'fa-play-circle', route: '/' },
-        { id: 1, title: [[lang "editor"]], icon: 'fa-edit', route: '/editor' },
-        { id: 2, title: [[lang "taskmanager"]], icon: 'fa-tasks', route: '/tasks' },
-        { id: 3, title: [[lang "settings"]], icon: 'fa-tools', route: '/settings' },
-        { id: 4, title: [[lang "help"]], icon: 'fa-life-ring', route: '/help' },
+        { id: 0, title: '%scripts%', icon: 'fa-play-circle', route: '/' },
+        { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' },
+        { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
+        { id: 3, title: '%settings%', icon: 'fa-tools', route: '/settings' },
+        { id: 4, title: '%help%', icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
       menus: [
-        { title: [[lang "refresh"]], icon: "fa-redo-alt", onclick: this.reload, 
+        { title: '%refresh%', icon: "fa-redo-alt", onclick: this.reload, 
              hide: [[not .Develop]]},
-        { title: [[lang "exit"]], icon: "fa-power-off", 
-          onclick: () => this.confirm([[lang "exitconfirm"]], this.exit) },
+        { title: '%exit%', icon: "fa-power-off", 
+          onclick: () => this.confirm("%exitconfirm%", this.exit) },
       ],
       question: false,
       asktitle: "",

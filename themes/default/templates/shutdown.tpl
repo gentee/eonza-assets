@@ -7,7 +7,7 @@
       icon="fa-power-off"
       prominent
     >
-      <h1>[[lang "exitalert"]]</h1>
+      <h1>%exitalert%</h1>
     </v-alert>
     </v-layout>
   </v-container>

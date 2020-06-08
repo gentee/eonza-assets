@@ -2,16 +2,16 @@
   <v-container style="max-width: 1024px;height:100%;">
     <v-toolbar dense flat=true>
         <v-btn color="primary" class="mx-2" :disabled="!changed" @click="save">
-            <v-icon left small>fa-save</v-icon>&nbsp;[[lang "save"]]
+            <v-icon left small>fa-save</v-icon>&nbsp;%save%
         </v-btn>
     </v-toolbar>
     <v-tabs v-model="tab">
-        <v-tab>[[lang "common"]]</v-tab>
-        <v-tab>[[lang "personal"]]</v-tab>
+        <v-tab>%common%</v-tab>
+        <v-tab>%personal%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
    <div class="pt-4">
-   <v-select label="[[lang "loglevel"]]" @change="change"
+   <v-select label="%loglevel%" @change="change"
                           v-model="options.common.loglevel"
                           :items="list" 
                           ></v-select>
@@ -19,7 +19,7 @@
     </div>
     <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;"> 
     <div class="pt-4">
-        <v-select label="[[lang "language"]]" @change="change"
+        <v-select label="%language%" @change="change"
             v-model="options.user.lang"
             :items="Langs" 
         ></v-select>
@@ -61,6 +61,7 @@ const Settings = {
                     this.errmsg(response.data.error);
                     return
                 }
+                location.reload(true)
                 this.changed = false
             })
             .catch(error => this.errmsg(error));
@@ -70,7 +71,7 @@ const Settings = {
         list() {return LogLevel.filter( (i) => i.value < 5 )}
     },
     mounted: function() {
-        store.commit('updateTitle', [[lang "settings"]]);
+        store.commit('updateTitle', '%settings%');
         axios
         .get(`/api/settings`)
         .then(response => {
