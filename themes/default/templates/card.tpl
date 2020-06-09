@@ -15,26 +15,15 @@
 Vue.component('card', {
     template: '#card',
     mixins: [changed],
-    data: cardData,
     computed: {
         cmds: () => { return store.state.list },
         forcard() { return this.active.disable ? 'cardd' : 'card' },
         title() { return this.cmds[this.active.name].title },
     },
-    props: {
-//        item: Object,
-    },
     methods: {
         jumpto() {
-            console.log(this.$parent)
             this.$parent.load(this.active.name)
         }
     }
 });
-
-function cardData() {
-    return {
-    }
-}
-
 </script>

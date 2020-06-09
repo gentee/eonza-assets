@@ -48,12 +48,12 @@ const Home = {
         .get('/api/listrun')
         .then(response => {
             if (response.data.error) {
-                this.errmsg(response.data.error);
+                this.$root.errmsg(response.data.error);
                 return
             }
             this.runlist = response.data.list
         })
-        .catch(error => this.errmsg(error));
+        .catch(error => this.$root.errmsg(error));
       }
     }
   },
