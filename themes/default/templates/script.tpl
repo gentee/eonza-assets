@@ -44,6 +44,7 @@
         <v-tab v-show="isform">%form%</v-tab>
         <v-tab v-show="isconsole">%console%</v-tab>
         <v-tab v-show="islog">%log%</v-tab>
+        <v-tab v-show="issrc">%sourcecode%</v-tab>
     </v-tabs>
       <div style="height:calc(100% - 48px);overflow-y:auto;" id="console">
     <v-alert
@@ -104,6 +105,9 @@
         <div v-show="tab==3">
           <div class="console" id="logout">[[.Logout]]
           </div>
+        </div>
+        <div v-show="tab==4">
+          [[.Source]]
         </div>
       </div>
     </v-content>
@@ -286,7 +290,7 @@ new Vue({
 function appData() { 
     return {
       status: [[.Task.Status]],
-      message: '',
+      message: [[.Task.Message]],
       tab: [[if len .Stdout]]2[[else]][[if len .Logout]]3[[else]]0[[end]][[end]],
       cmdline: '',
       start: [[.Start]],
@@ -298,6 +302,7 @@ function appData() {
       isform: false,
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: [[if len .Logout]]true[[else]]false[[end]],
+      issrc: [[if len .Source]]true[[else]]false[[end]],
 
       cmd: null,
       question: false,

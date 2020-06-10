@@ -6,12 +6,13 @@
         </v-btn>
     </v-toolbar>
     <v-tabs v-model="tab">
-        <v-tab>%common%</v-tab>
+        <v-tab>%scripts%</v-tab>
         <v-tab>%personal%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
    <div class="pt-4">
-   <v-select label="%loglevel%" @change="change"
+    <v-checkbox v-model="options.common.includesrc" label="%includesrc%" @change="change"></v-checkbox>
+    <v-select label="%loglevel%" @change="change"
                           v-model="options.common.loglevel"
                           :items="list" 
                           ></v-select>
@@ -39,6 +40,7 @@ const Settings = {
             options: {
                 common: {
                     loglevel: 3,
+                    includesrc: false,
                 },
                 user: {
                     lang: 'en',

@@ -171,3 +171,10 @@ v-content {
 .eyellow {
   color: #ff0;
 }
+
+pre {
+  font-family: "Roboto Mono";
+  background-color: #444;
+  color: #fff;
+  padding: 16px 16px;
+}

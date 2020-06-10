@@ -42,6 +42,7 @@ help: Help
 history: History
 import: Import
 importtitle: Import scripts
+includesrc: Include Source Code
 info: Information
 inherit: Inherit
 initvalue: Initial Value
