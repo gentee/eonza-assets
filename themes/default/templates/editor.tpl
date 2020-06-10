@@ -67,7 +67,7 @@
         <v-tab>%script%</v-tab>
         <v-tab>%settings%</v-tab>
         <v-tab>%parameters%</v-tab>
-        <v-tab v-if="develop">%sourcecode%</v-tab>
+        <v-tab>%sourcecode%</v-tab>
     </v-tabs>
 
     <!--v-tabs-items v-model="tab"  v-if="loaded"-->

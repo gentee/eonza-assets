@@ -1,0 +1,23 @@
+settings:
+  name: set-log-level
+  title: Set Log Level
+  loglevel: 5
+params:
+- name: level
+  title: Log Level
+  type: 3
+  options:
+    initial: LOG_INFO
+    type: int
+    items:
+    - title: Disable
+      value: LOG_DISABLE
+    - title: Error
+      value: LOG_ERROR
+    - title: Warning
+      value: LOG_WARN
+    - title: Information
+      value: LOG_INFO
+    - title: Debug
+      value: LOG_DEBUG
+code: SetLogLevel(level)
