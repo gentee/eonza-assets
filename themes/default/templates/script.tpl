@@ -75,7 +75,10 @@
           </table>
         </div>
         <div v-show="tab==1">
-          Form
+          Form {{formid}} + {{form}}
+          <v-btn color="primary" style="text-transform:none"
+            class="ma-2 white--text"
+            @click="sendform">Continue</v-btn>
         </div>
         <div v-show="tab==2">
           <div class="console" id="stdout">[[.Stdout]]
@@ -156,6 +159,19 @@ new Vue({
          })
          .catch(error => this.errmsg(error));
       },
+      sendform() {
+        axios
+        .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid})
+        .then(response => {
+           if (response.data.error) {
+             this.errmsg(response.data.error);
+              return
+            }
+            this.isform = false
+            this.tab = 0
+         })
+         .catch(error => this.errmsg(error));
+      },
       validateCmdLine: function(e) {
         if (e.keyCode === 13) {
           this.enterconsole()
@@ -233,6 +249,14 @@ new Vue({
             if (this.tab==0) {
               this.tab = 3
             }
+            break
+          case WcForm:
+            this.form = JSON.parse(cmd.message)  
+            this.formid = cmd.status || 0
+            if (!this.isform) {
+              this.isform = true
+            }
+            this.tab = 1
             break            
         }
       },
@@ -303,6 +327,8 @@ function appData() {
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: [[if len .Logout]]true[[else]]false[[end]],
       issrc: [[if len .Source]]true[[else]]false[[end]],
+      form: [],
+      formid: -1,
 
       cmd: null,
       question: false,
