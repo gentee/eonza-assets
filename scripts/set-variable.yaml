@@ -1,0 +1,15 @@
+settings:
+  name: set-variable
+  title: Set Variable
+  loglevel: 5
+  unrun: true
+params:
+- name: name
+  title: Variable Name
+  type: 2
+  options:
+    required: true
+- name: value
+  title: Value
+  type: 1
+code: SetVariable(name, value)

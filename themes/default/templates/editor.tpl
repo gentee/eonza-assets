@@ -194,6 +194,7 @@ const PTypes = [
     {text: '%singletext%', value: 2, comp: 'c-singletext'},
     {text: '%select%', value: 3, comp: 'c-select'},
     {text: '%number%', value: 4, comp: 'c-number'},
+    {text: '%list%', value: 5, comp: 'c-list'},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 const patScript = /^[a-z][a-z\d\._-]*$/
