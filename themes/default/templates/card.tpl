@@ -7,7 +7,7 @@
         label="%desc%" @input="change"
         ></v-text-field>
         <component v-for="comp in cmds[active.name].params"
-            :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:active.values}" />
+            :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:active.values}"></component>
     </div>
 </script>
 

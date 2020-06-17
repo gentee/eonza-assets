@@ -183,20 +183,6 @@ const LogLevel = [
     {text: '%inherit%', value: 5},
 ];
 
-const PCheckbox = 0;
-const PTextarea = 1;
-const PSingleText = 2;
-const PSelect = 3;
-const PNumber = 4;
-const PTypes = [
-    {text: '%checkbox%', value: 0, comp: 'c-checkbox'},
-    {text: '%textarea%', value: 1, comp: 'c-textarea'},
-    {text: '%singletext%', value: 2, comp: 'c-singletext'},
-    {text: '%select%', value: 3, comp: 'c-select'},
-    {text: '%number%', value: 4, comp: 'c-number'},
-    {text: '%list%', value: 5, comp: 'c-list'},
-];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
-
 const patScript = /^[a-z][a-z\d\._-]*$/
 const patName = /^[a-z][a-z\d\_]*$/
 

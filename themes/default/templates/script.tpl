@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/eonza.css">
 </head>
 <body>
+
 <div id = "app">
   <v-app style="height:100%;">
       <v-app-bar app color="blue darken-1" dense dark>
@@ -75,10 +76,12 @@
           </table>
         </div>
         <div v-show="tab==1">
-          Form {{formid}} + {{form}}
-          <v-btn color="primary" style="text-transform:none"
-            class="ma-2 white--text"
-            @click="sendform">Continue</v-btn>
+         <div class="pl-6" style="max-height: 100%;overflow-y: auto;max-width: 1024px;">
+            <component v-for="comp in fields"
+               :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:values}"></component>
+            <v-btn color="primary" style="text-transform:none"
+               class="ma-2 white--text" @click="sendform">Continue</v-btn>
+          </div>
         </div>
         <div v-show="tab==2">
           <div class="console" id="stdout">[[.Stdout]]
@@ -124,7 +127,27 @@
 <script src="/js/axios.min.js"></script>
 <!--script src="/js/vuex.min.js"></script-->
 
+<script>
+const changed = {
+  methods: {
+    change() {
+    },
+  },
+  computed: {
+/*    active: {
+        get() { return store.state.active },
+        set(value) { store.commit('updateActive', value) }
+    },*/
+    changed: {
+        get() { return false },
+        set(value) { }
+    },
+  }
+}
+</script>
+
 [[template "dialogs"]]
+[[template "dyncomp" .]]
 
 <script>
 
@@ -161,7 +184,7 @@ new Vue({
       },
       sendform() {
         axios
-        .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid})
+        .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values})
         .then(response => {
            if (response.data.error) {
              this.errmsg(response.data.error);
@@ -253,6 +276,17 @@ new Vue({
           case WcForm:
             this.form = JSON.parse(cmd.message)  
             this.formid = cmd.status || 0
+            this.fields = []
+            this.values = {}
+            for (let i = 0; i < this.form.length; i++) {
+              let item = this.form[i]
+              this.fields.push({name: item.var, type: item.type, title: item.text, options: {}})
+              let value = item.value || '' 
+              if (item.type == PCheckbox) {
+                value = String(value != '0' && value != 'false' && !!value)
+              }
+              this.values[item.var] = value
+            }
             if (!this.isform) {
               this.isform = true
             }
@@ -329,6 +363,8 @@ function appData() {
       issrc: [[if len .Source]]true[[else]]false[[end]],
       form: [],
       formid: -1,
+      fields: [],
+      values: {},
 
       cmd: null,
       question: false,
