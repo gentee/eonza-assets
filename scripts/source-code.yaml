@@ -1,7 +1,7 @@
 settings:
   name: source-code
   title: Source Code
-  loglevel: 5
+  loglevel: 6
   unrun: true
 params:
 - name: external

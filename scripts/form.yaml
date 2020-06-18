@@ -1,0 +1,30 @@
+settings:
+  name: form
+  title: Form
+  loglevel: 6
+  unrun: true
+params:
+- name: list
+  title: Form Controls
+  type: 5
+  options:
+    list:
+    - name: type
+      title: Control Type
+      type: 3
+      options:
+        type: int
+        items:
+        - title: Single Text
+          value: "2"
+        - title: Checkbox
+          value: "0"
+        - title: Multi-line Text
+          value: "1"
+    - name: text
+      title: Text
+      type: 2
+    - name: var
+      title: Variable Name
+      type: 2
+code: Form(list)

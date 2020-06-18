@@ -70,7 +70,7 @@ const Settings = {
         }
     },
     computed: {
-        list() {return LogLevel.filter( (i) => i.value < 5 )}
+        list() {return LogLevel.filter( (i) => i.value < 6 )}
     },
     mounted: function() {
         store.commit('updateTitle', '%settings%');

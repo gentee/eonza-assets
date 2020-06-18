@@ -1,7 +1,7 @@
 settings:
   name: log-output
   title: Log Output
-  loglevel: 5
+  loglevel: 6
 params:
 - name: level
   title: Log Level
@@ -13,6 +13,8 @@ params:
       value: LOG_ERROR
     - title: Warning
       value: LOG_WARN
+    - title: Form data
+      value: LOG_FORM
     - title: Information
       value: LOG_INFO
     - title: Debug

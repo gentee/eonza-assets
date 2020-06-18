@@ -178,9 +178,10 @@ const LogLevel = [
     {text: '%disable%', value: 0},
     {text: '%error%', value: 1},
     {text: '%warning%', value: 2},
-    {text: '%info%', value: 3},
-    {text: '%debug%', value: 4},
-    {text: '%inherit%', value: 5},
+    {text: '%formdata%', value: 3},
+    {text: '%info%', value: 4},
+    {text: '%debug%', value: 5},
+    {text: '%inherit%', value: 6},
 ];
 
 const patScript = /^[a-z][a-z\d\._-]*$/

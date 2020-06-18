@@ -1,7 +1,7 @@
 settings:
   name: set-variable
   title: Set Variable
-  loglevel: 5
+  loglevel: 6
   unrun: true
 params:
 - name: name
