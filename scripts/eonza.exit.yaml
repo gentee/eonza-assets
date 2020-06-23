@@ -1,0 +1,12 @@
+settings:
+  name: eonza.exit
+  title: Exit
+  loglevel: 6
+  unrun: true
+params:
+- name: code
+  title: Exit Code
+  type: 4
+  options:
+    default: "0"
+code: exit(code)

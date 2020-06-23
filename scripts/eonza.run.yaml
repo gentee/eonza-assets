@@ -1,0 +1,21 @@
+settings:
+  name: eonza.run
+  title: Run Application
+  loglevel: 6
+  unrun: true
+params:
+- name: path
+  title: Filename
+  type: 2
+  options:
+    required: true
+- name: cmdline
+  title: Command-line Parameters
+  type: 1
+- name: wait
+  title: Wait until application finishes
+  type: 0
+code: |-
+  arr params = SplitCmdLine(cmdline)
+  if wait : Run(path, params)
+  else : Start(path, params)

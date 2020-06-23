@@ -1,0 +1,12 @@
+settings:
+  name: chdir
+  title: Set Current Dir
+  loglevel: 6
+  unrun: true
+params:
+- name: path
+  title: Path
+  type: 2
+  options:
+    required: true
+code: ChDir(path)

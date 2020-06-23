@@ -191,7 +191,9 @@ new Vue({
               return
             }
             this.isform--
-            this.tab = 0
+            if (!this.isform) {
+              this.tab = 0
+            }
          })
          .catch(error => this.errmsg(error));
       },

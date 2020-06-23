@@ -1,0 +1,17 @@
+settings:
+  name: bash
+  title: Bash
+  loglevel: 6
+  unrun: true
+params:
+- name: source
+  title: Bash Script
+  type: 1
+  options:
+    required: true
+- name: wait
+  title: Wait until application finishes
+  type: 0
+  options:
+    initial: "1"
+code: "if wait :  Run(\"bash\", stdin: buf(source))\nelse :  Start(\"bash\", stdin: buf(source)) "

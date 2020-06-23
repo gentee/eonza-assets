@@ -1,0 +1,19 @@
+settings:
+  name: eonza.error
+  title: Error
+  loglevel: 6
+  unrun: true
+params:
+- name: text
+  title: Error message
+  type: 2
+  options:
+    required: true
+- name: code
+  title: Error Code
+  type: 4
+  options:
+    default: "100"
+code: |-
+  LogOutput(LOG_ERROR, `%{code}, %{text}`)
+  error(code, text)
