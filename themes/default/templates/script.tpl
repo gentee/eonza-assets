@@ -42,7 +42,7 @@
     <v-content app style="height:100%;">
     <v-tabs v-model="tab">
         <v-tab>%info%</v-tab>
-        <v-tab v-show="isform">%form%</v-tab>
+        <v-tab v-show="isform > 0">%form%</v-tab>
         <v-tab v-show="isconsole">%console%</v-tab>
         <v-tab v-show="islog">%log%</v-tab>
         <v-tab v-show="issrc">%sourcecode%</v-tab>
@@ -190,7 +190,7 @@ new Vue({
              this.errmsg(response.data.error);
               return
             }
-            this.isform = false
+            this.isform--
             this.tab = 0
          })
          .catch(error => this.errmsg(error));
@@ -274,6 +274,7 @@ new Vue({
             }
             break
           case WcForm:
+            this.isform++
             this.form = JSON.parse(cmd.message)  
             this.formid = cmd.status || 0
             this.fields = []
@@ -286,9 +287,6 @@ new Vue({
                 value = String(value != '0' && value != 'false' && !!value)
               }
               this.values[item.var] = value
-            }
-            if (!this.isform) {
-              this.isform = true
             }
             this.tab = 1
             break            
@@ -357,7 +355,7 @@ function appData() {
       console: null,
       logout: null,      
       stdcur: null,
-      isform: false,
+      isform: 0,
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: [[if len .Logout]]true[[else]]false[[end]],
       issrc: [[if len .Source]]true[[else]]false[[end]],

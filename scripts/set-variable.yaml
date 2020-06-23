@@ -12,4 +12,4 @@ params:
 - name: value
   title: Value
   type: 1
-code: SetVariable(name, value)
+code: SetVar(name, value)

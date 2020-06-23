@@ -15,5 +15,5 @@ params:
     - name: value
       title: Value
       type: 1
-code: "obj vobj = JsonToObj(list) \nfor vitem in vobj {\n    SetVariable(item(vitem,
+code: "obj vobj = JsonToObj(list) \nfor vitem in vobj {\n    SetVar(item(vitem,
   \"var\").str(), item(vitem, \"value\").str())\n}\n"
