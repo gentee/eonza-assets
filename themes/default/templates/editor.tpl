@@ -67,6 +67,7 @@
         <v-tab>%script%</v-tab>
         <v-tab>%settings%</v-tab>
         <v-tab>%parameters%</v-tab>
+        <v-tab>%langres%</v-tab>
         <v-tab>%sourcecode%</v-tab>
     </v-tabs>
 
@@ -162,8 +163,68 @@
         </v-data-table>
       </div>
       <div v-show="loaded && tab==3" class="pt-3" style="height: calc(100% - 106px);overflow-y:auto;">  
+        <v-select label="%language%" @change="changelang"
+            v-model="langid"
+            :items="Langs" 
+        ></v-select>
+        <v-data-table
+          disable-filtering disable-pagination disable-sort hide-default-footer
+          :headers="headLangs"
+          :items="langs"
+        >
+          <template v-slot:top>
+              <v-dialog v-model="dlgLangs" max-width="600px">
+                <template v-slot:activator="{ on }">
+                  <v-btn color="primary" dark class="mb-2" :disabled="langid != 'en'" v-on="on">%newitem%</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">{{ dlgParamTitle }}</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-text-field v-model="eLangItem.name" :disabled="langid != 'en'"
+                      label="%name%" counter maxlength="32" hint="a-z, 0-9, .-_"
+                      :rules="[rules.required, rules.name]"></v-text-field>
+                      <div v-show="langid!='en'" class="mb-3"><strong>{{eLangItem.entext}}</strong></div>
+                      <v-textarea  v-model="eLangItem.trans" :rules="[rules.required]"
+                      :label="langText" auto-grow dense
+                      ></v-textarea>
+                    </v-container>
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="ma-2" color="primary" @click="saveLangs">%save%</v-btn>
+                    <v-btn class="ma-2" color="primary" text outlined  @click="closeLangs">%cancel%</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+          </template>
+          <template v-slot:body="{ items }">
+              <tbody>
+                <tr v-for="(item, index) in items" :key="item.name">
+                  <td>{{ item.name }}</td>
+                  <td>{{item.trans}}</td>
+                  <td>{{item.entext}}</td>
+                  <td><span @click="editLangs(index)" class="mr-2">
+                      <v-icon small @click="">fa-pencil-alt</v-icon>
+                      </span>
+                      <span @click="deleteLangs(index)" class="mr-2" v-show="langid == 'en'">
+                      <v-icon small @click="">fa-times</v-icon></span>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          <!--template v-slot:no-data>
+            <v-btn color="primary" click="initialize">%newitem%</v-btn>
+          </template-->
+        </v-data-table>
+      </div>
+      <div v-show="loaded && tab==4" class="pt-3" style="height: calc(100% - 106px);overflow-y:auto;">  
          <v-textarea  v-model="script.code" @input="change"
-         label="%sourcecode%" auto-grow dense
+         label="%sourcecode%" auto-grow dense rows="10"
          ></v-textarea>
       </div>
   </v-container>
@@ -218,10 +279,13 @@ const Editor = Vue.component('editor', {
                 }
                 if (!response.data.params) 
                     response.data.params = [];
+                if (!response.data.langs) 
+                    response.data.langs = {};
                 if (!response.data.tree) {
                   response.data.tree = [];
                 } 
                 this.script = response.data;
+                this.loadLangs()
                 ilist = store.state.list[this.script.settings.name]
                 if (ilist)
                    this.script.embedded = ilist.embedded
@@ -254,6 +318,11 @@ const Editor = Vue.component('editor', {
             this.script.original = '';
             this.script.embedded = false;
             this.$root.saveScript();
+        },
+        closeLangs () {
+            this.dlgLangs = false
+            this.editedIndex = -1
+            this.eLangItem = {}
         },
         closeParams () {
             this.dlgParams = false
@@ -304,11 +373,81 @@ const Editor = Vue.component('editor', {
             this.change()
             this.closeParams()
         },
+        loadLangs() {
+          this.langs = []
+          for (let key in this.script.langs[`en`]) {
+            this.langs.push( {name: key, entext: this.script.langs[`en`][key] })
+          }
+          if (this.langid!= 'en') {
+            for (let i = 0; i < this.langs.length; i++) {
+              this.langs[i].trans = this.script.langs[this.langid][this.langs[i].name]
+            }
+          }
+          this.langs.sort(function(a, b){ return a.name.localeCompare(b.name) })
+        },
+        deleteLangs (index) {
+            let comp = this;
+            this.$root.confirmYes( '%delconfirm%', 
+            function(){
+                let name = comp.langs[index].name
+                for (let langid in comp.script.langs) {
+                  delete comp.script.langs[langid][name]
+                }
+                comp.loadLangs()
+                comp.change()
+           });               
+        },
+        editLangs (index) {
+            this.editedIndex = index
+            this.eLangItem = Object.assign({}, this.langs[index])
+            if (this.langid == 'en') {
+              this.eLangItem.trans = this.eLangItem.entext
+            }
+            this.dlgLangs = true
+        },
+        saveLangs () {
+            if (!this.eLangItem.name || !patName.test(this.eLangItem.name)) {
+                this.$root.errmsg(format("%invalidfield%", '%name%'))
+                return
+            }
+            if (!this.eLangItem.trans) {
+                this.$root.errmsg(format("%invalidfield%", this.langid=='en' ? '%entext%' :
+                   '%translation%'))
+                return
+            }
+            if (!this.script.langs[this.langid]) {
+              this.script.langs[this.langid] = {}
+            }
+            if (this.editedIndex > -1) {
+                let curName = this.langs[this.editedIndex].name
+                if (curName != this.eLangItem.name ) {
+                  for (let langid in this.script.langs) {
+                    let val = this.script.langs[langid][curName]
+                    delete this.script.langs[langid][curName]
+                    if (val) {
+                      this.script.langs[langid][this.eLangItem.name] = val
+                    }
+                  }
+                }
+                this.script.langs[this.langid][this.eLangItem.name] = this.eLangItem.trans;
+            } else {
+                this.script.langs[this.langid][this.eLangItem.name] = this.eLangItem.trans;
+            }
+            this.loadLangs()
+            this.change()
+            this.closeLangs()
+        },
         scriptmenu() {
           return this.menu.filter( (i) => !i.ifcond || i.ifcond() );
         },
         canrun() {
            return this.loaded && !this.script.settings.unrun
+        },
+        changelang() {
+          if (!this.script.langs[this.langid]) {
+            this.script.langs[this.langid] = {}
+          }
+          this.loadLangs()
         },
         noembed() {
            return !this.script.embedded
@@ -358,6 +497,29 @@ const Editor = Vue.component('editor', {
         }
     },
     computed: {
+        langText() {
+          return (this.langid != 'en' ? "%translation%" : "%entext%")
+        },
+        langlist() {
+              let ret = []
+              this.script.langs;
+                console.log('langlist')
+              if ( !this.script.langs ) {
+                return [];
+              }
+              if (!this.script.langs[this.langid]) {
+                this.script.langs[this.langid] = []
+              }
+              for (let i = 0; i < this.script.langs['en'].length; i++) {
+                console.log(i)
+                ret.push({name: this.script.langs['en'][i].name, trans: this.script.langs['en'][i].trans})
+              }
+              console.log(this.script.langs['en'].length, this.script.langs)
+              console.log(ret)
+              return ret
+  /*          },
+            set(value) { console.log("value") }*/
+        },
         script: {
             get() { return store.state.script },
             set(value) { store.commit('updateScript', value) }
@@ -378,6 +540,9 @@ const Editor = Vue.component('editor', {
       dlgParams (val) {
         val || this.closeParams()
       },
+      dlgLangs (val) {
+        val || this.closeLangs()
+      },
     },
 });
 
@@ -386,6 +551,7 @@ function editorData() {
         tab: null,
         develop: [[.Develop]],
         toopen: '',
+        langid: 'en',
         menu: [
             { title: '%import%', onclick: this.importScript },
             { title: '%export%', onclick: this.exportScript },
@@ -402,8 +568,11 @@ function editorData() {
           },
         },
         dlgParams: false,
+        dlgLangs: false,
         editedIndex: -1,
         editedItem: {type: 0},
+        eLangItem: {},
+        langs: [],
         headParams: [{
             text: '%name%',
             value: 'name',
@@ -421,6 +590,21 @@ function editorData() {
             value: 'actions',
             },
         ],
+        headLangs: [{
+            text: '%name%',
+            value: 'name',
+            },{
+            text: '%translation%',
+            value: 'trans',
+            },{
+            text: '%entext%',
+            value: 'entext',
+            },{
+            text: '%actions%',
+            value: 'actions',
+            },
+        ],
+
     }
 }
 

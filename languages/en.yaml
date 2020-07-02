@@ -24,6 +24,7 @@ dup: Duplicate
 edit: Edit
 edititem: Edit Item
 editor: Editor
+entext: English text
 errembed: You can't modify/delete the embedded scripts.
 errnickname: The '%s' user has already existed
 erropen: The %s script has not been found
@@ -49,6 +50,7 @@ inherit: Inherit
 initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
 invalidvalue: The value is invalid
+langres: Language Resource
 language: Language
 licagreement: License Agreement
 list: List
@@ -104,6 +106,7 @@ taskmanager: Task Manager
 terminated: Terminated
 textarea: Multi-line text
 title: Title
+translation: Translation
 type: Type
 version: Version
 unknownuser: Unknown user id %x

@@ -24,6 +24,7 @@ dup: Клонировать
 edit: Редактировать
 edititem: Редактирование элемента
 editor: Редактор
+entext: Текст на английском
 errembed: Вы не можете изменять/удалять встроенные скрипты.
 errnickname: Пользователь '%s' уже существует
 erropen: Скрипт %s не найден
@@ -49,6 +50,7 @@ inherit: Наследовать
 initvalue: Начальное значение
 invalidfield: Значение поля '%s' некорректно
 invalidvalue: Значение некорректно
+langres: Языковые ресурсы
 language: Язык
 licagreement: Лицензионное соглашение
 list: Список
@@ -103,6 +105,7 @@ taskmanager: Диспетчер задач
 terminated: Прерван
 textarea: Многострочный текст
 title: Название
+translation: Перевод
 type: Тип
 version: Версия
 unknownuser: Неизвестный пользователь %x
