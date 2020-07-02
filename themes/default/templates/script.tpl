@@ -80,7 +80,7 @@
             <component v-for="comp in fields"
                :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:values}"></component>
             <v-btn color="primary" style="text-transform:none"
-               class="ma-2 white--text" @click="sendform">Continue</v-btn>
+               class="ma-2 white--text" @click="sendform">%continue%</v-btn>
           </div>
         </div>
         <div v-show="tab==2">

@@ -1,7 +1,7 @@
 <script type="text/x-template" id="editor">
   <v-container style="height:100%;">
     <v-toolbar dense flat=true>
-      <v-icon v-if="script.embedded" left small>fa-lock</v-icon><v-toolbar-title>{{script.settings.title}}</v-toolbar-title>
+      <v-icon v-if="script.embedded" left small>fa-lock</v-icon><v-toolbar-title>{{script.langtitle}}</v-toolbar-title>
       <v-spacer></v-spacer>
         <v-menu left>
             <template v-slot:activator="{ on: history }">
@@ -80,7 +80,7 @@
     <div v-show="loaded && tab==1"  style="height: calc(100% - 106px);overflow-y:auto;">  
           <v-text-field v-model="script.settings.name" @input="change"
            label="%name%" counter maxlength="32" hint="a-z, 0-9, .-_"
-            :rules="[rules.required, rules.unique]"></v-text-field>
+            :rules="[rules.required, rules.script]"></v-text-field>
           <v-text-field v-model="script.settings.title" @input="change"
           label="%title%" counter maxlength="64" :rules="[rules.required]"
         ></v-text-field>
@@ -186,7 +186,7 @@
                     <v-container>
                       <v-text-field v-model="eLangItem.name" :disabled="langid != 'en'"
                       label="%name%" counter maxlength="32" hint="a-z, 0-9, .-_"
-                      :rules="[rules.required, rules.name]"></v-text-field>
+                      :rules="[rules.required, rules.var]"></v-text-field>
                       <div v-show="langid!='en'" class="mb-3"><strong>{{eLangItem.entext}}</strong></div>
                       <v-textarea  v-model="eLangItem.trans" :rules="[rules.required]"
                       :label="langText" auto-grow dense
@@ -246,6 +246,7 @@ const LogLevel = [
 ];
 
 const patScript = /^[a-z][a-z\d\._-]*$/
+const patVar = /^[a-z_][a-z\d\._-]*$/
 const patName = /^[a-z][a-z\d\_]*$/
 
 const Editor = Vue.component('editor', {
@@ -406,7 +407,7 @@ const Editor = Vue.component('editor', {
             this.dlgLangs = true
         },
         saveLangs () {
-            if (!this.eLangItem.name || !patName.test(this.eLangItem.name)) {
+            if (!this.eLangItem.name || !patVar.test(this.eLangItem.name)) {
                 this.$root.errmsg(format("%invalidfield%", '%name%'))
                 return
             }
@@ -500,26 +501,6 @@ const Editor = Vue.component('editor', {
         langText() {
           return (this.langid != 'en' ? "%translation%" : "%entext%")
         },
-        langlist() {
-              let ret = []
-              this.script.langs;
-                console.log('langlist')
-              if ( !this.script.langs ) {
-                return [];
-              }
-              if (!this.script.langs[this.langid]) {
-                this.script.langs[this.langid] = []
-              }
-              for (let i = 0; i < this.script.langs['en'].length; i++) {
-                console.log(i)
-                ret.push({name: this.script.langs['en'][i].name, trans: this.script.langs['en'][i].trans})
-              }
-              console.log(this.script.langs['en'].length, this.script.langs)
-              console.log(ret)
-              return ret
-  /*          },
-            set(value) { console.log("value") }*/
-        },
         script: {
             get() { return store.state.script },
             set(value) { store.commit('updateScript', value) }
@@ -560,8 +541,11 @@ function editorData() {
         ],
         rules: {
           required: value => !!value || '%required%',
-          unique: value => {
+          script: value => {
             return patScript.test(value) || '%invalidvalue%'
+          },
+          var: value => {
+            return patVar.test(value) || '%invalidvalue%'
           },
           name: value => {
             return patName.test(value) || '%invalidvalue%'
