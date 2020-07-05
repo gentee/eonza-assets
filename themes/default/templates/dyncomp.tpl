@@ -232,6 +232,9 @@ Vue.component('c-list', {
     },
     computed: {
         items() {
+            if (!this.vals[this.par.name] || !Array.isArray(this.vals[this.par.name])) {
+                this.vals[this.par.name] = []
+            }
             return this.vals[this.par.name]
         },
        headParams() {
