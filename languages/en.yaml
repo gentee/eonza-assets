@@ -27,6 +27,7 @@ edititem: Edit Item
 editor: Editor
 entext: English text
 errembed: You can't modify/delete the embedded scripts.
+errfield: The '%s' field of the '%s' command is required.
 errnickname: The '%s' user has already existed
 erropen: The %s script has not been found
 error: Error
