@@ -1,19 +1,26 @@
 settings:
   name: set-variables
-  title: Set Variables
+  title: '#_setvars#'
   loglevel: 6
   unrun: true
 params:
 - name: list
-  title: Variables
+  title: '#_vars#'
   type: 5
   options:
     list:
     - name: var
-      title: Variable Name
+      title: '#.varname#'
       type: 2
     - name: value
-      title: Value
+      title: '#.value#'
       type: 1
+langs:
+  en:
+    _setvars: Set Variables
+    _vars: Variables
+  ru:
+    _setvars: Установить переменные
+    _vars: Переменные
 code: "obj vobj = JsonToObj(list) \nfor vitem in vobj {\n    SetVar(item(vitem,
   \"var\").str(), item(vitem, \"value\").str())\n}\n"

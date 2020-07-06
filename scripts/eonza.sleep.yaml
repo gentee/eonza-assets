@@ -1,12 +1,19 @@
 settings:
   name: eonza.sleep
-  title: Sleep
+  title: '#_sleep#'
   loglevel: 6
 params:
 - name: timeout
-  title: Timeot (msec)
+  title: '#_timeout#'
   type: 4
   options:
     initial: "1000"
     required: true
+langs:
+  en:
+    _sleep: Sleep
+    _timeout: Timeout (msec)
+  ru:
+    _sleep: Пауза
+    _timeout: Время ожидания (msec)
 code: sleep(timeout)

@@ -5,13 +5,18 @@ settings:
   unrun: true
 params:
 - name: source
-  title: Bash Script
+  title: '#_bashscript#'
   type: 1
   options:
     required: true
 - name: wait
-  title: Wait until application finishes
+  title: '#.waitfinish#'
   type: 0
   options:
     initial: "1"
+langs:
+  en:
+    _bashscript: Bash Script
+  ru:
+    _bashscript: Bash скрипт
 code: "if wait :  Run(\"bash\", stdin: buf(source))\nelse :  Start(\"bash\", stdin: buf(source)) "

@@ -1,27 +1,32 @@
 settings:
   name: log-output
-  title: Log Output
+  title: '#_logoutput#'
   loglevel: 6
 params:
 - name: level
-  title: Log Level
+  title: '#.loglevel#'
   type: 3
   options:
     type: int
     items:
-    - title: Error
+    - title: '#.error#'
       value: LOG_ERROR
-    - title: Warning
+    - title: '#.warning#'
       value: LOG_WARN
-    - title: Form data
+    - title: '#.formdata#'
       value: LOG_FORM
-    - title: Information
+    - title: '#.info#'
       value: LOG_INFO
-    - title: Debug
+    - title: '#.debug#'
       value: LOG_DEBUG
 - name: text
-  title: Text
+  title: '#.text#'
   type: 2
   options:
     required: true
+langs:
+  en:
+    _logoutput: Log Output
+  ru:
+    _logoutput: Запись в лог
 code: LogOutput(level, text)

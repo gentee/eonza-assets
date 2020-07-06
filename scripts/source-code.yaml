@@ -1,15 +1,21 @@
 settings:
   name: source-code
-  title: Source Code
+  title: '#.sourcecode#'
   loglevel: 6
   unrun: true
 params:
 - name: external
-  title: External source code
+  title: '#_external#'
   type: 0
 - name: code
-  title: Source Code
+  title: '#.sourcecode#'
   type: 1
   options: 
     initial: "%body%"
     default: "%body%"
+langs:
+  en:
+    _external: External source code
+  ru:
+    _external: Внешний исходный код
+   

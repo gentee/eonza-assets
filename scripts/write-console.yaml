@@ -1,12 +1,17 @@
 settings:
   name: write-console
-  title: Write To Console
+  title: '#_writeconsole#'
   loglevel: 6
   unrun: true
 params:
   - name: text
-    title: Text
+    title: '#.text#'
     type: 1
     options: 
       required: true
+langs:
+  en:
+    _writeconsole: Write To Console
+  ru:
+    _writeconsole: Записать в консоль
 code: Println( text )

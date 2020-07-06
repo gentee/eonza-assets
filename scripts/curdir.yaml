@@ -1,12 +1,17 @@
 settings:
   name: curdir
-  title: Get Current Dir
+  title: '#_getcurdir#'
   loglevel: 6
   unrun: true
 params:
 - name: varname
-  title: Variable Name
+  title: '#.varname#'
   type: 2
   options:
     required: true
+langs:
+  en:
+    _getcurdir: Get Current Dir
+  ru:
+    _getcurdir: Получить текущую директорию
 code: SetVar(varname, GetCurDir())

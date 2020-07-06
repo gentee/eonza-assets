@@ -1,25 +1,30 @@
 settings:
   name: set-log-level
-  title: Set Log Level
+  title: '#_setloglevel#'
   loglevel: 6
 params:
 - name: level
-  title: Log Level
+  title: '#.loglevel#'
   type: 3
   options:
     initial: LOG_INFO
     type: int
     items:
-    - title: Disable
+    - title: '#.disable#'
       value: LOG_DISABLE
-    - title: Error
+    - title: '#.error#'
       value: LOG_ERROR
-    - title: Warning
+    - title: '#.warning#'
       value: LOG_WARN
-    - title: Form data
+    - title: '#.formdata#'
       value: LOG_FORM
-    - title: Information
+    - title: '#.info#'
       value: LOG_INFO
-    - title: Debug
+    - title: '#.debug#'
       value: LOG_DEBUG
+langs:
+  en:
+    _setloglevel: Set Log Level
+  ru:
+    _setloglevel: Установить уровень лога
 code: SetLogLevel(level)

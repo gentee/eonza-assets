@@ -1,12 +1,17 @@
 settings:
   name: chdir
-  title: Set Current Dir
+  title: '#_setcurdir#'
   loglevel: 6
   unrun: true
 params:
 - name: path
-  title: Path
+  title: '#.path#'
   type: 2
   options:
     required: true
+langs:
+  en:
+    _setcurdir: Set Current Dir
+  ru:
+    _setcurdir: Установить текущую директорию
 code: ChDir(path)

@@ -37,6 +37,7 @@ exitalert: Программа только что была закрыта
 expandall: Раскрыть все
 export: Экспорт
 failed: Ошибка
+filename: Имя файла
 finish: Окончание
 finished: Завершен
 form: Форма
@@ -73,6 +74,7 @@ ok: OK
 overwrite: Перезаписывать существующие
 parameters: Параметры
 paste: Вставить
+path: Путь
 personal: Персональные
 recently: Недавно запущенные
 refresh: Обновить
@@ -109,11 +111,13 @@ textarea: Многострочный текст
 title: Название
 translation: Перевод
 type: Тип
+value: Значение
 varname: Имя переменной
 version: Версия
 unknownuser: Неизвестный пользователь %x
 unrun: Незапускаемый скрипт
 upload: Загрузить
+waitfinish: Ждать окончания работы приложения
 waiting: Ожидание
 warning: Предупреждение
 yes: Да

@@ -1,15 +1,20 @@
 settings:
   name: set-variable
-  title: Set Variable
+  title: '#_setvar#'
   loglevel: 6
   unrun: true
 params:
 - name: name
-  title: Variable Name
+  title: '#.varname#'
   type: 2
   options:
     required: true
 - name: value
-  title: Value
+  title: '#.value#'
   type: 1
+langs:
+  en:
+    _setvar: Set Variable
+  ru:
+    _setvar: Установить переменную
 code: SetVar(name, value)

@@ -1,12 +1,17 @@
 settings:
   name: eonza.exit
-  title: Exit
+  title: '#.exit#'
   loglevel: 6
   unrun: true
 params:
 - name: code
-  title: Exit Code
+  title: '#_exitcode#'
   type: 4
   options:
     default: "0"
+langs:
+  en:
+    _exitcode: Exit Code
+  ru:
+    _exitcode: Код возврата
 code: exit(code)
