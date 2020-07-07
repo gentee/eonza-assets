@@ -1,5 +1,5 @@
 settings:
-  name: eonza.error
+  name: error.eonza
   title: '#.error#'
   loglevel: 6
   unrun: true

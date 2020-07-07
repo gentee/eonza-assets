@@ -1,5 +1,5 @@
 settings:
-  name: eonza.run
+  name: run.eonza
   title: '#_runapp#'
   loglevel: 6
   unrun: true

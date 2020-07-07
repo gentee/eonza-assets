@@ -1,5 +1,5 @@
 settings:
-  name: eonza.exit
+  name: exit.eonza
   title: '#.exit#'
   loglevel: 6
   unrun: true
