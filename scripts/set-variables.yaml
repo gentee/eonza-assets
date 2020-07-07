@@ -9,6 +9,7 @@ params:
   title: '#_vars#'
   type: 5
   options:
+    required: true
     list:
     - name: var
       title: '#.varname#'

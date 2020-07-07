@@ -1,0 +1,31 @@
+settings:
+  name: copy-file
+  title: '#_copyfile#'
+  desc: '#_desc#'
+  loglevel: 6
+  unrun: true
+params:
+- name: src
+  title: '#_srcfile#'
+  type: 2
+  options:
+    required: true
+- name: dest
+  title: '#_destfolder#'
+  type: 2
+  options:
+    required: true
+langs:
+  en:
+    _copyfile: Copy File
+    _desc: Copy the file to another directory
+    _destfolder: Destination Folder
+    _srcfile: Source File
+  ru:
+    _copyfile: Копировать файл
+    _desc: Копировать файл в другую директорию
+    _destfolder: Целевая директория
+    _srcfile: Исходный файл
+code: |-
+  str destfile = JoinPath(dest,  BaseName(src))
+  CopyFile(src, destfile)
