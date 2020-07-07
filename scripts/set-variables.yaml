@@ -1,6 +1,7 @@
 settings:
   name: set-variables
   title: '#_setvars#'
+  desc: '#_desc#'  
   loglevel: 6
   unrun: true
 params:
@@ -17,9 +18,11 @@ params:
       type: 1
 langs:
   en:
+    _desc: Assign values to several variables
     _setvars: Set Variables
     _vars: Variables
   ru:
+    _desc: Присвоить значения нескольким переменным
     _setvars: Установить переменные
     _vars: Переменные
 code: "obj vobj = JsonToObj(list) \nfor vitem in vobj {\n    SetVar(item(vitem,

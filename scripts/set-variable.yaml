@@ -1,6 +1,7 @@
 settings:
   name: set-variable
   title: '#_setvar#'
+  desc: '#_desc#'  
   loglevel: 6
   unrun: true
 params:
@@ -14,7 +15,9 @@ params:
   type: 1
 langs:
   en:
+    _desc: Assign a value to a variable
     _setvar: Set Variable
   ru:
+    _desc: Присвоить значение переменной
     _setvar: Установить переменную
 code: SetVar(name, value)

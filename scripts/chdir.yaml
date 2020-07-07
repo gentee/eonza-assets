@@ -1,6 +1,7 @@
 settings:
   name: chdir
   title: '#_setcurdir#'
+  desc: '#_desc#'
   loglevel: 6
   unrun: true
 params:
@@ -11,7 +12,9 @@ params:
     required: true
 langs:
   en:
+    _desc: Change the current duirectory
     _setcurdir: Set Current Dir
   ru:
+    _desc: Изменить текущую директорию
     _setcurdir: Установить текущую директорию
 code: ChDir(path)

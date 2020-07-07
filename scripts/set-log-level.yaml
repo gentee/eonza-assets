@@ -1,6 +1,7 @@
 settings:
   name: set-log-level
   title: '#_setloglevel#'
+  desc: '#_desc#'  
   loglevel: 6
 params:
 - name: level
@@ -24,7 +25,9 @@ params:
       value: LOG_DEBUG
 langs:
   en:
+    _desc: Set logging level
     _setloglevel: Set Log Level
   ru:
+    _desc: Установить уровень записи в лог
     _setloglevel: Установить уровень лога
 code: SetLogLevel(level)

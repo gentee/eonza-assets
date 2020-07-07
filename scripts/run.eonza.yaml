@@ -1,6 +1,7 @@
 settings:
   name: run.eonza
   title: '#_runapp#'
+  desc: '#_desc#'
   loglevel: 6
   unrun: true
 params:
@@ -17,9 +18,11 @@ params:
   type: 0
 langs:
   en:
+    _desc: Run the application with the parameters
     _runapp: Run Application
     _cmdline: Command-line Parameters
   ru:
+    _desc: Запустить приложение с параметрами
     _runapp: Запустить приложение
     _cmdline: Параметры командной строки
 code: |-

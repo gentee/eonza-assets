@@ -1,6 +1,7 @@
 settings:
   name: curdir
   title: '#_getcurdir#'
+  desc: '#_desc#'
   loglevel: 6
   unrun: true
 params:
@@ -11,7 +12,9 @@ params:
     required: true
 langs:
   en:
+    _desc: Get the current directory
     _getcurdir: Get Current Dir
   ru:
+    _desc: Получить текущую директорию
     _getcurdir: Получить текущую директорию
 code: SetVar(varname, GetCurDir())

@@ -1,6 +1,7 @@
 settings:
   name: source-code
   title: '#.sourcecode#'
+  desc: '#_desc#'  
   loglevel: 6
   unrun: true
 params:
@@ -15,7 +16,9 @@ params:
     default: "%body%"
 langs:
   en:
+    _desc: Execute code in Gentee script language
     _external: External source code
   ru:
+    _desc: Выполнить Gentee скрипт
     _external: Внешний исходный код
    

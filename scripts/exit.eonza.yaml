@@ -1,6 +1,7 @@
 settings:
   name: exit.eonza
   title: '#.exit#'
+  desc: '#_desc#'
   loglevel: 6
   unrun: true
 params:
@@ -11,7 +12,9 @@ params:
     default: "0"
 langs:
   en:
+    _desc: Stop the script
     _exitcode: Exit Code
   ru:
+    _desc: Прекратить работу скрипта
     _exitcode: Код возврата
 code: exit(code)

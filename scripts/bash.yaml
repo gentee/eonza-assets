@@ -1,6 +1,7 @@
 settings:
   name: bash
   title: Bash
+  desc: '#_desc#'
   loglevel: 6
   unrun: true
 params:
@@ -16,7 +17,9 @@ params:
     initial: "1"
 langs:
   en:
+    _desc: Run a bash script
     _bashscript: Bash Script
   ru:
+    _desc: Выполнить bash скрипт
     _bashscript: Bash скрипт
 code: "if wait :  Run(\"bash\", stdin: buf(source))\nelse :  Start(\"bash\", stdin: buf(source)) "

@@ -1,6 +1,7 @@
 settings:
   name: error.eonza
   title: '#.error#'
+  desc: '#_desc#'
   loglevel: 6
   unrun: true
 params:
@@ -16,9 +17,11 @@ params:
     default: "100"
 langs:
   en:
+    _desc: Stop the script with an error
     _errcode: Error Code
     _errmsg: Error message
   ru:
+    _desc: Прекратить работу скрипта с ошибкой
     _errcode: Код ошибки
     _errmsg: Сообщение об ошибке
 code: |-

@@ -1,6 +1,7 @@
 settings:
   name: log-output
   title: '#_logoutput#'
+  desc: '#_desc#'
   loglevel: 6
 params:
 - name: level
@@ -26,7 +27,9 @@ params:
     required: true
 langs:
   en:
+    _desc: Write to the log
     _logoutput: Log Output
   ru:
+    _desc: Записать в лог
     _logoutput: Запись в лог
 code: LogOutput(level, text)

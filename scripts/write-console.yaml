@@ -1,6 +1,7 @@
 settings:
   name: write-console
   title: '#_writeconsole#'
+  desc: '#_desc#'  
   loglevel: 6
   unrun: true
 params:
@@ -11,7 +12,9 @@ params:
       required: true
 langs:
   en:
+    _desc: Print string to console
     _writeconsole: Write To Console
   ru:
+    _desc: Вывести строку в консоль
     _writeconsole: Записать в консоль
 code: Println( text )

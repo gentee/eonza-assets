@@ -2,6 +2,7 @@ settings:
   name: open
   title: '#_open#'
   loglevel: 6
+  desc: '#_desc#'
   unrun: true
 params:
 - name: path
@@ -11,7 +12,9 @@ params:
     required: true
 langs:
   en:
-    _open: Open File
+    _desc: Open a file or link in another app
+    _open: Open File or Link
   ru:
-    _open: Открыть фaйл
+    _desc: Открыть файл или ссылку в другом приложении
+    _open: Открыть фaйл или ссылку
 code: Open(path)

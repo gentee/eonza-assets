@@ -2,6 +2,7 @@ settings:
   name: form
   title: '#_form#'
   loglevel: 6
+  desc: '#_desc#'
   unrun: true
 params:
 - name: list
@@ -30,10 +31,12 @@ params:
 langs:
   en:
     _controltype: Control Type
+    _desc: Show form
     _form: Form
     _formcontrols: Form Controls
   ru:
     _controltype: Тип элемента
+    _desc: Показать форму
     _form: Форма
     _formcontrols: Элементы формы
 code: Form(list)
