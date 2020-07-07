@@ -1,0 +1,26 @@
+settings:
+  name: write-file
+  title: '#_writefile#'
+  desc: '#_desc#'
+  loglevel: 6
+  unrun: true
+params:
+- name: name
+  title: '#.varname#'
+  type: 2
+  options:
+    required: true
+- name: filename
+  title: '#.filename#'
+  type: 2
+  options:
+    required: true
+langs:
+  en:
+    _desc: Write a variable to a file
+    _writefile: Write To File
+  ru:
+    _desc: Записать переменную в файл
+    _writefile: Записать в файл
+code: |-
+  WriteFile(filename, GetVar(name))

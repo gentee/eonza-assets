@@ -1,0 +1,21 @@
+settings:
+  name: delete-file
+  title: '#_deletefile#'
+  desc: '#_desc#'
+  loglevel: 6
+  unrun: true
+params:
+- name: path
+  title: '#.path#'
+  type: 2
+  options:
+    required: true
+langs:
+  en:
+    _deletefile: Delete File
+    _desc: Delete file or empty folder
+  ru:
+    _deletefile: Удалить файл
+    _desc: Удалить файл или пустую директорию
+code: |-
+  Remove(path)

@@ -241,6 +241,9 @@ new Vue({
             }
             break
           case WcStdout:
+            if (!cmd.message) {
+              cmd.message = '&nbsp;';
+            }
             if (!this.isconsole) {
               this.isconsole = true
             }
