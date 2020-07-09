@@ -161,17 +161,11 @@ const Settings = {
                this.options.common.constants = {}
             }
             if (this.editedIndex > -1) {
-/*                let curName = this.langs[this.editedIndex].name
-                if (curName != this.eLangItem.name ) {
-                  for (let langid in this.script.langs) {
-                    let val = this.script.langs[langid][curName]
-                    delete this.script.langs[langid][curName]
-                    if (val) {
-                      this.script.langs[langid][this.eLangItem.name] = val
-                    }
-                  }
+                let curName = this.constants[this.editedIndex].name
+                if (curName != this.eConstItem.name ) {
+                    delete this.options.common.constants[curName]
                 }
-                this.script.langs[this.langid][this.eLangItem.name] = this.eLangItem.trans;*/
+                this.options.common.constants[this.eConstItem.name] = this.eConstItem.value
             } else {
                 this.options.common.constants[this.eConstItem.name] = this.eConstItem.value
             }
@@ -191,7 +185,7 @@ const Settings = {
         },
         editConst (index) {
             this.editedIndex = index
-//            this.eConstItem = Object.assign({}, this.langs[index])
+            this.eConstItem = Object.assign({}, this.constants[index])
             this.dlgConst = true
         },
         closeConst () {
