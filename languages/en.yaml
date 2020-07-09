@@ -43,6 +43,7 @@ finish: Finish
 finished: Finished
 form: Form
 formdata: Form Data
+globconst: Global Constants
 help: Help
 history: History
 import: Import
