@@ -3,6 +3,7 @@ actions: Действия
 active: Активный
 addcmd: Добавить новую команду в скрипт
 additional: Дополнительные настройки
+annotation: Бесплатная программа с открытым исходным кодом для автоматизации процессов
 break: Прервать
 cancel: Отмена
 checkbox: Чекбокс
@@ -57,6 +58,7 @@ invalidvalue: Значение некорректно
 langres: Языковые ресурсы
 language: Язык
 licagreement: Лицензионное соглашение
+licenseurl: https://www.eonza.org/ru/docs/license.html
 list: Список
 log: Лог
 loglevel: Уровень лога
@@ -72,6 +74,7 @@ newscript: Новый скрипт
 nickname: Псевдоним
 no: Нет
 number: Число
+officialsite: Официальный сайт
 ok: OK
 overwrite: Перезаписывать существующие
 parameters: Параметры
@@ -80,6 +83,7 @@ path: Путь
 personal: Персональные
 recently: Недавно запущенные
 refresh: Обновить
+repissue: Сообщить о проблеме
 required: Это поле обязательно
 resume: Возобновить
 run: Запустить
