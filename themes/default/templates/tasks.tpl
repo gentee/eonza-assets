@@ -88,6 +88,7 @@ const Tasks = {
   },
   mounted() {
     store.commit('updateTitle', '%taskmanager%');
+    store.commit('updateHelp', '%urltaskmanager%');
     this.$root.loadTasks()
   }
 };

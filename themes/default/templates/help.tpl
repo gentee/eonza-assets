@@ -31,6 +31,7 @@ const Help = {
     data: helpData,
     mounted: function() {
         store.commit('updateTitle', '%help%');
+        store.commit('updateHelp', '%urlhelp%');
     },
 
 };

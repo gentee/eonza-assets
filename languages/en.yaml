@@ -128,3 +128,13 @@ waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning
 yes: Yes
+urleditor: /docs/editor.html
+urled-script: /docs/editor-script.html
+urled-settings: /docs/editor-settings.html
+urled-parameters: /docs/editor-parameters.html
+urled-language: /docs/editor-language-resources.html
+urled-source: /docs/editor-source-code.html
+urlhelp: /docs/user-guide.html
+urlscripts: /docs/scripts.html
+urlsettings: /docs/settings.html
+urltaskmanager: /docs/task-manager.html

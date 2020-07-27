@@ -202,6 +202,7 @@ const Settings = {
     },
     mounted: function() {
         store.commit('updateTitle', '%settings%');
+        store.commit('updateHelp', '%urlsettings%');
         axios
         .get(`/api/settings`)
         .then(response => {

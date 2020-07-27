@@ -62,6 +62,7 @@ const Home = {
   },
   mounted: function() {
     store.commit('updateTitle', '%scripts%');
+    store.commit('updateHelp', '%urlscripts%');
     this.$root.loadList(this.viewlist);
   },
 };

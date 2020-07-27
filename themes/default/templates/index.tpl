@@ -21,6 +21,9 @@
         <v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name != 1">
             <v-icon small left>fa-plus</v-icon>&nbsp;%newscript%
         </v-btn>
+        <v-btn color="primary" :href="'https://www.eonza.org' + store.state.help" target="_help" class="white  font-weight-bold mx-4" outlined>
+            <v-icon small left>fa-question</v-icon>&nbsp;%help%
+        </v-btn>
         <v-spacer></v-spacer>
           <v-menu bottom left :open-on-hover = true >
             <template v-slot:activator="{ on }">
@@ -177,6 +180,7 @@ const router = new VueRouter({ routes });
 const store = new Vuex.Store({
   state: {
       title: '',
+      help: '/',
       changed: false,
       loaded: false,
       active: null,
@@ -194,6 +198,9 @@ const store = new Vuex.Store({
   mutations: {
     updateTitle (state, title) {
       state.title = title;
+    },
+    updateHelp (state, url) {
+      state.help = url;
     },
     updateScript (state, script) {
       state.script = script;

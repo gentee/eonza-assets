@@ -127,3 +127,15 @@ waitfinish: Ждать окончания работы приложения
 waiting: Ожидание
 warning: Предупреждение
 yes: Да
+urleditor: /ru/docs/editor.html
+urled-script: /ru/docs/editor-script.html
+urled-settings: /ru/docs/editor-settings.html
+urled-parameters: /ru/docs/editor-parameters.html
+urled-language: /ru/docs/editor-language-resources.html
+urled-source: /ru/docs/editor-source-code.html
+urlhelp: /ru/docs/user-guide.html
+urlscripts: /ru/docs/scripts.html
+urlsettings: /ru/docs/settings.html
+urltaskmanager: /ru/docs/task-manager.html
+
+

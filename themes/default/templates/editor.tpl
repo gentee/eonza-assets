@@ -235,6 +235,14 @@ const Langs = [
    [[range $key, $native := .Langs ]]{text: '[[$native]]', value: '[[$key]]'},[[end]]
 ];
 
+const TabHelp = [
+  '%urled-script%',
+  '%urled-settings%',
+  '%urled-parameters%',
+  '%urled-language%',
+  '%urled-source%'
+];
+
 const LogLevel = [
     {text: '%disable%', value: 0},
     {text: '%error%', value: 1},
@@ -489,6 +497,7 @@ const Editor = Vue.component('editor', {
     },
     mounted: function() {
         store.commit('updateTitle', '%editor%');
+        store.commit('updateHelp', '%urleditor%');
         let par = '';
         if (this.$route.query.scriptname) {
             par = this.$route.query.scriptname
@@ -518,6 +527,9 @@ const Editor = Vue.component('editor', {
         },
     },
     watch: {
+      tab(val) {
+        store.commit('updateHelp', TabHelp[val]);
+      }, 
       dlgParams (val) {
         val || this.closeParams()
       },
