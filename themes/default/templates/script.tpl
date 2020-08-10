@@ -289,7 +289,7 @@ new Vue({
               this.fields.push({name: item.var, type: item.type, title: item.text, options: {}})
               let value = item.value || '' 
               if (item.type == PCheckbox) {
-                value = String(value != '0' && value != 'false' && !!value)
+                value = value != '0' && value != 'false' && !!value
               }
               this.values[item.var] = value
             }
