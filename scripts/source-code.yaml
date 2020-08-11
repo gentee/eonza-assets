@@ -1,7 +1,9 @@
 settings:
   name: source-code
   title: '#.sourcecode#'
-  desc: '#_desc#'  
+  desc: '#_desc#' 
+  help: source-code
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

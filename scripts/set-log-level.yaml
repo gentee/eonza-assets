@@ -2,6 +2,8 @@ settings:
   name: set-log-level
   title: '#_setloglevel#'
   desc: '#_desc#'  
+  help: set-log-level
+  helplang: ru
   loglevel: 6
 params:
 - name: level

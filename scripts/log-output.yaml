@@ -2,6 +2,8 @@ settings:
   name: log-output
   title: '#_logoutput#'
   desc: '#_desc#'
+  help: log-output
+  helplang: ru
   loglevel: 6
 params:
 - name: level

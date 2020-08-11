@@ -2,6 +2,8 @@ settings:
   name: delete-file
   title: '#_deletefile#'
   desc: '#_desc#'
+  help: delete-file
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

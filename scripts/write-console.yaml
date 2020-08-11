@@ -2,6 +2,8 @@ settings:
   name: write-console
   title: '#_writeconsole#'
   desc: '#_desc#'  
+  help: write-to-console
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

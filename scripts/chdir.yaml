@@ -2,6 +2,8 @@ settings:
   name: chdir
   title: '#_setcurdir#'
   desc: '#_desc#'
+  help: chdir
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

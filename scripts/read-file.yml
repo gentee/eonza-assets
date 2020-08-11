@@ -2,6 +2,8 @@ settings:
   name: read-file
   title: '#_readfile#'
   desc: '#_desc#'
+  help: read-file
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

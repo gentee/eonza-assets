@@ -2,6 +2,8 @@ settings:
   name: curdir
   title: '#_getcurdir#'
   desc: '#_desc#'
+  help: curdir
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

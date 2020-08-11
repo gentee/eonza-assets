@@ -2,6 +2,8 @@ settings:
   name: run.eonza
   title: '#_runapp#'
   desc: '#_desc#'
+  help: run
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

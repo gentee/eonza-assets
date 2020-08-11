@@ -4,6 +4,8 @@ settings:
   desc: '#_desc#'
   loglevel: 6
   unrun: true
+  help: error
+  helplang: ru
 params:
 - name: text
   title: '#_errmsg#'

@@ -2,6 +2,8 @@ settings:
   name: exit.eonza
   title: '#.exit#'
   desc: '#_desc#'
+  help: exit
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

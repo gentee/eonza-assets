@@ -3,6 +3,8 @@ settings:
   title: '#_form#'
   loglevel: 6
   desc: '#_desc#'
+  help: form
+  helplang: ru
   unrun: true
 params:
 - name: list

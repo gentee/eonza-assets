@@ -2,6 +2,8 @@ settings:
   name: write-file
   title: '#_writefile#'
   desc: '#_desc#'
+  help: write-file
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

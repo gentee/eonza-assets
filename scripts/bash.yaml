@@ -4,6 +4,8 @@ settings:
   desc: '#_desc#'
   loglevel: 6
   unrun: true
+  help: bash
+  helplang: ru
 params:
 - name: source
   title: '#_bashscript#'

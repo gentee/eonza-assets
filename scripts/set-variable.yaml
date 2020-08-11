@@ -2,6 +2,8 @@ settings:
   name: set-variable
   title: '#_setvar#'
   desc: '#_desc#'  
+  help: set-variable
+  helplang: ru
   loglevel: 6
   unrun: true
 params:

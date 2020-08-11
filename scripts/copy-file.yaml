@@ -2,6 +2,8 @@ settings:
   name: copy-file
   title: '#_copyfile#'
   desc: '#_desc#'
+  help: copy-file
+  helplang: ru
   loglevel: 6
   unrun: true
 params:
