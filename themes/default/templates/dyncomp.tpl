@@ -127,8 +127,10 @@ Vue.component('c-select', {
         changeItem() {
             for (let i = 0; i < this.par.options.items.length;i++) {
                 if (this.curItem == this.par.options.items[i].title) {
-                    let cmp = this.par.options.items[i].title
-                    if (!!this.par.options.items[i].value) {
+                    let cmp = ''
+                    if (typeof this.par.options.items[i].value === 'undefined') {
+                        cmp = this.par.options.items[i].title
+                    } else {
                         cmp = this.par.options.items[i].value
                     }
                     this.vals[this.par.name] = cmp
@@ -141,16 +143,23 @@ Vue.component('c-select', {
         items() { 
             let ret = []
             if (this.par.options) {
+                if (!!this.par.options.initial) {
+                    this.vals[this.par.name] = this.par.options.initial
+                }       
                 for (let i = 0; i < this.par.options.items.length;i++) {
                     let val = this.par.options.items[i].title
                     ret.push(val)
                     let cmp = val 
-                    if (!!this.par.options.items[i].value) {
+/*                    if (!!this.par.options.items[i].value) {
+                        cmp = this.par.options.items[i].value
+                    }*/
+                    if (typeof this.par.options.items[i].value !== 'undefined') {
                         cmp = this.par.options.items[i].value
                     }
                     if (this.vals[this.par.name] == cmp || i==0 ) {
                         this.curItem = val
-                        if (!this.vals[this.par.name]) { // assign initial value
+                        if (typeof this.vals[this.par.name] === 'undefined') { 
+                            // assign initial value
                             this.vals[this.par.name] = cmp
                         }
                     }
@@ -250,7 +259,7 @@ Vue.component('c-list', {
     },
     methods: {
         out(item, par) { 
-            let val = item[par.name] 
+            let val = item[par.name] || ''
             if (par.type == PSelect) {
                 for (let i = 0; i < par.options.items.length; i++ ) {
                     if (par.options.items[i].value == val) {

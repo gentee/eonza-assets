@@ -24,12 +24,17 @@ params:
           value: "0"
         - title: '#.textarea#'
           value: "1"
+        - title: '#.select#'
+          value: "3"
     - name: text
       title: '#.text#'
       type: 2
     - name: var
       title: '#.varname#'
       type: 2
+    - name: options
+      title: '#.additional#'
+      type: 1
 langs:
   en:
     _controltype: Control Type

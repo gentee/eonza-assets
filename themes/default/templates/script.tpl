@@ -286,7 +286,13 @@ new Vue({
             this.values = {}
             for (let i = 0; i < this.form.length; i++) {
               let item = this.form[i]
-              this.fields.push({name: item.var, type: item.type, title: item.text, options: {}})
+              if (!!item.options) {
+                item.options = JSON.parse(item.options)  
+              } else {
+                item.options = {}
+              }
+              this.fields.push({name: item.var, type: item.type, title: item.text, 
+                  options: item.options})
               let value = item.value || '' 
               if (item.type == PCheckbox) {
                 value = value != '0' && value != 'false' && !!value
