@@ -222,7 +222,7 @@ Vue.component('tree', {
             if (btn.disable & disClip && !this.clipboard) {
                 return true;
             }
-            let list = this.active.__parent ? this.active.__parent.children : this.obj;
+            let list = !!this.active.__parent ? this.active.__parent.children : this.obj;
             if (btn.disable & disFirst && this.active == list[0]) {
                 return true;
             }

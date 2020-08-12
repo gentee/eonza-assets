@@ -3,12 +3,14 @@ actions: Actions
 active: Active
 addcmd: Add a new command to the script
 additional: Additional Settings
+and: AND
 annotation: Free, open-source automation software
 break: Break
 cancel: Cancel
 checkbox: Checkbox
 collapseall: Collapse All
 common: Common
+comparetype: Comparison Type
 console: Console
 continue: Continue
 copy: Copy
@@ -27,6 +29,7 @@ edit: Edit
 edititem: Edit Item
 editor: Editor
 entext: English text
+equal: Equal
 errembed: You can't modify/delete the embedded scripts.
 errfield: The '%s' field of the '%s' command is required.
 errnickname: The '%s' user has already existed
@@ -71,11 +74,14 @@ new: New
 newchild: Add a new child command
 newitem: New Item
 newscript: New Script
+nextcond: Next Condition
 nickname: Nickname
 no: No
+not: NOT
 number: Number
 officialsite: Official Site
 ok: OK
+or: OR
 overwrite: Overwrite the existing ones
 parameters: Parameters
 paste: Paste

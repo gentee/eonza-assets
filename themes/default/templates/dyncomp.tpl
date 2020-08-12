@@ -158,11 +158,13 @@ Vue.component('c-select', {
                     }
                     if (this.vals[this.par.name] == cmp || i==0 ) {
                         this.curItem = val
-                        if (typeof this.vals[this.par.name] === 'undefined') { 
+                        if (typeof this.vals[this.par.name] === 'undefined' || 
+                            this.vals[this.par.name] == 0) { 
                             // assign initial value
                             this.vals[this.par.name] = cmp
                         }
                     }
+                    console.log(i, this.vals[this.par.name])
                 }
             }
             return ret
@@ -260,6 +262,11 @@ Vue.component('c-list', {
     methods: {
         out(item, par) { 
             let val = item[par.name] || ''
+            if (par.type == PCheckbox) {
+                if (!!par.options.output) {
+                    val = par.options.output[item[par.name] ? 1 : 0]
+                }
+            }
             if (par.type == PSelect) {
                 for (let i = 0; i < par.options.items.length; i++ ) {
                     if (par.options.items[i].value == val) {
