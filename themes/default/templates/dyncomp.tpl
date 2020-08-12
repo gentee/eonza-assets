@@ -164,7 +164,6 @@ Vue.component('c-select', {
                             this.vals[this.par.name] = cmp
                         }
                     }
-                    console.log(i, this.vals[this.par.name])
                 }
             }
             return ret
@@ -289,8 +288,15 @@ Vue.component('c-list', {
             let list = this.par.options.list
             for (let i = 0; i < list.length; i++ ) {
                 let def = list[i].options.initial || ''
-                if (!def && list[i].type == PSelect) {
-                    def = 0
+                if (!def) {
+                  switch (list[i].type) {
+                    case PCheckbox:
+                      def = false
+                      break
+                    case PSelect:
+                      def = 0
+                      break
+                  }
                 }
                 this.editedItem[list[i].name] = def
             }
