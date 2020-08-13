@@ -11,6 +11,7 @@ checkbox: Чекбокс
 collapseall: Свернуть все
 common: Общие
 comparetype: Тип сравнения
+conditions: Условия
 console: Консоль
 continue: Продолжить
 copy: Копировать
@@ -70,6 +71,7 @@ movedown: Сдвинуть вниз
 moveup: Сдвинуть вниз
 name: Имя
 native: Русский
+negation: Отрицание условия
 new: Добавить
 newchild: Добавить внутреннюю команду
 newitem: Новый элемент

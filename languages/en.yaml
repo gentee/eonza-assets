@@ -11,6 +11,7 @@ checkbox: Checkbox
 collapseall: Collapse All
 common: Common
 comparetype: Comparison Type
+conditions: Conditions
 console: Console
 continue: Continue
 copy: Copy
@@ -70,6 +71,7 @@ movedown: Move Down
 moveup: Move Up
 name: Name
 native: English
+negation: Negation of Condition
 new: New
 newchild: Add a new child command
 newitem: New Item
