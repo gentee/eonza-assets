@@ -20,13 +20,15 @@ tree:
     - text: I want to open this url
       type: 0
       var: isopen
-- name: source-code
+- name: if.eonza
   open: true
   values:
-    code: |-
-      if GetVar("isopen")? {
-           %body%
-      }
+    list:
+    - cmp: equal
+      next: "0"
+      not: true
+      value: ""
+      var: isopen
   children:
   - name: log-output
     values:
