@@ -2,10 +2,10 @@ settings:
   name: copy-file
   title: '#_copyfile#'
   desc: '#_desc#'
-  help: copy-file
-  helplang: ru
   loglevel: 4
   unrun: true
+  help: copy-file
+  helplang: ru
 params:
 - name: src
   title: '#_srcfile#'
@@ -17,17 +17,26 @@ params:
   type: 2
   options:
     required: true
+- name: savetime
+  title: '#_savetime#'
+  type: 0
 langs:
   en:
     _copyfile: Copy File
     _desc: Copy the file to another directory
     _destfolder: Destination Folder
+    _savetime: Save FileTime
     _srcfile: Source File
   ru:
     _copyfile: Копировать файл
     _desc: Копировать файл в другую директорию
     _destfolder: Целевая директория
+    _savetime: Сохранить время файла
     _srcfile: Исходный файл
 code: |-
   str destfile = JoinPath(dest,  BaseName(src))
   CopyFile(src, destfile)
+  if savetime {
+        finfo fi = FileInfo(src)
+        SetFileTime(destfile, fi.Time)
+  }

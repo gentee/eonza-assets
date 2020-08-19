@@ -1,0 +1,33 @@
+settings:
+  name: foreach-file
+  title: '#_name#'
+  desc: '#_desc#'
+  help: foreach-file
+  helplang: ru
+  loglevel: 6
+params:
+- name: path
+  title: '#.path#'
+  type: 2
+- name: recursive
+  title: '#.recursive#'
+  type: 0
+  options:
+    initial: "true"
+- name: onlyfiles
+  title: '#.searchfiles#'
+  type: 0
+- name: pattern
+  title: '#.patternfile#'
+  type: 2
+- name: varname
+  title: '#.varname#'
+  type: 2
+langs:
+  en:
+    _desc: Run commands for each file or directory
+    _name: Foreach File
+  ru:
+    _desc: Выполнить команды для каждого файла или директории
+    _name: Цикл для каждого файла
+code: "int flags\nif recursive {\n    flags |= RECURSIVE\n}\nif onlyfiles {\n    flags |= ONLYFILES\n}\nif *pattern? {\n    if pattern[0] == '/' && pattern[*pattern-1] == '/' {\n         flags |= REGEXP\n         pattern = Substr(pattern, 1, *pattern-2)\n    }\n}\narr.finfo list = ReadDir(path, flags, pattern)\nfor item in list {\n    if *varname? { \n         SetVar(varname, item.Name)\n         SetVar(varname+\"_size\", item.Size)\n//         SetVar(varname+\"_isdir\", item.IsDir)\n         SetVar(varname+\"_dir\", item.Dir)\n    }\n    %body%\n}"
