@@ -1,0 +1,22 @@
+settings:
+  name: delete-dir
+  title: '#_name#'
+  desc: '#_desc#'
+  help: delete-dir
+  helplang: ru
+  loglevel: 4
+  unrun: true
+params:
+- name: path
+  title: '#.path#'
+  type: 2
+  options:
+    required: true
+langs:
+  en:
+    _desc: Delete directory with files and subdirectories
+    _name: Delete Directory
+  ru:
+    _desc: Удалить директорию
+    _name: Удалить директорию с файлами и поддиректориями
+code: RemoveDir(path)
