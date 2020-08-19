@@ -2,7 +2,7 @@ settings:
   name: bash
   title: Bash
   desc: '#_desc#'
-  loglevel: 6
+  loglevel: 4
   unrun: true
   help: bash
   helplang: ru

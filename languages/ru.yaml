@@ -88,8 +88,10 @@ overwrite: Перезаписывать существующие
 parameters: Параметры
 paste: Вставить
 path: Путь
+patternfile: Маска или рег.выражение
 personal: Персональные
 recently: Недавно запущенные
+recursive: Рекурсивный поиск
 refresh: Обновить
 repissue: Сообщить о проблеме
 required: Это поле обязательно
@@ -99,6 +101,7 @@ runsilently: Запустить скрытно
 save: Сохранить
 saveasnew: Сохранить как новый
 savescript: Скрипт '%s' был изменён. Хотите сохранить его?
+searchfiles: Искать только файлы
 select: Выбор
 settings: Настройки
 script: Скрипт

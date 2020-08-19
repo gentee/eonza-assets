@@ -88,8 +88,10 @@ overwrite: Overwrite the existing ones
 parameters: Parameters
 paste: Paste
 path: Path
+patternfile: Wildcard or RegExp
 personal: Personal
 recently: Recently Launched
+recursive: Recursive Search
 refresh: Refresh
 repissue: Report issue
 required: This field is required
@@ -99,6 +101,7 @@ runsilently: Run Silently
 save: Save
 saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?
+searchfiles: Search Only for Files
 select: Select
 settings: Settings
 script: Script

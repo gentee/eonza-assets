@@ -4,7 +4,7 @@ settings:
   desc: '#_desc#'
   help: delete-file
   helplang: ru
-  loglevel: 6
+  loglevel: 4
   unrun: true
 params:
 - name: path

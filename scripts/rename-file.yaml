@@ -1,0 +1,30 @@
+settings:
+  name: rename-file
+  title: '#_rename#'
+  desc: '#_desc#'
+  help: rename-file
+  helplang: ru
+  loglevel: 4
+  unrun: true
+params:
+- name: path
+  title: '#.path#'
+  type: 2
+  options:
+    required: true
+- name: newname
+  title: '#_newname#'
+  type: 2
+  options:
+    required: true
+langs:
+  en:
+    _desc: Rename file or directory
+    _newname: New Name
+    _rename: Rename File
+  ru:
+    _desc: Переименовать файл или директорию
+    _newname: Новое имя
+    _rename: Переименовать файл
+code: |-
+  Rename(path, JoinPath(Dir(path), newname))
