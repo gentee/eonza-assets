@@ -51,6 +51,7 @@ formdata: Form Data
 globconst: Global Constants
 help: Help
 history: History
+htmltext: HTML Text
 import: Import
 importtitle: Import scripts
 includesrc: Include Source Code
@@ -90,6 +91,7 @@ paste: Paste
 path: Path
 patternfile: Wildcard or RegExp
 personal: Personal
+question: Question
 recently: Recently Launched
 recursive: Recursive Search
 refresh: Refresh

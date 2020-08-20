@@ -26,6 +26,8 @@ params:
           value: "1"
         - title: '#.select#'
           value: "3"
+        - title: '#.htmltext#'
+          value: "6"
     - name: text
       title: '#.text#'
       type: 2

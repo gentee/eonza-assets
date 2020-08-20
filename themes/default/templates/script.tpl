@@ -183,6 +183,12 @@ new Vue({
          .catch(error => this.errmsg(error));
       },
       sendform() {
+        for (let i = 0; i < this.form.length; i++) {
+            let item = this.form[i]
+            if ( item.type == PHTMLText ) {
+              delete this.values[item.var]
+            }
+        }
         axios
         .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values})
         .then(response => {
