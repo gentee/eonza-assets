@@ -14,6 +14,10 @@
     <div v-html="vals[par.name]" style="display: flex; margin: 1rem 0rem;"></div>
 </script>
 
+<script type="text/x-template" id="c-button">
+    <v-btn style="text-transform: none;margin-right: 1rem;margin-bottom:8px;" @click="btnclick">{{par.title}}</v-btn>
+</script>
+
 
 <script type="text/x-template" id="c-singletext">
     <v-text-field  v-model="vals[par.name]" @input="change"
@@ -102,6 +106,7 @@ const PSelect = 3;
 const PNumber = 4;
 const PList = 5;
 const PHTMLText = 6;
+const PButton = 7;
 
 const PTypes = [
     {text: '%checkbox%', value: 0, comp: 'c-checkbox'},
@@ -110,7 +115,8 @@ const PTypes = [
     {text: '%select%', value: 3, comp: 'c-select'},
     {text: '%number%', value: 4, comp: 'c-number'},
     {text: '%list%', value: 5, comp: 'c-list'},
-    {text: 'HTML', value: 6, comp: 'c-html'},
+    {text: '%htmltext%', value: 6, comp: 'c-html'},
+    {text: '%button%', value: 7, comp: 'c-button'},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 Vue.component('c-checkbox', {
@@ -224,6 +230,19 @@ Vue.component('c-singletext', {
 
 Vue.component('c-html', {
     template: '#c-html',
+    props: {
+        par: Object,
+        vals: Object,
+    },
+});
+
+Vue.component('c-button', {
+    template: '#c-button',
+    methods: {
+        btnclick() {
+            this.$emit('btnclick', this.par.name);
+        }
+    },
     props: {
         par: Object,
         vals: Object,

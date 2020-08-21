@@ -77,9 +77,9 @@
         </div>
         <div v-show="tab==1">
          <div class="pl-6" style="max-height: 100%;overflow-y: auto;max-width: 1024px;">
-            <component v-for="comp in fields"
+            <component v-for="comp in fields" v-on:btnclick="btnclick($event)"
                :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:values}"></component>
-            <v-btn color="primary" style="text-transform:none"
+            <v-btn v-show="!nocontinue" color="primary" style="text-transform:none"
                class="ma-2 white--text" @click="sendform">%continue%</v-btn>
           </div>
         </div>
@@ -182,6 +182,10 @@ new Vue({
          })
          .catch(error => this.errmsg(error));
       },
+      btnclick(btn) {
+         console.log('btn', btn);
+         this.sendform()
+      },
       sendform() {
         for (let i = 0; i < this.form.length; i++) {
             let item = this.form[i]
@@ -189,6 +193,7 @@ new Vue({
               delete this.values[item.var]
             }
         }
+        console.log('send', this.values)
         axios
         .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values})
         .then(response => {
@@ -305,6 +310,7 @@ new Vue({
               }
               this.values[item.var] = value
             }
+            this.nocontinue = this.form.length > 0 && this.form[this.form.length-1].type == PButton
             this.tab = 1
             break            
         }
@@ -373,6 +379,7 @@ function appData() {
       logout: null,      
       stdcur: null,
       isform: 0,
+      nocontinue: false,
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: [[if len .Logout]]true[[else]]false[[end]],
       issrc: [[if len .Source]]true[[else]]false[[end]],

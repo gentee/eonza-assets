@@ -28,6 +28,8 @@ params:
           value: "3"
         - title: '#.htmltext#'
           value: "6"
+        - title: '#.button#'
+          value: "7"
     - name: text
       title: '#.text#'
       type: 2
