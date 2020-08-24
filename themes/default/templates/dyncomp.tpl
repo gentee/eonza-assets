@@ -11,11 +11,11 @@
 </script>
 
 <script type="text/x-template" id="c-html">
-    <div v-html="vals[par.name]" style="display: flex; margin: 1rem 0rem;"></div>
+    <div v-html="htmlval" style="display: flex; margin: 1rem 0rem;"></div>
 </script>
 
 <script type="text/x-template" id="c-button">
-    <v-btn style="text-transform: none;margin-right: 1rem;margin-bottom:8px;" @click="btnclick">{{par.title}}</v-btn>
+    <v-btn :color="(!!par.options.default ? 'primary': '')" style="text-transform: none;margin-right: 1rem;margin-bottom:8px;" @click="btnclick">{{par.title}}</v-btn>
 </script>
 
 
@@ -118,6 +118,17 @@ const PTypes = [
     {text: '%htmltext%', value: 6, comp: 'c-html'},
     {text: '%button%', value: 7, comp: 'c-button'},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
+
+function removeScripts(input) {
+    var div = document.createElement('div');
+    div.innerHTML = input;
+    let scripts = div.getElementsByTagName('script');
+    let i = scripts.length;
+    while (i--) {
+      scripts[i].parentNode.removeChild(scripts[i]);
+    }
+    return div.innerHTML;
+}
 
 Vue.component('c-checkbox', {
     template: '#c-checkbox',
@@ -230,6 +241,11 @@ Vue.component('c-singletext', {
 
 Vue.component('c-html', {
     template: '#c-html',
+    computed: {
+        htmlval() {
+            return removeScripts(this.vals[this.par.name])
+        }
+    },
     props: {
         par: Object,
         vals: Object,

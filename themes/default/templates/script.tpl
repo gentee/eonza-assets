@@ -79,7 +79,7 @@
          <div class="pl-6" style="max-height: 100%;overflow-y: auto;max-width: 1024px;">
             <component v-for="comp in fields" v-on:btnclick="btnclick($event)"
                :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:values}"></component>
-            <v-btn v-show="!nocontinue" color="primary" style="text-transform:none"
+            <v-btn v-show="iscontinue" color="primary" style="text-transform:none"
                class="ma-2 white--text" @click="sendform">%continue%</v-btn>
           </div>
         </div>
@@ -183,14 +183,22 @@ new Vue({
          .catch(error => this.errmsg(error));
       },
       btnclick(btn) {
-         console.log('btn', btn);
-         this.sendform()
+         this.sendform(btn)
       },
-      sendform() {
+      sendform(btn) {
         for (let i = 0; i < this.form.length; i++) {
             let item = this.form[i]
             if ( item.type == PHTMLText ) {
               delete this.values[item.var]
+            }
+            if ( item.type == PButton ) {
+              if (!btn || btn != item.var) {
+                delete this.values[item.var]
+              } else if (!item.options || typeof item.options.initial === 'undefined' ) {
+                this.values[item.var] = true
+              } else {
+                this.values[item.var] = item.options.initial
+              }
             }
         }
         console.log('send', this.values)
@@ -310,7 +318,7 @@ new Vue({
               }
               this.values[item.var] = value
             }
-            this.nocontinue = this.form.length > 0 && this.form[this.form.length-1].type == PButton
+            this.iscontinue = this.form.length == 0 || this.form[this.form.length-1].type != PButton
             this.tab = 1
             break            
         }
@@ -379,7 +387,7 @@ function appData() {
       logout: null,      
       stdcur: null,
       isform: 0,
-      nocontinue: false,
+      iscontinue: true,
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: [[if len .Logout]]true[[else]]false[[end]],
       issrc: [[if len .Source]]true[[else]]false[[end]],

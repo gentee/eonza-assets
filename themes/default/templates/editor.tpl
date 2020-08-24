@@ -121,7 +121,7 @@
                       ></v-text-field>
                       <v-select label="%type%"
                           v-model="editedItem.type"
-                          :items="PTypes" 
+                          :items="PTypes.filter(item => item.value < 6 )" 
                           ></v-select>
                       <v-textarea  v-model="editedItem.options"
                       label="%additional%" auto-grow dense
