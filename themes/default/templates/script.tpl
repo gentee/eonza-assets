@@ -201,7 +201,6 @@ new Vue({
               }
             }
         }
-        console.log('send', this.values)
         axios
         .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values})
         .then(response => {
@@ -306,7 +305,9 @@ new Vue({
             for (let i = 0; i < this.form.length; i++) {
               let item = this.form[i]
               if (!!item.options) {
-                item.options = JSON.parse(item.options)  
+                if (typeof item.options === 'string') {
+                  item.options = JSON.parse(item.options)  
+                }
               } else {
                 item.options = {}
               }

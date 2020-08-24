@@ -1,3 +1,4 @@
+abort: Abort
 about: About
 actions: Actions
 active: Active
@@ -27,6 +28,7 @@ desc: Description
 disable: Disabled
 disena: Disable/Enable
 dup: Duplicate
+dynamic: Dynamic
 edit: Edit
 edititem: Edit Item
 editor: Editor
@@ -53,6 +55,7 @@ globconst: Global Constants
 help: Help
 history: History
 htmltext: HTML Text
+ignore: Ignore
 import: Import
 importtitle: Import scripts
 includesrc: Include Source Code
@@ -98,7 +101,9 @@ recursive: Recursive Search
 refresh: Refresh
 repissue: Report issue
 required: This field is required
+resultvar: Result Variable
 resume: Resume
+retry: Retry
 run: Run
 runsilently: Run Silently
 save: Save

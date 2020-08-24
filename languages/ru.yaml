@@ -1,3 +1,4 @@
+abort: Прервать
 about: О программе
 actions: Действия
 active: Активный
@@ -27,6 +28,7 @@ desc: Описание
 disable: Отключён
 disena: Отключить/Включить
 dup: Клонировать
+dynamic: Динамический
 edit: Редактировать
 edititem: Редактирование элемента
 editor: Редактор
@@ -53,6 +55,7 @@ globconst: Глобальные константы
 help: Помощь
 history: История
 htmltext: HTML текст
+ignore: Игнорировать
 import: Импорт
 importtitle: Импорт скриптов
 includesrc: Вставлять исходный код
@@ -98,7 +101,9 @@ recursive: Рекурсивный поиск
 refresh: Обновить
 repissue: Сообщить о проблеме
 required: Это поле обязательно
+resultvar: Результирующая переменная
 resume: Возобновить
+retry: Повторить
 run: Запустить
 runsilently: Запустить скрытно
 save: Сохранить

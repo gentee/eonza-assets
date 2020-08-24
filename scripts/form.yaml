@@ -30,6 +30,8 @@ params:
           value: "6"
         - title: '#.button#'
           value: "7"
+        - title: '#.dynamic#'
+          value: "8"
     - name: text
       title: '#.text#'
       type: 2

@@ -107,6 +107,7 @@ const PNumber = 4;
 const PList = 5;
 const PHTMLText = 6;
 const PButton = 7;
+const PDynamic = 8;
 
 const PTypes = [
     {text: '%checkbox%', value: 0, comp: 'c-checkbox'},
@@ -117,6 +118,7 @@ const PTypes = [
     {text: '%list%', value: 5, comp: 'c-list'},
     {text: '%htmltext%', value: 6, comp: 'c-html'},
     {text: '%button%', value: 7, comp: 'c-button'},
+    {text: '%dynamic%', value: 8, comp: ''},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 function removeScripts(input) {
