@@ -192,15 +192,14 @@ new Vue({
               delete this.values[item.var]
             }
             if ( item.type == PButton ) {
-              if (!btn || btn != item.var) {
+              if (!btn || btn.name != item.var) {
                 delete this.values[item.var]
-              } else if (!item.options || typeof item.options.initial === 'undefined' ) {
-                this.values[item.var] = true
               } else {
-                this.values[item.var] = item.options.initial
+                this.values[item.var] = btn.value
               }
             }
         }
+
         axios
         .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values})
         .then(response => {
@@ -298,7 +297,8 @@ new Vue({
             break
           case WcForm:
             this.isform++
-            this.form = JSON.parse(cmd.message)  
+            this.form = JSON.parse(cmd.message) 
+            console.log('form', this.form) 
             this.formid = cmd.status || 0
             this.fields = []
             this.values = {}

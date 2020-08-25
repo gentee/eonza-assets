@@ -258,7 +258,11 @@ Vue.component('c-button', {
     template: '#c-button',
     methods: {
         btnclick() {
-            this.$emit('btnclick', this.par.name);
+            let value = true
+            if (this.par.options && typeof this.par.options.initial !== 'undefined' ) {
+                value = this.par.options.initial
+            }
+            this.$emit('btnclick', {name: this.par.name, value: value} );
         }
     },
     props: {
