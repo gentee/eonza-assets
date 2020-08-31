@@ -49,6 +49,7 @@ failed: Failed
 filename: Filename
 finish: Finish
 finished: Finished
+forgotpsw: Forgot Password?
 form: Form
 formdata: Form Data
 globconst: Global Constants
@@ -63,6 +64,7 @@ info: Information
 inherit: Inherit
 initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
+invalidpsw: Invalid password
 invalidvalue: The value is invalid
 langres: Language Resource
 language: Language
@@ -92,6 +94,7 @@ ok: OK
 or: OR
 overwrite: Overwrite the existing ones
 parameters: Parameters
+password: Password
 paste: Paste
 path: Path
 patternfile: Wildcard or RegExp

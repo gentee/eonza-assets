@@ -16,7 +16,8 @@
          <v-app>
          <div  style="height: 100%; display: flex;justify-content: center;align-items: center;
               background-color: #ccc;">
-       <div style="max-width: 600px;min-width: 350px;background-color: #fff;border: 1px solid #888;padding: 2rem 1rem;
+       <div style="max-width: 600px;min-width: 350px;background-color: #fff;border: 1px solid #aaa;
+         padding: 2rem 1rem;
          display:flex;justify-content: center;align-items:center;flex-direction: column;">
           
           <div style="display: flex;justify-content:center;align-items:center;margin-bottom: 2rem;">
@@ -24,17 +25,19 @@
           <div style="font-size: 2rem;color: #777;margin-left: 1rem;">[[.App.Title]]</div>
           </div>
           <v-text-field
-            v-model="password"
+            v-model="password" name="password"
             :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'"
-            rulesx="[rules.required, rules.min]"
-            :type="show1 ? 'text' : 'password'"
-            label="Password"
+                :type="show1 ? 'text' : 'password'"
+            label="%password%"
             outlined style="width: 250px;"
             hint="" 
             @click:append="show1 = !show1"
           ></v-text-field>
-           <v-btn color="primary" @click="login">%login%</v-btn>
-           <a href="/" style="margin-top: 1.5rem;">Forgot Password?</a>
+          <v-alert type="error" v-show="error">
+              %invalidpsw%
+          </v-alert>
+           <v-btn color="primary" @click="submit">%login%</v-btn>
+           <a href="/" target="_help" style="margin-top: 1.5rem;">%forgotpsw%</a>
        </div>
        </div>
           </v-app>
@@ -54,24 +57,40 @@ new Vue({
     el: '#app',
     data: appData,
     methods: {
-      login() {
-        axios
-        .post('/api/login', {password: this.password})
+        keyProcess(event) {
+            if (event.keyCode == 13) {
+                this.submit();
+            }
+        },
+       submit() {
+        if (!this.password) {
+          return
+        }
+        this.error = false
+        const formData = new FormData();
+        formData.set('password', this.password)
+        axios({
+              method: 'post',
+              url: '/api/login',
+              data: formData
+              })
         .then(response => { 
-            console.log('response');
-/*          if (!response.data.error) {
+          if (!response.data.error) {
+              let d = new Date();
+              d.setTime(d.getTime() + 5 * 1000 /* 5sec */);
+              let expires = "expires=" + d.toUTCString();
+              document.cookie = "hashid=" + response.data.id + ";" + expires + ";path=/";
+              window.removeEventListener('keydown', this.keyProcess);
+              window.location = '/'
           } else {
-            //this.errmsg(response.data.error);
-          }*/
+            this.error = true
+            console.log(response.data.error)
+          }
         });
       },
-      reload() {
-        this.checkChanged(()=> {
-          axios
-          .get('/api/reload')
-          .then(response => (location.reload(true)));
-        });
-      },
+    },
+    mounted() {
+      window.addEventListener('keydown', this.keyProcess);
     }
 })
 
@@ -79,6 +98,7 @@ function appData() {
     return {
         show1: false,
         password: '',
+        error: false
     }
 }
 </script>

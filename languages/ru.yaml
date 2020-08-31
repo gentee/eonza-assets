@@ -49,6 +49,7 @@ failed: Ошибка
 filename: Имя файла
 finish: Окончание
 finished: Завершен
+forgotpsw: Забыли пароль?
 form: Форма
 formdata: Данные формы
 globconst: Глобальные константы
@@ -63,6 +64,7 @@ info: Информация
 inherit: Наследовать
 initvalue: Начальное значение
 invalidfield: Значение поля '%s' некорректно
+invalidpsw: Неверный пароль
 invalidvalue: Значение некорректно
 langres: Языковые ресурсы
 language: Язык
@@ -92,6 +94,7 @@ ok: OK
 or: ИЛИ
 overwrite: Перезаписывать существующие
 parameters: Параметры
+password: Пароль
 paste: Вставить
 path: Путь
 patternfile: Маска или рег.выражение
