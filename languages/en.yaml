@@ -75,6 +75,7 @@ list: List
 log: Log
 login: Login
 loglevel: Log Level
+logout: Log Out
 menu: Menu
 movedown: Move Down
 moveup: Move Up

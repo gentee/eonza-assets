@@ -292,7 +292,14 @@ new Vue({
         this.checkChanged(()=> {
           axios
           .get('/api/reload')
-          .then(response => (location.reload(true)));
+          .then(response => (location.reload()));
+        });
+      },
+      logout() {
+        this.checkChanged(()=> {
+          axios
+          .get('/api/logout')
+          .then(response => (location.reload()));
         });
       },
       exit( par ) {
@@ -458,6 +465,8 @@ function appData() {
       menus: [
         { title: '%refresh%', icon: "fa-redo-alt", onclick: this.reload, 
              hide: [[not .Develop]]},
+        { title: '%logout%', icon: "fa-sign-out-alt", onclick: this.logout, 
+             hide: [[not .Login]]},
         { title: '%exit%', icon: "fa-power-off", 
           onclick: () => this.confirm("%exitconfirm%", this.exit) },
       ],
