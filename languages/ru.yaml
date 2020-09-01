@@ -18,6 +18,7 @@ console: Консоль
 continue: Продолжить
 copy: Копировать
 crashed: Сломан
+curpassword: Текущий пароль
 debug: Отладка
 defvalue: Значение по умолчанию
 delconfirm: Вы уверены, что хотите удалить выделенный элемент(ы)?
@@ -88,6 +89,7 @@ nextcond: Следующее условие
 nickname: Псевдоним
 no: Нет
 not: НЕ
+notaskpassword: Не просить пароль при запуске
 number: Число
 officialsite: Официальный сайт
 ok: OK
@@ -114,7 +116,9 @@ save: Сохранить
 saveasnew: Сохранить как новый
 savescript: Скрипт '%s' был изменён. Хотите сохранить его?
 searchfiles: Искать только файлы
+security: Безопасность
 select: Выбор
+setpassword: Установить пароль
 settings: Настройки
 script: Скрипт
 scripts: Скрипты

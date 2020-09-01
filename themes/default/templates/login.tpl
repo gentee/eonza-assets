@@ -37,7 +37,7 @@
               %invalidpsw%
           </v-alert>
            <v-btn color="primary" @click="submit">%login%</v-btn>
-           <a href="/" target="_help" style="margin-top: 1.5rem;">%forgotpsw%</a>
+           <a :href="restorepsw" target="_help" style="margin-top: 1.5rem;">%forgotpsw%</a>
        </div>
        </div>
           </v-app>
@@ -81,7 +81,8 @@ new Vue({
               let expires = "expires=" + d.toUTCString();
               document.cookie = "hashid=" + response.data.id + ";" + expires + ";path=/";
               window.removeEventListener('keydown', this.keyProcess);
-              window.location = '/'
+              //window.location = '/'
+              location.reload()
           } else {
             this.error = true
             console.log(response.data.error)
@@ -91,6 +92,15 @@ new Vue({
     },
     mounted() {
       window.addEventListener('keydown', this.keyProcess);
+    },
+    computed: {
+        restorepsw() { 
+            let pref = [[.Lang]]
+            if (pref == 'en') {
+              pref = ''
+            }
+            return "https://www.eonza.org/" + pref +  "docs/restore-password.html"
+        },
     }
 })
 

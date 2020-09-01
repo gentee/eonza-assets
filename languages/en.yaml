@@ -18,6 +18,7 @@ console: Console
 continue: Continue
 copy: Copy
 crashed: Crashed
+curpassword: Current Password
 debug: Debug
 defvalue: Default Value
 delconfirm: Are you sure you want to delete the selected item(s)?
@@ -88,6 +89,7 @@ nextcond: Next Condition
 nickname: Nickname
 no: No
 not: NOT
+notaskpassword: Don't ask for password on startup
 number: Number
 officialsite: Official Site
 ok: OK
@@ -114,7 +116,9 @@ save: Save
 saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?
 searchfiles: Search Only for Files
+security: Security
 select: Select
+setpassword: Set Password
 settings: Settings
 script: Script
 scripts: Scripts

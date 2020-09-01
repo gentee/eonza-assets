@@ -9,6 +9,7 @@
         <v-tab>%scripts%</v-tab>
         <v-tab>%personal%</v-tab>
         <v-tab>%globconst%</v-tab>
+        <v-tab>%security%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
    <div class="pt-4">
@@ -79,6 +80,16 @@
         </v-data-table>
         </div>
     </div>
+    <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;" >
+   <div class="pt-4">
+    <!--v-checkbox v-model="options.common.includesrc" label="%includesrc%" @change="change"></v-checkbox-->
+    <v-text-field type="password" label="%curpassword%" v-model="curpsw" v-if="!!options.common.passwordhash"></v-text-field>
+    <v-text-field type="password" label="%password%" v-model="psw"></v-text-field>
+    <v-btn color="primary" :disabled="!psw && !curpsw" @click="setpsw">%setpassword%</v-btn>
+    <v-checkbox  v-model="options.common.notaskpassword" label="%notaskpassword%"
+        @change="change"></v-checkbox>
+    </div>
+    </div>
 
   </v-container>
 </script>
@@ -89,11 +100,15 @@ const Settings = {
     template: '#settings',
     data() {
         return {
+            curpsw: '',
+            psw: '',
             tab: 0,
             options: {
                 common: {
                     loglevel: 3,
                     includesrc: false,
+                    notaskpassword: false,
+                    passwordhash: '',
                     constants: {},
                 },
                 user: {
@@ -128,18 +143,30 @@ const Settings = {
                 this.changed = true;
             }
         },
+        setpsw() {
+            axios
+            .post(`/api/setpsw`, {curpassword: this.curpsw, password: this.psw})
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                location.reload()
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
         save() {
             axios
             .post(`/api/settings`, this.options)
             .then(response => {
                 if (response.data.error) {
-                    this.errmsg(response.data.error);
+                    this.$root.errmsg(response.data.error);
                     return
                 }
                 location.reload(true)
                 this.changed = false
             })
-            .catch(error => this.errmsg(error));
+            .catch(error => this.$root.errmsg(error));
         },
         loadConst() {
           this.constants = []
