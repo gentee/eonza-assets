@@ -4,6 +4,7 @@ actions: Действия
 active: Активный
 addcmd: Добавить новую команду в скрипт
 additional: Дополнительные настройки
+advancedpar: Дополнительные параметры
 and: И
 annotation: Бесплатная программа с открытым исходным кодом для автоматизации процессов
 break: Прервать
@@ -12,6 +13,7 @@ cancel: Отмена
 checkbox: Чекбокс
 collapseall: Свернуть все
 common: Общие
+commonsettings: Общие настройки
 comparetype: Тип сравнения
 conditions: Условия
 console: Консоль
@@ -57,6 +59,7 @@ globconst: Глобальные константы
 help: Помощь
 history: История
 htmltext: HTML текст
+ifcond: Условие
 ignore: Игнорировать
 import: Импорт
 importtitle: Импорт скриптов

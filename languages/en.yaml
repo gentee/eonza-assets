@@ -4,6 +4,7 @@ actions: Actions
 active: Active
 addcmd: Add a new command to the script
 additional: Additional Settings
+advancedpar: Advanced Parameters
 and: AND
 annotation: Free, open-source automation software
 break: Break
@@ -12,6 +13,7 @@ cancel: Cancel
 checkbox: Checkbox
 collapseall: Collapse All
 common: Common
+commonsettings: Common Settings
 comparetype: Comparison Type
 conditions: Conditions
 console: Console
@@ -57,6 +59,7 @@ globconst: Global Constants
 help: Help
 history: History
 htmltext: HTML Text
+ifcond: If Condition
 ignore: Ignore
 import: Import
 importtitle: Import scripts
