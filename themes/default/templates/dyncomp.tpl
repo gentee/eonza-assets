@@ -171,7 +171,8 @@ Vue.component('c-select', {
         items() { 
             let ret = []
             if (this.par.options) {
-                if (!!this.par.options.initial && typeof this.vals[this.par.name] === 'undefined') {
+                if (!!this.par.options.initial && (typeof this.vals[this.par.name] === 'undefined' ||
+                    this.vals[this.par.name] == '' )) {
                     this.vals[this.par.name] = this.par.options.initial
                 }       
                 for (let i = 0; i < this.par.options.items.length;i++) {

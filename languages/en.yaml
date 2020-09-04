@@ -4,7 +4,6 @@ actions: Actions
 active: Active
 addcmd: Add a new command to the script
 additional: Additional Settings
-advancedpar: Advanced Parameters
 and: AND
 annotation: Free, open-source automation software
 break: Break
@@ -97,6 +96,7 @@ notaskpassword: Don't ask for password on startup
 number: Number
 officialsite: Official Site
 ok: OK
+optionalpar: Optional Parameters
 or: OR
 overwrite: Overwrite the existing ones
 parameters: Parameters

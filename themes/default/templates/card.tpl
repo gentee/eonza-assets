@@ -16,19 +16,21 @@
               <v-expansion-panel-content>
         <v-text-field v-model="active.values._desc" label="%desc%" @input="change"></v-text-field>
         <v-text-field v-model="active.values._ifcond" label="%ifcond%" @input="change"></v-text-field>
-        <div><strong>%advancedpar%</strong><v-btn v-show="!advedit" color="light-blue darken-1" dark small @click="advancededit"  style="float:right;text-transform:none;"><v-icon small>fa-edit</v-icon>&nbsp;%edit%</v-btn>
-        <v-btn v-show="advedit" color="light-blue darken-1" dark small @click="advedit=false"  style="float:right;text-transform:none;"><v-icon small>fa-times</v-icon>&nbsp;%cancel%</v-btn>
-        <v-btn v-show="advedit" color="light-blue darken-1" dark small @click="advancedsave"  style="float:right;text-transform:none;margin-right: 1rem;"><v-icon small>fa-check</v-icon>&nbsp;%ok%</v-btn>
-        </div>
-        <pre v-show="!!active.values._advanced && !advedit" style="margin-top: 1rem;">{{active.values._advanced}}</pre>
-        <v-textarea v-show="advedit" v-model="advtemp" auto-grow>
-        </v-textarea>
               </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
         </div>
         <component v-for="comp in cmds[active.name].params"
             :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:active.values}"></component>
+        <div v-if="optional">
+            <div><strong>%optionalpar%</strong><v-btn v-show="!advedit" color="light-blue darken-1" dark small @click="optionaledit"  style="float:right;text-transform:none;"><v-icon small>fa-edit</v-icon>&nbsp;%edit%</v-btn>
+            <v-btn v-show="advedit" color="light-blue darken-1" dark small @click="advedit=false"  style="float:right;text-transform:none;"><v-icon small>fa-times</v-icon>&nbsp;%cancel%</v-btn>
+            <v-btn v-show="advedit" color="light-blue darken-1" dark small @click="optionalsave"  style="float:right;text-transform:none;margin-right: 1rem;"><v-icon small>fa-check</v-icon>&nbsp;%ok%</v-btn>
+            </div>
+            <pre v-show="!!active.values._optional && !advedit" style="margin-top: 1rem;">{{active.values._optional}}</pre>
+            <v-textarea v-show="advedit" v-model="advtemp" auto-grow></v-textarea>
+        </div>
+
     </div>
 </script>
 
@@ -47,6 +49,7 @@ Vue.component('card', {
         forcard() { return this.active.disable ? 'cardd' : 'card' },
         title() { return this.cmds[this.active.name].title },
         help() { return this.cmds[this.active.name].help },
+        optional() { return this.cmds[this.active.name].optional },
         gethelp() { 
             let cmd = this.cmds[this.active.name]
             let langs = []
@@ -63,16 +66,16 @@ Vue.component('card', {
         },
     },
     methods: {
-        advancedsave() {
+        optionalsave() {
             this.advedit = false
-            if (this.active.values._advanced != this.advtemp) {
+            if (this.active.values._optional != this.advtemp) {
                 this.change()
-                this.active.values._advanced = this.advtemp
+                this.active.values._optional = this.advtemp
             }
         },
-        advancededit() {
+        optionaledit() {
             this.advedit = true
-            this.advtemp = this.active.values._advanced || ''
+            this.advtemp = this.active.values._optional || ''
         },
         jumpto() {
             this.$parent.load(this.active.name)
@@ -80,8 +83,8 @@ Vue.component('card', {
     },
     watch: {
         active(newval) {
-            this.panel = (!!this.active && !!this.active.values && (!!this.active.values._ifcond ||
-             !!this.active.values._advanced) ? 0 : null)
+            this.advedit = false
+            this.panel = (!!this.active && !!this.active.values && (!!this.active.values._ifcond) ? 0 : null)
         }
     }
 });

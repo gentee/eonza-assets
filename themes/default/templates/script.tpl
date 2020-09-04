@@ -298,7 +298,6 @@ new Vue({
           case WcForm:
             this.isform++
             this.form = JSON.parse(cmd.message) 
-            console.log('form', this.form) 
             this.formid = cmd.status || 0
             this.fields = []
             this.values = {}
