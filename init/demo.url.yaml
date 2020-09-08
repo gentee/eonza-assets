@@ -6,6 +6,7 @@ settings:
 tree:
 - name: set-variables
   values:
+    _desc: Define isopen & myurl variables
     list:
     - value: "true"
       var: isopen
@@ -13,6 +14,7 @@ tree:
       var: myurl
 - name: form
   values:
+    _desc: Show the URl input field
     list:
     - text: URL
       type: "2"
