@@ -39,6 +39,7 @@ equal: Equal
 errembed: You can't modify/delete the embedded scripts.
 errfield: The '%s' field of the '%s' command is required.
 errnickname: The '%s' user has already existed
+errnorun: The %s script is unrunnable
 erropen: The %s script has not been found
 error: Error
 errscriptname: The '%s' script has already existed
@@ -54,6 +55,7 @@ finished: Finished
 forgotpsw: Forgot Password?
 form: Form
 formdata: Form Data
+formopen: "Form: open %s to continue the script execution"
 globconst: Global Constants
 help: Help
 history: History
