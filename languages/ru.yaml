@@ -156,6 +156,7 @@ version: Версия
 unknownuser: Неизвестный пользователь %x
 unrun: Незапускаемый скрипт
 upload: Загрузить
+url: URL
 waitfinish: Ждать окончания работы приложения
 waiting: Ожидание
 warning: Предупреждение

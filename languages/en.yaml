@@ -157,6 +157,7 @@ version: Version
 unknownuser: Unknown user id %x
 unrun: Unrunnable script
 upload: Upload
+url: URL
 waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning
