@@ -41,7 +41,7 @@
         </v-btn>
         <v-btn color="primary" class="mx-2"  v-if="loaded && !script.settings.unrun" 
             :disabled="!script.original"
-             @click="$root.run(script.original)">
+             @click="$root.run(script.original, false, err2compile)">
             <v-icon left small>fa-play</v-icon>&nbsp;%run%
         </v-btn>
           <v-menu bottom left v-if="loaded" offset-y v-if="!!script.original">
@@ -69,6 +69,7 @@
         <v-tab>%parameters%</v-tab>
         <v-tab>%langres%</v-tab>
         <v-tab>%sourcecode%</v-tab>
+        <v-tab v-show="iscompile">%compile%</v-tab>        
     </v-tabs>
 
     <!--v-tabs-items v-model="tab"  v-if="loaded"-->
@@ -227,6 +228,20 @@
          label="%sourcecode%" auto-grow dense rows="10"
          ></v-textarea>
       </div>
+      <div v-show="iscompile && tab==5" style="height: calc(100% - 106px);overflow-y:auto; background-color:#272822">  
+          <div class="pt-3 pb-1" style="display:flex;align-items: flex-start;background-color:#fff">
+          <v-alert v-show="!compileerr && compileok" type="success">
+             %compileok%
+          </v-alert>
+          <v-alert  v-show="compileerr" type="error">
+             {{compileerr}}
+          </v-alert>
+          <v-btn @click="compile" color="primary" style="text-transform: none;" class="mx-4">%compile%</v-btn>
+          <v-btn  style="text-transform: none;" @click="(tab=0,iscompile=false)">%hide%</v-btn>
+          </div>
+          <div v-html="compilesrc">
+          </div>
+      </div>
   </v-container>
 </script>
 
@@ -262,8 +277,28 @@ const Editor = Vue.component('editor', {
     data: editorData,
     mixins: [changed],
     methods: {
+        compile() {
+          if (!this.iscompile) {
+            this.iscompile = true
+          }
+          this.compileok = false
+          this.compileerr = ''
+          axios
+          .get('/api/compile?name=' + this.script.original)
+          .then(response => {
+              if (response.data.error && !response.data.source) {
+                 this.$root.errmsg(response.data.error)
+                 return
+              } 
+              this.compileerr = response.data.error || ''
+              this.tab = 5
+              this.compileok = !this.compilerr
+              this.compilesrc = response.data.source
+          })
+          .catch(error => this.$root.errmsg(error));
+        },
         runsilently() {
-          this.$root.run(this.script.original, true)
+          this.$root.run(this.script.original, true, this.err2compile)
         },
         delete() {
           let comp = this;
@@ -320,6 +355,10 @@ const Editor = Vue.component('editor', {
             .catch(error => this.$root.errmsg(error));
         },
         load(scriptname) {
+            if (this.tab == 5) {
+              this.tab = 0
+            }
+            this.iscompile = false
             this.toopen = scriptname;
             this.$root.checkChanged(this.open);
         },
@@ -543,11 +582,20 @@ function editorData() {
     return {
         tab: null,
         develop: [[.Develop]],
+        iscompile: false,
+        err2compile: {
+             title: '%viewsrc%',
+             func: this.compile,
+        },
+        compilesrc: '',
+        compileok: false,
+        compileerr: ``,
         toopen: '',
         langid: 'en',
         menu: [
             { title: '%import%', onclick: this.importScript },
             { title: '%export%', onclick: this.exportScript },
+            { title: '%compile%', onclick: this.compile },
             { title: '%runsilently%', onclick: this.runsilently, ifcond: this.canrun },
             { title: '%delete%', onclick: this.delete, ifcond: this.noembed  },
         ],

@@ -119,7 +119,7 @@
     </v-content>
     <dlg-upload :show="upload" :title="uploadtitle" v-on:btn="cmd"></dlg-upload>
     <dlg-question :show="question" :title="asktitle" v-on:btn="cmd"></dlg-question>
-    <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
+    <dlg-error :show="error" :title="errtitle" :callback="callback" @close="error = false"></dlg-error>
     <dlg-commands :show="newcmd" v-on:cmdname="newcmdfn"></dlg-commands>
   </v-app>
 </div>
@@ -237,16 +237,17 @@ new Vue({
     router,
     store,
     methods: {
-      errmsg( title ) {
+      errmsg( title, callback = null ) {
         this.errtitle = title;
         this.error = true;
+        this.callback = callback
       },
-      run(name, silent) {
+      run(name, silent, callback) {
         axios
         .get('/api/run?name=' + name + (silent ? '&silent=true' : '' ))
         .then(response => {
             if (response.data.error) {
-                this.$root.errmsg(response.data.error);
+                this.$root.errmsg(response.data.error, callback);
                 return
             }
         })
@@ -481,6 +482,7 @@ function appData() {
       newcmd: false,
       newcmdfn: null,
       socket: null,
+      callback: null,
     }
 }
 

@@ -14,6 +14,8 @@ collapseall: Collapse All
 common: Common
 commonsettings: Common Settings
 comparetype: Comparison Type
+compile: Compile
+compileok: The script has been successfully compiled.
 conditions: Conditions
 console: Console
 continue: Continue
@@ -58,6 +60,7 @@ formdata: Form Data
 formopen: "Form: open %s to continue the script execution"
 globconst: Global Constants
 help: Help
+hide: Hide
 history: History
 htmltext: HTML Text
 ifcond: If Condition
@@ -154,6 +157,7 @@ type: Type
 value: Value
 varname: Variable Name
 version: Version
+viewsrc: View Source Code
 unknownuser: Unknown user id %x
 unrun: Unrunnable script
 upload: Upload

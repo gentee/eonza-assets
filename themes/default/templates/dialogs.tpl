@@ -166,6 +166,13 @@ Vue.component('dlg-question', {
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn v-if="callback"
+            color="primary" style="text-transform: none;"
+            @click="callbackfn()"  class="ma-2 white--text"
+          >
+            {{callback.title}}
+          </v-btn>
+
           <v-btn
             color="orange darken-3" 
             @click="close()"  class="ma-2 white--text"
@@ -181,8 +188,12 @@ Vue.component('dlg-question', {
 <script>
 Vue.component('dlg-error', {
     template: '#dlg-error',
-    props: ['show', 'title'],
+    props: ['show', 'title', 'callback'],
     methods: {
+        callbackfn() {
+          this.$emit('close');
+          this.callback.func();
+        },
         close: function () {
             this.$emit('close');
         },
