@@ -21,6 +21,8 @@ params:
     - title: GET
     - title: POST
     - title: UPDATE
+    - title: PATCH
+    - title: HEAD
     - title: PUT
     - title: DELETE
 - name: pars
