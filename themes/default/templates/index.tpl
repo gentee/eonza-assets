@@ -107,10 +107,10 @@
         </v-list>
           </div>
     <div>
-    <v-container class="text-center white--text body-2">
+    <!--v-container class="text-center white--text body-2">
        <v-divider></v-divider>
       <div class="pt-1">[[.App.Copyright]]</div>
-    </v-container>
+    </v-container-->
     </div>
     </div>
       </v-navigation-drawer>
