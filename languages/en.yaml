@@ -172,6 +172,7 @@ urled-settings: /docs/editor-settings.html
 urled-parameters: /docs/editor-parameters.html
 urled-language: /docs/editor-language-resources.html
 urled-source: /docs/editor-source-code.html
+urled-compile: /docs/editor-compile.html
 urlhelp: /docs/user-guide.html
 urlscripts: /docs/scripts.html
 urlsettings: /docs/settings.html

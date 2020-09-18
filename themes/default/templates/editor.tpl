@@ -255,7 +255,8 @@ const TabHelp = [
   '%urled-settings%',
   '%urled-parameters%',
   '%urled-language%',
-  '%urled-source%'
+  '%urled-source%',
+  '%urled-compile%'
 ];
 
 const LogLevel = [
