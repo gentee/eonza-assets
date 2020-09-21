@@ -151,6 +151,23 @@ const changed = {
 
 <script>
 
+function escapeHTML(input) {
+  return input.replace(/[&<>"']/g, function(ch) {
+    switch (ch) {
+      case '&':
+        return '&amp;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      case '"':
+        return '&quot;';
+      default:
+        return '&#039;';
+    }
+  });
+}
+
 function log2color(input) {
   let color = {'INFO': 'egreen', 'FORM': 'eblue', 'WARN': 'eyellow', 'ERROR': 'ered'}
   for (let key in color) {
@@ -266,7 +283,7 @@ new Vue({
             }
             let shouldScroll = this.console.scrollTop + 
                   this.console.clientHeight === this.console.scrollHeight;
-            stdout.innerHTML += cmd.message + '<br>';
+            stdout.innerHTML += escapeHTML(cmd.message) + '<br>';
             if (shouldScroll) {
               this.console.scrollTop = this.console.scrollHeight;
             }
@@ -278,6 +295,8 @@ new Vue({
           case WcStdbuf:
             if (!cmd.message) {
               cmd.message = '&nbsp;';
+            } else {
+              cmd.message = escapeHTML(cmd.message)
             }
             this.stdcur.innerHTML = cmd.message;
             break
