@@ -250,6 +250,27 @@ new Vue({
                 this.$root.errmsg(response.data.error, callback);
                 return
             }
+            [[if not .Localhost]] 
+              if (!silent) {
+                async function hostrun(root, id) {
+                  let task
+                  for (let i = 0; i < 15; i++) {
+                    task = root.getTask(id)
+                    if (task) {
+                      break
+                    }
+                    await sleep(200)
+                  }
+                  if (!task) {
+                    root.errmsg('Unfortunately, the task has not been found. Try to find it in Task Manager.');
+                    return
+                  }
+                  window.open(window.location.protocol + '//' + window.location.hostname + ':' + task.port,
+                    '_blank');
+                };
+                hostrun(this, response.data.id);
+              }
+            [[end]]
         })
         .catch(error => this.$root.errmsg(error));
       },
@@ -429,7 +450,8 @@ new Vue({
           let cmd = JSON.parse(data);
           if (cmd.cmd == WcStatus) {
             let list = store.state.tasks
-            for (let i=0; i < list.length; i++) {
+            let i = 0
+            for (; i < list.length; i++) {
               if (list[i].id == cmd.taskid) {
                 list[i].status = cmd.status
                 if (cmd.message) {
@@ -439,6 +461,9 @@ new Vue({
                   list[i].finish = cmd.finish
                 }
               }
+            }
+            if (!!cmd.task && i == list.length ) {
+              list.push(cmd.task)
             }
             store.commit('updateTasks', list);
           }
@@ -519,6 +544,10 @@ function desc(item) {
 
 function clone(src) {
   return JSON.parse(JSON.stringify(omit(src)));
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 </script>
