@@ -20,7 +20,7 @@ tree:
       type: "2"
       var: myurl
     - text: I want to open this url
-      type: 0
+      type: "0"
       var: isopen
 - name: if.eonza
   open: true

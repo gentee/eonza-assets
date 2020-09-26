@@ -188,7 +188,7 @@ Vue.component('c-select', {
                     if (this.vals[this.par.name] == cmp || i==0 ) {
                         this.curItem = val
                         if (typeof this.vals[this.par.name] === 'undefined' || 
-                            this.vals[this.par.name] == 0) { 
+                            this.vals[this.par.name] == '' ) { 
                             // assign initial value
                             this.vals[this.par.name] = cmp
                         }
