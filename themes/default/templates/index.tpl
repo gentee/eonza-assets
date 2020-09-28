@@ -25,6 +25,12 @@
             <v-icon small left>fa-question</v-icon>&nbsp;%help%
         </v-btn>
         <v-spacer></v-spacer>
+          [[if .Develop]]
+              <v-chip color="cyan" text-color="white"><strong>develop</strong></v-chip>
+          [[end]]
+          [[if .Playground]]
+              <v-chip color="orange" text-color="white"><strong>playground</strong></v-chip>
+          [[end]]
           <v-menu bottom left :open-on-hover = true >
             <template v-slot:activator="{ on }">
               <v-btn
