@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>[[ .Title ]]</title>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="/css/vuetify.min.css">
-  <link rel="stylesheet" href="/css/fontawesome.min.css">
-  <link rel="stylesheet" href="/css/eonza.css">
+  <link rel="icon" href="[[.CDN]]/favicon.ico" type="image/x-icon"> 
+  <link rel="shortcut icon" href="[[.CDN]]/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="[[.CDN]]/css/vuetify.min.css">
+  <link rel="stylesheet" href="[[.CDN]]/css/fontawesome.min.css">
+  <link rel="stylesheet" href="[[.CDN]]/css/eonza.css">
 </head>
 <body>
 
@@ -121,10 +121,10 @@
     <dlg-error :show="error" :title="errtitle" @close="error = false"></dlg-error>
   </v-app>
 </div>
-<script src="/js/vue.min.js"></script>
-<script src="/js/vue-router.min.js"></script>
-<script src="/js/vuetify.min.js"></script>
-<script src="/js/axios.min.js"></script>
+<script src="[[.CDN]]/js/vue.min.js"></script>
+<script src="[[.CDN]]/js/vue-router.min.js"></script>
+<script src="[[.CDN]]/js/vuetify.min.js"></script>
+<script src="[[.CDN]]/js/axios.min.js"></script>
 <!--script src="/js/vuex.min.js"></script-->
 
 <script>
