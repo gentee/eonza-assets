@@ -271,7 +271,8 @@ new Vue({
                     root.errmsg('Unfortunately, the task has not been found. Try to find it in Task Manager.');
                     return
                   }
-                  window.open(window.location.protocol + '//' + window.location.hostname + ':' + task.port,
+                  let port = task.port + [[.PortShift]]
+                  window.open(window.location.protocol + '//' + window.location.hostname + ':' + port,
                     '_blank');
                 };
                 hostrun(this, response.data.id);
