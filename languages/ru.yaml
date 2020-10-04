@@ -44,6 +44,7 @@ errnickname: Пользователь '%s' уже существует
 errnorun: Скрипт %s является незапускаемым
 erropen: Скрипт %s не найден
 error: Ошибка
+errplaypsw: Установка пароля отключена в режиме Playground
 errscriptname: Скрипт '%s' уже существует
 errtasklimit: Превышено количество одновременно работающих скриптов  в режиме Playground [%v]
 exit: Выход

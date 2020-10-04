@@ -352,18 +352,6 @@ new Vue({
         this.errtitle = title;
         this.error = true;
       },
-/*      exit( par ) {
-        this.question = false;
-        if (par == btn.Yes) {
-          this.checkChanged(()=> {
-            this.drawer = false;
-            this.work = false;
-            axios
-            .get('/api/exit')
-            .then(response => (router.push('shutdown')));
-          });
-        }
-      },*/
       confirm( title, fn ) {
         this.asktitle = title;
         this.cmd = fn;

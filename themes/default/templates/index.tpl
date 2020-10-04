@@ -29,8 +29,13 @@
               <v-chip color="cyan" text-color="white"><strong>develop</strong></v-chip>
           [[end]]
           [[if .Playground]]
-              <v-chip color="orange" text-color="white"><strong>playground</strong></v-chip>
+              <v-chip color="orange" text-color="white" href="https://www.eonza.org/docs/playground.html" 
+              target="_help"><strong>playground</strong>
+              <v-icon right color="white">
+               fa-question-circle
+              </v-icon></v-chip>
           [[end]]
+          [[if not .Playground]]
           <v-menu bottom left :open-on-hover = true >
             <template v-slot:activator="{ on }">
               <v-btn
@@ -53,6 +58,7 @@
               </v-list-item>
             </v-list>
           </v-menu>
+          [[end]]
       </v-app-bar>
 
       <v-navigation-drawer
@@ -335,12 +341,18 @@ new Vue({
         this.question = false;
         if (par == btn.Yes) {
           this.checkChanged(()=> {
-            this.drawer = false;
-            this.work = false;
             axios
             .get('/api/exit')
-            .then(response => (router.push('shutdown')));
-          });
+            .then(response => { 
+              if (!response.data.error) {
+                this.drawer = false;
+                this.work = false;
+                router.push('shutdown')
+              } else {
+                this.errmsg(response.data.error)
+              }
+            });
+          })
         }
       },
       newCommand( fn ) {
@@ -501,7 +513,7 @@ function appData() {
         { title: '%logout%', icon: "fa-sign-out-alt", onclick: this.logout, 
              hide: [[not .Login]]},
         { title: '%exit%', icon: "fa-power-off", 
-          onclick: () => this.confirm("%exitconfirm%", this.exit) },
+          onclick: () => this.confirm("%exitconfirm%", this.exit), hide: [[.Playground]] },
       ],
       question: false,
       asktitle: "",
