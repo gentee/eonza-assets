@@ -37,7 +37,7 @@
            <span>{{btn.hint}}</span>
         </v-tooltip>
     </div>
-    <ul class="folders" style="padding-left: 0px; max-height: calc(100% - 36px);overflow-y: auto;" v-if="obj.length > 0" vxshow="folder.open">
+    <ul class="folders" style="padding-left: 0px; max-height: calc(100% - 36px);overflow-y: auto;" v-if="obj.length > 0 && !!cmds">
       <treeitem v-for="child in obj" :item="child"></treeitem>
     </ul>
     <!--div v-else>No Data</div-->
@@ -133,9 +133,11 @@ Vue.component('treeitem', {
             if (this.item.disable) {
                 return 'fa-ban'
             }
-            const cmd = this.cmds[this.item.name]
-            if (cmd && cmd.folder) {
-                return this.item.open ? 'fa-folder-open' : 'fa-folder'
+            if (this.cmds) {
+                const cmd = this.cmds[this.item.name]
+                if (cmd && cmd.folder) {
+                    return this.item.open ? 'fa-folder-open' : 'fa-folder'
+                }
             }
             return 'fa-cog'
         },
