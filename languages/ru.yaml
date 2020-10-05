@@ -53,6 +53,7 @@ exitalert: Программа только что была закрыта
 expandall: Раскрыть все
 export: Экспорт
 failed: Ошибка
+fileexists: Файл/Папка существует
 filename: Имя файла
 finish: Окончание
 finished: Завершен

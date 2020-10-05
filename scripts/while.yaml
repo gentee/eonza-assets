@@ -30,6 +30,8 @@ params:
         items:
         - title: '#.equal#'
           value: equal
+        - title: '#.fileexists#'
+          value: fileexists
     - name: value
       title: '#.value#'
       type: 2
@@ -37,7 +39,7 @@ params:
       title: '#.nextcond#'
       type: 3
       options:
-        type: int
+        type: str
         items:
         - title: '#.and#'
           value: "0"

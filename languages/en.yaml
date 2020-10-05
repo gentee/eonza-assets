@@ -53,6 +53,7 @@ exitalert: The program has just been closed
 expandall: Expand All
 export: Export
 failed: Failed
+fileexists: File/Dir Exists
 filename: Filename
 finish: Finish
 finished: Finished
