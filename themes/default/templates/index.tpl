@@ -421,6 +421,9 @@ new Vue({
         .catch(error => this.errmsg(error));
       },
       getTask(id) {
+         if (!store.state.tasks) {
+           return null
+         }
          for (let i = 0; i<store.state.tasks.length; i++) {
            if (store.state.tasks[i].id == id ) {
              return store.state.tasks[i]
@@ -469,6 +472,9 @@ new Vue({
           let cmd = JSON.parse(data);
           if (cmd.cmd == WcStatus) {
             let list = store.state.tasks
+            if (!list) {
+               return 
+            }
             let i = 0
             for (; i < list.length; i++) {
               if (list[i].id == cmd.taskid) {
