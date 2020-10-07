@@ -264,9 +264,9 @@ new Vue({
             }
             [[if not .Localhost]] 
               if (!silent) {
-                async function hostrun(root, id) {
+                async function hostrun(root, id, port) {
                   let task
-                  for (let i = 0; i < 15; i++) {
+                  for (let i = 0; i < 10; i++) {
                     task = root.getTask(id)
                     if (task) {
                       break
@@ -274,14 +274,15 @@ new Vue({
                     await sleep(200)
                   }
                   if (!task) {
-                    root.errmsg('Unfortunately, the task has not been found. Try to find it in Task Manager.');
+                    root.errmsg('Unfortunately, the task has not been found. Try to find it in the Task Manager.');
                     return
+//                      task = {port: port}
                   }
-                  let port = task.port + [[.PortShift]]
-                  window.open(window.location.protocol + '//' + window.location.hostname + ':' + port,
+                  let portTask = task.port + [[.PortShift]]
+                  window.open(window.location.protocol + '//' + window.location.hostname + ':' + portTask,
                     '_blank');
                 };
-                hostrun(this, response.data.id);
+                hostrun(this, response.data.id, response.data.port);
               }
             [[end]]
         })
@@ -466,7 +467,7 @@ new Vue({
           this.socket = new WebSocket(wsUri())
           this.socket.onopen = () => {};
           this.socket.onmessage = this.wsCmd
-          this.socket.onclose = () => {}
+          this.socket.onclose = () => {this.connect()}
         },
         wsCmd({data}) {
           let cmd = JSON.parse(data);

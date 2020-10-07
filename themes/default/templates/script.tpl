@@ -346,7 +346,7 @@ new Vue({
         this.socket = new WebSocket(wsUri())
         this.socket.onopen = () => {};
         this.socket.onmessage = this.wsCmd
-        this.socket.onclose = () => {}
+        this.socket.onclose = () => {this.connect()}
       },
       errmsg( title ) {
         this.errtitle = title;
