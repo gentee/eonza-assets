@@ -89,7 +89,7 @@ Vue.component('dlg-upload', {
         <div style="width: 100%;">
         <v-icon size="2em" color="blue darken-2" class="mr-4 my-4" style="float: left;">fa-question-circle
         </v-icon>
-          <div>{{title}}</div>
+          <div  class="wordbreak">{{title}}</div>
         </div>
         </v-card-title>
         <v-divider></v-divider>
@@ -160,7 +160,7 @@ Vue.component('dlg-question', {
         <v-card-title classx="py-4">
         <div style="width: 100%;">
           <v-icon size="2em" color="error" class="mr-4 my-4" style="float: left;">fa-times-circle
-          </v-icon><div>{{title}}</div>
+          </v-icon><div class="wordbreak">{{title}}</div>
         </div>
         </v-card-title>
         <v-divider></v-divider>

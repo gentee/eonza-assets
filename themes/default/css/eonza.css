@@ -183,3 +183,8 @@ pre {
   color: #fff;
   padding: 16px 16px;
 }
+
+.wordbreak {
+  word-wrap: normal;
+  word-break: break-word;
+}
