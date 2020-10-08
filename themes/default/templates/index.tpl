@@ -255,6 +255,7 @@ new Vue({
         this.callback = callback
       },
       run(name, silent, callback) {
+        let comp = this
         axios
         .get('/api/run?name=' + name + (silent ? '&silent=true' : '' ))
         .then(response => {
@@ -266,7 +267,7 @@ new Vue({
               if (!silent) {
                 async function hostrun(root, id, port) {
                   let task
-                  for (let i = 0; i < 10; i++) {
+                  for (let i = 0; i < 8; i++) {
                     task = root.getTask(id)
                     if (task) {
                       break
@@ -274,9 +275,10 @@ new Vue({
                     await sleep(200)
                   }
                   if (!task) {
-                    root.errmsg('Unfortunately, the task has not been found. Try to find it in the Task Manager.');
-                    return
-//                      task = {port: port}
+//                    root.errmsg('Unfortunately, the task has not been found. Try to find it in the Task Manager.');
+//                    return
+                    comp.connect()
+                    task = {port: port}
                   }
                   let portTask = task.port + [[.PortShift]]
                   window.open(window.location.protocol + '//' + window.location.hostname + ':' + portTask,
@@ -467,7 +469,7 @@ new Vue({
           this.socket = new WebSocket(wsUri())
           this.socket.onopen = () => {};
           this.socket.onmessage = this.wsCmd
-          this.socket.onclose = () => {this.connect()}
+          this.socket.onclose = () => {/*this.connect()*/}
         },
         wsCmd({data}) {
           let cmd = JSON.parse(data);
