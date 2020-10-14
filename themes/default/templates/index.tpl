@@ -308,7 +308,7 @@ new Vue({
           }
         });
       },
-      checkChanged(fn) {
+      checkChanged(fn, editor) {
         if (store.state.changed) {
           let parent = this;
            this.confirm( format("%savescript%", store.state.script.settings.title), 
@@ -317,7 +317,7 @@ new Vue({
              if (par == btn.Yes) {
                 parent.saveScript(fn);
                 return; 
-             } else {
+             } else if (!editor) {
                store.commit('updateChanged', false);
              }
              fn();

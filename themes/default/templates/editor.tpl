@@ -41,7 +41,7 @@
         </v-btn>
         <v-btn color="primary" class="mx-2"  v-if="loaded && !script.settings.unrun" 
             :disabled="!script.original"
-             @click="$root.run(script.original, false, err2compile)">
+             @click="$root.checkChanged(runScript, true)">
             <v-icon left small>fa-play</v-icon>&nbsp;%run%
         </v-btn>
           <v-menu bottom left v-if="loaded" offset-y v-if="!!script.original">
@@ -298,8 +298,14 @@ const Editor = Vue.component('editor', {
           })
           .catch(error => this.$root.errmsg(error));
         },
-        runsilently() {
+        compileScript() {
+          this.$root.checkChanged(this.compile, true)
+        },
+        runScriptSilently() {
           this.$root.run(this.script.original, true, this.err2compile)
+        },
+        runsilently() {
+          this.$root.checkChanged(this.runScriptSilently, true)
         },
         delete() {
           let comp = this;
@@ -492,6 +498,9 @@ const Editor = Vue.component('editor', {
         canrun() {
            return this.loaded && !this.script.settings.unrun
         },
+        runScript() {
+          this.$root.run(this.script.original, false, this.err2compile)
+        },
         changelang() {
           if (!this.script.langs[this.langid]) {
             this.script.langs[this.langid] = {}
@@ -502,7 +511,9 @@ const Editor = Vue.component('editor', {
            return !this.script.embedded
         },
         exportScript() {
-          window.location = '/api/export?name=' + this.script.original
+          this.$root.checkChanged(function(){
+            window.location = '/api/export?name=' + this.script.original
+          }, true)
         },
         importScript() {
           let comp = this
@@ -596,7 +607,7 @@ function editorData() {
         menu: [
             { title: '%import%', onclick: this.importScript },
             { title: '%export%', onclick: this.exportScript },
-            { title: '%compile%', onclick: this.compile },
+            { title: '%compile%', onclick: this.compileScript },
             { title: '%runsilently%', onclick: this.runsilently, ifcond: this.canrun },
             { title: '%delete%', onclick: this.delete, ifcond: this.noembed  },
         ],
