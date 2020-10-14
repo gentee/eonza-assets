@@ -18,7 +18,7 @@ params:
       type: 2
     - name: value
       title: '#.value#'
-      type: 1
+      type: 2
 langs:
   en:
     _desc: Set Environment variables

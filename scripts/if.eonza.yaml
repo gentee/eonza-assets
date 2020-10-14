@@ -35,6 +35,10 @@ params:
           value: equal
         - title: '#.fileexists#'
           value: fileexists
+        - title: '#.envexists#'
+          value: envexists
+        - title: '#.regexmatch#'
+          value: match
     - name: value
       title: '#.value#'
       type: 2

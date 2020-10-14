@@ -37,6 +37,7 @@ edit: Edit
 edititem: Edit Item
 editor: Editor
 entext: English text
+envexists: Environment Exists
 equal: Equal
 errembed: You can't modify/delete the embedded scripts.
 errfield: The '%s' field of the '%s' command is required.
@@ -117,6 +118,7 @@ question: Question
 recently: Recently Launched
 recursive: Recursive Search
 refresh: Refresh
+regexmatch: RegEx Match
 repissue: Report issue
 required: This field is required
 resultvar: Result Variable
