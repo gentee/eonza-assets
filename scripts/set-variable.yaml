@@ -50,7 +50,7 @@ langs:
     _desc: Assign a value to a variable
     _envvar: Get Environment Variable
     _lower: Lower Case
-    _now: Now
+    _now: Current Time
     _setvar: Set Variable
     _substr: Substring
     _upper: Upper Case
