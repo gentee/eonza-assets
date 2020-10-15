@@ -511,8 +511,9 @@ const Editor = Vue.component('editor', {
            return !this.script.embedded
         },
         exportScript() {
+          let comp = this
           this.$root.checkChanged(function(){
-            window.location = '/api/export?name=' + this.script.original
+            window.location = '/api/export?name=' + comp.script.original
           }, true)
         },
         importScript() {

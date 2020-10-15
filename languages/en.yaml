@@ -62,6 +62,8 @@ forgotpsw: Forgot Password?
 form: Form
 formdata: Form Data
 formopen: "Form: open %s to continue the script execution"
+function: Function
+functions: Functions
 globconst: Global Constants
 help: Help
 hide: Hide

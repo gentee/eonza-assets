@@ -62,6 +62,8 @@ forgotpsw: Забыли пароль?
 form: Форма
 formdata: Данные формы
 formopen: "Форма: откройте %s чтобы продолжить выполнение скрипта"
+function: Функция
+functions: Функции
 globconst: Глобальные константы
 help: Помощь
 hide: Скрыть

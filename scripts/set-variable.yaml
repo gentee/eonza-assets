@@ -1,11 +1,11 @@
 settings:
   name: set-variable
   title: '#_setvar#'
-  desc: '#_desc#'  
-  help: set-variable
-  helplang: ru
+  desc: '#_desc#'
   loglevel: 6
   unrun: true
+  help: set-variable
+  helplang: ru
 params:
 - name: name
   title: '#.varname#'
@@ -15,11 +15,53 @@ params:
 - name: value
   title: '#.value#'
   type: 1
+- name: list
+  title: '#.functions#'
+  type: 5
+  options:
+    list:
+    - name: func
+      title: '#.function#'
+      type: 3
+      options:
+        type: str
+        items:
+        - title: '#_abspath#'
+          value: abspath
+        - title: '#_append#'
+          value: append
+        - title: '#_envvar#'
+          value: envvar
+        - title: '#_lower#'
+          value: lower
+        - title: '#_upper#'
+          value: upper
+        - title: '#_now#'
+          value: now
+        - title: '#_substr#'
+          value: substr
+    - name: param
+      title: '#.parameters#'
+      type: 2
 langs:
   en:
+    _abspath: Absolute Path
+    _append: Append
     _desc: Assign a value to a variable
+    _envvar: Get Environment Variable
+    _lower: Lower
+    _now: Now
     _setvar: Set Variable
+    _substr: Substring
+    _upper: Upper
   ru:
+    _abspath: Абсолютный путь
+    _append: Добавить
     _desc: Присвоить значение переменной
+    _envvar: Получить переменную окружения
+    _lower: Нижний регистр
+    _now: Текущее время
     _setvar: Установить переменную
-code: SetVar(name, value)
+    _substr: Подстрока
+    _upper: Верхний регистр
+code: "obj vobj = JsonToObj(list) \nif vobj? {\n    if *value == 0 {\n          value = GetVar(name)\n    }\n    for vitem in vobj {\n        str param = Macro(item(vitem, \"param\").str())\n        switch item(vitem,  \"func\").str()\n        case \"abspath\" : value = AbsPath(value)\n        case \"append\": value += param\n        case \"envvar\" {\n              if !param? : param = value\n              value =  GetEnvironment(param)\n        }\n        case \"lower\": value = Lower(value)\n        case \"now\" {\n              if !param? : param = \"YYYY/MM/DD HH:mm:ss\"\n              value = Format(param, Now())\n         }\n        case \"substr\" {\n             int offset length\n             arr par = Split(param, \":\")\n             offset = int(TrimSpace(par[0]))\n             if *par > 1 : length = int(TrimSpace(par[1]))\n             value = Substr(value, offset, length)\n         }\n        case \"upper\": value = Upper(value)\n    }\n}\nSetVar(name, value)"
