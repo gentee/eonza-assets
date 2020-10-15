@@ -49,11 +49,11 @@ langs:
     _append: Append
     _desc: Assign a value to a variable
     _envvar: Get Environment Variable
-    _lower: Lower
+    _lower: Lower Case
     _now: Now
     _setvar: Set Variable
     _substr: Substring
-    _upper: Upper
+    _upper: Upper Case
   ru:
     _abspath: Абсолютный путь
     _append: Добавить
