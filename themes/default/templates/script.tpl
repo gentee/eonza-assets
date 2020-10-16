@@ -40,6 +40,13 @@
         <v-spacer></v-spacer>
       </v-app-bar>
     <v-content app style="height:100%;">
+    <div v-show="!!progress">
+       <div v-for="prog in progress" class="prog">
+           {{prog.source}} 
+           <v-progress-linear v-model="prog.percent" color="success" style="max-width: 600px;"></v-progress-linear>
+           {{prog.cursize}} / {{prog.summary}} Remaining Time: {{prog.remain}}
+       </div>
+    </div>
     <v-tabs v-model="tab">
         <v-tab>%info%</v-tab>
         <v-tab v-show="isform > 0">%form%</v-tab>
@@ -339,7 +346,24 @@ new Vue({
             }
             this.iscontinue = this.form.length == 0 || this.form[this.form.length-1].type != PButton
             this.tab = 1
-            break            
+            break         
+          case WcProgress:
+            let prog = JSON.parse(cmd.message)
+            let i = 0
+            for (; i < this.progress.length; i++) {
+              if (this.progress[i].id == prog.id) {
+                this.$set(this.progress, i, prog)
+                break
+              }
+            }
+            if (prog.percent < 100) {
+              if (i >= this.progress.length) {
+                this.progress.push(prog)
+              }
+            } else if ( i < this.progress.length ) {
+              this.progress.splice(i, 1)
+            }
+            break   
         }
       },
       connect() {
@@ -402,6 +426,7 @@ function appData() {
       formid: -1,
       fields: [],
       values: {},
+      progress: [],
 
       cmd: null,
       question: false,

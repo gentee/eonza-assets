@@ -188,3 +188,7 @@ pre {
   word-wrap: normal;
   word-break: break-word;
 }
+
+.prog {
+  padding: 0.3rem 1rem;
+}
