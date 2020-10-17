@@ -363,4 +363,12 @@ function wsUri() {
     return uri;
 }
 
+function format(pattern, par, par2) {
+    let ret = pattern.replace('%s', par);
+    if (par2) {
+      ret = ret.replace('%s', par2); 
+    }
+    return ret
+}
+
 </script>

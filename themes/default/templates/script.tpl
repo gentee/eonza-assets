@@ -44,7 +44,7 @@
        <div v-for="prog in progress" class="prog">
            {{prog.source}} 
            <v-progress-linear v-model="prog.percent" color="success" style="max-width: 600px;"></v-progress-linear>
-           {{prog.cursize}} / {{prog.summary}} Remaining Time: {{prog.remain}}
+           {{prog.current}} / {{prog.total}} {{prog.remain}}
        </div>
     </div>
     <v-tabs v-model="tab">
@@ -350,6 +350,14 @@ new Vue({
           case WcProgress:
             let prog = JSON.parse(cmd.message)
             let i = 0
+            if (prog.remain) {
+              prog.remain = '%remaintime%: ' + prog.remain
+            }
+            switch (prog.type) {
+              case 0: // copy
+                prog.source = format('%copyfile%', prog.source, prog.dest)
+                break;
+            }
             for (; i < this.progress.length; i++) {
               if (this.progress[i].id == prog.id) {
                 this.$set(this.progress, i, prog)

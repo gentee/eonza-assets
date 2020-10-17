@@ -20,6 +20,7 @@ conditions: Conditions
 console: Console
 continue: Continue
 copy: Copy
+copyfile: Copying %s to %s
 crashed: Crashed
 curpassword: Current Password
 debug: Debug
@@ -121,6 +122,7 @@ recently: Recently Launched
 recursive: Recursive Search
 refresh: Refresh
 regexmatch: RegEx Match
+remaintime: Remaining Time
 repissue: Report issue
 required: This field is required
 resultvar: Result Variable

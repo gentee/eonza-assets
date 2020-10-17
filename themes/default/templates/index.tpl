@@ -559,10 +559,6 @@ function omit(obj) {
   return obj;
 }
 
-function format(pattern, par) {
-    return pattern.replace('%s', par);
-}
-
 function desc(item) {
   if (item.desc) {
     return item.desc;
