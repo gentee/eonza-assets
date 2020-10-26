@@ -1,0 +1,53 @@
+settings:
+  name: file-list
+  title: File List
+  loglevel: 6
+  help: file-list
+  helplang: ru
+params:
+- name: path
+  title: '#.path#'
+  type: 2
+  options:
+    required: true
+- name: recursive
+  title: '#.recursive#'
+  type: 0
+  options:
+    initial: "true"
+- name: pattern
+  title: '#.patternfile#'
+  type: 2
+- name: resultvar
+  title: '#.resultvar#'
+  type: 2
+  options:
+    required: true
+tree:
+- name: source-code
+  open: true
+  values:
+    code: |-
+      arr.obj  list
+      obj ret = obj(list)
+      SetVar(`filelist`, ret)
+      %body%
+      ResultVar(GetVar("resultvar"), ret)
+  children:
+  - name: foreach-file
+    open: true
+    values:
+      _advanced: |-
+        params:
+             recursive: "#recursive#"
+      onlyfiles: true
+      path: '#path#'
+      pattern: '#pattern#'
+      recursive: false
+      varname: fi
+    children:
+    - name: source-code
+      open: true
+      values:
+        code: |
+          append( GetVarObj("filelist"), GetVarObj("fi"))
