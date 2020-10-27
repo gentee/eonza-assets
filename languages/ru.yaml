@@ -164,6 +164,8 @@ title: Название
 translation: Перевод
 type: Тип
 value: Значение
+varindex: Переменная индекс
+varitem: Переменная элемент
 varname: Имя переменной
 version: Версия
 viewsrc: Смотреть исходный код

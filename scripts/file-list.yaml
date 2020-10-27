@@ -1,5 +1,5 @@
 settings:
-  name: new-file-list
+  name: file-list
   title: '#_name#'
   desc: '#_desc#'
   help: file-list

@@ -165,6 +165,8 @@ title: Title
 translation: Translation
 type: Type
 value: Value
+varindex: Variable Index
+varitem: Variable Item
 varname: Variable Name
 version: Version
 viewsrc: View Source Code
