@@ -28,6 +28,7 @@ debug: Debug
 defvalue: Default Value
 delconfirm: Are you sure you want to delete the selected item(s)?
 delete: Delete
+delimiter: Delimiter
 delscript: Are you sure you want to delete this script?
 depscript: The '%s' script is used in other scripts (%s)
 desc: Description
