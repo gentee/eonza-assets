@@ -155,6 +155,7 @@ status: Status
 stdinput: standard input
 stopscript: Do you want to stop the script execution?
 submit: Submit
+substvar: Substitute Variable Values
 support: Technical Support
 suspend: Suspend
 suspended: Suspended
