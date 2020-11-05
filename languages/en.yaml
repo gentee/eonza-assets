@@ -123,6 +123,7 @@ question: Question
 recently: Recently Launched
 recursive: Recursive Search
 refresh: Refresh
+regex: Regular Expression
 regexmatch: RegEx Match
 remaintime: Remaining Time
 repissue: Report issue
