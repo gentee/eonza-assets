@@ -49,6 +49,7 @@ errnorun: The %s script is unrunnable
 erropen: The %s script has not been found
 error: Error
 errplaypsw: Password setting is disabled in Playground mode
+errreq: The '%s' field is required.
 errscriptname: The '%s' script has already existed
 errtasklimit: The number of concurrently running scripts in Playground mode has been exceeded [%v]
 exit: Exit

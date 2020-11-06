@@ -212,6 +212,11 @@ new Vue({
       sendform(btn) {
         for (let i = 0; i < this.form.length; i++) {
             let item = this.form[i]
+            if (!!item.options.required && ( item.type == PTextarea  ||
+                item.type == PSingleText ||  item.type == PNumber) && this.values[item.var] == '') {
+              this.$root.errmsg(format("%errreq%", item.text))
+              return
+            }
             if ( item.type == PHTMLText ) {
               delete this.values[item.var]
             }
