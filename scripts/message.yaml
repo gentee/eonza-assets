@@ -104,8 +104,8 @@ tree:
     values:
       name: buttons
       value: |-
-        [{"type": "7", "var": "btn", "text": "#.yes#", "options": {"default": "true", "initial": "yes"}},
-        {"type": "7", "var": "btn", "text": "#.no#", "options": {"initial": "no"}}
+        [{"type": "7", "var": "btn", "text": "#.yes#", "options": "{\"default\": \"true\", \"initial\": \"yes\"}"},
+        {"type": "7", "var": "btn", "text": "#.no#", "options": "{\"initial\": \"no\"}"}
         ]
 - name: if.eonza
   open: true
@@ -122,8 +122,8 @@ tree:
     values:
       name: buttons
       value: |-
-        [{"type": "7", "var": "btn", "text": "#.ok#", "options": {"default": "true", "initial": "ok"}},
-        {"type": "7", "var": "btn", "text": "#.cancel#", "options": {"initial": "cancel"}}
+        [{"type": "7", "var": "btn", "text": "#.ok#", "options": "{\"default\": \"true\", \"initial\": \"ok\"}"},
+        {"type": "7", "var": "btn", "text": "#.cancel#", "options": "{\"initial\": \"cancel\"}"}
         ]
 - name: if.eonza
   open: true
@@ -140,9 +140,9 @@ tree:
     values:
       name: buttons
       value: |-
-        [{"type": "7", "var": "btn", "text": "#.retry#", "options": { "initial": "retry"}},
-        {"type": "7", "var": "btn", "text": "#.abort#", "options": {"initial": "abort"}},
-        {"type": "7", "var": "btn", "text": "#.ignore#", "options": {"initial": "ignore"}}
+        [{"type": "7", "var": "btn", "text": "#.retry#", "options": "{ \"initial\": \"retry\"}"},
+        {"type": "7", "var": "btn", "text": "#.abort#", "options": "{\"initial\": \"abort\"}"},
+        {"type": "7", "var": "btn", "text": "#.ignore#", "options": "{\"initial\": \"ignore\"}"}
         ]
 - name: form
   values:
