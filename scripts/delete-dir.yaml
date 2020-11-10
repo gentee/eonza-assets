@@ -17,6 +17,6 @@ langs:
     _desc: Delete directory with files and subdirectories
     _name: Delete Directory
   ru:
-    _desc: Удалить директорию
-    _name: Удалить директорию с файлами и поддиректориями
+    _desc: Удалить директорию с файлами и поддиректориями
+    _name: Удалить директорию
 code: RemoveDir(path)
