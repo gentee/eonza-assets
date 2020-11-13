@@ -2,7 +2,7 @@ settings:
   name: delete-empty-folders
   title: '#_name#'
   desc: '#_desc#'
-  loglevel: 4
+  loglevel: 6
   help: delete-empty-folders
   helplang: ru
 params:
