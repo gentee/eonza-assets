@@ -52,6 +52,7 @@ errplaypsw: Password setting is disabled in Playground mode
 errreq: The '%s' field is required.
 errscriptname: The '%s' script has already existed
 errtasklimit: The number of concurrently running scripts in Playground mode has been exceeded [%v]
+excludefile: Exclude Wildcard or RegExp
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
@@ -137,6 +138,7 @@ runsilently: Run Silently
 save: Save
 saveasnew: Save As New
 savescript: The '%s' script was changed. Would you like to save it?
+searchdirs: Search Only for Directories
 searchfiles: Search Only for Files
 security: Security
 select: Select
