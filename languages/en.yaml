@@ -24,6 +24,7 @@ copy: Copy
 copyfile: Copying %s to %s
 crashed: Crashed
 curpassword: Current Password
+date: Date
 debug: Debug
 defvalue: Default Value
 delconfirm: Are you sure you want to delete the selected item(s)?
@@ -129,6 +130,7 @@ regex: Regular Expression
 regexmatch: RegEx Match
 remaintime: Remaining Time
 repissue: Report issue
+replace: Replace
 required: This field is required
 resultvar: Result Variable
 resume: Resume
@@ -153,6 +155,8 @@ selcmd: Click on the script to add
 selectupload: Select files to upload
 settings: Settings
 singletext: Single line text
+size: Size
+skip: Skip
 sourcecode: Source Code
 start: Start
 status: Status
@@ -167,6 +171,7 @@ taskmanager: Task Manager
 terminated: Terminated
 text: Text
 textarea: Multi-line text
+time: Time
 title: Title
 translation: Translation
 type: Type

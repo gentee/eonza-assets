@@ -24,6 +24,7 @@ copy: Копировать
 copyfile: Копирование %s в %s
 crashed: Сломан
 curpassword: Текущий пароль
+date: Дата
 debug: Отладка
 defvalue: Значение по умолчанию
 delconfirm: Вы уверены, что хотите удалить выделенный элемент(ы)?
@@ -129,6 +130,7 @@ regex: Регулярное выражение
 regexmatch: RegEx Cовпадение
 remaintime: Оставшееся время
 repissue: Сообщить о проблеме
+replace: Заменить
 required: Это поле обязательно
 resultvar: Результирующая переменная
 resume: Возобновить
@@ -153,6 +155,8 @@ selcmd: Нажмите на скрипт чтобы добавить его
 selectupload: Выберите файлы для загрузки
 settings: Настройки
 singletext: Однострочный текст
+size: Размер
+skip: Пропустить
 sourcecode: Исходный код
 start: Начало
 status: Статус
@@ -166,6 +170,7 @@ taskmanager: Диспетчер задач
 terminated: Прерван
 text: Текст
 textarea: Многострочный текст
+time: Время
 title: Название
 translation: Перевод
 type: Тип

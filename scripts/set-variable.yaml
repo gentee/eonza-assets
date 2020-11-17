@@ -40,6 +40,8 @@ params:
           value: upper
         - title: '#_now#'
           value: now
+        - title: '#_split#'
+          value: split
         - title: '#_substr#'
           value: substr
     - name: param
@@ -55,6 +57,7 @@ langs:
     _lower: Lower Case
     _now: Current Time
     _setvar: Set Variable
+    _split: Split
     _substr: Substring
     _upper: Upper Case
   ru:
@@ -66,6 +69,7 @@ langs:
     _lower: Нижний регистр
     _now: Текущее время
     _setvar: Установить переменную
+    _split: Разбить
     _substr: Подстрока
     _upper: Верхний регистр
-code: "obj vobj = JsonToObj(list) \nif vobj? {\n    if *value == 0 {\n          value = GetVar(name)\n    }\n    for vitem in vobj {\n        str param = Macro(item(vitem, \"param\").str())\n        switch item(vitem,  \"func\").str()\n        case \"abspath\" : value = AbsPath(value)\n        case \"append\": value += param\n        case \"envvar\" {\n              if !param? : param = value\n              value =  GetEnv(param)\n        }\n        case \"length\" {\n              int len\n              if IsVar(value) : len = *GetVar(value)\n              elif IsVarObj(value) : len = *GetVarObj(value)\n              else : len = *value\n              value = str(len)\n        }\n        case \"lower\": value = Lower(value)\n        case \"now\" {\n              if !param? : param = \"YYYY/MM/DD HH:mm:ss\"\n              value = Format(param, Now())\n         }\n        case \"substr\" {\n             int offset length\n             arr par = Split(param, \":\")\n             offset = int(TrimSpace(par[0]))\n             if *par > 1 : length = int(TrimSpace(par[1]))\n             value = Substr(value, offset, length)\n         }\n        case \"upper\": value = Upper(value)\n    }\n}\nSetVar(name, value)"
+code: "obj vobj = JsonToObj(list) \nif vobj? {\n    if *value == 0 {\n          value = GetVar(name)\n    }\n    for vitem in vobj {\n        str param = Macro(item(vitem, \"param\").str())\n        switch item(vitem,  \"func\").str()\n        case \"abspath\" : value = AbsPath(value)\n        case \"append\": value += param\n        case \"envvar\" {\n              if !param? : param = value\n              value =  GetEnv(param)\n        }\n        case \"length\" {\n              int len\n              if IsVar(value) : len = *GetVar(value)\n              elif IsVarObj(value) : len = *GetVarObj(value)\n              else : len = *value\n              value = str(len)\n        }\n        case \"lower\": value = Lower(value)\n        case \"now\" {\n              if !param? : param = \"YYYY/MM/DD HH:mm:ss\"\n              value = Format(param, Now())\n         }\n        case \"split\" {\n              if param? {\n          arr v = Split(value, param)\n          value = v[0]\n            SetVar(name, obj(v))}}\n        case \"substr\" {\n             int offset length\n             arr par = Split(param, \":\")\n             offset = int(TrimSpace(par[0]))\n             if *par > 1 : length = int(TrimSpace(par[1]))\n             value = Substr(value, offset, length)\n         }\n        case \"upper\": value = Upper(value)\n    }\n}\nSetVar(name, value)"
