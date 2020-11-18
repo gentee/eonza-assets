@@ -2,8 +2,7 @@ settings:
   name: copy-file
   title: '#_copyfile#'
   desc: '#_desc#'
-  loglevel: 4
-  unrun: true
+  loglevel: 6
   help: copy-file
   helplang: ru
 params:
@@ -17,9 +16,76 @@ params:
   type: 2
   options:
     required: true
+- name: ifexist
+  title: '#.iffileexist#'
+  type: 3
+  options:
+    initial: overwrite
+    items:
+    - title: '#.overwrite#'
+      value: overwrite
+    - title: '#.overwritenew#'
+      value: overwritenew
+    - title: '#.skip#'
+      value: skip
+    - title: '#.ask#'
+      value: ask
+    - title: '#.asknew#'
+      value: asknew
 - name: savetime
   title: '#_savetime#'
   type: 0
+- name: hideapply
+  title: hideapply
+  type: 0
+  options:
+    initial: "true"
+    default: "true"
+    optional: true
+- name: resultvar
+  title: '#.resultvar#'
+  type: 2
+  options:
+    optional: true
+tree:
+- name: source-code
+  open: true
+  values:
+    code: |-
+      str src = AbsPath(GetVar("src"))
+      str dest = AbsPath(GetVar("dest"))
+      str ifexist = GetVar("ifexist")
+      str resultvar = GetVar("resultvar")
+      str destfile = JoinPath(dest,  BaseName(src))
+      if ifexist != "overwrite" && ExistFile(destfile) {
+           if ifexist == "skip" : return
+           finfo ficur = FileInfo(destfile)
+           finfo finew = FileInfo(src)
+           if ifexist == "overwritenew" || ifexist == "asknew" {
+               if finew.Time <= ficur.Time :  return
+           }
+           if ifexist == "ask" || ifexist == "asknew" {
+                 SetVar("curfile", destfile)
+                 SetVar("newfile", "\{finew.Size},\{str(finew.Time)}")
+                 %body%
+                 obj ret = GetVarObj("ret")
+                 if *resultvar? : ResultVar(resultvar, ret)
+                 if item(ret, "btn").str() == "skip" : return
+           }
+      }
+      CopyFile(src, destfile)
+      LogOutput(LOG_INFO, "=> copy_file(\{src},\{dest})")
+      if GetVarBool("savetime") {
+            finfo fi = FileInfo(src)
+            SetFileTime(destfile, fi.Time)
+      }
+  children:
+  - name: file-confirmation
+    values:
+      _optional: 'hideapply: "#hideapply#"'
+      existfile: '#curfile#'
+      newfile: '#newfile#'
+      resultvar: ret
 langs:
   en:
     _copyfile: Copy File
@@ -33,10 +99,3 @@ langs:
     _destfolder: Целевая директория
     _savetime: Сохранить время файла
     _srcfile: Исходный файл
-code: |-
-  str destfile = JoinPath(dest,  BaseName(src))
-  CopyFile(src, destfile)
-  if savetime {
-        finfo fi = FileInfo(src)
-        SetFileTime(destfile, fi.Time)
-  }

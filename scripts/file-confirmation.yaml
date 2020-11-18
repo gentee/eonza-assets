@@ -3,6 +3,7 @@ settings:
   title: '#_name#'
   desc: '#_desc#'
   loglevel: 6
+  unrun: true
   help: file-confirmation
   helplang: ru
 params:
@@ -21,6 +22,12 @@ params:
   type: 2
   options:
     required: true
+- name: hideapply
+  title: '#_hideapply#'
+  type: 0
+  options:
+    optional: true
+    initial: "false"
 tree:
 - name: fileinfo
   values:
@@ -63,11 +70,11 @@ tree:
       text: ""
       type: "6"
       var: lng.table
-    - options: ""
+    - options: '{"if": "!hideapply"}'
       text: '#lng.apply#'
       type: "0"
       var: toall
-    - options: '{"initial": "replace","default":"true"}'
+    - options: '{"initial": "overwrite","default":"true"}'
       text: '#.replace#'
       type: "7"
       var: btn
@@ -84,6 +91,7 @@ langs:
   en:
     _desc: Show confirmation when copying the file
     _existfile: Existing File
+    _hideapply: Hide Apply To All
     _name: File Confirmation
     _newfileinfo: New File Information
     lng.apply: Apply this action to all files
@@ -100,6 +108,7 @@ langs:
   ru:
     _desc: Показывать подтверждение при копировании файла
     _existfile: Существующий файл
+    _hideapply: Скрыть Применить ко всем
     _name: Подтверждение файла
     _newfileinfo: Информация о новом файле
     lng.apply: Применить действие ко всем файлам
