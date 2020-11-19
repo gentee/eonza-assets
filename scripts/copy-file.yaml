@@ -57,6 +57,9 @@ tree:
       str ifexist = GetVar("ifexist")
       str resultvar = GetVar("resultvar")
       str destfile = JoinPath(dest,  BaseName(src))
+      map defret = {"all": "", "btn": ""}
+      obj ret = obj(defret)
+      if *resultvar? : ResultVar(resultvar, ret)
       if ifexist != "overwrite" && ExistFile(destfile) {
            if ifexist == "skip" : return
            finfo ficur = FileInfo(destfile)
@@ -68,7 +71,7 @@ tree:
                  SetVar("curfile", destfile)
                  SetVar("newfile", "\{finew.Size},\{str(finew.Time)}")
                  %body%
-                 obj ret = GetVarObj("ret")
+                 ret = GetVarObj("ret")
                  if *resultvar? : ResultVar(resultvar, ret)
                  if item(ret, "btn").str() == "skip" : return
            }
