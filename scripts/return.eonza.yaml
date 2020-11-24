@@ -22,4 +22,5 @@ langs:
     _name: Возвратиться
 code: |-
   if *resultvar? : ResultVar(resultvar, value)
+  error(RETURN, ``)
 
