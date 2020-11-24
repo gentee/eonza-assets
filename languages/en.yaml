@@ -48,6 +48,7 @@ envexists: Environment Exists
 equal: Equal
 errembed: You can't modify/delete the embedded scripts.
 errfield: The '%s' field of the '%s' command is required.
+errmessage: Error Message
 errnickname: The '%s' user has already existed
 errnorun: The %s script is unrunnable
 erropen: The %s script has not been found
