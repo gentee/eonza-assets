@@ -18,10 +18,21 @@
     <v-btn :color="(!!par.options.default ? 'primary': '')" style="text-transform: none;margin-right: 1rem;margin-bottom:8px;" @click="btnclick">{{par.title}}</v-btn>
 </script>
 
-
 <script type="text/x-template" id="c-singletext">
     <v-text-field  v-model="vals[par.name]" @input="change"
          :label="par.title" :options="par.options" :rules="[rules]"
+    ></v-text-field>
+</script>
+
+<script type="text/x-template" id="c-password">
+    <v-text-field v-model="vals[par.name]"
+            :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'"
+                :type="show1 ? 'text' : 'password'"
+            :label="par.title"
+             :options="par.options" :rules="[rules]"
+            style="max-width: 300px;"
+            hint="" 
+            @click:append="show1 = !show1"
     ></v-text-field>
 </script>
 
@@ -108,6 +119,7 @@ const PList = 5;
 const PHTMLText = 6;
 const PButton = 7;
 const PDynamic = 8;
+const PPassword = 9;
 
 const PTypes = [
     {text: '%checkbox%', value: 0, comp: 'c-checkbox'},
@@ -119,6 +131,7 @@ const PTypes = [
     {text: '%htmltext%', value: 6, comp: 'c-html'},
     {text: '%button%', value: 7, comp: 'c-button'},
     {text: '%dynamic%', value: 8, comp: ''},
+    {text: '%password%', value: 9, comp: 'c-password'},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 function removeScripts(input) {
@@ -353,7 +366,12 @@ Vue.component('c-list', {
                       def = false
                       break
                     case PSelect:
-                      def = 0
+                      let items = list[i].options.items
+                      if (items && items.length > 0) {
+                        def = items[0].value || items[0]
+                      } else {
+                        def = 0
+                      }
                       break
                   }
                 }
@@ -380,10 +398,11 @@ Vue.component('c-list', {
             this.change()
         },
         saveParams () {
+            let item = Object.assign({}, this.editedItem)
             if (this.editedIndex > -1) {
-                this.$set(this.vals[this.par.name], this.editedIndex, Object.assign({}, this.editedItem))
+                this.$set(this.vals[this.par.name], this.editedIndex, item)
             } else {
-                this.vals[this.par.name].push(this.editedItem);
+                this.vals[this.par.name].push(item);
             }
             this.change()
             this.closeParams()
@@ -397,6 +416,26 @@ Vue.component('c-list', {
     props: {
         par: Object,
         vals: { type: Array, default: [] }
+    },
+});
+
+Vue.component('c-password', {
+    template: '#c-password',
+    mixins: [changed],
+    data() {return {
+        show1: false,
+        options: {},
+        rules: value => {
+            if (this.par.options.required && !value) {
+                return '%required%'
+            }
+            return true
+        },
+      }
+    },
+    props: {
+        par: Object,
+        vals: Object,
     },
 });
 

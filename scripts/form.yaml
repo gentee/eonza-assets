@@ -32,6 +32,8 @@ params:
           value: "7"
         - title: '#.dynamic#'
           value: "8"
+        - title: '#.password#'
+          value: "9"
     - name: text
       title: '#.text#'
       type: 2

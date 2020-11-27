@@ -213,7 +213,8 @@ new Vue({
         for (let i = 0; i < this.form.length; i++) {
             let item = this.form[i]
             if (!!item.options.required && ( item.type == PTextarea  ||
-                item.type == PSingleText ||  item.type == PNumber) && this.values[item.var] == '') {
+                item.type == PSingleText ||  item.type == PNumber || item.type == PPassword) && 
+                this.values[item.var] == '') {
               this.$root.errmsg(format("%errreq%", item.text))
               return
             }
