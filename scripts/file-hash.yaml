@@ -1,10 +1,10 @@
 settings:
-  name: hash-file
+  name: file-hash
   title: '#_name#'
   desc: '#_desc#'
   loglevel: 6
   unrun: true
-  help: hash-file
+  help: file-hash
   helplang: ru
 params:
 - name: filename
@@ -27,7 +27,7 @@ params:
 langs:
   en:
     _desc: Find hash of the file
-    _name: Hash Of File
+    _name: File Hash
   ru:
     _desc: Найти хэш файла
     _name: Хэш файла
