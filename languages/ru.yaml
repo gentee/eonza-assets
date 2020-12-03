@@ -121,6 +121,7 @@ officialsite: Официальный сайт
 ok: OK
 optionalpar: Опциональные параметры
 or: ИЛИ
+outputfile: Файл вывода
 overwrite: Перезаписывать существующие
 overwritenew: Перезаписать если новее
 parameters: Параметры
