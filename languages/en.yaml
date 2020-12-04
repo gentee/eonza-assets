@@ -64,6 +64,7 @@ exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
 expandall: Expand All
 export: Export
+failconnect: "Cannot connect to the Eonza program. Run:"
 failed: Failed
 fileexists: File/Dir Exists
 filename: Filename
@@ -162,6 +163,7 @@ search: Search scripts for...
 selcmd: Click on the script to add
 selectupload: Select files to upload
 settings: Settings
+shutdown: Shutdown
 singletext: Single line text
 size: Size
 skip: Skip

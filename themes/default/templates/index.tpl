@@ -149,12 +149,11 @@
 [[template "tasks" .]]
 [[template "settings" .]]
 [[template "help" .]]
-[[template "shutdown"]]
+[[template "shutdown" .]]
 [[template "dialogs"]]
 [[template "cardlist" .]]
 
 <script>
-
 const routes = [{
     path: '/',
     name: 0,
@@ -521,7 +520,7 @@ function appData() {
              hide: [[not .Develop]]},
         { title: '%logout%', icon: "fa-sign-out-alt", onclick: this.logout, 
              hide: [[not .Login]]},
-        { title: '%exit%', icon: "fa-power-off", 
+        { title: '%shutdown%', icon: "fa-power-off", 
           onclick: () => this.confirm("%exitconfirm%", this.exit), hide: [[.Playground]] },
       ],
       question: false,
