@@ -7,7 +7,7 @@
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
           <h2 class="my-4">[[.App.Title]]</h2>
           <h3>%annotation%</h3>
-          <p>%version%: <b>[[.Version]]</b>
+          <p>%version%: <b>[[.Version]]</b> <small style="color: #777;">[[.CompileDate]]</small>
           </p>
           <p>Copyright [[.App.Copyright]]<br>
           
