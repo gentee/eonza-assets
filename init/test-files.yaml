@@ -1,0 +1,210 @@
+settings:
+  name: test-files
+  title: '#_name#'
+  desc: '#_desc#'
+  loglevel: 6
+params:
+- name: dir
+  title: '#_dir#'
+  type: 2
+tree:
+- name: source-code
+  values:
+    _desc: Set file and dir names
+    code: '%body%'
+  children:
+  - name: set-variables
+    values:
+      list:
+      - value: |-
+          This is a short text text.
+          Это тестовое сообщение.
+        var: short
+      - value: test password
+        var: psw
+  - name: write-console
+    values:
+      text: Test files scripts...
+  - name: curdir
+    values:
+      _ifcond: '*GetVar("dir") == 0'
+      varname: dir
+  - name: set-variable
+    values:
+      list:
+      - func: appendpath
+        param: eonza-test
+      name: testpath
+      value: '#dir#'
+  - name: set-variable
+    values:
+      list:
+      - func: appendpath
+        param: short.txt
+      name: shortfile
+      value: '#testpath#'
+  - name: set-variable
+    values:
+      list:
+      - func: appendpath
+        param: file10.bin
+      name: file10
+      value: '#testpath#'
+  - name: set-variable
+    values:
+      list:
+      - func: appendpath
+        param: sub path
+      name: subpath
+      value: '#testpath#'
+  - name: set-variable
+    values:
+      list:
+      - func: appendpath
+        param: short.txt.ec
+      name: shortdec
+      value: '#subpath#'
+- name: if.eonza
+  values:
+    list:
+    - cmp: fileexists
+      next: "0"
+      not: false
+      value: ""
+      var: testpath
+  children:
+  - name: message
+    values:
+      custbtns: {}
+      icon: question-circle
+      retbtn: msgbtn
+      text: '#testpath# exists. Remove it and continue?'
+  - name: error.eonza
+    values:
+      _ifcond: GetVar("msgbtn") == "no"
+      code: "145"
+      text: '#testpath# exists. It must not be existed!'
+  - name: delete-dir
+    values:
+      path: '#testpath#'
+- name: create-dir
+  values:
+    path: '#subpath#'
+- name: write-file
+  values:
+    filename: '#shortfile#'
+    name: short
+- name: source-code
+  values:
+    _desc: Test file 10MB
+    code: |-
+      buf b = buf(Repeat("This is a test string\r\n",100))
+      b += RandomBuf(4000)
+      for i in 1..100 {
+           b += buf("Line \{i}: тестовое сообщение\n")
+      }
+      b += buf(Hex(RandomBuf(5000)))
+      str file10 = GetVar("file10")
+      WriteFile(file10, b)
+      for i in 1..550 {
+          AppendFile(file10, b)
+      }
+      %body%
+  children:
+  - name: file-hash
+    values:
+      algorithm: MD5
+      filename: '#file10#'
+      resultvar: file10md5
+  - name: encrypt-file
+    values:
+      algorithm: AES-256
+      encfile: file10.binenc
+      filename: '#file10#'
+      password: '#psw#'
+  - name: delete-file
+    values:
+      path: '#file10#'
+  - name: decrypt-file
+    values:
+      decfile: ""
+      destpath: ""
+      filename: '#file10#enc'
+      password: '#psw#'
+  - name: file-hash
+    values:
+      algorithm: MD5
+      filename: '#file10#'
+      resultvar: file10decmd5
+  - name: assertions
+    values:
+      errmsg: File 10 MB
+      list:
+      - cmp: equal
+        not: false
+        value: '#file10decmd5#'
+        var: file10md5
+- name: file-hash
+  values:
+    algorithm: MD5
+    filename: '#shortfile#'
+    resultvar: md5short
+- name: encrypt-file
+  values:
+    algorithm: AES-256
+    destpath: '#subpath#'
+    encfile: ""
+    filename: '#shortfile#'
+    password: '#psw#'
+- name: decrypt-file
+  values:
+    decfile: short.txt.ec.txt
+    filename: '#shortdec#'
+    password: '#psw#'
+- name: file-hash
+  values:
+    algorithm: MD5
+    filename: '#shortdec#.txt'
+    resultvar: md5shortdec
+- name: file-hash
+  values:
+    algorithm: SHA256
+    filename: '#shortfile#'
+    resultvar: sha256short
+- name: assertions
+  values:
+    list:
+    - cmp: equal
+      not: false
+      value: 44baaf4f234ed2b74bd1a54ea343497b
+      var: md5short
+    - cmp: equal
+      not: false
+      value: 54779abc791a5129c5f15f0d6007cb139f99ca48fae41998c22aa32c7c00204f
+      var: sha256short
+    - cmp: equal
+      not: false
+      value: '#md5short#'
+      var: md5shortdec
+- name: delete-dir
+  values:
+    path: '#testpath#'
+- name: assertions
+  values:
+    list:
+    - cmp: fileexists
+      not: true
+      value: ""
+      var: testpath
+- name: write-console
+  values:
+    text: Success
+langs:
+  en:
+    _desc: Test files commands
+    _dir: Path for test folder
+    _name: Test - Files
+  ru:
+    _desc: Тест файловых скриптов
+    _dir: Путь для папки тестирования
+    _name: Тест - Файлы

@@ -1,0 +1,61 @@
+settings:
+  name: tests
+  title: '#_name#'
+  desc: '#_desc#'
+  loglevel: 6
+tree:
+- name: set-variables
+  values:
+    list:
+    - type: "2"
+      value: '#.apppath#'
+      var: testpath
+- name: form
+  values:
+    list:
+    - options: ""
+      text: 'Path for ''eonza-test'' test folder '
+      type: "2"
+      var: testpath
+- name: test-files
+  values:
+    dir: '#testpath#'
+- name: test.programming
+  values:
+    mode: retvar
+    retvar: myret
+- name: test.programming
+  values:
+    mode: retwhile
+    retvar: mywhile
+- name: test.programming
+  values:
+    mode: ret
+    retvar: noret
+- name: assertions
+  values:
+    list:
+    - cmp: equal
+      not: false
+      value: Default Result
+      var: myret
+    - cmp: equal
+      not: false
+      value: No Result
+      var: noretx
+    - cmp: equal
+      not: false
+      value: ""
+      var: noret
+    - cmp: equal
+      not: false
+      value: While
+      var: mywhile
+- name: test.forms
+langs:
+  en:
+    _desc: Run all default tests
+    _name: All Tests
+  ru:
+    _desc: Запустить все тесты
+    _name: Все тесты
