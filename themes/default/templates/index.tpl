@@ -73,7 +73,7 @@
           nav
           class="py-0"
         >
-          <v-list-item two-line href="[[.App.Homepage]]" target="_blank" title="Homepage">
+          <!--v-list-item two-line href="[[.App.Homepage]]" target="_blank" title="Homepage">
             <v-list-item-avatar>
               <img src="/images/logo-48.png">
             </v-list-item-avatar>
@@ -82,9 +82,22 @@
               <div>[[.App.Title]]</div>
               <v-list-item-subtitle>v[[.Version]]</v-list-item-subtitle>
             </v-list-item-content>
+          </v-list-item-->
+          <v-list-item style="margin:0">
+            <v-list-item-content class="pb-0">
+              Это заголовок 
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item style="min-height: 24px;padding:0px 8px;margin-bottom:4px" one-line href="[[.App.Homepage]]" target="_blank" title="Homepage">
+            <v-list-item-avatar size="24">
+              <img src="/images/logo-48.png">
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-subtitle>[[.App.Title]] v[[.Version]]</v-list-item-subtitle>
+            </v-list-item-content>
           </v-list-item>
 
-          <v-divider></v-divider>
+          <v-divider class="mb-2"></v-divider>
 
           <v-list-item :to="item.route"
             v-for="item in navitems"
@@ -101,7 +114,7 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-divider></v-divider>
+          <v-divider class="mb-2"></v-divider>
           <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
