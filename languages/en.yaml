@@ -76,6 +76,7 @@ formdata: Form Data
 formopen: "Form: open %s to continue the script execution"
 function: Function
 functions: Functions
+general: General
 globconst: Global Constants
 help: Help
 hide: Hide

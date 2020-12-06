@@ -6,12 +6,18 @@
         </v-btn>
     </v-toolbar>
     <v-tabs v-model="tab">
+        <v-tab>%general%</v-tab>
         <v-tab>%scripts%</v-tab>
         <v-tab>%personal%</v-tab>
         <v-tab>%globconst%</v-tab>
         <v-tab>%security%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
+   <div class="pt-4">
+      <v-text-field v-model="options.common.title" label="%title%" @change="change"></v-text-field>
+    </div>
+    </div>
+    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
    <div class="pt-4">
     <v-checkbox v-model="options.common.includesrc" label="%includesrc%" @change="change"></v-checkbox>
     <v-select label="%loglevel%" @change="change"
@@ -20,7 +26,7 @@
                           ></v-select>
     </div>
     </div>
-    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;"> 
+    <div v-show="tab==2" style="height: calc(100% - 106px);overflow-y:auto;"> 
     <div class="pt-4">
         <v-select label="%language%" @change="change"
             v-model="options.user.lang"
@@ -28,7 +34,7 @@
         ></v-select>
         </div>
     </div>
-    <div v-show="tab==2" style="height: calc(100% - 106px);overflow-y:auto;"> 
+    <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;"> 
         <div class="pt-4">
         <v-data-table
           disable-filtering disable-pagination disable-sort hide-default-footer
@@ -80,7 +86,7 @@
         </v-data-table>
         </div>
     </div>
-    <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;" >
+    <div v-show="tab==4" style="height: calc(100% - 106px);overflow-y:auto;" >
    <div class="pt-4">
     <!--v-checkbox v-model="options.common.includesrc" label="%includesrc%" @change="change"></v-checkbox-->
     <v-text-field type="password" label="%curpassword%" v-model="curpsw" v-if="!!options.common.passwordhash"></v-text-field>

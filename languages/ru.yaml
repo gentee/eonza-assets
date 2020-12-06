@@ -76,6 +76,7 @@ formdata: Данные формы
 formopen: "Форма: откройте %s чтобы продолжить выполнение скрипта"
 function: Функция
 functions: Функции
+general: Общие
 globconst: Глобальные константы
 help: Помощь
 hide: Скрыть

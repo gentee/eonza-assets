@@ -3,7 +3,7 @@
 <head> 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>[[ .App.Title ]]</title>
+  <title>[[if .Title]][[.Title]][[end]][[if not .Title]][[ .App.Title ]][[end]]</title>
   <link rel="icon" href="/favicon.ico" type="image/x-icon"> 
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/css/vuetify.min.css">
@@ -73,19 +73,10 @@
           nav
           class="py-0"
         >
-          <!--v-list-item two-line href="[[.App.Homepage]]" target="_blank" title="Homepage">
-            <v-list-item-avatar>
-              <img src="/images/logo-48.png">
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <div>[[.App.Title]]</div>
-              <v-list-item-subtitle>v[[.Version]]</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item-->
+        [[if .Title]]
           <v-list-item style="margin:0">
             <v-list-item-content class="pb-0">
-              Это заголовок 
+              [[.Title]]
             </v-list-item-content>
           </v-list-item>
           <v-list-item style="min-height: 24px;padding:0px 8px;margin-bottom:4px" one-line href="[[.App.Homepage]]" target="_blank" title="Homepage">
@@ -96,7 +87,19 @@
               <v-list-item-subtitle>[[.App.Title]] v[[.Version]]</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
+        [[end]]
+        [[if not .Title]]
+            <v-list-item two-line class="py-0" href="[[.App.Homepage]]" target="_blank" title="Homepage">
+            <v-list-item-avatar>
+              <img src="/images/logo-48.png">
+            </v-list-item-avatar>
 
+            <v-list-item-content class="py-0">
+              <div>[[.App.Title]]</div>
+              <v-list-item-subtitle>v[[.Version]]</v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        [[end]]
           <v-divider class="mb-2"></v-divider>
 
           <v-list-item :to="item.route"
