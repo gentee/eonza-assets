@@ -234,14 +234,22 @@ Vue.component('dlg-error', {
             <v-icon>fa-times</v-icon>
           </v-btn>
         </div>
-        <v-card-text style="height: 400px;">
+        <v-breadcrumbs :items="breads" large v-show="!search" class="pt-0 pl-4 pb-1">
+          <template v-slot:item="{ item }">
+          <v-breadcrumbs-item href="#" @click="return folder('/' + item.path)":disabled="item.disabled">
+            {{item.text}}
+          </v-breadcrumbs-item>
+          </template>
+        </v-breadcrumbs>
+        <v-card-text style="height: 360px;">
          <div  class="d-flex flex-wrap" style="margin-right: 2px;">
-            <v-card style="border-left: 2px solid #f00;"
+            <v-card style="border-left: 2px solid #f00;" :color="item.group ? '#FFF9C4' : 'white'"
               v-for="(item, i) in curlist"
-              :key="i" style="max-width: 350px;" @click="selectScript(item.name)"
+              :key="i" style="max-width: 350px;" @click="selectScript(item)"
               class="flex-grow-1 ma-2 pa-2 d-flex flex-column justify-space-between"
             > 
-              <div style="font-weight: bold;"><v-icon color="primary">fa-check-square</v-icon>&nbsp;{{item.title}}
+              <div style="font-weight: bold;"><v-icon color="primary" v-if="!item.group">fa-check-square</v-icon>
+              <v-icon color="primary" v-if="item.group">fa-folder-open</v-icon>&nbsp;{{item.title}}
               </div>
               <div>{{desc(item)}}</div>
             </v-card>
@@ -268,6 +276,12 @@ Vue.component('dlg-commands', {
     props: ['show'],
     data: dlgCommandsData,
     methods: {
+        folder(name) {
+          let ret = getBreads(name, this.path)
+          this.path = ret.path
+          this.breads = ret.breads
+          return false
+        },
         clearsearch() {
           this.search = '';
           //this.$forceUpdate();
@@ -279,8 +293,12 @@ Vue.component('dlg-commands', {
 //          this.$forceUpdate();
           }
         },
-        selectScript(name) {
-          this.close(name)
+        selectScript(item) {
+          if (item.group) {
+            this.folder(item.title)
+          } else {
+            this.close(item.name)
+          }
         },
         close: function (par) {
             this.$emit('cmdname', par)
@@ -297,7 +315,7 @@ Vue.component('dlg-commands', {
     },
     computed: {
       list: function() { return store.state.list },
-      curlist: function() { return this.$root.filterList(this.search, true) },
+      curlist: function() { return this.$root.filterList(this.search, this.path) },
     },
     mounted() {
       this.$root.loadList(this.viewlist);
@@ -316,6 +334,8 @@ Vue.component('dlg-commands', {
 function dlgCommandsData() {
     return {
         search: '',
+        path: '',
+        breads: getBreads('','').breads,
     }
 }
 
@@ -369,6 +389,27 @@ function format(pattern, par, par2) {
       ret = ret.replace('%s', par2); 
     }
     return ret
+}
+
+function getBreads(name, owner) {
+  let path
+  if (!name || name == '/') {
+      breads = [{text: '%home%', disabled: true, path: ''}]
+      path = ''
+  } else {
+      breads = [{text: '%home%', disabled: false, path: ''}]
+      if (name[0] == '/') {
+        path = name.substr(1)
+      } else {
+        path = (owner ? owner + '/' : '') + name
+      }
+      let paths = path.split('/')
+      for (let i = 0; i < paths.length; i++) {
+        let curpath = breads[i].path + (i > 0 ? '/' : '') + paths[i]
+        breads.push({text: paths[i], disabled: i==paths.length-1, path: curpath})
+      }
+  }
+  return {path: path, breads: breads}
 }
 
 </script>

@@ -70,6 +70,7 @@ fileexists: File/Dir Exists
 filename: Filename
 finish: Finish
 finished: Finished
+folder: Folder
 forgotpsw: Forgot Password?
 form: Form
 formdata: Form Data
@@ -81,6 +82,7 @@ globconst: Global Constants
 help: Help
 hide: Hide
 history: History
+home: Home
 htmltext: HTML Text
 ifcond: If Condition
 iffileexist: If File Exists
@@ -172,6 +174,7 @@ sourcecode: Source Code
 start: Start
 status: Status
 stdinput: standard input
+stdlib: Standard Library
 stopscript: Do you want to stop the script execution?
 submit: Submit
 substvar: Substitute Variable Values

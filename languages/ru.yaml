@@ -70,6 +70,7 @@ fileexists: Файл/Папка существует
 filename: Имя файла
 finish: Окончание
 finished: Завершен
+folder: Папка
 forgotpsw: Забыли пароль?
 form: Форма
 formdata: Данные формы
@@ -81,6 +82,7 @@ globconst: Глобальные константы
 help: Помощь
 hide: Скрыть
 history: История
+home: Главная
 htmltext: HTML текст
 ifcond: Условие
 iffileexist: Если файл существует
@@ -172,6 +174,7 @@ sourcecode: Исходный код
 start: Начало
 status: Статус
 stdinput: стандартный ввод
+stdlib: Стандартная библиотека
 stopscript: Вы хотите прекратить выполнение скрипта?
 substvar: Заменить значения переменных
 support: Служба поддержки

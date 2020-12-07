@@ -88,6 +88,8 @@
         <v-textarea  v-model="script.settings.desc" @input="change"
          label="%desc%" rows="2" dense
          ></v-textarea>
+        <v-text-field v-model="script.settings.path" @input="change"
+           label="%folder%"></v-text-field>
         <v-select label="%loglevel%" @change="change"
                           v-model="script.settings.loglevel"
                           :items="LogLevel" 

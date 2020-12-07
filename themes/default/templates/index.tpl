@@ -449,11 +449,27 @@ new Vue({
          }
          return null
       },
-      filterList(search,all) {
+      filterList(search,path) {
             let ret = [];
+            let paths = {};
             for (let key in store.state.list) {
               let val = store.state.list[key];
-              if (!val.title || (!all && !search && val.embedded)) continue;
+//              if (!val.title || (!all && !search && val.embedded)) continue;
+              if (val.name == 'new') continue;
+              if (!search && !((!val.path && !path) || val.path == path)) {
+                if (!!val.path && (!path || val.path.startsWith( path ))) {
+                  let name = val.path.substr(path.length)
+                  if (name[0] == '/') {
+                    name = name.substr(1)
+                  }
+                  let slash = name.indexOf("/")
+                  if (slash > 0) {
+                    name = name.substr(0, slash)
+                  }
+                  paths[name] = !!paths[name] ? paths[name] + 1 : 1; 
+                }
+                continue
+              }
               let weight = 0;
               if (!!search) {
                 const lower = search.toLowerCase();
@@ -473,6 +489,14 @@ new Vue({
               } 
               val.weight = weight;
               ret.push(val);
+            }
+            for (let key in paths) {
+              ret.push({
+                group: true,
+                title: key,
+                desc: '%folder% (' + String(paths[key]) + `)`,
+                weigth: 0,
+              }) 
             }
             ret.sort(function(a,b) {
               if (a.weight != b.weight) return b.weight - a.weight;

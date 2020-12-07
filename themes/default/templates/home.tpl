@@ -15,7 +15,14 @@
             <v-icon>fa-times</v-icon>
           </v-btn>
         </div>
-        <cardlist :list="curlist"></cardlist>
+        <v-breadcrumbs :items="breads" large v-show="!search" class="pt-0 pl-2 pb-1">
+          <template v-slot:item="{ item }">
+          <v-breadcrumbs-item href="#" @click="return folder('/' + item.path)":disabled="item.disabled">
+            {{item.text}}
+          </v-breadcrumbs-item>
+          </template>
+        </v-breadcrumbs>
+        <cardlist :list="curlist" v-on:folder="folder($event)"></cardlist>
     </div>
     <div style="height:calc(100% - 48px);" v-show="tab==1" class="pt-4">
         <cardlist :list="runlist"></cardlist>
@@ -38,8 +45,15 @@ const Home = {
       } 
     },
     viewlist() {
-        this.curlist = this.$root.filterList(this.search);
+        this.curlist = this.$root.filterList(this.search, this.path);
     },
+    folder(name) {
+      let ret = getBreads(name, this.path)
+      this.path = ret.path
+      this.breads = ret.breads
+      this.viewlist()
+      return false
+    }
   },
   watch: {
     tab(newValue) {
@@ -71,8 +85,10 @@ function homeData() {
     return {
         tab: null,
         search: '',
+        path: '',
         curlist: null,
         runlist: null,
+        breads: getBreads('','').breads,
     }
 }
 </script>
