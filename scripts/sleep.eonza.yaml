@@ -2,6 +2,7 @@ settings:
   name: sleep.eonza
   title: '#_sleep#'
   desc: '#_desc#'  
+  path: "#.stdlib#/#.programming#"
   help: sleep
   helplang: ru
   loglevel: 6

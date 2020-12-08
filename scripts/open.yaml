@@ -3,6 +3,7 @@ settings:
   title: '#_open#'
   loglevel: 6
   desc: '#_desc#'
+  path: "#.stdlib#/#.applications#"
   help: open
   helplang: ru
   unrun: true

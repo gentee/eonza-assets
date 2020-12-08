@@ -2,6 +2,7 @@ settings:
   name: run.eonza
   title: '#_runapp#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.applications#"
   help: run
   helplang: ru
   loglevel: 4

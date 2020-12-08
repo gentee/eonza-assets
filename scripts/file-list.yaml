@@ -2,6 +2,7 @@ settings:
   name: file-list
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   help: file-list
   helplang: ru
   loglevel: 6

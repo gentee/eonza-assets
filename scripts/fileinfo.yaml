@@ -2,6 +2,7 @@ settings:
   name: fileinfo
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   loglevel: 6
   unrun: true
   help: fileinfo

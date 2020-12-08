@@ -6,6 +6,7 @@ settings:
   unrun: true
   help: assertions
   helplang: ru
+  path: "#.stdlib#/#.programming#"
 params:
 - name: errmsg
   title: '#.errmessage#'

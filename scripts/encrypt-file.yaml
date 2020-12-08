@@ -2,6 +2,7 @@ settings:
   name: encrypt-file
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.cryptography#"  
   loglevel: 4
   help: encrypt-file
   helplang: ru

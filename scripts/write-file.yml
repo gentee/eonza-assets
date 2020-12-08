@@ -2,6 +2,7 @@ settings:
   name: write-file
   title: '#_writefile#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   help: write-file
   helplang: ru
   loglevel: 4

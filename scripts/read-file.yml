@@ -2,6 +2,7 @@ settings:
   name: read-file
   title: '#_readfile#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   help: read-file
   helplang: ru
   loglevel: 6

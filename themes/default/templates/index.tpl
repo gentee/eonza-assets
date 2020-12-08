@@ -457,7 +457,7 @@ new Vue({
 //              if (!val.title || (!all && !search && val.embedded)) continue;
               if (val.name == 'new') continue;
               if (!search && !((!val.path && !path) || val.path == path)) {
-                if (!!val.path && (!path || val.path.startsWith( path ))) {
+                if (!!val.path && (!path || val.path.startsWith( path + '/' ))) {
                   let name = val.path.substr(path.length)
                   if (name[0] == '/') {
                     name = name.substr(1)

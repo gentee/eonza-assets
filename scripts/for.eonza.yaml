@@ -2,6 +2,7 @@ settings:
   name: for.eonza
   title: '#_for#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.programming#"
   help: for-statement
   helplang: ru
   loglevel: 6

@@ -2,6 +2,7 @@ settings:
   name: crypto-funcs
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.cryptography#"  
   loglevel: 6
   unrun: true
 tree:

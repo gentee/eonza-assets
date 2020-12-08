@@ -2,6 +2,7 @@ settings:
   name: set-variable
   title: '#_setvar#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.variables#"  
   loglevel: 6
   unrun: true
   help: set-variable

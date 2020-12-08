@@ -2,6 +2,7 @@ settings:
   name: curdir
   title: '#_getcurdir#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   help: curdir
   helplang: ru
   loglevel: 6

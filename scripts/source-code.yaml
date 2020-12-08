@@ -2,6 +2,7 @@ settings:
   name: source-code
   title: '#.sourcecode#'
   desc: '#_desc#' 
+  path: "#.stdlib#/#.programming#"
   help: source-code
   helplang: ru
   loglevel: 6

@@ -2,6 +2,7 @@ settings:
   name: exit.eonza
   title: '#.exit#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.programming#"
   help: exit
   helplang: ru
   loglevel: 6

@@ -2,6 +2,7 @@ settings:
   name: if.eonza
   title: '#_ifstatement#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.programming#"
   help: if-statement
   helplang: ru
   loglevel: 6

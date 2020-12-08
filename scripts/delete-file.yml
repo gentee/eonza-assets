@@ -2,6 +2,7 @@ settings:
   name: delete-file
   title: '#_deletefile#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   help: delete-file
   helplang: ru
   loglevel: 4

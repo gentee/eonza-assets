@@ -2,6 +2,7 @@ settings:
   name: error.eonza
   title: '#.error#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.programming#"
   loglevel: 6
   unrun: true
   help: error

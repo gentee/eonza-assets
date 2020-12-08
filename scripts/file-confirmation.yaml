@@ -2,6 +2,7 @@ settings:
   name: file-confirmation
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.forms#"    
   loglevel: 6
   unrun: true
   help: file-confirmation

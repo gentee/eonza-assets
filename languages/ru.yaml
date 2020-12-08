@@ -8,6 +8,7 @@ advsettings: Расширенные настройки
 algorithm: Алгоритм
 and: И
 annotation: Бесплатная программа с открытым исходным кодом для автоматизации процессов
+applications: Приложения
 ask: Спрашивать
 asknew: Спрашивать если новее
 break: Прервать
@@ -26,6 +27,7 @@ continue: Продолжить
 copy: Копировать
 copyfile: Копирование %s в %s
 crashed: Сломан
+cryptography: Криптография
 curpassword: Текущий пароль
 date: Дата
 debug: Отладка
@@ -44,6 +46,7 @@ dynamic: Динамический
 edit: Редактировать
 edititem: Редактирование элемента
 editor: Редактор
+encoding: Конвертация
 entext: Текст на английском
 envexists: Окружение существует
 equal: Равно
@@ -68,6 +71,7 @@ failconnect: "Не могу соединиться с программой Eonza
 failed: Ошибка
 fileexists: Файл/Папка существует
 filename: Имя файла
+files: Файлы и директории
 finish: Окончание
 finished: Завершен
 folder: Папка
@@ -75,6 +79,7 @@ forgotpsw: Забыли пароль?
 form: Форма
 formdata: Данные формы
 formopen: "Форма: откройте %s чтобы продолжить выполнение скрипта"
+forms: Формы и сообщения
 function: Функция
 functions: Функции
 general: Общие
@@ -102,6 +107,7 @@ licagreement: Лицензионное соглашение
 licenseurl: https://www.eonza.org/ru/docs/license.html
 list: Список
 log: Лог
+logconsole: Вывод в лог и консоль
 login: Войти
 loglevel: Уровень лога
 logout: Выйти
@@ -111,6 +117,7 @@ moveup: Сдвинуть вниз
 name: Имя
 native: Русский
 negation: Отрицание условия
+network: Сеть
 new: Добавить
 newchild: Добавить внутреннюю команду
 newitem: Новый элемент
@@ -134,6 +141,7 @@ paste: Вставить
 path: Путь
 patternfile: Маска или рег.выражение
 personal: Персональные
+programming: Программирование
 question: Вопрос
 recently: Недавно запущенные
 recursive: Рекурсивный поиск
@@ -189,6 +197,7 @@ title: Название
 translation: Перевод
 type: Тип
 value: Значение
+variables: Переменные
 varindex: Переменная индекс
 varitem: Переменная элемент
 varname: Имя переменной

@@ -2,6 +2,7 @@ settings:
   name: decrypt-file
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.cryptography#"  
   loglevel: 4
   help: decrypt-file
   helplang: ru

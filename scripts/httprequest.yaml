@@ -2,9 +2,10 @@ settings:
   name: httprequest
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.network#"    
   loglevel: 6
   unrun: true
-  help: foreach-file
+  help: httprequest
   helplang: ru
 params:
 - name: url

@@ -2,6 +2,7 @@ settings:
   name: copy-files
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   loglevel: 6
   help: copy-files
   helplang: ru

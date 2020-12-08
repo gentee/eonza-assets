@@ -2,6 +2,7 @@ settings:
   name: foreach-file
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   loglevel: 6
   help: foreach-file
   helplang: ru

@@ -2,6 +2,7 @@ settings:
   name: create-dir
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.files#"  
   loglevel: 4
   unrun: true
   help: create-dir

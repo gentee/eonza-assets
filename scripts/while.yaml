@@ -2,6 +2,7 @@ settings:
   name: while
   title: '#_while#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.programming#"
   help: while-statement
   helplang: ru
   loglevel: 6

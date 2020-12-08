@@ -8,6 +8,7 @@ advsettings: Advanced Settings
 algorithm: Algorithm
 and: AND
 annotation: Free, open-source automation software
+applications: Applications
 ask: Ask
 asknew: Ask If Newer
 break: Break
@@ -26,6 +27,7 @@ continue: Continue
 copy: Copy
 copyfile: Copying %s to %s
 crashed: Crashed
+cryptography: Cryptography
 curpassword: Current Password
 date: Date
 debug: Debug
@@ -44,6 +46,7 @@ dynamic: Dynamic
 edit: Edit
 edititem: Edit Item
 editor: Editor
+encoding: Encoding
 entext: English text
 envexists: Environment Exists
 equal: Equal
@@ -68,6 +71,7 @@ failconnect: "Cannot connect to the Eonza program. Run:"
 failed: Failed
 fileexists: File/Dir Exists
 filename: Filename
+files: Files and directories
 finish: Finish
 finished: Finished
 folder: Folder
@@ -75,6 +79,7 @@ forgotpsw: Forgot Password?
 form: Form
 formdata: Form Data
 formopen: "Form: open %s to continue the script execution"
+forms: Forms & Messages
 function: Function
 functions: Functions
 general: General
@@ -102,6 +107,7 @@ licagreement: License Agreement
 licenseurl: https://www.eonza.org/docs/license.html
 list: List
 log: Log
+logconsole: Log & Console output
 login: Login
 loglevel: Log Level
 logout: Log Out
@@ -111,6 +117,7 @@ moveup: Move Up
 name: Name
 native: English
 negation: Negation of Condition
+network: Network
 new: New
 newchild: Add a new child command
 newitem: New Item
@@ -134,6 +141,7 @@ paste: Paste
 path: Path
 patternfile: Wildcard or RegExp
 personal: Personal
+programming: Programming
 question: Question
 recently: Recently Launched
 recursive: Recursive Search
@@ -190,6 +198,7 @@ title: Title
 translation: Translation
 type: Type
 value: Value
+variables: Variables
 varindex: Variable Index
 varitem: Variable Item
 varname: Variable Name

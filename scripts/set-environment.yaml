@@ -2,6 +2,7 @@ settings:
   name: set-environment
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.variables#"  
   loglevel: 6
   unrun: true
   help: set-environment

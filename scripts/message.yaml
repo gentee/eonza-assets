@@ -2,6 +2,7 @@ settings:
   name: message
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.forms#"      
   help: message
   helplang: ru
   loglevel: 6

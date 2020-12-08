@@ -2,6 +2,7 @@ settings:
   name: read-console
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.logconsole#"    
   help: read-console
   helplang: ru
   loglevel: 6
