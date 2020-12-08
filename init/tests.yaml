@@ -2,6 +2,7 @@ settings:
   name: tests
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.tests#"
   loglevel: 6
 tree:
 - name: set-variables
@@ -20,6 +21,7 @@ tree:
 - name: test-files
   values:
     dir: '#testpath#'
+- name: test-json
 - name: test.programming
   values:
     mode: retvar

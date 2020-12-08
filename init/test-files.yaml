@@ -2,6 +2,7 @@ settings:
   name: test-files
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.tests#"
   loglevel: 6
 params:
 - name: dir

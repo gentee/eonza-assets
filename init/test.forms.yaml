@@ -2,6 +2,7 @@ settings:
   name: test.forms
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.tests#"
   loglevel: 6
 tree:
 - name: set-variables

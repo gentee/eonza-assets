@@ -191,6 +191,7 @@ suspend: Suspend
 suspended: Suspended
 taskmanager: Task Manager
 terminated: Terminated
+tests: Tests
 text: Text
 textarea: Multi-line text
 time: Time
