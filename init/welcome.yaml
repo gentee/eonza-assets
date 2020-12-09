@@ -1,0 +1,137 @@
+settings:
+  name: welcome
+  title: '#_name#'
+  loglevel: 6
+tree:
+- name: source-code
+  values:
+    code: |-
+      SetVar("tempdir", TempDir())
+      %body%
+  children:
+  - name: set-variable
+    values:
+      list:
+      - func: now
+        param: ""
+      name: now
+- name: set-variables
+  values:
+    list:
+    - type: "2"
+      value: |
+        <h2 style="color: #1565C0;">#welcome.head#</h2>
+      var: head
+    - type: "2"
+      value: "1"
+      var: showinfo
+    - value: |
+        <table>
+        <tr><td>Now:&nbsp;</td><td><b>#now#</b></td></tr>
+        <tr><td>Eonza path:&nbsp;</td><td><b>#.apppath#</b></td></tr>
+        <tr><td>Temporary path:&nbsp;</td><td><b>#tempdir#</b></td></tr>
+        </table>
+      var: info
+    - type: "2"
+      value: '#welcome.sites#'
+      var: gettitle
+- name: form
+  values:
+    list:
+    - options: ""
+      text: ""
+      type: "6"
+      var: head
+    - options: ""
+      text: ""
+      type: "6"
+      var: info
+    - options: ""
+      text: '#welcome.name#'
+      type: "2"
+      var: name
+    - options: ""
+      text: '#welcome.showinfo#'
+      type: "0"
+      var: showinfo
+- name: message
+  values:
+    _ifcond: showinfo
+    custbtns: []
+    icon: info-circle
+    retbtn: msgbtn
+    text: '#welcome.hello#'
+- name: form
+  values:
+    list:
+    - options: ""
+      text: ""
+      type: "6"
+      var: gettitle
+    - options: |-
+        {"items":[{"title":"Apple", "value": "https://www.apple.com"},
+        {"title":"Microsoft", "value": "https://www.microsoft.com"},
+        {"title":"Wikipedia", "value": "https://www.wikipedia.org"},
+        {"title":"Google", "value": "https://www.google.com"}]}
+      text: ""
+      type: "3"
+      var: defsite
+    - options: ""
+      text: URL
+      type: "2"
+      var: site
+- name: set-variable
+  values:
+    _ifcond: '*GetVar("site") == 0'
+    list: []
+    name: site
+    value: '#defsite#'
+- name: get-webpage
+  values:
+    url: '#site#'
+    varname: answer
+- name: regex-find
+  values:
+    regex: <title>(.*)</title>
+    resultvar: title
+    varname: answer
+- name: regex-find
+  values:
+    regex: name="[D|d]escription" content="(.*)"
+    resultvar: desc
+    varname: answer
+- name: set-variable
+  values:
+    list:
+    - func: length
+      param: ""
+    name: size
+    value: '#answer#'
+- name: write-console
+  values:
+    text: |
+      Page size: #size#
+      Title: #title[1]#
+- name: write-console
+  values:
+    _ifcond: IsVarObj("desc") && *GetVarObj("desc") > 1
+    text: 'Description: #desc[1]#'
+langs:
+  en:
+    _name: Welcome
+    welcome.head: Welcome to the Eonza demo script!
+    welcome.hello: |
+      Hello, #name#,<br>
+      We are glad that you have decided to try the Eonza program.
+    welcome.name: Enter your name
+    welcome.showinfo: Show greeting
+    welcome.sites: Select a site to get the title or specify your own
+  ru:
+    _name: Добро пожаловать
+    welcome.head: Добро пожаловать в демонстрационный скрипт программы Eonza!
+    welcome.hello: |-
+      Добрый день, #name#, <br>
+      Мы рады, что вы решили попробовать программу Eonza.
+    welcome.name: Укажите ваше имя
+    welcome.showinfo: Показать приветствие
+    welcome.sites: Выберите сайт для получения заголовка или укажите свой
