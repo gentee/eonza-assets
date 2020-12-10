@@ -130,6 +130,7 @@ notaskpassword: Don't ask for password on startup
 number: Number
 officialsite: Official Site
 ok: OK
+openbrowser: Open in Browser
 optionalpar: Optional Parameters
 or: OR
 outputfile: Output File

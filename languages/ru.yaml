@@ -130,6 +130,7 @@ notaskpassword: Не просить пароль при запуске
 number: Число
 officialsite: Официальный сайт
 ok: OK
+openbrowser: Открыть в браузере
 optionalpar: Опциональные параметры
 or: ИЛИ
 outputfile: Файл вывода
@@ -174,7 +175,7 @@ search: Поиск скриптов
 selcmd: Нажмите на скрипт чтобы добавить его
 selectupload: Выберите файлы для загрузки
 settings: Настройки
-shutdown: Завершить работу
+shutdown: Выключить
 singletext: Однострочный текст
 size: Размер
 skip: Пропустить
