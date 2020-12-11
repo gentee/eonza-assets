@@ -15,6 +15,9 @@
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
    <div class="pt-4">
       <v-text-field v-model="options.common.title" label="%title%" @change="change"></v-text-field>
+      [[if .Tray]]
+      <v-checkbox v-model="options.common.hidetray" label="%hidetray%" @change="change"></v-checkbox>
+      [[end]]
     </div>
     </div>
     <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >

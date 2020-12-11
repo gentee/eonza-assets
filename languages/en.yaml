@@ -86,6 +86,7 @@ general: General
 globconst: Global Constants
 help: Help
 hide: Hide
+hidetray: Hide Tray Icon
 history: History
 home: Home
 htmltext: HTML Text
