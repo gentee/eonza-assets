@@ -1,5 +1,5 @@
 <script type="text/x-template" id="editor">
-  <v-container style="height:100%;">
+  <v-container style="height:100%;padding-top: 40px">
     <v-toolbar dense flat=true>
       <v-icon v-if="script.embedded" left small>fa-lock</v-icon><v-toolbar-title>{{script.langtitle}}</v-toolbar-title>
       <v-spacer></v-spacer>

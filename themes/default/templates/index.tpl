@@ -14,7 +14,15 @@
 <body>
 <div id = "app">
   <v-app  style="height:100%;">
-      <v-app-bar app color="blue darken-1" dense dark v-if="work">
+      <v-app-bar app color="blue darken-1" dense dark v-if="work" style="margin-top:32px">
+        <div style="top:-32px;left:0;width: 100%;position:absolute;height: 32px;padding: 1px 4px 0px 4px;background-color: #fff;display:flex">
+           <v-icon color="yellow darken-1" small>fa-star</v-icon>
+           <div style="display:inline-flex">
+              <div v-for="(fav,index) in store.state.favs">
+                <v-btn small class="px-2 ml-1" style="text-transform: none;" light color="blue lighten-4" colorx="light-blue darken-3" >{{fav.name}}</v-btn>
+              </div>
+           </div>
+        </div> 
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -202,6 +210,23 @@ const routes = [{
   },
 ];
 
+let deffavs = [
+   [[range .Favs]]
+     {name: [[.Name]], isfolder: [[.IsFolder]], [[if .Children]]
+      children: [
+         [[range .Children]]{name: [[.Name]]},
+         [[end]]]
+     [[end]]},
+  [[end]]
+];
+
+let defisfav = {
+   [[range .Favs]]
+       [[if .IsFolder]][[range .Children]][[.Name]]: true, [[end]]
+       [[else]][[.Name]]: true,[[end]]
+   [[end]]
+};
+
 const router = new VueRouter({ routes });
 
 const store = new Vuex.Store({
@@ -213,6 +238,8 @@ const store = new Vuex.Store({
       active: null,
       list: null,
       tasks: [],
+      isfav: defisfav,
+      favs: deffavs,
       clipboard: null,
       script: {
           settings: {
@@ -250,6 +277,66 @@ const store = new Vuex.Store({
     updateTasks (state, tasks) {
       state.tasks = tasks;
     },
+    updateFavs (state, data) {
+      let isFav = {}
+      newFav = [...state.favs]
+      if (data.isfolder) {
+         if (data.action == 'new') {
+            newFav.push({name: data.name, isfolder: true, children: []})
+         } else if (data.action == 'delete') {
+            for (let i = 0; i < newFav.length; i++ ) {
+                let item = newFav[i]
+                if (item.isfolder && item.name == data.name) {
+                  newFav.splice(i, 1)
+                  break
+                }
+            }
+         }
+      } else {
+        if (data.action == 'new') {
+           if (!!data.folder) {
+            for (let i = 0; i < newFav.length; i++ ) {
+                let item = newFav[i]
+                if (item.isfolder && item.name == data.folder) {
+                  if (!newFav[i].children) {
+                    newFav[i].children = []  
+                  }
+                  newFav[i].children.push({name: data.name})    
+                  break
+                }
+            }
+           } else {
+              newFav.push({name: data.name})
+           }
+        } else if (data.action == 'delete') {
+          for (let i = 0; i < newFav.length; i++ ) {
+            let item = newFav[i]
+            if (item.isfolder && item.children) {
+                for (let j = 0; j < item.children.length; j++ ) {
+                  if (item.children[j].name == data.name) {
+                      newFav[i].children.splice(j, 1)
+                      break
+                  }
+                }
+            } else if (item.name == data.name) {
+                newFav.splice(i, 1)
+            }
+          }
+        }
+      }
+      for (let i = 0; i < newFav.length; i++ ) {
+        let item = newFav[i]
+        if (item.isfolder) {
+            for (let j = 0; j < item.children.length; j++ ) {
+              isFav[item.children[j].name] = true
+            }
+        } else {
+          isFav[item.name] = true
+        }
+      }
+      state.isfav = isFav
+      state.favs = newFav
+    },
   }
 })
 
@@ -268,6 +355,17 @@ new Vue({
         this.errtitle = title;
         this.error = true;
         this.callback = callback
+      },
+      saveFavs() {
+        axios
+          .post(`/api/favs`, store.state.favs)
+          .then(response => {
+              if (response.data.error) {
+                  this.errmsg(response.data.error);
+                  return
+              }
+          })
+          .catch(error => this.errmsg(error));
       },
       run(name, silent, callback) {
         let comp = this

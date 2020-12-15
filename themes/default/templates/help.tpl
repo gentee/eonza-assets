@@ -1,5 +1,5 @@
 <script type="text/x-template" id="help">
-  <v-container style="max-width: 1024px;height:100%;">
+  <v-container style="max-width: 1024px;height:100%;padding-top: 32px">
     <v-tabs v-model="tab">
         <v-tab>%about%</v-tab>
     </v-tabs>

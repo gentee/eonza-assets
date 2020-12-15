@@ -3,6 +3,7 @@ about: About
 actions: Actions
 active: Active
 addcmd: Add a new command to the script
+addfav: Add to Favorites
 additional: Additional Settings
 advsettings: Advanced Settings
 algorithm: Algorithm
@@ -69,12 +70,14 @@ expandall: Expand All
 export: Export
 failconnect: "Cannot connect to the Eonza program. Run:"
 failed: Failed
+favorites: Favorites
 fileexists: File/Dir Exists
 filename: Filename
 files: Files and directories
 finish: Finish
 finished: Finished
 folder: Folder
+foldername: Folder Name
 forgotpsw: Forgot Password?
 form: Form
 formdata: Form Data
@@ -121,6 +124,7 @@ negation: Negation of Condition
 network: Network
 new: New
 newchild: Add a new child command
+newfolder: New Folder
 newitem: New Item
 newscript: New Script
 nextcond: Next Condition
@@ -151,6 +155,7 @@ refresh: Refresh
 regex: Regular Expression
 regexmatch: RegEx Match
 remaintime: Remaining Time
+removefav: Remove from Favorites
 repissue: Report issue
 replace: Replace
 required: This field is required

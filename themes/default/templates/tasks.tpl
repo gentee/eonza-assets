@@ -1,5 +1,5 @@
 <script type="text/x-template" id="tasks">
-  <v-container style="height:100%;">
+  <v-container style="height:100%;padding-top: 40px;">
     <div style="height:calc(100% - 0px);overflow-y: auto;">
       <table class="table" cellspacing="0">
         <tr><th v-for="item in heads">{{item}}</th></tr>

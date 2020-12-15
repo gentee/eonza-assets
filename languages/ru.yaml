@@ -3,6 +3,7 @@ about: О программе
 actions: Действия
 active: Активный
 addcmd: Добавить новую команду в скрипт
+addfav: Добавить в Избранные
 additional: Дополнительные настройки
 advsettings: Расширенные настройки
 algorithm: Алгоритм
@@ -69,12 +70,14 @@ expandall: Раскрыть все
 export: Экспорт
 failconnect: "Не могу соединиться с программой Eonza. Запустите:"
 failed: Ошибка
+favorites: Избранные
 fileexists: Файл/Папка существует
 filename: Имя файла
 files: Файлы и директории
 finish: Окончание
 finished: Завершен
 folder: Папка
+foldername: Имя папки
 forgotpsw: Забыли пароль?
 form: Форма
 formdata: Данные формы
@@ -121,6 +124,7 @@ negation: Отрицание условия
 network: Сеть
 new: Добавить
 newchild: Добавить внутреннюю команду
+newfolder: Новая папка
 newitem: Новый элемент
 newscript: Новый скрипт
 nextcond: Следующее условие
@@ -151,6 +155,7 @@ refresh: Обновить
 regex: Регулярное выражение
 regexmatch: RegEx Cовпадение
 remaintime: Оставшееся время
+removefav: Удалить из Избранных
 repissue: Сообщить о проблеме
 replace: Заменить
 required: Это поле обязательно

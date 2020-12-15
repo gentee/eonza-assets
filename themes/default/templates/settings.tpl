@@ -1,5 +1,5 @@
 <script type="text/x-template" id="settings">
-  <v-container style="max-width: 1024px;height:100%;">
+  <v-container style="max-width: 1024px;height:100%;padding-top: 40px;">
     <v-toolbar dense flat=true>
         <v-btn color="primary" class="mx-2" :disabled="!changed" @click="save">
             <v-icon left small>fa-save</v-icon>&nbsp;%save%
