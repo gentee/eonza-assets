@@ -15,13 +15,34 @@
 <div id = "app">
   <v-app  style="height:100%;">
       <v-app-bar app color="blue darken-1" dense dark v-if="work" style="margin-top:32px">
-        <div style="top:-32px;left:0;width: 100%;position:absolute;height: 32px;padding: 1px 4px 0px 4px;background-color: #fff;display:flex">
+        <div style="top:-32px;left:0;width: 100%;position:absolute;height: 32px;padding: 1px 4px 0px 4px;background-color: #fff;display:flex;justify-content:flex-start">
            <v-icon color="yellow darken-1" small>fa-star</v-icon>
-           <div style="display:inline-flex">
+          <v-btn small class="px-2 ml-1" icon color="blue lighten-2" 
+            @click="favShift(-1)" v-show="leftfav">
+            <v-icon>fa-caret-left</v-icon>      
+          </v-btn>
+           <div style="display:inline-flex;flex-shrink:1;justify-content:flex-start;overflow:hidden" id="favlist" ref="favlist">
               <div v-for="(fav,index) in store.state.favs">
-                <v-btn small class="px-2 ml-1" style="text-transform: none;" light color="blue lighten-4" colorx="light-blue darken-3" >{{fav.name}}</v-btn>
+                <v-btn small class="px-2 ml-1" style="text-transform: none;" light color="blue lighten-4" v-if="!fav.isfolder" @click="run(fav.name)">{{favTitle(fav.name)}}</v-btn>
+           <v-menu bottom left :open-on-hover = true v-if="fav.isfolder">
+            <template v-slot:activator="{ on }">
+              <v-btn small class="px-2 ml-1" style="text-transform: none;background-color: #FFF9C4" light v-on="on" v-if="fav.isfolder">
+                {{fav.name}}
+              </v-btn>
+            </template>
+            <v-card class="pa-2" >
+             <div style="display: flex;flex-direction:column;">
+             <v-btn v-for="(sub,index) in fav.children" small class="px-2 my-1" style="text-transform: none;" light color="blue lighten-4"  @click="run(sub.name)">{{favTitle(sub.name)}}</v-btn>
+             </div>
+            </v-card>
+          </v-menu>
               </div>
            </div>
+           <v-btn small class="px-2 ml-1" icon color="blue lighten-2" style="flex-shrink: 0" 
+             @click="favShift(1)" v-show="rightfav">
+              <v-icon>fa-caret-right</v-icon>      
+           </v-btn>
+
         </div> 
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
@@ -351,6 +372,12 @@ new Vue({
     router,
     store,
     methods: {
+      favTitle(name) {
+        if (store.state.list && store.state.list[name]) {
+           return store.state.list[name].title
+        }
+        return name
+      },
       errmsg( title, callback = null ) {
         this.errtitle = title;
         this.error = true;
@@ -633,10 +660,27 @@ new Vue({
             store.commit('updateTasks', list);
           }
         },
+        favShift(shift) {
+          const favlist = this.$refs.favlist
+          const scrollPos = favlist.scrollLeft;
+          shift = shift * favlist.clientWidth*3/4
+          if (shift < 0) {
+             favlist.scrollLeft = Math.max(0, scrollPos + shift)
+          } else {
+             favlist.scrollLeft = Math.min(favlist.scrollWidth-favlist.clientWidth+32, scrollPos + shift)
+          }
+          this.favButtons()
+        },
+        favButtons() {
+          const favlist = this.$refs.favlist
+          this.leftfav = favlist.scrollLeft>0
+          this.rightfav = favlist.scrollLeft + favlist.clientWidth < favlist.scrollWidth
+        },
     },
     mounted() {
       this.loadTasks()
       this.connect()
+      setTimeout(this.favButtons, 1000)
     }
 })
 
@@ -673,6 +717,8 @@ function appData() {
       newcmdfn: null,
       socket: null,
       callback: null,
+      leftfav: false,
+      rightfav: false,
     }
 }
 

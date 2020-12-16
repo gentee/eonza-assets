@@ -55,6 +55,7 @@ const Home = {
       this.addfolder = false
       store.commit('updateFavs', {name: this.foldername, isfolder: true, action: 'new'});
       this.$root.saveFavs()
+      setTimeout(this.$root.favButtons, 1000)
       this.foldername = ''
     },
     clearsearch() {

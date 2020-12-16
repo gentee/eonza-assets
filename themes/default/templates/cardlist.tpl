@@ -18,7 +18,7 @@
           <template v-slot:activator="{ on: tooltip }">
           <v-btn class="ma-2" style="top:-8px; right:-8px;position:absolute" :color="color" small icon 
               v-on="{ ...tooltip, ...menu }" v-show="isfavmenu" @click="selfolder=true">
-              <v-icon small>fa-heart</v-icon>
+              <v-icon small>fa-star</v-icon>
           </v-btn> 
           </template>
           <span>{{hint}}</span>
@@ -100,6 +100,7 @@ Vue.component('favcard', {
           store.commit('updateFavs', {name: this.name, isfolder: false, folder: foldername, 
                                       action: !!store.state.isfav[this.name] ? 'delete' : 'new'});
           this.$root.saveFavs()
+          setTimeout(this.$root.favButtons, 1000)
         },
     },
     props: ['name', 'folders'],
