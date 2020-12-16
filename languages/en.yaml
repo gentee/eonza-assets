@@ -16,6 +16,7 @@ break: Break
 button: Button
 cancel: Cancel
 checkbox: Checkbox
+collapse: Collapse
 collapseall: Collapse All
 common: Common
 commonsettings: Common Settings
@@ -66,6 +67,7 @@ excludefile: Exclude Wildcard or RegExp
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
+expand: Expand
 expandall: Expand All
 export: Export
 failconnect: "Cannot connect to the Eonza program. Run:"

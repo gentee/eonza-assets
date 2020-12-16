@@ -301,6 +301,11 @@ const store = new Vuex.Store({
     updateFavs (state, data) {
       let isFav = {}
       newFav = [...state.favs]
+      let move = data.action
+      let deleted = null
+      if (move == 'after' || move == 'before') {
+        data.action = 'delete'
+      }
       if (data.isfolder) {
          if (data.action == 'new') {
             newFav.push({name: data.name, isfolder: true, children: []})
@@ -335,19 +340,52 @@ const store = new Vuex.Store({
             if (item.isfolder && item.children) {
                 for (let j = 0; j < item.children.length; j++ ) {
                   if (item.children[j].name == data.name) {
-                      newFav[i].children.splice(j, 1)
+                      deleted = newFav[i].children.splice(j, 1)
                       break
                   }
                 }
             } else if (item.name == data.name) {
-                newFav.splice(i, 1)
+                deleted = newFav.splice(i, 1)
             }
           }
         }
       }
+      if ((move == 'after' || move == 'before') && deleted) {
+        let index = 0
+        if (data.folder && !deleted[0].isfolder) {
+          for (let i = 0; i < newFav.length; i++ ) {
+            if (newFav[i].isfolder && newFav[i].name == data.folder) {
+              if (data.target) {
+                for (let j = 0; j < newFav[i].children.length; j++ ) {
+                  if (newFav[i].children[j].name == data.target) {
+                    index = move == 'after' ? j+1: j
+                    break
+                  }
+                }
+              }
+              if (!newFav[i].children) {
+                newFav[i].children = deleted
+              } else {
+                 newFav[i].children.splice(index, 0, deleted[0])
+              }
+              break
+            }
+          }
+        } else {
+          if (data.target) {
+            for (let i = 0; i < newFav.length; i++ ) {
+              if (newFav[i].name == data.target) {
+                index = move == 'after' ? i+1: i
+                break
+              }
+            }
+          }
+          newFav.splice(index, 0, deleted[0])
+        }
+      }
       for (let i = 0; i < newFav.length; i++ ) {
         let item = newFav[i]
-        if (item.isfolder) {
+        if (item.isfolder && item.children) {
             for (let j = 0; j < item.children.length; j++ ) {
               isFav[item.children[j].name] = true
             }

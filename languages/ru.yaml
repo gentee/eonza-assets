@@ -16,6 +16,7 @@ break: Прервать
 button: Кнопка
 cancel: Отмена
 checkbox: Чекбокс
+collapse: Свернуть
 collapseall: Свернуть все
 common: Общие
 commonsettings: Общие настройки
@@ -66,6 +67,7 @@ excludefile: Исключать по маске или рег.выраж.
 exit: Выход
 exitconfirm: Вы уверены, что хотите выйти из программы?
 exitalert: Программа только что была закрыта
+expand: Раскрыть
 expandall: Раскрыть все
 export: Экспорт
 failconnect: "Не могу соединиться с программой Eonza. Запустите:"
