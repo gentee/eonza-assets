@@ -34,6 +34,11 @@ params:
   type: 0
   options:
     optional: true
+- name: onlyfiles
+  title: '#.searchfiles#'
+  type: 0
+  options:
+    optional: true
 tree:
 - name: source-code
   open: true
@@ -42,7 +47,6 @@ tree:
       arr.obj  list
       obj ret &= obj(list)
       SetVar(`filelist`, ret)
-      SetVar("isfiles", !GetVarBool("onlydirs"))
       %body%
       ResultVar(GetVar("resultvar"), ret)
   children:
@@ -52,7 +56,7 @@ tree:
       _advanced: |-
         params:
             recursive: "#recursive#"
-            onlyfiles: "#isfiles#"
+            onlyfiles: "#onlyfiles#"
       path: '#path#'
       pattern: '#pattern#'
       ignore: '#ignore#'
