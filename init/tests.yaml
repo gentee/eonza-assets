@@ -1,8 +1,8 @@
 settings:
   name: tests
   title: '#_name#'
+  path: '#.tests#'
   desc: '#_desc#'
-  path: "#.tests#"
   loglevel: 6
 tree:
 - name: set-variables
@@ -53,6 +53,12 @@ tree:
       not: false
       value: While
       var: mywhile
+- name: write-console
+  values:
+    text: Testing archives
+- name: test-archive
+  values:
+    dir: '#testpath#'
 - name: test.forms
 langs:
   en:
