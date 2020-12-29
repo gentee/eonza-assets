@@ -59,6 +59,9 @@ tree:
 - name: test-archive
   values:
     dir: '#testpath#'
+- name: test-texts
+  values:
+    dir: '#testpath#'
 - name: test.forms
 langs:
   en:

@@ -1,0 +1,161 @@
+settings:
+  name: test-texts
+  title: '#_name#'
+  path: '#.tests#'
+  desc: '#_desc#'
+  loglevel: 6
+params:
+- name: dir
+  title: '#_dir#'
+  type: 2
+tree:
+- name: source-code
+  open: true
+  values:
+    _desc: Create initial files and folders
+    code: '%body%'
+  children:
+  - name: curdir
+    values:
+      _ifcond: '*GetVar("dir") == 0'
+      varname: dir
+  - name: log-output
+    values:
+      level: LOG_INFO
+      text: Creating files...
+  - name: set-variable
+    values:
+      list:
+      - func: appendpath
+        param: text-tmp
+      name: dir
+      value: ""
+  - name: set-variables
+    values:
+      list:
+      - value: '#dir#/file.txt'
+        var: ftxt
+      - value: '#dir#/lines.txt'
+        var: flines
+      - value: '#dir#/empty.txt'
+        var: fempty
+  - name: create-dir
+    values:
+      path: '#dir#'
+  - name: source-code
+    values:
+      code: |
+        str out
+        for i in 1..10000 {
+            if i %17 == 0 {
+                out += "\n"
+            } else {
+                out += "Line: \{i} = \{ ?(i%5 == 0,`Test message`, `skipped message`) } \{i}\n"
+             }
+        }
+        WriteFile(GetVar("ftxt"), out)
+        SetVar("txtout", out)
+        SetVar("ftextsize", *out)
+        out = ""
+        for i in 1..2000 {
+            out += "Line: \{i},\{i*2},\{Hex(RandomBuf(10))},\{ ?(i%3 == 0,
+        `Third item`, `original item`) },\{i}\r\n"
+        }
+        WriteFile(GetVar("flines"), out)
+        WriteFile(GetVar("fempty"), "")
+  - name: set-variable
+    values:
+      list:
+      - func: hash
+        param: md5
+      name: txtout
+  - name: file-hash
+    values:
+      algorithm: MD5
+      filename: '#flines#'
+      resultvar: hashlines
+- name: foreach-line-file
+  values:
+    filename: '#ftxt#'
+    varname: item
+  children:
+  - name: if.eonza
+    open: true
+    values:
+      list:
+      - cmp: equal
+        next: "0"
+        not: false
+        value: ""
+        var: item
+    children:
+    - name: source-code
+      values:
+        code: SetVar("count", GetVarInt("count") + 1)
+- name: log-output
+  values:
+    level: LOG_INFO
+    text: 'Foreach Line in lines.txt file #count#'
+- name: foreach-line-file
+  open: true
+  values:
+    filename: '#flines#'
+    varname: item
+  children:
+  - name: set-variable
+    disable: true
+    values:
+      list:
+      - func: append
+        param: '#item##.r##.n#'
+      name: lines
+  - name: source-code
+    values:
+      code: SetVar("lines", GetVar("lines") + GetVar("item") + "\r\n")
+- name: set-variable
+  values:
+    list:
+    - func: hash
+      param: ""
+    name: newhash
+    value: '#lines#'
+- name: assertions
+  values:
+    list:
+    - cmp: equal
+      not: false
+      value: '#newhash#'
+      var: hashlines
+    - cmp: equal
+      not: false
+      value: "312861"
+      var: ftextsize
+    - cmp: equal
+      not: false
+      value: "588"
+      var: count
+    - cmp: equal
+      not: false
+      value: 2d36d680bc64f274b34fc6f9a420ab09
+      var: txtout
+- name: foreach-line-file
+  open: true
+  values:
+    filename: '#fempty#'
+    varname: item
+  children:
+  - name: error.eonza
+    values:
+      text: Empty file
+- name: delete-dir
+  values:
+    path: '#dir#'
+langs:
+  en:
+    _desc: Test text commands
+    _dir: Path for test folder
+    _name: Test - Texts
+  ru:
+    _desc: Тестирование скриптов для работы с текстом
+    _dir: Путь для папки тестирования
+    _name: Тест - Тексты
