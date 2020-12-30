@@ -363,6 +363,9 @@ new Vue({
               case 0: // copy
                 prog.source = format('%copyfile%', prog.source, prog.dest)
                 break;
+              case 1: // download
+                prog.source = format('%downloadfile%', prog.source, prog.dest)
+                break;
             }
             for (; i < this.progress.length; i++) {
               if (this.progress[i].id == prog.id) {
