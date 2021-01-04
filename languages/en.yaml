@@ -170,6 +170,7 @@ run: Run
 runsilently: Run Silently
 save: Save
 saveasnew: Save As New
+savecopy: Save a copy
 savescript: The '%s' script was changed. Would you like to save it?
 searchdirs: Search Only for Directories
 searchfiles: Search Only for Files

@@ -165,7 +165,7 @@ const Settings = {
             .catch(error => this.$root.errmsg(error));
         },
         save() {
-            axios
+            this.$root.checkChanged(() => axios
             .post(`/api/settings`, this.options)
             .then(response => {
                 if (response.data.error) {
@@ -175,7 +175,7 @@ const Settings = {
                 location.reload(true)
                 this.changed = false
             })
-            .catch(error => this.$root.errmsg(error));
+            .catch(error => this.$root.errmsg(error)));
         },
         loadConst() {
           this.constants = []

@@ -83,6 +83,10 @@ tree:
       text: '#.skip#'
       type: "7"
       var: btn
+    - options: '{"initial": "savecopy","default":"true"}'
+      text: '#.savecopy#'
+      type: "7"
+      var: btn
 - name: source-code
   values:
     code: |

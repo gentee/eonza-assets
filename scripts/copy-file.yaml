@@ -33,6 +33,8 @@ params:
       value: ask
     - title: '#.asknew#'
       value: asknew
+    - title: '#.savecopy#'
+      value: savecopy
 - name: savetime
   title: '#_savetime#'
   type: 0
@@ -74,7 +76,11 @@ tree:
                  %body%
                  ret = GetVarObj("ret")
                  if *resultvar? : ResultVar(resultvar, ret)
-                 if item(ret, "btn").str() == "skip" : return
+                 ifexist = item(ret, "btn").str()
+                 if ifexist == "skip" : return
+           }
+           if ifexist == "savecopy" {
+              destfile = CopyName(destfile)
            }
       }
       CopyFile(src, destfile)

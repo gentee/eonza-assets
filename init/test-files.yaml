@@ -1,8 +1,8 @@
 settings:
   name: test-files
   title: '#_name#'
+  path: '#.tests#'
   desc: '#_desc#'
-  path: "#.tests#"
   loglevel: 6
 params:
 - name: dir
@@ -10,6 +10,7 @@ params:
   type: 2
 tree:
 - name: source-code
+  open: true
   values:
     _desc: Set file and dir names
     code: '%body%'
@@ -95,6 +96,67 @@ tree:
   values:
     filename: '#shortfile#'
     name: short
+- name: source-code
+  open: true
+  values:
+    _desc: Copy
+    code: '%body%'
+  children:
+  - name: create-dir
+    values:
+      path: '#testpath#/copy'
+  - name: set-variables
+    values:
+      list:
+      - value: '#testpath#/copy'
+        var: copypath
+  - name: write-file
+    values:
+      filename: '#copypath#/short.txt'
+      name: short
+  - name: write-file
+    values:
+      filename: '#testpath#/without ext'
+      name: short
+  - name: write-file
+    values:
+      filename: '#testpath#/some.ext.txt'
+      name: short
+  - name: for.eonza
+    open: true
+    values:
+      final: "3"
+      initial: "1"
+    children:
+    - name: copy-file
+      values:
+        dest: '#copypath#'
+        ifexist: savecopy
+        src: '#shortfile#'
+    - name: copy-file
+      values:
+        dest: '#copypath#'
+        ifexist: savecopy
+        savetime: true
+        src: '#testpath#/without ext'
+    - name: copy-file
+      values:
+        dest: '#copypath#'
+        ifexist: savecopy
+        savetime: true
+        src: '#testpath#/some.ext.txt'
+  - name: directory-size
+    values:
+      path: '#copypath#'
+      resultvar: di
+  - name: assertions
+    values:
+      errmsg: copy
+      list:
+      - cmp: equal
+        not: false
+        value: "10"
+        var: di.files
 - name: source-code
   values:
     _desc: Test file 10MB
