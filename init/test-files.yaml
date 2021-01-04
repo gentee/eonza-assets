@@ -10,7 +10,6 @@ params:
   type: 2
 tree:
 - name: source-code
-  open: true
   values:
     _desc: Set file and dir names
     code: '%body%'
@@ -99,12 +98,15 @@ tree:
 - name: source-code
   open: true
   values:
-    _desc: Copy
+    _desc: Copy & Move
     code: '%body%'
   children:
   - name: create-dir
     values:
       path: '#testpath#/copy'
+  - name: create-dir
+    values:
+      path: '#testpath#/move'
   - name: set-variables
     values:
       list:
@@ -123,7 +125,6 @@ tree:
       filename: '#testpath#/some.ext.txt'
       name: short
   - name: for.eonza
-    open: true
     values:
       final: "3"
       initial: "1"
@@ -149,14 +150,74 @@ tree:
     values:
       path: '#copypath#'
       resultvar: di
+  - name: move-file
+    values:
+      destpath: '#testpath#/move'
+      hideapply: "true"
+      ifexist: overwrite
+      path: '#copypath#'
+  - name: move-file
+    values:
+      destpath: '#testpath#/move/'
+      hideapply: "true"
+      ifexist: overwrite
+      path: '#testpath#/move/copy/short.txt'
+  - name: write-file
+    values:
+      filename: '#testpath#/move/copy/short.txt'
+      name: short
+  - name: move-file
+    values:
+      destpath: '#testpath#/move/'
+      hideapply: "true"
+      ifexist: savecopy
+      path: '#testpath#/move/copy/short.txt'
+  - name: write-file
+    values:
+      filename: '#testpath#/move/copy/short.txt'
+      name: short
+  - name: move-file
+    values:
+      destpath: '#testpath#/move/'
+      hideapply: "true"
+      ifexist: overwrite
+      path: '#testpath#/move/copy/short.txt'
+  - name: move-files
+    values:
+      destpath: '#testpath#/move'
+      ifexist: savecopy
+      ignore: /\(2\)/
+      path: '#testpath#/move/copy'
+      pattern: /\(\d\)/
+      recursive: "true"
+  - name: directory-size
+    values:
+      path: '#testpath#/move'
+      resultvar: dim
+  - name: directory-size
+    values:
+      path: '#testpath#/move/copy'
+      resultvar: dimc
   - name: assertions
     values:
-      errmsg: copy
+      errmsg: copy & move
       list:
       - cmp: equal
         not: false
         value: "10"
         var: di.files
+      - cmp: equal
+        not: false
+        value: "11"
+        var: dim.files
+      - cmp: equal
+        not: false
+        value: "1"
+        var: dim.dirs
+      - cmp: equal
+        not: false
+        value: "5"
+        var: dimc.files
 - name: source-code
   values:
     _desc: Test file 10MB
