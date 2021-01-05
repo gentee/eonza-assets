@@ -128,6 +128,7 @@ negation: Negation of Condition
 network: Network
 new: New
 newchild: Add a new child command
+newfilename: New Filename
 newfolder: New Folder
 newitem: New Item
 newscript: New Script

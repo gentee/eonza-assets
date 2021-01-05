@@ -5,7 +5,7 @@ settings:
   path: "#.stdlib#/#.files#"  
   help: rename-file
   helplang: ru
-  loglevel: 4
+  loglevel: 6
   unrun: true
 params:
 - name: path
@@ -82,7 +82,7 @@ tree:
            }
       }
       Rename(src, destfile)
-      LogOutput(LOG_INFO, "=> rename_file(\{src},\{BaseName(destfile)})")
+      LogOutput(LOG_INFO, "=> rename-file(\{src},\{BaseName(destfile)})")
   children:
   - name: file-confirmation
     values:

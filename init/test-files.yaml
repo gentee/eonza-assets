@@ -190,6 +190,36 @@ tree:
       path: '#testpath#/move/copy'
       pattern: /\(\d\)/
       recursive: "true"
+  - name: rename-file
+    values:
+      hideapply: "true"
+      ifexist: savecopy
+      newname: short.txt
+      path: '#testpath#/move/short (1) (1).txt'
+  - name: rename-files
+    values:
+      ifexist: savecopy
+      newname: .
+      path: '#testpath#/move/copy'
+      pattern: \s?\(2\)\.
+      recursive: "true"
+  - name: rename-files
+    values:
+      ifexist: savecopy
+      ignore: /\(2\)/
+      newname: ${1}
+      path: '#testpath#/move/copy'
+      pattern: (.+)[\.|\s]ext
+      recursive: "true"
+  - name: source-code
+    values:
+      code: |
+        arr ret
+        for item in ReadDir(Macro("#testpath#/move/copy")) {
+            ret += item.Name
+        }
+        Sort(ret)
+        SetVar("rlist", Join(ret, ","))
   - name: directory-size
     values:
       path: '#testpath#/move'
@@ -218,6 +248,10 @@ tree:
         not: false
         value: "5"
         var: dimc.files
+      - cmp: equal
+        not: false
+        value: short.txt,some (1).txt,some.txt,without,without ext (2)
+        var: rlist
 - name: source-code
   values:
     _desc: Test file 10MB
