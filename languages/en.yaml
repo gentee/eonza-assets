@@ -177,6 +177,7 @@ searchdirs: Search Only for Directories
 searchfiles: Search Only for Files
 security: Security
 select: Select
+sellang: Select the interface language
 setpassword: Set Password
 settings: Settings
 script: Script
