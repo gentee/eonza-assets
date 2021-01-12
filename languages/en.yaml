@@ -153,6 +153,8 @@ path: Path
 patternfile: Wildcard or RegExp
 personal: Personal
 programming: Programming
+prover: PRO Version
+proverurl: https://www.eonza.org/pro-version.html
 question: Question
 recently: Recently Launched
 recursive: Recursive Search

@@ -9,6 +9,7 @@
           <h3>%annotation%</h3>
           <p>%version%: <b>[[.Version]]</b> <small style="color: #777;">[[.CompileDate]]</small>
           </p>
+          <p><strong><a href="%proverurl%" target="_blank">%prover%</a></strong></p>
           <p>Copyright [[.App.Copyright]]<br>
           
           <strong><a class="py-3" href="%licenseurl%" target="_blank">%licagreement%</a></strong>
