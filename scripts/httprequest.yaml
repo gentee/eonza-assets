@@ -65,9 +65,9 @@ langs:
 code: |-
   map params heads
   for vitem in JsonToObj(pars)  {
-        params[item(vitem,"name").str()] = item(vitem,"value").str()
+        params[item(vitem,"name").str()] = Macro(item(vitem,"value").str())
   }
   for vitem in JsonToObj(headers)  {
-        heads[item(vitem,"name").str()] = item(vitem,"value").str()
+        heads[item(vitem,"name").str()] = Macro(item(vitem,"value").str())
   }
   SetVar(varname, HTTPRequest(url, method, params, heads))

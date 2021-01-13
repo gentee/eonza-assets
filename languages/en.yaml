@@ -69,6 +69,7 @@ excludefile: Exclude Wildcard or RegExp
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
 exitalert: The program has just been closed
+exitonerror: Exit on error
 expand: Expand
 expandall: Expand All
 export: Export
@@ -120,6 +121,7 @@ login: Login
 loglevel: Log Level
 logout: Log Out
 menu: Menu
+messaging: Messaging
 movedown: Move Down
 moveup: Move Up
 name: Name

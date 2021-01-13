@@ -69,6 +69,7 @@ excludefile: Исключать по маске или рег.выраж.
 exit: Выход
 exitconfirm: Вы уверены, что хотите выйти из программы?
 exitalert: Программа только что была закрыта
+exitonerror: Завершать работу в случае ошибки
 expand: Раскрыть
 expandall: Раскрыть все
 export: Экспорт
@@ -120,6 +121,7 @@ login: Войти
 loglevel: Уровень лога
 logout: Выйти
 menu: Меню
+messaging: Обмен сообщениями
 movedown: Сдвинуть вниз
 moveup: Сдвинуть вниз
 name: Имя
