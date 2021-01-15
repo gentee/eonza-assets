@@ -137,8 +137,8 @@
             v-if="item.id < 3"
             link
           >
-            <div style="width: 48px;">
-              <v-icon size="32px">{{ item.icon }}</v-icon>
+            <div style="width: 44px;">
+              <v-icon size="28px">{{ item.icon }}</v-icon>
             </div>
 
             <v-list-item-content>
@@ -153,8 +153,8 @@
             v-if="item.id > 2"
             link
           >
-            <div style="width: 48px;">
-              <v-icon size="32px">{{ item.icon }}</v-icon>
+            <div style="width: 44px;">
+              <v-icon size="28px">{{ item.icon }}</v-icon>
             </div>
 
             <v-list-item-content>
@@ -192,6 +192,7 @@
 [[template "card" .]]
 [[template "editor" .]]
 [[template "tasks" .]]
+[[template "notifications" .]]
 [[template "settings" .]]
 [[template "help" .]]
 [[template "shutdown" .]]
@@ -229,6 +230,11 @@ const routes = [{
     name: 5,
     component: Shutdown,
   },
+  {
+    path: '/notifications',
+    name: 6,
+    component: Notifications,
+  },
 ];
 
 let deffavs = [
@@ -259,6 +265,8 @@ const store = new Vuex.Store({
       active: null,
       list: null,
       tasks: [],
+      nfy: nfy.list,
+      unread: nfy.unread,
       isfav: defisfav,
       favs: deffavs,
       clipboard: null,
@@ -297,6 +305,12 @@ const store = new Vuex.Store({
     },
     updateTasks (state, tasks) {
       state.tasks = tasks;
+    },
+    updateNfy (state, nfy) {
+      state.nfy = nfy;
+    },
+    updateUnread (state, unread) {
+      state.unread = unread;
     },
     updateFavs (state, data) {
       let isFav = {}
@@ -589,6 +603,19 @@ new Vue({
         })
         .catch(error => this.errmsg(error));
       },
+      loadNfy() {
+        axios
+        .get('/api/notifications')
+        .then(response => {
+            if (response.data.error) {
+                this.errmsg(response.data.error);
+                return
+            }
+            store.commit('updateNfy', response.data.list);
+            store.commit('updateUnread', response.data.unread);
+        })
+        .catch(error => this.errmsg(error));
+      },
       loadTasks() {
         axios
         .get('/api/tasks')
@@ -731,8 +758,9 @@ function appData() {
         { id: 0, title: '%scripts%', icon: 'fa-play-circle', route: '/' },
         { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' },
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
-        { id: 3, title: '%settings%', icon: 'fa-tools', route: '/settings' },
-        { id: 4, title: '%help%', icon: 'fa-life-ring', route: '/help' },
+        { id: 4, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
+        { id: 5, title: '%settings%', icon: 'fa-tools', route: '/settings' },
+        { id: 6, title: '%help%', icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
       menus: [
