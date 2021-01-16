@@ -702,7 +702,8 @@ new Vue({
         },
         wsCmd({data}) {
           let cmd = JSON.parse(data);
-          if (cmd.cmd == WcStatus) {
+          switch (cmd.cmd) {
+           case WcStatus:
             let list = store.state.tasks
             if (!list) {
                return 
@@ -723,6 +724,11 @@ new Vue({
               list.push(cmd.task)
             }
             store.commit('updateTasks', list);
+            break
+          case WcNotify:
+            let notify = JSON.parse(cmd.message)
+            console.log('nfy', notify)
+            break
           }
         },
         favShift(shift) {
