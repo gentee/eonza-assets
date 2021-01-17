@@ -727,7 +727,10 @@ new Vue({
             break
           case WcNotify:
             let notify = JSON.parse(cmd.message)
-            console.log('nfy', notify)
+            if (!notify.error) {
+              store.commit('updateNfy', notify.list);
+              store.commit('updateUnread', notify.unread);
+            }
             break
           }
         },

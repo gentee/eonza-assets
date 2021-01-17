@@ -3,9 +3,9 @@
     <div style="height:calc(100% - 0px);overflow-y: auto;padding-top: 1rem">
         <v-alert v-for="(item,i) in list" border="left" colored-border
           color="deep-purple accent-4" elevation="2">
-      <div style="color: #333;">{{item.text}}</div>
+      <div style="color: #333;" v-html="item.text"></div>
       <div style="text-align: right">
-         {{item.time}} <v-btn icon small><v-icon small>fa-times</v-icon></v-btn>
+         <span style="font-size:smaller;color: #777;font-style: italic">{{item.time}}</span> <v-btn icon small @click="remove(item.hash)"><v-icon small color="blue">fa-trash-alt</v-icon></v-btn>
       </div>
       </v-alert>
       Unread = {{unread}}
@@ -27,13 +27,12 @@ const Notifications = {
   methods: {
     remove(id) {
       axios
-      .get('/api/remove/' + id)
+      .get('/api/removenfy/' + id)
       .then(response => {
         if (response.data.error) {
           this.$root.errmsg(response.data.error);
           return
         }
-        store.commit('updateTasks', response.data.list);
       })
       .catch(error => this.$root.errmsg(error));
     },
