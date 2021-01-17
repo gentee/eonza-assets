@@ -2,13 +2,12 @@
   <v-container style="height:100%;padding-top: 40px;">
     <div style="height:calc(100% - 0px);overflow-y: auto;padding-top: 1rem">
         <v-alert v-for="(item,i) in list" border="left" colored-border
-          color="deep-purple accent-4" elevation="2">
+          :color="i < unread ? 'blue darken-1' : 'blue lighten-4'" elevation="2">
       <div style="color: #333;" v-html="item.text"></div>
       <div style="text-align: right">
          <span style="font-size:smaller;color: #777;font-style: italic">{{item.time}}</span> <v-btn icon small @click="remove(item.hash)"><v-icon small color="blue">fa-trash-alt</v-icon></v-btn>
       </div>
       </v-alert>
-      Unread = {{unread}}
     </div>
   </v-container>
 </script>
@@ -39,17 +38,21 @@ const Notifications = {
   },
   computed: {
     list: function() { return store.state.nfy },
-    unread: function() { return store.state.unread },
   },
   mounted() {
     store.commit('updateTitle', '%notifications%');
     store.commit('updateHelp', '%urlnotifications%');
     this.$root.loadNfy()
+    setTimeout(() => {
+      this.unread = store.state.unread
+      store.commit('updateUnread', 0)
+    }, 1000)
   }
 };
 
 function notificationsData() {
     return {
+      unread: 0,
     }
 }
 </script>

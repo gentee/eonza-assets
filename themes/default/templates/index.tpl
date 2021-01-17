@@ -154,7 +154,10 @@
             link
           >
             <div style="width: 44px;">
-              <v-icon size="28px">{{ item.icon }}</v-icon>
+              <v-badge v-if="item.id==4" :content="store.state.unread" :value="store.state.unread" color="red darken-2" overlap>
+                 <v-icon size="28px">{{ item.icon }}</v-icon>
+              </v-badge>
+              <v-icon size="28px" v-else>{{ item.icon }}</v-icon>
             </div>
 
             <v-list-item-content>
