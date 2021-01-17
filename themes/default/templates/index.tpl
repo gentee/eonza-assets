@@ -154,7 +154,7 @@
             link
           >
             <div style="width: 44px;">
-              <v-badge v-if="item.id==4" :content="store.state.unread" :value="store.state.unread" color="red darken-2" overlap>
+              <v-badge v-if="item.id==4" :content="store.state.unread ? store.state.unread : store.state.nfy.length" :value="store.state.unread ? store.state.unread : store.state.nfy.length" :color="store.state.unread ? 'red darken-2' : 'grey darken-2'" overlap>
                  <v-icon size="28px">{{ item.icon }}</v-icon>
               </v-badge>
               <v-icon size="28px" v-else>{{ item.icon }}</v-icon>
@@ -310,7 +310,7 @@ const store = new Vuex.Store({
       state.tasks = tasks;
     },
     updateNfy (state, nfy) {
-      state.nfy = nfy;
+      state.nfy = nfy || [];
     },
     updateUnread (state, unread) {
       state.unread = unread;
