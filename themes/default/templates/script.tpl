@@ -347,7 +347,7 @@ new Vue({
               let value = item.value || '' 
               if (item.type == PCheckbox) {
                 value = value != '0' && value != 'false' && !!value
-              }
+              } 
               this.$set(this.values, item.var, value)
             }
             this.iscontinue = this.form.length == 0 || this.form[this.form.length-1].type != PButton
