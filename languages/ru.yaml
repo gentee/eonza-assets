@@ -143,6 +143,7 @@ notifications: Уведомления
 number: Число
 officialsite: Официальный сайт
 ok: OK
+open: Открыть
 openbrowser: Открыть в браузере
 optionalpar: Опциональные параметры
 or: ИЛИ
@@ -239,6 +240,7 @@ urled-language: /ru/docs/editor-language-resources.html
 urled-source: /ru/docs/editor-source-code.html
 urled-compile: /ru/docs/editor-compile.html
 urlhelp: /ru/docs/user-guide.html
+urlnotifications: /ru/docs/notifications.html
 urlscripts: /ru/docs/scripts.html
 urlsettings: /ru/docs/settings.html
 urltaskmanager: /ru/docs/task-manager.html

@@ -54,10 +54,21 @@ tree:
       text: '#welcome.showinfo#'
       type: "0"
       var: showinfo
+    - options: ""
+      text: '#welcome.nfy#'
+      type: "0"
+      var: sendnfy
+- name: notification
+  values:
+    _ifcond: sendnfy
+    text: |
+      Hi, #name#
+      Welcome to Eonza!
+      <b>Official site:</b> <a href="https://www.eonza.org" target="_blank">eonza.org</a>
 - name: message
   values:
     _ifcond: showinfo
-    custbtns: []
+    custbtns: {}
     icon: info-circle
     retbtn: msgbtn
     text: '#welcome.hello#'
@@ -83,7 +94,7 @@ tree:
 - name: set-variable
   values:
     _ifcond: '*GetVar("site") == 0'
-    list: []
+    list: {}
     name: site
     value: '#defsite#'
 - name: get-webpage
@@ -124,6 +135,7 @@ langs:
       Hello, #name#,<br>
       We are glad that you have decided to try the Eonza program.
     welcome.name: Enter your name
+    welcome.nfy: Send notification
     welcome.showinfo: Show greeting
     welcome.sites: Select a site to get the title or specify your own
   ru:
@@ -133,5 +145,6 @@ langs:
       Добрый день, #name#, <br>
       Мы рады, что вы решили попробовать программу Eonza.
     welcome.name: Укажите ваше имя
+    welcome.nfy: Отправить уведомление
     welcome.showinfo: Показать приветствие
     welcome.sites: Выберите сайт для получения заголовка или укажите свой

@@ -143,6 +143,7 @@ notifications: Notifications
 number: Number
 officialsite: Official Site
 ok: OK
+open: Open
 openbrowser: Open in Browser
 optionalpar: Optional Parameters
 or: OR
@@ -240,6 +241,7 @@ urled-language: /docs/editor-language-resources.html
 urled-source: /docs/editor-source-code.html
 urled-compile: /docs/editor-compile.html
 urlhelp: /docs/user-guide.html
+urlnotifications: /docs/notifications.html
 urlscripts: /docs/scripts.html
 urlsettings: /docs/settings.html
 urltaskmanager: /docs/task-manager.html
