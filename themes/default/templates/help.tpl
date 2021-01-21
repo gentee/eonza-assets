@@ -9,7 +9,7 @@
           <h3>%annotation%</h3>
           <p>%version%: <b>[[.Version]]</b> <small style="color: #777;">[[.CompileDate]]</small>
           <div v-if="upd.notify" v-html="upd.notify"></div>
-          <div v-else>%uptodate%</div>
+          <div v-if="!upd.notify && upd.lastchecked">%uptodate%</div>
           <div v-if="upd.lastchecked">%lastcheck% <i>{{upd.lastchecked}}</i></div>
           <v-btn color="primary" style="text-transform:none;" @click="checkUpdate()"  class="ma-1">
             %checkupdate%
