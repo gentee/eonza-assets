@@ -8,6 +8,12 @@
           <h2 class="my-4">[[.App.Title]]</h2>
           <h3>%annotation%</h3>
           <p>%version%: <b>[[.Version]]</b> <small style="color: #777;">[[.CompileDate]]</small>
+          <div v-if="upd.notify" v-html="upd.notify"></div>
+          <div v-else>%uptodate%</div>
+          <div v-if="upd.lastchecked">%lastcheck% <i>{{upd.lastchecked}}</i></div>
+          <v-btn color="primary" style="text-transform:none;" @click="checkUpdate()"  class="ma-1">
+            %checkupdate%
+          </v-btn>
           </p>
           <p><strong><a href="%proverurl%" target="_blank">%prover%</a></strong></p>
           <p>Copyright [[.App.Copyright]]<br>
@@ -30,6 +36,20 @@
 const Help = {
     template: '#help',
     data: helpData,
+    methods: {
+      checkUpdate() {
+           axios
+            .get('/api/latest')
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.upd = response.data
+            })
+            .catch(error => this.$root.errmsg(error));
+      },
+    },
     mounted: function() {
         store.commit('updateTitle', '%help%');
         store.commit('updateHelp', '%urlhelp%');
@@ -39,6 +59,11 @@ const Help = {
 
 function helpData() {
     return {
+      upd: {
+        version: [[.Update.Version]],
+        notify:  [[.Update.Notify]],
+        lastchecked: '[[time2str .Update.LastChecked]]',
+      },
       tab: null
     }
 }

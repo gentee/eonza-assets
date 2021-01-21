@@ -16,7 +16,9 @@ asknew: Спрашивать если новее
 break: Прервать
 button: Кнопка
 cancel: Отмена
+changelog: История изменений
 checkbox: Чекбокс
+checkupdate: Проверить обновление
 collapse: Свернуть
 collapseall: Свернуть все
 common: Общие
@@ -45,6 +47,7 @@ destpath: Целевая папка
 disable: Отключён
 disena: Отключить/Включить
 downloadfile: Скачивание %s в %s...
+downloads: Скачать
 dup: Клонировать
 dynamic: Динамический
 edit: Редактировать
@@ -112,6 +115,7 @@ invalidpsw: Неверный пароль
 invalidvalue: Значение некорректно
 langres: Языковые ресурсы
 language: Язык
+lastcheck: Последняя проверка была сделана
 licagreement: Лицензионное соглашение
 licenseurl: https://www.eonza.org/ru/docs/license.html
 list: Список
@@ -134,6 +138,7 @@ newfilename: Новое имя файла
 newfolder: Новая папка
 newitem: Новый элемент
 newscript: Новый скрипт
+newver: Доступна новая версия
 nextcond: Следующее условие
 nickname: Псевдоним
 no: Нет
@@ -227,6 +232,7 @@ viewsrc: Смотреть исходный код
 unknownuser: Неизвестный пользователь %x
 unrun: Незапускаемый скрипт
 upload: Загрузить
+uptodate: Используется обновленная версия
 url: URL
 waitfinish: Ждать окончания работы приложения
 waiting: Ожидание
