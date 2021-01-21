@@ -39,6 +39,10 @@ tree:
         var: flines
       - value: '#dir#/empty.txt'
         var: fempty
+      - value: |-
+          Test message
+          Русский текст
+        var: cliptext
   - name: create-dir
     values:
       path: '#dir#'
@@ -74,6 +78,41 @@ tree:
       algorithm: MD5
       filename: '#flines#'
       resultvar: hashlines
+- name: source-code
+  open: true
+  values:
+    _desc: Clipboard
+    code: '%body%'
+  children:
+  - name: copy-to-clipboard
+    values:
+      text: '#cliptext#'
+  - name: get-clipboard
+    values:
+      varname: clip1
+  - name: get-clipboard
+    values:
+      clear: true
+      varname: clip2
+  - name: get-clipboard
+    values:
+      clear: false
+      varname: clip3
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: '#cliptext#'
+        var: clip1
+      - cmp: equal
+        not: false
+        value: '#clip1#'
+        var: clip2
+      - cmp: equal
+        not: false
+        value: ""
+        var: clip3
 - name: foreach-line-file
   values:
     filename: '#ftxt#'
@@ -97,7 +136,6 @@ tree:
     level: LOG_INFO
     text: 'Foreach Line in lines.txt file #count#'
 - name: foreach-line-file
-  open: true
   values:
     filename: '#flines#'
     varname: item
