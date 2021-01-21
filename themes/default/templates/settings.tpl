@@ -18,6 +18,11 @@
       [[if .Tray]]
       <v-checkbox v-model="options.common.hidetray" label="%hidetray%" @change="change"></v-checkbox>
       [[end]]
+      <v-select label="%autocheck%" @change="change"
+        v-model="options.common.autoupdate" :items="period" 
+        item-text="title"
+        item-value="value"
+        ></v-select>
     </div>
     </div>
     <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
@@ -112,6 +117,12 @@ const Settings = {
             curpsw: '',
             psw: '',
             tab: 0,
+            period: [
+                {title: '%never%', value: ''},
+                {title: '%daily%', value: 'daily'},
+                {title: '%weekly%', value: 'weekly'},
+                {title: '%monthly%', value: 'monthly'},
+            ],
             options: {
                 common: {
                     loglevel: 3,
@@ -119,6 +130,7 @@ const Settings = {
                     notaskpassword: false,
                     passwordhash: '',
                     constants: {},
+                    autoupdate: '',
                 },
                 user: {
                     lang: 'en',

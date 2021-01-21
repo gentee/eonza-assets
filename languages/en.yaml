@@ -13,6 +13,7 @@ applications: Applications
 archive: Archive
 ask: Ask
 asknew: Ask If Newer
+autocheck: Automatic Check for Updates
 break: Break
 button: Button
 cancel: Cancel
@@ -34,6 +35,7 @@ copyfile: Copying %s to %s
 crashed: Crashed
 cryptography: Cryptography
 curpassword: Current Password
+daily: Daily
 date: Date
 debug: Debug
 defvalue: Default Value
@@ -126,12 +128,14 @@ loglevel: Log Level
 logout: Log Out
 menu: Menu
 messaging: Messaging
+monthly: Monthly
 movedown: Move Down
 moveup: Move Up
 name: Name
 native: English
 negation: Negation of Condition
 network: Network
+never: Never
 new: New
 newchild: Add a new child command
 newfilename: New Filename
@@ -238,6 +242,7 @@ url: URL
 waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning
+weekly: Weekly
 yes: Yes
 urleditor: /docs/editor.html
 urled-script: /docs/editor-script.html

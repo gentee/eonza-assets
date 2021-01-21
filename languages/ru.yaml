@@ -13,6 +13,7 @@ applications: Приложения
 archive: Архивация
 ask: Спрашивать
 asknew: Спрашивать если новее
+autocheck: Автоматическая проверка обновлений
 break: Прервать
 button: Кнопка
 cancel: Отмена
@@ -34,6 +35,7 @@ copyfile: Копирование %s в %s
 crashed: Сломан
 cryptography: Криптография
 curpassword: Текущий пароль
+daily: Ежедневно
 date: Дата
 debug: Отладка
 defvalue: Значение по умолчанию
@@ -126,12 +128,14 @@ loglevel: Уровень лога
 logout: Выйти
 menu: Меню
 messaging: Обмен сообщениями
+monthly: Ежемесячно
 movedown: Сдвинуть вниз
 moveup: Сдвинуть вниз
 name: Имя
 native: Русский
 negation: Отрицание условия
 network: Сеть
+never: Никогда
 new: Добавить
 newchild: Добавить внутреннюю команду
 newfilename: Новое имя файла
@@ -237,6 +241,7 @@ url: URL
 waitfinish: Ждать окончания работы приложения
 waiting: Ожидание
 warning: Предупреждение
+weekly: Еженедельно
 yes: Да
 urleditor: /ru/docs/editor.html
 urled-script: /ru/docs/editor-script.html
