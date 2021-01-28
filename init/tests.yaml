@@ -62,7 +62,7 @@ tree:
 - name: test-texts
   values:
     dir: '#testpath#'
-- name: test.forms
+- name: test-email
 langs:
   en:
     _desc: Run all default tests
