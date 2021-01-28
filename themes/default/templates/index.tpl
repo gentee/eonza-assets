@@ -196,6 +196,7 @@
 [[template "editor" .]]
 [[template "tasks" .]]
 [[template "notifications" .]]
+[[if .Pro]][[template "pro" .]][[end]]
 [[template "settings" .]]
 [[template "help" .]]
 [[template "shutdown" .]]
@@ -238,6 +239,11 @@ const routes = [{
     name: 6,
     component: Notifications,
   },
+[[if .Pro]]  {
+    path: '/pro',
+    name: 7,
+    component: Pro,
+  },[[end]]
 ];
 
 let deffavs = [
@@ -772,6 +778,7 @@ function appData() {
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
         { id: 4, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
         { id: 5, title: '%settings%', icon: 'fa-tools', route: '/settings' },
+[[if .Pro]]       { id: 7, title: '%prover%', icon: 'fa-circle', route: '/pro' },[[end]]
         { id: 6, title: '%help%', icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],

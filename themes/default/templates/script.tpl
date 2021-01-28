@@ -210,9 +210,10 @@ new Vue({
          this.sendform(btn)
       },
       sendform(btn) {
+        let skip = btn && btn.skip
         for (let i = 0; i < this.form.length; i++) {
             let item = this.form[i]
-            if (!!item.options.required && ( item.type == PTextarea  ||
+            if (!!item.options.required && !skip && ( item.type == PTextarea  ||
                 item.type == PSingleText ||  item.type == PNumber || item.type == PPassword) && 
                 this.values[item.var] == '') {
               this.$root.errmsg(format("%errreq%", item.text))
@@ -231,7 +232,7 @@ new Vue({
         }
 
         axios
-        .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values})
+        .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values, skip: skip})
         .then(response => {
            if (response.data.error) {
              this.errmsg(response.data.error);

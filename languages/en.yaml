@@ -102,6 +102,7 @@ hide: Hide
 hidetray: Hide Tray Icon
 history: History
 home: Home
+host: Host
 htmltext: HTML Text
 ifcond: If Condition
 iffileexist: If File Exists
@@ -146,6 +147,7 @@ newver: A new version is available
 nextcond: Next Condition
 nickname: Nickname
 no: No
+none: None
 not: NOT
 notaskpassword: Don't ask for password on startup
 notifications: Notifications
@@ -165,8 +167,9 @@ paste: Paste
 path: Path
 patternfile: Wildcard or RegExp
 personal: Personal
+portlng: Port
 programming: Programming
-prover: PRO Version
+prover: Pro Version
 proverurl: https://www.eonza.org/pro-version.html
 question: Question
 recently: Recently Launched
@@ -239,6 +242,7 @@ unrun: Unrunnable script
 upload: Upload
 uptodate: Eonza is up to date
 url: URL
+username: Username
 waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning

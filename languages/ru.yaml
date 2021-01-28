@@ -102,6 +102,7 @@ hide: Скрыть
 hidetray: Скрывать иконку в трее
 history: История
 home: Главная
+host: Имя сервера
 htmltext: HTML текст
 ifcond: Условие
 iffileexist: Если файл существует
@@ -146,6 +147,7 @@ newver: Доступна новая версия
 nextcond: Следующее условие
 nickname: Псевдоним
 no: Нет
+none: Нет
 not: НЕ
 notaskpassword: Не просить пароль при запуске
 notifications: Уведомления
@@ -165,8 +167,9 @@ paste: Вставить
 path: Путь
 patternfile: Маска или рег.выражение
 personal: Персональные
+portlng: Порт
 programming: Программирование
-prover: PRO Версия
+prover: Pro Версия
 proverurl: https://www.eonza.org/ru/pro-version.html
 question: Вопрос
 recently: Недавно запущенные
@@ -238,6 +241,7 @@ unrun: Незапускаемый скрипт
 upload: Загрузить
 uptodate: Используется последняя версия
 url: URL
+username: Имя пользователя
 waitfinish: Ждать окончания работы приложения
 waiting: Ожидание
 warning: Предупреждение

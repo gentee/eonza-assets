@@ -272,11 +272,15 @@ Vue.component('c-button', {
     template: '#c-button',
     methods: {
         btnclick() {
+            let skip = false
             let value = true
-            if (this.par.options && typeof this.par.options.initial !== 'undefined' ) {
-                value = this.par.options.initial
+            if (this.par.options) {
+               if (typeof this.par.options.initial !== 'undefined' ) {
+                  value = this.par.options.initial
+               }
+               skip = this.par.options.flags && this.par.options.flags.includes('skip')
             }
-            this.$emit('btnclick', {name: this.par.name, value: value} );
+            this.$emit('btnclick', {name: this.par.name, value: value, skip: skip} );
         }
     },
     props: {
