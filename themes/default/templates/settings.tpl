@@ -118,7 +118,7 @@ const Settings = {
             psw: '',
             tab: 0,
             period: [
-                {title: '%never%', value: ''},
+                {title: '%never%', value: 'never'},
                 {title: '%daily%', value: 'daily'},
                 {title: '%weekly%', value: 'weekly'},
                 {title: '%monthly%', value: 'monthly'},
