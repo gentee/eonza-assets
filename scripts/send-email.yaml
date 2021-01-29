@@ -42,9 +42,9 @@ langs:
     _to: To
   ru:
     _body: Содержимое письма
-    _desc: Отправить письмо
+    _desc: Отправить электронное письмо
     _from: От
-    _name: Отправить email
+    _name: Отправить письмо
     _smtpserver: SMTP сервер
     _subject: Тема письма
     _to: Кому
