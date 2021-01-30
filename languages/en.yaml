@@ -212,10 +212,12 @@ size: Size
 skip: Skip
 sourcecode: Source Code
 start: Start
+starttrial: Start Trial Mode
 status: Status
 stdinput: standard input
 stdlib: Standard Library
 stopscript: Do you want to stop the script execution?
+stoptrial: Stop Trial Mode
 submit: Submit
 substvar: Substitute Variable Values
 support: Technical Support
@@ -229,6 +231,9 @@ textarea: Multi-line text
 time: Time
 title: Title
 translation: Translation
+trialmode: Trial Mode
+trialdays: "%s day(s) of %s day free trial passed."
+trialend: The free trial period is over
 type: Type
 value: Value
 variables: Variables
@@ -239,6 +244,7 @@ version: Version
 viewsrc: View Source Code
 unknownuser: Unknown user id %x
 unrun: Unrunnable script
+upgradepro: Upgrade To Pro
 upload: Upload
 uptodate: Eonza is up to date
 url: URL
