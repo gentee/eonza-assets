@@ -36,6 +36,7 @@ crashed: Сломан
 cryptography: Криптография
 curpassword: Текущий пароль
 daily: Ежедневно
+database: Базы данных
 date: Дата
 debug: Отладка
 defvalue: Значение по умолчанию
@@ -211,6 +212,7 @@ singletext: Однострочный текст
 size: Размер
 skip: Пропустить
 sourcecode: Исходный код
+sqlcon: SQL соединение
 start: Начало
 starttrial: Включить пробный режим
 status: Статус

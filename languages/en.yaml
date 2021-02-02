@@ -36,6 +36,7 @@ crashed: Crashed
 cryptography: Cryptography
 curpassword: Current Password
 daily: Daily
+database: Database
 date: Date
 debug: Debug
 defvalue: Default Value
@@ -211,6 +212,7 @@ singletext: Single line text
 size: Size
 skip: Skip
 sourcecode: Source Code
+sqlcon: SQL Connection
 start: Start
 starttrial: Start Trial Mode
 status: Status
