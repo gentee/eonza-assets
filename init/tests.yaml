@@ -63,6 +63,7 @@ tree:
   values:
     dir: '#testpath#'
 - name: test-email
+- name: test-sql
 langs:
   en:
     _desc: Run all default tests
