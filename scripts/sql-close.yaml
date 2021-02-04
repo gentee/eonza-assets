@@ -19,7 +19,7 @@ langs:
     _name: SQL Close
   ru:
     _desc: Закрыть SQL соединение
-    _name: SQL Закрыть
+    _name: Закрыть SQL
 code: |+
   SQLClose(sqlcon)
 
