@@ -531,7 +531,11 @@ new Vue({
         this.checkChanged(()=> {
           axios
           .get('/api/reload')
-          .then(response => (location.reload()));
+          .then(response => location.reload())
+          .catch(error => (this.errmsg(error, {
+              title: '%login%',
+              func: () => location.reload(),
+             })));
         });
       },
       logout() {
