@@ -7,6 +7,7 @@ addfav: Add to Favorites
 additional: Additional Settings
 advsettings: Advanced Settings
 algorithm: Algorithm
+allow: Allow
 and: AND
 annotation: Free, open-source automation software
 applications: Applications
@@ -226,6 +227,7 @@ support: Technical Support
 suspend: Suspend
 suspended: Suspended
 taskmanager: Task Manager
+tasks: Tasks
 terminated: Terminated
 tests: Tests
 text: Text
@@ -243,6 +245,7 @@ varindex: Variable Index
 varitem: Variable Item
 varname: Variable Name
 version: Version
+view: View
 viewsrc: View Source Code
 unknownuser: Unknown user id %x
 unrun: Unrunnable script
@@ -251,6 +254,7 @@ upload: Upload
 uptodate: Eonza is up to date
 url: URL
 username: Username
+users: Users
 waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning

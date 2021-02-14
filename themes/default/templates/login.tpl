@@ -22,7 +22,7 @@
           
           <div style="display: flex;justify-content:center;align-items:center;margin-bottom: 2rem;">
           <img src="/images/logo-48.png" style="width: 48px;height:48px;">
-          <div style="font-size: 2rem;color: #777;margin-left: 1rem;">[[.App.Title]]</div>
+          <div style="font-size: 2rem;color: #777;margin-left: 1rem;">[[if .Title]][[.Title]][[else]][[.App.Title]][[end]]</div>
           </div>
           <v-text-field
             v-model="password" name="password"
