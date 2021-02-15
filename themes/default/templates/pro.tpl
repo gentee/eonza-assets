@@ -34,7 +34,7 @@
           <template v-slot:top>
               <v-dialog v-model="dlgRoles" max-width="600px">
                 <template v-slot:activator="{ on }">
-                  <strong>Roles</strong><v-btn color="primary" :disabled="!active" dark class="ml-4" v-on="on">%newitem%</v-btn>
+                  <strong>%roles%</strong><v-btn color="primary" :disabled="!active" dark class="ml-4" v-on="on">%newitem%</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -48,7 +48,7 @@
                      <v-btn color="primary" dark class="my-2" @click="addCommand">
                       <v-icon left small>fa-plus</v-icon>&nbsp;%allow%</v-btn>
                       <v-textarea  v-model="eRoleItem.allow" :rules="[rules.required]"
-                      label="Allow" auto-grow dense
+                      label="%allow%" auto-grow dense
                       ></v-textarea>
                       <div style="display:flex">
                       <v-select class="mr-2" label="%tasks%: %view%" v-model="eRoleItem.tasks" :items="masks" 
@@ -98,6 +98,64 @@
               </tbody>
             </template>
         </v-data-table>
+        <div class="pt-4">
+          <v-data-table
+          disable-filtering disable-pagination disable-sort hide-default-footer
+          :headers="headUsers"
+          :items="users"
+        >
+          <template v-slot:top>
+              <v-dialog v-model="dlgUsers" max-width="600px">
+                <template v-slot:activator="{ on }">
+                  <strong>%users%</strong><v-btn color="primary" :disabled="!active" dark class="ml-4" v-on="on">%newitem%</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">{{ dlgRoleTitle }}</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-text-field v-model="eUserItem.nickname" 
+                      label="%name%" :rules="[rules.required]"></v-text-field>
+                      <v-text-field
+                       v-model="eUserItem.password" name="password"
+                       :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'"
+                       :type="show1 ? 'text' : 'password'" label="%password%" hint="" 
+                         @click:append="show1 = !show1"
+                          ></v-text-field>
+                      <v-select class="mr-2" label="%roles%" v-model="eUserItem.roleid" 
+                          :items="[{name: 'admin', id: 1}, ...roles]" 
+                        item-text="name"
+                        item-value="id"
+                      ></v-select>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="ma-2" color="primary" @click="saveUser">%save%</v-btn>
+                    <v-btn class="ma-2" color="primary" text outlined  @click="closeUser">%cancel%</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+          </template>
+          <template v-slot:body="{ items }">
+              <tbody>
+                <tr v-for="(item, index) in items" :key="item.name">
+                  <td>{{item.nickname }}</td>
+                  <td>{{irole(item)}}</td>
+                  <td><div v-show="active"><span @click="editUser(index)" class="mr-2">
+                      <v-icon small @click="">fa-pencil-alt</v-icon>
+                      </span>
+                      <span @click="deleteUser(index)" class="mr-2">
+                      <v-icon small @click="">fa-times</v-icon></span>
+                      </div>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+        </v-data-table>
+        
         </div>
     </div>
 
@@ -122,7 +180,6 @@ function roleMasks(list) {
         item.notifications = item.notifications & 0xff
         list[i] = item
     }
-    console.log('list', list)
     return list.filter((item)=> item.id != 1)
 }
 
@@ -132,20 +189,35 @@ const Pro = {
         return {
             tab: 0,
             active: false,
+            show1: false,
             trial: {},
             rules: {
                 required: value => !!value || '%required%',
                 var: value => { return patVar.test(value) || '%invalidvalue%' },
             },
             dlgRoles: false,
+            dlgUsers: false,
             editedIndex: -1,            
             eRoleItem: {id: 0, tasks: 1, tasksdel: 0, notifications: 1, notificationsdel: 0, allow: ''},
+            eUserItem: {id: 0, nickname: '', roleid: 1},
             roles: [],
+            users: [],
             masks: [
                 {title: '---', value: 0},
                 {title: 'ALL', value: 7},
                 {title: 'GROUP', value: 3},
                 {title: 'USER', value: 1},
+            ],
+             headUsers: [{
+                text: '%name%',
+                value: 'nickname',
+                },{
+                text: '%role%',
+                value: 'roleid',
+                },{
+                text: '%actions%',
+                value: 'actions',
+                },
             ],
             headRoles: [{
                 text: '%name%',
@@ -222,23 +294,46 @@ const Pro = {
             .catch(error => comp.$root.errmsg(error));
            });   
         },
-        /*change() {
-            if (!this.changed) {
-                this.changed = true;
-            }
-        },*/
-        save() {
-/*            this.$root.checkChanged(() => axios
-            .post(`/api/settings`, this.options)
+        saveUser() {
+            let user = Object.assign({}, this.eUserItem)
+            user.nickname += '/@/' + (user.password || '')
+            axios
+            .post(`/api/user`, user)
             .then(response => {
                 if (response.data.error) {
                     this.$root.errmsg(response.data.error);
                     return
                 }
-                location.reload(true)
-                this.changed = false
+                this.users = response.data.list.filter((item)=> item.id != 1)
+                this.closeUser()
             })
-            .catch(error => this.$root.errmsg(error)));*/
+            .catch(error => this.$root.errmsg(error));
+        },
+        closeUser() {
+            this.dlgUsers = false
+            this.editedIndex = -1
+            this.eUserItem = {id: 0, nickname: '', roleid: 1}
+        },
+        editUser(index) {
+            this.editedIndex = index
+            this.eUserItem = Object.assign({}, this.users[index])
+            this.dlgUsers = true
+        },
+        deleteUser(index) {
+            let comp = this
+            this.$root.confirmYes( '%delconfirm%', 
+            function(){
+            axios
+            .get(`/api/removeuser/` + comp.users[index].id)
+            .then(response => {
+                if (response.data.error) {
+                    comp.$root.errmsg(response.data.error);
+                    return
+                }
+                comp.users = response.data.list.filter((item)=> item.id != 1)
+            })
+            .catch(error => comp.$root.errmsg(error));
+           });   
         },
         addCommand() {
             let comp = this;
@@ -257,6 +352,17 @@ const Pro = {
         },
         inotifications(item) {
             return Masks[item.notifications] + '/' + Masks[item.notificationsdel]
+        },
+        irole(item) {
+            if (item.roleid == 1) {
+                return 'admin'
+            }
+            for (let i = 0; i < this.roles.length; i++) {
+                if (this.roles[i].id == item.roleid) {
+                    return this.roles[i].name
+                }
+            }
+            return ''
         },
     },
     computed: {
@@ -281,16 +387,20 @@ const Pro = {
             this.trial = response.data.trial
         })
         .catch(error => this.$root.errmsg(error));
-        axios
-        .get(`/api/roles`)
-        .then(response => {
+        axios.get(`/api/roles`).then(response => {
             if (response.data.error) {
                 this.$root.errmsg(response.data.error);
                 return
             }
             this.roles = roleMasks(response.data.list)
-        })
-        .catch(error => this.$root.errmsg(error));
+        }).catch(error => this.$root.errmsg(error));
+        axios.get(`/api/users`).then(response => {
+            if (response.data.error) {
+                this.$root.errmsg(response.data.error);
+                return
+            }
+            this.users = response.data.list.filter((item)=> item.id != 1)
+        }).catch(error => this.$root.errmsg(error));
     },
 };
 

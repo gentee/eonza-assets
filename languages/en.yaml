@@ -187,6 +187,8 @@ required: This field is required
 resultvar: Result Variable
 resume: Resume
 retry: Retry
+role: Role
+roles: Roles
 run: Run
 runsilently: Run Silently
 save: Save
