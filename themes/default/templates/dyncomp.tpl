@@ -162,17 +162,19 @@ Vue.component('c-select', {
     mixins: [changed],
     data() {return {
             curItem: null,
+            list: [],
         }
     },
     methods: {
         changeItem() {
-            for (let i = 0; i < this.par.options.items.length;i++) {
-                if (this.curItem == this.par.options.items[i].title) {
+
+            for (let i = 0; i < this.list.length;i++) {
+                if (this.curItem == this.list[i].title) {
                     let cmp = ''
-                    if (typeof this.par.options.items[i].value === 'undefined') {
-                        cmp = this.par.options.items[i].title
+                    if (typeof this.list[i].value === 'undefined') {
+                        cmp = this.list[i].title
                     } else {
-                        cmp = this.par.options.items[i].value
+                        cmp = this.list[i].value
                     }
                     this.vals[this.par.name] = cmp
                 }
@@ -187,16 +189,21 @@ Vue.component('c-select', {
                 if (!!this.par.options.initial && (typeof this.vals[this.par.name] === 'undefined' ||
                     this.vals[this.par.name] == '' )) {
                     this.vals[this.par.name] = this.par.options.initial
-                }       
-                for (let i = 0; i < this.par.options.items.length;i++) {
-                    let val = this.par.options.items[i].title
+                }
+                let list = this.par.options.items
+                let pref = 'default.'
+                if (!!this.par.options.flags && this.par.options.flags.startsWith(pref)) {
+                    list = defLists[this.par.options.flags.substring(pref.length)]
+                }
+                for (let i = 0; i < list.length;i++) {
+                    let val = list[i].title
                     ret.push(val)
                     let cmp = val 
-/*                    if (!!this.par.options.items[i].value) {
-                        cmp = this.par.options.items[i].value
+/*                    if (!!list[i].value) {
+                        cmp = list[i].value
                     }*/
-                    if (typeof this.par.options.items[i].value !== 'undefined') {
-                        cmp = this.par.options.items[i].value
+                    if (typeof list[i].value !== 'undefined') {
+                        cmp = list[i].value
                     }
                     if (this.vals[this.par.name] == cmp || i==0 ) {
                         this.curItem = val
@@ -207,6 +214,7 @@ Vue.component('c-select', {
                         }
                     }
                 }
+                this.list = list
             }
             return ret
         }

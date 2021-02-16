@@ -189,6 +189,7 @@
 <script src="/js/axios.min.js"></script>
 <script src="/js/vuex.min.js"></script>
 
+[[template "deflists" .]]
 [[template "home" .]]
 [[template "tree" .]]
 [[template "dyncomp" .]]
