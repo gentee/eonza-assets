@@ -41,7 +41,7 @@ langs:
     _name: Hex кодирование
     _tohex: Из байт в шестнадцатеричную строку
 code: |
-  str src = GetVar(varname)
+  str src = GetVarBytes(varname)
   str tmp
   if encoding? :  tmp = str(UnHex(src))
   else : tmp = Hex(buf(src))

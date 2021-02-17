@@ -10,7 +10,6 @@ params:
   type: 2
 tree:
 - name: source-code
-  open: true
   values:
     _desc: Create initial files and folders
     code: '%body%'
@@ -29,6 +28,7 @@ tree:
       - func: appendpath
         param: text-tmp
       name: dir
+      subst: "0"
       value: ""
   - name: set-variables
     values:
@@ -43,6 +43,10 @@ tree:
           Test message
           Русский текст
         var: cliptext
+      - value: Test 71 Тест 80
+        var: hextest
+      - value: ihex
+        var: myhex
   - name: create-dir
     values:
       path: '#dir#'
@@ -80,6 +84,114 @@ tree:
       resultvar: hashlines
 - name: source-code
   open: true
+  values:
+    _desc: Encoding
+    code: '%body%'
+  children:
+  - name: hex-encoding
+    values:
+      encoding: "0"
+      resultvar: hexret
+      varname: hextest
+  - name: base64-encoding
+    values:
+      encoding: "0"
+      resultvar: baseret
+      varname: hextest
+  - name: set-variable
+    values:
+      list: {}
+      name: '#myhex#'
+      subst: "3"
+      value: '#hexret#'
+  - name: hex-encoding
+    values:
+      encoding: "1"
+      resultvar: ""
+      varname: hexret
+  - name: base64-encoding
+    values:
+      encoding: "1"
+      resultvar: unbase64
+      varname: baseret
+  - name: parse-json
+    values:
+      resultvar: cnvlist
+      value: |-
+        [
+            {"encoding": "Big5", "utf": "下一步", "cp": "a455a440a842"},
+            {"encoding": "GBK", "utf": "下一步", "cp": "cfc2d2bbb2bd"},
+            {"encoding": "Shift_JIS", "utf": "次へ", "cp": "8e9f82d6"},
+            {"encoding": "windows-1250", "utf": "Další", "cp": "44616c9aed"},
+            {"encoding": "windows-1251", "utf": "Отмена", "cp": "cef2ece5ede0"},
+            {"encoding": "windows-1252", "utf": "Següent", "cp": "536567fc656e74"},
+            {"encoding": "windows-1253", "utf": "Επόμενο", "cp": "c5f0fcece5edef"},
+            {"encoding": "windows-1254", "utf": "Gözat", "cp": "47f67a6174"},
+            {"encoding": "windows-1255", "utf": "המשך", "cp": "e4eef9ea"},
+            {"encoding": "windows-1256", "utf": "التالي", "cp": "c7e1cac7e1ed"},
+            {"encoding": "windows-1257", "utf": "Naršyti", "cp": "4e6172f0797469"}
+        ]
+  - name: foreach
+    open: true
+    values:
+      varitem: item
+      varname: cnvlist
+    children:
+    - name: convert-text
+      values:
+        _advanced: |-
+          params:
+              dest: "#item.encoding#"
+        dest: utf-8
+        resultvar: cnvret
+        src: utf-8
+        varname: item.utf
+    - name: hex-encoding
+      values:
+        encoding: "0"
+        resultvar: hexcnvret
+        varname: cnvret
+    - name: convert-text
+      values:
+        _advanced: |-
+          params:
+               src: "#item.encoding#"
+        dest: utf-8
+        resultvar: ""
+        src: utf-8
+        varname: cnvret
+    - name: assertions
+      values:
+        errmsg: ""
+        list:
+        - cmp: equal
+          not: false
+          value: '#cnvret#'
+          var: item.utf
+        - cmp: equal
+          not: false
+          value: '#hexcnvret#'
+          var: item.cp
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: '#hexret#'
+        var: hextest
+      - cmp: equal
+        not: false
+        value: 5465737420373120d0a2d0b5d181d182203830
+        var: ihex
+      - cmp: equal
+        not: false
+        value: VGVzdCA3MSDQotC10YHRgiA4MA==
+        var: baseret
+      - cmp: equal
+        not: false
+        value: '#hextest#'
+        var: unbase64
+- name: source-code
   values:
     _desc: Clipboard
     code: '%body%'
@@ -156,6 +268,7 @@ tree:
     - func: hash
       param: ""
     name: newhash
+    subst: "0"
     value: '#lines#'
 - name: assertions
   values:

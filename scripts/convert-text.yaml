@@ -28,8 +28,6 @@ params:
 - name: resultvar
   title: '#.resultvar#'
   type: 2
-  options:
-    required: true
 langs:
   en:
     _desc: Convert text between different encodings
@@ -42,6 +40,6 @@ langs:
     _name: Конвертировать текст
     _src: Исходная кодировка
 code: |-
-  str ret = ConvertText(GetVar("varname"), src, dest)
-  if *resultvar : SetVar(resultvar, ret)
+  str ret = ConvertText(?(src == `utf-8`, GetVar(varname), GetVarBytes(varname)), src, dest)
+  if *resultvar > 0 : SetVar(resultvar, ret)
   else : SetVar(varname, ret)
