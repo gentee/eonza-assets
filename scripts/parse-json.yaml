@@ -4,7 +4,7 @@ settings:
   desc: '#_desc#'
   path: "#.stdlib#/#.encoding#"  
   loglevel: 6
-  help: open
+  help: parse-json
   helplang: ru
   unrun: true
 params:

@@ -127,7 +127,7 @@ tree:
       }
 - name: assertions
   values:
-    errmsg: Replace
+    errmsg: JSON parsing
     list:
     - cmp: equal
       not: false
@@ -141,3 +141,36 @@ tree:
       not: false
       value: "257"
       var: myobj[files][1].size
+- name: parse-yaml
+  values:
+    resultvar: yamlret
+    value: |-
+      root: "/home/user/тест"
+      index: 0
+      files:
+         - file: myfile-ext.txt
+           size: 2543
+         - file: test.txt
+           size: 257.35
+      ooops:
+           reload: true
+- name: assertions
+  values:
+    errmsg: YAML parsing
+    list:
+    - cmp: equal
+      not: false
+      value: /home/user/тест
+      var: yamlret.root
+    - cmp: equal
+      not: false
+      value: myfile-ext.txt
+      var: '#yamlret.files[#yamlret.index#].file#'
+    - cmp: equal
+      not: false
+      value: "257.35"
+      var: yamlret[files][1].size
+    - cmp: equal
+      not: false
+      value: "true"
+      var: yamlret.ooops.reload
