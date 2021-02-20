@@ -217,6 +217,7 @@ skip: Skip
 sourcecode: Source Code
 sqlcon: SQL Connection
 start: Start
+startedby: Started By
 starttrial: Start Trial Mode
 status: Status
 stdinput: standard input

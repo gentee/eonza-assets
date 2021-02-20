@@ -77,6 +77,7 @@
           <table class="table">
           <tr><td>ID:</td><td>[[.ID]]</td></tr>
           <tr><td>%name%:</td><td>[[.Name]]</td></tr>
+          <tr><td>%startedby%:</td><td>[[.Nickname]] / [[.Role]]</td></tr>
           <tr><td>%status%: </td><td>{{statusList[status]}}</td></tr>
           <tr><td>%start%: </td><td>{{start}}</td></tr>
           <tr><td>%finish%: </td><td>{{finish}}</td></tr>

@@ -54,8 +54,13 @@
             <v-icon small left>fa-question</v-icon>&nbsp;%help%
         </v-btn>
         <v-spacer></v-spacer>
-          [[if .Develop]]
+          [[if eq .User.ID 1]]
+            [[if .Develop]]
               <v-chip color="cyan" text-color="white"><strong>develop</strong></v-chip>
+            [[end]]
+          [[else]]
+            <v-chip color="cyan" text-color="white">
+              <v-icon left color="white">fa-user-circle</v-icon>[[.User.Nickname]]</v-chip>
           [[end]]
           [[if .Playground]]
               <v-chip color="orange" text-color="white" href="https://www.eonza.org/docs/playground.html" 

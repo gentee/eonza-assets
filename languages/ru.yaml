@@ -217,6 +217,7 @@ skip: Пропустить
 sourcecode: Исходный код
 sqlcon: SQL соединение
 start: Начало
+startedby: Кто запустил
 starttrial: Включить пробный режим
 status: Статус
 stdinput: стандартный ввод
