@@ -47,9 +47,9 @@
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name != 1">
+        [[if eq .User.RoleID 1]]<v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name != 1">
             <v-icon small left>fa-plus</v-icon>&nbsp;%newscript%
-        </v-btn>
+        </v-btn>[[end]]
         <v-btn color="primary" :href="'https://www.eonza.org' + store.state.help" target="_help" class="white  font-weight-bold mx-4" outlined>
             <v-icon small left>fa-question</v-icon>&nbsp;%help%
         </v-btn>
