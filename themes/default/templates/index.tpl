@@ -793,12 +793,12 @@ function appData() {
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
       menus: [
-        { title: '%refresh%', icon: "fa-redo-alt", onclick: this.reload, 
-             hide: [[not .Develop]]},
+[[if eq .User.RoleID 1]] { title: '%refresh%', icon: "fa-redo-alt", onclick: this.reload, 
+             hide: [[not .Develop]]},[[end]]
         { title: '%logout%', icon: "fa-sign-out-alt", onclick: this.logout, 
              hide: [[not .Login]]},
-        { title: '%shutdown%', icon: "fa-power-off", 
-          onclick: () => this.confirm("%exitconfirm%", this.exit), hide: [[.Playground]] },
+[[if eq .User.RoleID 1]] { title: '%shutdown%', icon: "fa-power-off", 
+          onclick: () => this.confirm("%exitconfirm%", this.exit), hide: [[.Playground]] },[[end]]
       ],
       question: false,
       asktitle: "",
