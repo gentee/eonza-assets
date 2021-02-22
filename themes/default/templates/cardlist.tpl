@@ -51,14 +51,14 @@
           <v-btn class="ma-2" color="primary" small v-if="!item.unrun" @click="$root.run(item.name)">
            <v-icon left small>fa-play</v-icon> %run%
           </v-btn>
-          <v-tooltip top>
+          [[if eq .User.RoleID 1]]<v-tooltip top>
             <template v-slot:activator="{ on }">
                           <v-btn @click="edit(item.name)" icon color="primary" v-on="on"  >
                               <v-icon>fa-edit</v-icon>
                           </v-btn>
             </template>
             <span>%edit%</span>
-          </v-tooltip>
+          </v-tooltip>[[end]]
           <v-tooltip top v-if="!item.unrun">
             <template v-slot:activator="{ on }">
                           <v-btn @click="$root.run(item.name, true)" icon color="primary" v-on="on"  >
