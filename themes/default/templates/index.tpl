@@ -784,7 +784,7 @@ function appData() {
       develop: [[.Develop]],
       navitems: [
         { id: 0, title: '%scripts%', icon: 'fa-play-circle', route: '/' },
-        { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' },
+[[if eq .User.RoleID 1]] { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' }, [[end]]
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
         { id: 4, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
         { id: 5, title: '%settings%', icon: 'fa-tools', route: '/settings' },

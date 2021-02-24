@@ -5,7 +5,7 @@
           :color="i < unread ? 'blue darken-1' : 'blue lighten-4'" elevation="2">
       <div style="color: #333;" v-html="item.text"></div>
       <div style="text-align: right">
-         <span style="font-size:smaller;color: #777;font-style: italic">{{item.time}}</span> <v-btn icon small @click="remove(item.hash)"><v-icon small color="blue">fa-trash-alt</v-icon></v-btn>
+         <span style="font-size:smaller;color: #777;font-style: italic">{{item.script}} {{item.user}} {{item.time}}</span> <v-btn icon small @click="remove(item.hash)" v-show="item.todel"><v-icon small color="blue">fa-trash-alt</v-icon></v-btn>
       </div>
       </v-alert>
     </div>
@@ -16,7 +16,7 @@
 const nfy = {
   unread: [[.Nfy.Unread]],
   list: [ [[range .Nfy.List]]
-    {text: '[[.Text]]', time: '[[.Time]]'},
+    {text: '[[.Text]]', time: '[[.Time]]', todel: [[.ToDel]], script: '[[.Script]]'},
   [[end]] ]
 }
 

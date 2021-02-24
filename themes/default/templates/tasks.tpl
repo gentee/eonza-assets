@@ -20,7 +20,7 @@
               <v-icon color="primary" small @click="resume(task.id)">fa-play</v-icon></span>
               <span class="mr-2" v-show="task.status == stSuspended">
               <v-icon color="primary" small @click="terminate(task.id)">fa-times</v-icon></span>
-              <span class="mr-2" v-show="task.status >= stFinished">
+              <span class="mr-2" v-show="task.status >= stFinished && task.todel">
               <v-icon color="primary" small @click="remove(task.id)">fa-times</v-icon></span>
           </td>
         </tr>
