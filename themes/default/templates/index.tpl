@@ -788,7 +788,7 @@ function appData() {
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
         { id: 4, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
         { id: 5, title: '%settings%', icon: 'fa-tools', route: '/settings' },
-[[if .Pro]]       { id: 7, title: '%prover%', icon: 'fa-donate', route: '/pro' },[[end]] /*fa-hand-helping*/
+[[if and .Pro (eq .User.RoleID 1)]] { id: 7, title: '%prover%', icon: 'fa-donate', route: '/pro' },[[end]] /*fa-hand-helping*/
         { id: 6, title: '%help%', icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],

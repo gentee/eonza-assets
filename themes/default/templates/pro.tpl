@@ -34,7 +34,7 @@
           <template v-slot:top>
               <v-dialog v-model="dlgRoles" max-width="600px">
                 <template v-slot:activator="{ on }">
-                  <strong>%roles%</strong><v-btn color="primary" :disabled="!active" dark class="ml-4" v-on="on">%newitem%</v-btn>
+                  <strong>%roles%</strong><v-btn color="primary" :disabled="!active" dark class="ml-4" v-on="on">%new%</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -107,7 +107,7 @@
           <template v-slot:top>
               <v-dialog v-model="dlgUsers" max-width="600px">
                 <template v-slot:activator="{ on }">
-                  <strong>%users%</strong><v-btn color="primary" :disabled="!active" dark class="ml-4" v-on="on">%newitem%</v-btn>
+                  <strong>%users%</strong><v-btn color="primary" :disabled="!active" dark class="ml-4" v-on="on">%new%</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
