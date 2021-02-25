@@ -74,7 +74,7 @@
     </v-alert>
 
         <div v-show="tab==0">
-          <table class="table">
+          <table class="table table2b">
           <tr><td>ID:</td><td>[[.ID]]</td></tr>
           <tr><td>%name%:</td><td>[[.Name]]</td></tr>
           <tr><td>%startedby%:</td><td>[[.Nickname]] / [[.Role]]</td></tr>

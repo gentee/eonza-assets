@@ -5,6 +5,7 @@
         <tr><th v-for="item in heads">{{item}}</th></tr>
         <tr v-for="task in list">
           <td>{{task.name}}</td>
+          [[if .ProActive]]<td>{{task.user}}/{{task.role}}</td>[[end]]
           <td class="tdcenter"><v-chip
         class="mx-2 my-1 font-weight-bold px-5"
         :color="statusColor[task.status]"
@@ -95,7 +96,7 @@ const Tasks = {
 
 function tasksData() {
     return {
-      heads: [ '%name%', '%status%', '%start%', '%finish%', 
+      heads: [ '%name%', [[if .ProActive]]'%startedby%',[[end]] '%status%', '%start%', '%finish%', 
             '%actions%',
 
       ]
