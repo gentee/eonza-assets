@@ -6,10 +6,10 @@
         </v-btn>
     </v-toolbar>
     <v-tabs v-model="tab">
-        <v-tab>%general%</v-tab>
-        <v-tab>%scripts%</v-tab>
+        <v-tab [[if ne .User.RoleID 1]]disabled[[end]]>%general%</v-tab>
+        <v-tab [[if ne .User.RoleID 1]]disabled[[end]]>%scripts%</v-tab>
         <v-tab>%personal%</v-tab>
-        <v-tab>%globconst%</v-tab>
+        <v-tab [[if ne .User.RoleID 1]]disabled[[end]]>%globconst%</v-tab>
         <v-tab>%security%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
@@ -97,11 +97,15 @@
     <div v-show="tab==4" style="height: calc(100% - 106px);overflow-y:auto;" >
    <div class="pt-4">
     <!--v-checkbox v-model="options.common.includesrc" label="%includesrc%" @change="change"></v-checkbox-->
+    [[if eq .User.ID 1]]
     <v-text-field type="password" label="%curpassword%" v-model="curpsw" v-if="!!options.common.passwordhash"></v-text-field>
+    [[else]]
+    <v-text-field type="password" label="%curpassword%" v-model="curpsw"></v-text-field>
+    [[end]]
     <v-text-field type="password" label="%password%" v-model="psw"></v-text-field>
     <v-btn color="primary" :disabled="!psw && !curpsw" @click="setpsw">%setpassword%</v-btn>
-    <v-checkbox  v-model="options.common.notaskpassword" label="%notaskpassword%"
-        @change="change"></v-checkbox>
+    [[if eq .User.RoleID 1]]<v-checkbox  v-model="options.common.notaskpassword" label="%notaskpassword%"
+        @change="change"></v-checkbox>[[end]]
     </div>
     </div>
 
@@ -116,7 +120,7 @@ const Settings = {
         return {
             curpsw: '',
             psw: '',
-            tab: 0,
+            tab: [[if eq .User.RoleID 1]]0[[else]]2[[end]],
             period: [
                 {title: '%never%', value: 'never'},
                 {title: '%daily%', value: 'daily'},
