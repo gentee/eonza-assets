@@ -11,9 +11,9 @@
           <div v-if="upd.notify" v-html="upd.notify"></div>
           <div v-if="!upd.notify && upd.lastchecked">%uptodate%</div>
           <div v-if="upd.lastchecked">%lastcheck% <i>{{upd.lastchecked}}</i></div>
-          <v-btn color="primary" style="text-transform:none;" @click="checkUpdate()"  class="ma-1">
+          [[if eq .User.RoleID 1]]<v-btn color="primary" style="text-transform:none;" @click="checkUpdate()"  class="ma-1">
             %checkupdate%
-          </v-btn>
+          </v-btn>[[end]]
           </p>
           <p><strong><a href="%proverurl%" target="_blank">%prover%</a></strong></p>
           <p>Copyright [[.App.Copyright]]<br>
