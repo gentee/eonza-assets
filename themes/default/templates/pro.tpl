@@ -124,7 +124,7 @@
                        :type="show1 ? 'text' : 'password'" label="%password%" hint="" 
                          @click:append="show1 = !show1"
                           ></v-text-field>
-                      <v-select class="mr-2" label="%roles%" v-model="eUserItem.roleid" 
+                      <v-select class="mr-2" label="%role%" v-model="eUserItem.roleid" 
                           :items="[{name: 'admin', id: 1}, ...roles]" 
                         item-text="name"
                         item-value="id"

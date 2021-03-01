@@ -47,6 +47,8 @@ tree:
         var: hextest
       - value: ihex
         var: myhex
+      - value: '#dir#/test.csv'
+        var: fcsv
   - name: create-dir
     values:
       path: '#dir#'
@@ -84,6 +86,65 @@ tree:
       resultvar: hashlines
 - name: source-code
   open: true
+  values:
+    _desc: CSV Files
+    code: '%body%'
+  children:
+  - name: set-variable
+    values:
+      list: []
+      name: csvdata
+      subst: "0"
+      value: |-
+        "Robert","Google",1200
+        "John Dow","My Company, Inc.",3600
+        Alex 1,Private Company,4800
+  - name: write-file
+    values:
+      filename: '#fcsv#'
+      name: csvdata
+  - name: foreach-csv
+    open: true
+    values:
+      csvfile: '#fcsv#'
+      varname: csvline
+    children:
+    - name: set-variable
+      values:
+        list:
+        - func: append
+          param: '#csvline[2]#;#csvline[1]#;#csvline[0]##.n#'
+        name: csvout
+        subst: "0"
+        value: ""
+  - name: write-file
+    values:
+      filename: '#fcsv#'
+      name: csvout
+  - name: foreach-csv
+    open: true
+    values:
+      columns: value,,name
+      csvfile: '#fcsv#'
+      delim: ;
+      varname: csvline
+    children:
+    - name: set-variable
+      values:
+        list:
+        - func: append
+          param: '#csvline.name# #csvline.value#='
+        name: csvcheck
+        subst: "0"
+        value: ""
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: Robert 1200=John Dow 3600=Alex 1 4800=
+        var: csvcheck
+- name: source-code
   values:
     _desc: Encoding
     code: '%body%'
