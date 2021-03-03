@@ -1,5 +1,6 @@
 abort: Abort
 about: About
+access: Access
 actions: Actions
 active: Active
 addcmd: Add a new command to the script
@@ -177,6 +178,7 @@ question: Question
 recently: Recently Launched
 recursive: Recursive Search
 refresh: Refresh
+registry: Registry
 regex: Regular Expression
 regexmatch: RegEx Match
 remaintime: Remaining Time
@@ -189,6 +191,7 @@ resume: Resume
 retry: Retry
 role: Role
 roles: Roles
+rootkey: Root Key
 run: Run
 runsilently: Run Silently
 save: Save
@@ -224,6 +227,7 @@ stdinput: standard input
 stdlib: Standard Library
 stopscript: Do you want to stop the script execution?
 stoptrial: Stop Trial Mode
+subkey: Subkey
 submit: Submit
 substvar: Substitute Variable Values
 support: Technical Support
