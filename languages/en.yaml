@@ -246,6 +246,7 @@ trialmode: Trial Mode
 trialdays: "%s day(s) of %s day free trial passed."
 trialend: The free trial period is over
 type: Type
+valname: Value Name
 value: Value
 variables: Variables
 varindex: Variable Index

@@ -351,9 +351,14 @@ Vue.component('c-list', {
                 }
             }
             if (par.type == PSelect) {
-                for (let i = 0; i < par.options.items.length; i++ ) {
-                    if (par.options.items[i].value == val) {
-                        val = par.options.items[i].title
+                let list = par.options.items
+                let pref = 'default.'
+                if (!!par.options.flags && par.options.flags.startsWith(pref)) {
+                    list = defLists[par.options.flags.substring(pref.length)]
+                }
+                for (let i = 0; i < list.length; i++ ) {
+                    if (list[i].value == val) {
+                        val = list[i].title
                         break
                     }
                 }
