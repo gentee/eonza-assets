@@ -47,7 +47,7 @@ langs:
     _values: Значения для удаления
 code: |+
   obj vobj = JsonToObj(values)
-  handle key = OpenRegistryKey(root, subkey, access)
+  handle key = OpenRegistryKey(root, subkey, 0xf003f | access)
   for vitem in vobj {
        DeleteRegistryValue(key, item(vitem, "value").str())
   }

@@ -21,6 +21,9 @@ tree:
 - name: test-files
   values:
     dir: '#testpath#'
+- name: test-windows
+  values:
+    _ifcond: Macro("#.os#") == "windows"
 - name: test-json
 - name: test.programming
   values:
