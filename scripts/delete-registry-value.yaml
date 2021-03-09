@@ -38,12 +38,12 @@ params:
     type: int
 langs:
   en:
-    _desc: Delete Registry value with all subkeys
+    _desc: Delete Registry value
     _name: Delete Registry Value
     _values: Values for deleting
   ru:
-    _desc: Удалить ключ Реестра со всеми подключами
-    _name: Удалить ключ Реестра
+    _desc: Удалить значение Реестра
+    _name: Удалить значение Реестра
     _values: Значения для удаления
 code: |+
   obj vobj = JsonToObj(values)
