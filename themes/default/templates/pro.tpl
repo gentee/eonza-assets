@@ -171,6 +171,11 @@ const Masks = {
     7: 'ALL',
 }
 
+const ProTabHelp = [
+  '%urlpro-general%',
+  '%urlpro-users%',
+];
+
 function roleMasks(list) {
     for (let i=0; i < list.length; i++) {
         let item = list[i]
@@ -375,7 +380,7 @@ const Pro = {
     },
     mounted: function() {
         store.commit('updateTitle', '%prover%');
-//        store.commit('updateHelp', '%urlpro%');
+        store.commit('updateHelp', ProTabHelp[this.tab]);
         axios
         .get(`/api/prosettings`)
         .then(response => {
@@ -401,6 +406,11 @@ const Pro = {
             }
             this.users = response.data.list.filter((item)=> item.id != 1)
         }).catch(error => this.$root.errmsg(error));
+    },
+    watch: {
+      tab(val) {
+        store.commit('updateHelp', ProTabHelp[val]);
+      }, 
     },
 };
 
