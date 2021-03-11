@@ -130,6 +130,7 @@ logconsole: Вывод в лог и консоль
 login: Войти
 loglevel: Уровень лога
 logout: Выйти
+logoutall: Разлогинить всех пользователей
 menu: Меню
 messaging: Обмен сообщениями
 monthly: Ежемесячно
@@ -244,6 +245,7 @@ translation: Перевод
 trialmode: Пробный режим
 trialdays: "Прошло %s из %s дней бесплатного ознакомления."
 trialend: Период бесплатного ознакомления завершен
+twofa: Двухфакторная аутентификация
 type: Тип
 valname: Имя значения
 value: Значение
@@ -275,6 +277,7 @@ urled-language: /ru/docs/editor-language-resources.html
 urled-source: /ru/docs/editor-source-code.html
 urled-compile: /ru/docs/editor-compile.html
 urlpro-general: /ru/docs/users.html
+urlpro-security: /ru/docs/security.html
 urlpro-users: /ru/docs/users.html
 urlhelp: /ru/docs/user-guide.html
 urlnotifications: /ru/docs/notifications.html

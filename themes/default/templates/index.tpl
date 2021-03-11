@@ -448,6 +448,12 @@ new Vue({
       errmsg( title, callback = null ) {
         this.errtitle = title;
         this.error = true;
+        if (String(title).includes('401') && !callback) {
+            callback = {
+              title: '%login%',
+              func: () => location.reload(),
+            }
+        }
         this.callback = callback
       },
       saveFavs() {

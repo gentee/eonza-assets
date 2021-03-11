@@ -130,6 +130,7 @@ logconsole: Log & Console output
 login: Login
 loglevel: Log Level
 logout: Log Out
+logoutall: Logout All Users
 menu: Menu
 messaging: Messaging
 monthly: Monthly
@@ -245,6 +246,7 @@ translation: Translation
 trialmode: Trial Mode
 trialdays: "%s day(s) of %s day free trial passed."
 trialend: The free trial period is over
+twofa: Two-factor Authentication
 type: Type
 valname: Value Name
 value: Value
@@ -276,6 +278,7 @@ urled-language: /docs/editor-language-resources.html
 urled-source: /docs/editor-source-code.html
 urled-compile: /docs/editor-compile.html
 urlpro-general: /docs/users.html
+urlpro-security: /docs/security.html
 urlpro-users: /docs/users.html
 urlhelp: /docs/user-guide.html
 urlnotifications: /docs/notifications.html

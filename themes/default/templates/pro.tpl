@@ -8,6 +8,7 @@
     <v-tabs v-model="tab">
         <v-tab>%general%</v-tab>
         <v-tab>%users%</v-tab>
+        <v-tab>%security%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
@@ -98,6 +99,7 @@
               </tbody>
             </template>
         </v-data-table>
+        </div>
         <div class="pt-4">
           <v-data-table
           disable-filtering disable-pagination disable-sort hide-default-footer
@@ -155,8 +157,17 @@
               </tbody>
             </template>
         </v-data-table>
-        
         </div>
+    </div>
+    <div v-show="tab==2" style="height: calc(100% - 106px);overflow-y:auto;" >
+    <div class="pt-4">
+        <v-checkbox
+        v-model="settings.twofa"
+        :disabled="!active" @change="changesettings"
+        label="%twofa%"
+        ></v-checkbox>
+        <v-btn @click="logoutall" color="primary" style="text-transform:none;">%logoutall%</v-btn>
+    </div>
     </div>
 
   </v-container>
@@ -174,6 +185,7 @@ const Masks = {
 const ProTabHelp = [
   '%urlpro-general%',
   '%urlpro-users%',
+  '%urlpro-security%',
 ];
 
 function roleMasks(list) {
@@ -194,6 +206,7 @@ const Pro = {
         return {
             tab: 0,
             active: false,
+            settings: {twofa: false},
             show1: false,
             trial: {},
             rules: {
@@ -245,6 +258,30 @@ const Pro = {
         }
     },
     methods: {
+        logoutall() {
+            axios
+            .get(`/api/logoutall`)
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                location.reload()
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
+        changesettings() {
+            axios
+            .post(`/api/proset`, this.settings)
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.settings = response.data.settings
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
         mode(par) {
             axios
             .get(`/api/trial/`+par)
@@ -390,6 +427,7 @@ const Pro = {
             }
             this.active = response.data.active
             this.trial = response.data.trial
+            this.settings = response.data.settings
         })
         .catch(error => this.$root.errmsg(error));
         axios.get(`/api/roles`).then(response => {
