@@ -33,6 +33,13 @@
             hint="" 
             @click:append="show1 = !show1"
           ></v-text-field>
+          <img v-show="twofaqr" :src="twofaqr" style="margin-bottom: 1em;">
+          <v-text-field v-show="twofa"
+            v-model="otp" name="otp"
+            label="%onetimepass%"
+            outlined style="width: 250px;"
+            hint="" 
+          ></v-text-field>
           <v-alert type="error" v-show="error">
               %invalidpsw%
           </v-alert>
@@ -69,13 +76,17 @@ new Vue({
         this.error = false
         const formData = new FormData();
         formData.set('password', this.password)
+        formData.set('otp', this.otp)
         axios({
               method: 'post',
               url: '/api/login',
               data: formData
               })
         .then(response => { 
-          if (!response.data.error) {
+          if (response.data.twofa) {
+            this.twofaqr = response.data.twofaqr
+            this.twofa = true
+          } else if (!response.data.error) {
               let d = new Date();
               d.setTime(d.getTime() + 5 * 1000 /* 5sec */);
               let expires = "expires=" + d.toUTCString();
@@ -83,7 +94,8 @@ new Vue({
               window.removeEventListener('keydown', this.keyProcess);
               //window.location = '/'
               location.reload()
-          } else {
+          } 
+          if (response.data.error) {
             this.error = true
             console.log(response.data.error)
           }
@@ -108,6 +120,9 @@ function appData() {
     return {
         show1: false,
         password: '',
+        twofaqr: '',
+        otp: '',
+        twofa: false,
         error: false
     }
 }
