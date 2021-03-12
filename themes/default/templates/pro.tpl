@@ -146,11 +146,13 @@
                 <tr v-for="(item, index) in items" :key="item.name">
                   <td>{{item.nickname }}</td>
                   <td>{{irole(item)}}</td>
-                  <td><div v-show="active"><span @click="editUser(index)" class="mr-2">
+                  <td><div v-show="active"><span v-if="item.id != 1" @click="editUser(index)" class="mr-2">
                       <v-icon small @click="">fa-pencil-alt</v-icon>
                       </span>
-                      <span @click="deleteUser(index)" class="mr-2">
+                      <span v-if="item.id != 1" @click="deleteUser(index)" class="mr-2">
                       <v-icon small @click="">fa-times</v-icon></span>
+                      <span v-if="[[.Twofa]]" @click="qrcodeUser(index)" class="mr-2">
+                      <v-icon small @click="">fa-qrcode</v-icon></span>
                       </div>
                   </td>
                 </tr>
@@ -346,7 +348,7 @@ const Pro = {
                     this.$root.errmsg(response.data.error);
                     return
                 }
-                this.users = response.data.list.filter((item)=> item.id != 1)
+                this.users = response.data.list//.filter((item)=> item.id != 1)
                 this.closeUser()
             })
             .catch(error => this.$root.errmsg(error));
@@ -372,7 +374,22 @@ const Pro = {
                     comp.$root.errmsg(response.data.error);
                     return
                 }
-                comp.users = response.data.list.filter((item)=> item.id != 1)
+                comp.users = response.data.list//.filter((item)=> item.id != 1)
+            })
+            .catch(error => comp.$root.errmsg(error));
+           });   
+        },
+        qrcodeUser(index) {
+            let comp = this
+            this.$root.confirmYes( '%reset2fa%', 
+            function(){
+            axios
+            .get(`/api/reset2fa/` + comp.users[index].id)
+            .then(response => {
+                if (response.data.error) {
+                    comp.$root.errmsg(response.data.error);
+                    return
+                }
             })
             .catch(error => comp.$root.errmsg(error));
            });   
@@ -442,7 +459,7 @@ const Pro = {
                 this.$root.errmsg(response.data.error);
                 return
             }
-            this.users = response.data.list.filter((item)=> item.id != 1)
+            this.users = response.data.list//.filter((item)=> item.id != 1)
         }).catch(error => this.$root.errmsg(error));
     },
     watch: {

@@ -34,6 +34,8 @@
             @click:append="show1 = !show1"
           ></v-text-field>
           <img v-show="twofaqr" :src="twofaqr" style="margin-bottom: 1em;">
+          <a :href="scanqr" target="_help" style="margin-bottom: 1em;" v-show="twofaqr">
+          %scanqr%</a>
           <v-text-field v-show="twofa"
             v-model="otp" name="otp"
             label="%onetimepass%"
@@ -101,17 +103,23 @@ new Vue({
           }
         });
       },
+      link(name) {
+            let pref = [[.Lang]]
+            if (pref == 'en') {
+              pref = ''
+            }
+            return "https://www.eonza.org/" + pref +  "docs/" + name + ".html"
+      }
     },
     mounted() {
       window.addEventListener('keydown', this.keyProcess);
     },
     computed: {
         restorepsw() { 
-            let pref = [[.Lang]]
-            if (pref == 'en') {
-              pref = ''
-            }
-            return "https://www.eonza.org/" + pref +  "docs/restore-password.html"
+            return this.link("restore-password")
+        },
+        scanqr() { 
+            return this.link("restore-password")
         },
     }
 })

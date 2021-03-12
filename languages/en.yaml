@@ -188,6 +188,7 @@ removefav: Remove from Favorites
 repissue: Report issue
 replace: Replace
 required: This field is required
+reset2fa: Are you sure you want to reset two-factor authentication?
 resultvar: Result Variable
 resume: Resume
 retry: Retry
@@ -200,6 +201,7 @@ save: Save
 saveasnew: Save As New
 savecopy: Save a copy
 savescript: The '%s' script was changed. Would you like to save it?
+scanqr: Scan QR code in Google Authenticator
 searchdirs: Search Only for Directories
 searchfiles: Search Only for Files
 security: Security
@@ -279,7 +281,7 @@ urled-language: /docs/editor-language-resources.html
 urled-source: /docs/editor-source-code.html
 urled-compile: /docs/editor-compile.html
 urlpro-general: /docs/users.html
-urlpro-security: /docs/security.html
+urlpro-security: /docs/pro-security.html
 urlpro-users: /docs/users.html
 urlhelp: /docs/user-guide.html
 urlnotifications: /docs/notifications.html

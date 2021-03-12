@@ -188,6 +188,7 @@ removefav: Удалить из Избранных
 repissue: Сообщить о проблеме
 replace: Заменить
 required: Это поле обязательно
+reset2fa: Вы уверены, что хотите перезагрузить двухфакторную аутентификация?
 resultvar: Результирующая переменная
 resume: Возобновить
 retry: Повторить
@@ -200,6 +201,7 @@ save: Сохранить
 saveasnew: Сохранить как новый
 savecopy: Сохранить копию
 savescript: Скрипт '%s' был изменён. Хотите сохранить его?
+scanqr: Отсканируйте QR код в Google Authenticator
 searchdirs: Искать только директории
 searchfiles: Искать только файлы
 security: Безопасность
@@ -278,7 +280,7 @@ urled-language: /ru/docs/editor-language-resources.html
 urled-source: /ru/docs/editor-source-code.html
 urled-compile: /ru/docs/editor-compile.html
 urlpro-general: /ru/docs/users.html
-urlpro-security: /ru/docs/security.html
+urlpro-security: /ru/docs/pro-security.html
 urlpro-users: /ru/docs/users.html
 urlhelp: /ru/docs/user-guide.html
 urlnotifications: /ru/docs/notifications.html
