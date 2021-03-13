@@ -119,7 +119,7 @@ new Vue({
             return this.link("restore-password")
         },
         scanqr() { 
-            return this.link("restore-password")
+            return this.link("two-factor-authentication")
         },
     }
 })

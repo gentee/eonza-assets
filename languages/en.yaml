@@ -282,6 +282,7 @@ urled-source: /docs/editor-source-code.html
 urled-compile: /docs/editor-compile.html
 urlpro-general: /docs/users.html
 urlpro-security: /docs/pro-security.html
+urlpro-twofa: /docs/two-factor-authentication.html
 urlpro-users: /docs/users.html
 urlhelp: /docs/user-guide.html
 urlnotifications: /docs/notifications.html
