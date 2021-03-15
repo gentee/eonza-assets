@@ -168,7 +168,7 @@
         :disabled="!active" @change="changesettings"
         label="%twofa%"
         ></v-checkbox>
-        <v-btn @click="logoutall" color="primary" style="text-transform:none;">%logoutall%</v-btn>
+        <v-btn @click="logoutall" :disabled="!active" color="primary" style="text-transform:none;">%logoutall%</v-btn>
     </div>
     </div>
 

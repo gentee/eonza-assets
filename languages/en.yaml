@@ -209,6 +209,7 @@ select: Select
 sellang: Select the interface language
 setpassword: Set Password
 settings: Settings
+scheduler: Scheduler  
 script: Script
 scripts: Scripts
 scriptterm: The script execution has been terminated

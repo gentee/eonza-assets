@@ -139,7 +139,7 @@
           <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id < 3"
+            v-if="item.id < 4"
             link
           >
             <div style="width: 44px;">
@@ -155,7 +155,7 @@
           <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id > 2"
+            v-if="item.id > 3"
             link
           >
             <div style="width: 44px;">
@@ -792,6 +792,7 @@ function appData() {
         { id: 0, title: '%scripts%', icon: 'fa-play-circle', route: '/' },
 [[if eq .User.RoleID 1]] { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' }, [[end]]
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
+        { id: 3, title: '%scheduler%', icon: 'fa-calendar-alt', route: '/scheduler' },
         { id: 4, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
         { id: 5, title: '%settings%', icon: 'fa-tools', route: '/settings' },
 [[if and .Pro (eq .User.RoleID 1)]] { id: 7, title: '%prover%', icon: 'fa-donate', route: '/pro' },[[end]] /*fa-hand-helping*/
