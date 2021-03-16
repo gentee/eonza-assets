@@ -201,6 +201,7 @@
 [[template "card" .]]
 [[template "editor" .]]
 [[template "tasks" .]]
+[[template "scheduler" .]]
 [[template "notifications" .]]
 [[if .Pro]][[template "pro" .]][[end]]
 [[template "settings" .]]
@@ -245,9 +246,14 @@ const routes = [{
     name: 6,
     component: Notifications,
   },
+  {
+    path: '/scheduler',
+    name: 7,
+    component: Scheduler,
+  },
 [[if .Pro]]  {
     path: '/pro',
-    name: 7,
+    name: 8,
     component: Pro,
   },[[end]]
 ];
@@ -792,7 +798,7 @@ function appData() {
         { id: 0, title: '%scripts%', icon: 'fa-play-circle', route: '/' },
 [[if eq .User.RoleID 1]] { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' }, [[end]]
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
-        { id: 3, title: '%scheduler%', icon: 'fa-calendar-alt', route: '/scheduler' },
+[[if eq .User.RoleID 1]] { id: 3, title: '%scheduler%', icon: 'fa-calendar-alt', route: '/scheduler' }, [[end]]
         { id: 4, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
         { id: 5, title: '%settings%', icon: 'fa-tools', route: '/settings' },
 [[if and .Pro (eq .User.RoleID 1)]] { id: 7, title: '%prover%', icon: 'fa-donate', route: '/pro' },[[end]] /*fa-hand-helping*/
