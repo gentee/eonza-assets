@@ -134,6 +134,7 @@ logoutall: Разлогинить всех пользователей
 menu: Меню
 messaging: Обмен сообщениями
 monthly: Ежемесячно
+monthshort: "Янв,Фев,Мар,Апр,Май,Июн,Июл,Авг,Сен,Окт,Ноя,Дек"
 movedown: Сдвинуть вниз
 moveup: Сдвинуть вниз
 name: Имя
@@ -149,6 +150,7 @@ newitem: Новый элемент
 newscript: Новый скрипт
 newver: Доступна новая версия
 nextcond: Следующее условие
+nextrun: Следующий запуск
 nickname: Псевдоним
 no: Нет
 none: Нет
@@ -244,6 +246,7 @@ tests: Тесты
 text: Текст
 textarea: Многострочный текст
 time: Время
+timers: Таймеры
 title: Название
 translation: Перевод
 trialmode: Пробный режим
@@ -272,6 +275,7 @@ waitfinish: Ждать окончания работы приложения
 waiting: Ожидание
 warning: Предупреждение
 weekly: Еженедельно
+weekshort: "Вс,Пн,Вт,Ср,Чт,Пт,Сб"
 yes: Да
 urleditor: /ru/docs/editor.html
 urled-script: /ru/docs/editor-script.html

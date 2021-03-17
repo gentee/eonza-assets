@@ -134,6 +134,7 @@ logoutall: Logout All Users
 menu: Menu
 messaging: Messaging
 monthly: Monthly
+monthshort: "Jan,Feb,Mar,Apr,May,June,July,Aug,Sept,Oct,Nov,Dec"
 movedown: Move Down
 moveup: Move Up
 name: Name
@@ -149,6 +150,7 @@ newitem: New Item
 newscript: New Script
 newver: A new version is available
 nextcond: Next Condition
+nextrun: Next Run
 nickname: Nickname
 no: No
 none: None
@@ -245,6 +247,7 @@ tests: Tests
 text: Text
 textarea: Multi-line text
 time: Time
+timers: Timers
 title: Title
 translation: Translation
 trialmode: Trial Mode
@@ -273,6 +276,7 @@ waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning
 weekly: Weekly
+weekshort: "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
 yes: Yes
 urleditor: /docs/editor.html
 urled-script: /docs/editor-script.html
