@@ -40,6 +40,7 @@ curpassword: Current Password
 daily: Daily
 database: Database
 date: Date
+day: Day
 debug: Debug
 defvalue: Default Value
 delconfirm: Are you sure you want to delete the selected item(s)?
@@ -73,6 +74,7 @@ errplaypsw: Password setting is disabled in Playground mode
 errreq: The '%s' field is required.
 errscriptname: The '%s' script has already existed
 errtasklimit: The number of concurrently running scripts in Playground mode has been exceeded [%v]
+everytime: Every,minute(s),hour(s),day(s),month(s),week(s)
 excludefile: Exclude Wildcard or RegExp
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
@@ -106,6 +108,7 @@ hidetray: Hide Tray Icon
 history: History
 home: Home
 host: Host
+hour: Hour
 htmltext: HTML Text
 ifcond: If Condition
 iffileexist: If File Exists
@@ -133,6 +136,8 @@ logout: Log Out
 logoutall: Logout All Users
 menu: Menu
 messaging: Messaging
+minute: Minute
+month: Month
 monthly: Monthly
 monthshort: "Jan,Feb,Mar,Apr,May,June,July,Aug,Sept,Oct,Nov,Dec"
 movedown: Move Down
@@ -275,6 +280,7 @@ users: Users
 waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning
+weekday: Weekday
 weekly: Weekly
 weekshort: "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
 yes: Yes

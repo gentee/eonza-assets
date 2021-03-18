@@ -18,7 +18,7 @@
           <template v-slot:top>
               <v-dialog v-model="dlgTimers" max-width="700px">
                 <template v-slot:activator="{ on }">
-                  <v-btn color="primary" dark class="ml-4" v-on="on">%new%</v-btn>
+                  <v-btn color="primary" @click="newCron" dark class="ml-4" v-on="on">%new%</v-btn>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -33,51 +33,52 @@
                           <v-btn color="primary" dark class="my-2 ml-2" @click="selectScript">
                       %select%</v-btn>
                       </div>
+                      <v-checkbox v-model="eTimerItem.disable" label="%disable%"></v-checkbox>
                       <table style="width: 100%">
                         <tr><td style="width: 70%">
-                          <v-text-field class="mr-2 mb-3" dense label="Minute" placeholder="0-5,10,45" outlined hide-details></v-text-field>
-                        </td><td><v-text-field class="ml-2 mb-3" dense  label="Every [?] minute(s)" outlined hide-details></v-text-field>
+                          <v-text-field v-model="cd.m" class="mr-2 mb-3" dense label="%minute%" placeholder="0-5,10,45" outlined hide-details @change="changecd"></v-text-field>
+                        </td><td><v-text-field v-model="cd.em"  @change="changecd" class="ml-2 mb-3" dense :label="every(0)" outlined hide-details></v-text-field>
                         </td></tr>
                         <tr><td>
-                            <v-text-field  class="mr-2 mb-3" dense label="Hour" placeholder="0,9-17,23" outlined hide-details></v-text-field>
+                            <v-text-field  v-model="cd.h" class="mr-2 mb-3"  @change="changecd" dense label="%hour%" placeholder="0,9-17,23" outlined hide-details></v-text-field>
                         </td><td>
-                            <v-text-field  class="ml-2 mb-3" dense label="Every [?] hour(s)" outlined hide-details></v-text-field>
+                            <v-text-field  v-model="cd.eh" class="ml-2 mb-3"  @change="changecd" dense :label="every(1)" outlined hide-details></v-text-field>
                         </td></tr>
                         <tr><td>
-                          <v-text-field  class="mr-2 mb-3" dense label="Day" placeholder="3-10,12,25" outlined hide-details></v-text-field>
+                          <v-text-field  v-model="cd.d" class="mr-2 mb-3"  @change="changecd" dense label="%day%" placeholder="3-10,12,25" outlined hide-details></v-text-field>
                         </td><td>
-                           <v-text-field  class="ml-2 mb-3" dense label="Every [?] day(s)" outlined hide-details></v-text-field>
+                           <v-text-field v-model="cd.ed" class="ml-2 mb-3"  @change="changecd" dense :label="every(2)" outlined hide-details></v-text-field>
                         </td></tr>
                         <tr><td>
-                           <v-select  class="mr-2 mb-3"
-                              vxx-model="value" dense
+                           <v-select  class="mr-2 mb-3" @change="changecd"
+                              v-model="cd.mo" dense
                               :items="CronMonths"
                               item-text="title"
                               item-value="value" hide-details
                               chips
-                              label="Month"
+                              label="%month%"
                               multiple 
                               outlined
                             ></v-select>
                         </td><td>
-                           <v-text-field  class="ml-2 mb-3" dense label="Every [?] month(s)" outlined hide-details></v-text-field>
+                           <v-text-field v-model="cd.emo" @change="changecd" class="ml-2 mb-3" dense :label="every(3)" outlined hide-details></v-text-field>
                         </td></tr>
                         <tr><td>
                            <v-select  class="mr-2 mb-3"
-                              vxx-model="value" dense
+                              v-model="cd.w" @change="changecd" dense
                               :items="CronWeekday"
                               item-text="title"
                               item-value="value" hide-details
                               chips
-                              label="Weekday"
+                              label="%weekday%"
                               multiple 
                               outlined
                             ></v-select>
                         </td><td>
-                           <v-text-field  class="ml-2 mb-3" dense label="Every [?] week(s)" outlined hide-details></v-text-field>
+                           <v-text-field v-model="cd.ew" @change="changecd" class="ml-2 mb-3" dense :label="every(4)" outlined hide-details></v-text-field>
                         </td></tr>
                       </table>
-                      <v-checkbox v-model="eTimerItem.disable" label="%disable%"></v-checkbox>
+                      <div><strong>Cron: </strong>{{eTimerItem.cron}}</div>
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
@@ -113,8 +114,8 @@
 <script>
 
 let CronMonths = []
-
 let CronWeekday = []
+let CronEvery = []
 
 function cronInit() {
   let months = '%monthshort%'.split(',')
@@ -124,6 +125,10 @@ function cronInit() {
   let weekday = '%weekshort%'.split(',')
   for (let i = 0; i < weekday.length; i++) {
      CronWeekday.push({title: weekday[i], value: i })
+  }
+  let every = '%everytime%'.split(',')
+  for (let i = 1; i < every.length; i++) {
+     CronEvery.push(every[0] + ' [?] ' + every[i])
   }
 }
 
@@ -145,6 +150,7 @@ const Scheduler = {
             dlgTimers: false,
             editedIndex: -1,            
             eTimerItem: {id: 0, script: '', cron: '* * * * *'},
+            cd: {},
             timers: [],
             headTimers: [{
                 text: '%name%',
@@ -180,7 +186,6 @@ const Scheduler = {
       saveTimer() {
             let timer = Object.assign({}, this.eTimerItem)
             timer.active = !timer.disable
-            console.log('Save', timer)
             axios
             .post(`/api/timer`, timer)
             .then(response => {
@@ -198,9 +203,44 @@ const Scheduler = {
             this.editedIndex = -1
             this.eTimerItem = {id: 0, script: '', cron: '* * * * *'}
         },
+        parseCron() {
+          let data = this.eTimerItem.cron.split(' ')
+          let ids = ['m','h','d','mo','w']
+          let ret = {}
+          for (let i = 0; i < 5; i++) {
+            if (!data[i]) {
+              break
+            }
+            let id = ids[i]
+            if (data[i] == '*') {
+              ret[id] = ''
+              ret['e'+id] = '1'
+              continue
+            }
+            let li = data[i].split('/')
+            if (i < 3) {
+              ret[id] = li[0]
+            } else {
+              ret[id] = li[0].split(',')
+              for (let j = 0; j < ret[id].length; j++) {
+                ret[id][j] = Number(ret[id][j])
+              }
+            }
+            if (li.length > 1) {
+              ret['e'+id] = li[1]
+            }
+          }
+          this.cd = ret
+        },
+        newCron() {
+          this.eTimerItem = {id: 0, script: '', cron: '* * * * *'}
+          this.parseCron()
+        },
         editTimer(index) {
             this.editedIndex = index
             this.eTimerItem = Object.assign({}, this.timers[index])
+            this.eTimerItem.disable = !this.eTimerItem.active
+            this.parseCron()
             this.dlgTimers = true
         },
         deleteTimer(index) {
@@ -219,6 +259,29 @@ const Scheduler = {
             .catch(error => comp.$root.errmsg(error));
            });   
         },
+        changecd() {
+          let ids = ['m','h','d','mo','w']
+          let ret = []
+          for (let i = 0; i < 5; i++) {
+            let id = ids[i]
+            let v = this.cd[id]
+            let ev = this.cd['e' + id]
+            if (i > 2) {
+              v = (v.length>0 ? v.join(',') : '*')
+            }
+            if (!v) {
+              v = '*'
+            }
+            if (!!ev && ev != '1') {
+              v += '/' + ev
+            }
+            ret.push(v.replace(' ', ''))
+          }
+          this.eTimerItem.cron = ret.join(' ')
+        },
+        every(id) {
+          return CronEvery[id]
+        }
     },
     computed: {
         dlgTimerTitle () {
