@@ -51,7 +51,7 @@ tree:
 - name: set-variable
   values:
     name: msgvar
-    value: '<div style="margin-right: 1rem;"><i class="fas fa-#icon# fa-3x" style="color: ##color#"></i></div><div>#text#</div>'
+    value: '<div style="display:flex;"><div style="margin-right: 1rem;"><i class="fas fa-#icon# fa-3x" style="color: ##color#"></i></div><div>#text#</div></div>'
 - name: if.eonza
   open: true
   values:

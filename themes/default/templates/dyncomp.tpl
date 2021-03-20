@@ -11,7 +11,7 @@
 </script>
 
 <script type="text/x-template" id="c-html">
-    <div v-html="htmlval" style="display: flex; margin: 1rem 0rem;"></div>
+    <div v-html="htmlval" style="margin: 1rem 0rem;"></div>
 </script>
 
 <script type="text/x-template" id="c-button">
