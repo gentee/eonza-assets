@@ -180,6 +180,7 @@ path: Path
 patternfile: Wildcard or RegExp
 personal: Personal
 portlng: Port
+preview: Preview
 programming: Programming
 prover: Pro Version
 proverurl: https://www.eonza.org/pro-version.html

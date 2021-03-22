@@ -5,9 +5,23 @@
 </script>
 
 <script type="text/x-template" id="c-textarea">
-    <v-textarea  v-model="vals[par.name]" @input="change"
+    <div style="position: relative;">
+     <div v-if="par.options.flags == 'preview' && mode">
+        <div style="padding-bottom: 8px;">{{par.title}}
+        <v-btn v-for="item in btns" :disabled = "mode==item.value" x-small color="primary" 
+        outlined style="text-transform: none;" class="ml-2" @click="changemode(item.value)">{{item.title}}</v-btn></div>
+        <div v-html="html"></div>
+    </div>
+
+    <div v-if="par.options.flags == 'preview' && !mode" 
+       style="z-index:1000;background-color:#fff;position: absolute;bottom:1.5em; right: 0;">
+       <v-btn v-for="item in btns" :disabled = "mode==item.value" x-small color="primary" 
+       outlined style="text-transform: none;" class="ml-2" @click="changemode(item.value)">{{item.title}}</v-btn>
+     </div>
+    <v-textarea v-show = "!mode" v-model="vals[par.name]" @input="change"
          :label="par.title" :options="par.options" auto-grow dense :rules="[rules]"
     ></v-textarea>
+    </div>
 </script>
 
 <script type="text/x-template" id="c-html">
@@ -230,6 +244,9 @@ Vue.component('c-textarea', {
     mixins: [changed],
     data() {return {
         options: {},
+        btns: [{title: '%edit%', value: false },{title: '%preview%', value: true}],
+        mode: false,
+        html: '',
         rules: value => {
             if (this.par.options.required && !value) {
                 return '%required%'
@@ -237,6 +254,42 @@ Vue.component('c-textarea', {
             return true
         },
       }
+    },
+    methods: {
+        changemode(newmode) {
+            if (this.par.options.flags != 'preview') {
+                return
+            }
+            let v = ''
+            if (newmode) /*&& !!this.vals[this.par.name])*/ {
+                imode = true        
+                v = this.vals[this.par.name].trim()
+                if (v[0] != '<') {
+                    if (v.startsWith('# ') || v.startsWith('## ') || v.startsWith('### ')) {
+                        axios.post(`/tools/md`, {data: v})
+                        .then(response => {
+                            if (response.data.error) {
+                                this.html = '<pre>' + response.data.error + '</pre>'
+                            } else {
+                                this.html = removeScripts(response.data.data)
+                            }
+                        })
+                        .catch(error => this.$root.errmsg(error))
+                    } else {
+                        v = '<pre>' + v + '</pre>'
+                    }
+                }
+                this.html = removeScripts(v)
+            }
+            this.mode = newmode
+        }
+    },
+    watch: {
+       vals(val) {
+            if (this.mode) {
+                this.mode = false
+            }
+       }
     },
     props: {
         par: Object,
