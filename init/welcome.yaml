@@ -58,6 +58,10 @@ tree:
       text: '#welcome.nfy#'
       type: "0"
       var: sendnfy
+    - options: ""
+      text: '#welcome.readme#'
+      type: "0"
+      var: readme
 - name: notification
   values:
     _ifcond: sendnfy
@@ -68,10 +72,28 @@ tree:
 - name: message
   values:
     _ifcond: showinfo
-    custbtns: {}
+    custbtns: []
     icon: info-circle
     retbtn: msgbtn
     text: '#welcome.hello#'
+- name: readme
+  values:
+    _ifcond: readme
+    text: |
+      ## Create scripts and automate IT tasks
+
+      The **Eonza** automation tool is used to create scripts and automate tasks on a computer. It is a free and open source cross-platform program that can help you increase productivity and save time. The program and scripts have a responsive and intuitive interface accessible in your browser. You can use Eonza not only on a desktop computer, but also on a remote server or VPS/VDS hosting. In this case, you can **manage servers from any browser on any device**.
+
+      * Creating scripts does not require knowledge of programming languages.
+      * There is a constantly updated library of built-in scripts.
+      * Protection by password and using a "white list" of IP-addresses.
+      * Quick search for scripts.
+      * You can launch scripts from the console.
+      * There is a scheduler and a task manager.
+      * Saving logs and console output for each completed task.
+      * Launch your favorite scripts from the system tray menu.
+      * Export/import of scripts to/from a text YAML file.
+      * It is possible to suspend, resume and terminate script execution.
 - name: form
   values:
     list:
@@ -91,6 +113,17 @@ tree:
       text: URL
       type: "2"
       var: site
+    - options: '{"initial":"skip"}'
+      text: '#.skip#'
+      type: "7"
+      var: btn
+    - options: '{"initial":"continue", "default": "true"}'
+      text: '#.continue#'
+      type: "7"
+      var: btn
+- name: exit.eonza
+  values:
+    _ifcond: GetVar("btn") == "skip"
 - name: set-variable
   values:
     _ifcond: '*GetVar("site") == 0'
@@ -136,6 +169,7 @@ langs:
       We are glad that you have decided to try the Eonza program.
     welcome.name: Enter your name
     welcome.nfy: Send notification
+    welcome.readme: Show Readme
     welcome.showinfo: Show greeting
     welcome.sites: Select a site to get the title or specify your own
   ru:
@@ -146,5 +180,6 @@ langs:
       Мы рады, что вы решили попробовать программу Eonza.
     welcome.name: Укажите ваше имя
     welcome.nfy: Отправить уведомление
+    welcome.readme: Показать Readme
     welcome.showinfo: Показать приветствие
     welcome.sites: Выберите сайт для получения заголовка или укажите свой
