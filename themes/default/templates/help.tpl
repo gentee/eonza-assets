@@ -37,9 +37,9 @@ const Help = {
     template: '#help',
     data: helpData,
     methods: {
-      checkUpdate() {
+      checkUpdate(iscache) {
            axios
-            .get('/api/latest')
+            .get('/api/latest' + (!!iscache ? '?cache=true' : '' ))
             .then(response => {
                 if (response.data.error) {
                     this.$root.errmsg(response.data.error);
@@ -53,16 +53,16 @@ const Help = {
     mounted: function() {
         store.commit('updateTitle', '%help%');
         store.commit('updateHelp', '%urlhelp%');
+        this.checkUpdate(true)
     },
-
 };
 
 function helpData() {
     return {
       upd: {
-        version: [[.Update.Version]],
-        notify:  [[.Update.Notify]],
-        lastchecked: '[[time2str .Update.LastChecked]]',
+        version: '',
+        notify:  '',
+        lastchecked: '',
       },
       tab: null
     }
