@@ -74,6 +74,7 @@ errplaypsw: Password setting is disabled in Playground mode
 errreq: The '%s' field is required.
 errscriptname: The '%s' script has already existed
 errtasklimit: The number of concurrently running scripts in Playground mode has been exceeded [%v]
+events: Events
 everytime: Every,minute(s),hour(s),day(s),month(s),week(s)
 excludefile: Exclude Wildcard or RegExp
 exit: Exit
@@ -299,6 +300,7 @@ urlpro-users: /docs/users.html
 urlhelp: /docs/user-guide.html
 urlnotifications: /docs/notifications.html
 urlscripts: /docs/scripts.html
+urlsch-events: /docs/events.html
 urlsch-timers: /docs/timers.html
 urlsettings: /docs/settings.html
 urltaskmanager: /docs/task-manager.html

@@ -7,6 +7,7 @@
     </v-toolbar-->
     <v-tabs v-model="tab">
         <v-tab>%timers%</v-tab>
+        <v-tab>%events%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
@@ -22,7 +23,7 @@
                 </template>
                 <v-card>
                   <v-card-title>
-                    <span class="headline">{{ dlgTimerTitle }}</span>
+                    <span class="headline">{{ dlgItemTitle }}</span>
                   </v-card-title>
 
                   <v-card-text>
@@ -108,6 +109,61 @@
         </v-data-table>
     </div>
     </div>
+    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
+    <div class="pt-4">
+        <v-data-table
+          disable-filtering disable-pagination disable-sort hide-default-footer
+          :headers="headEvents"
+          :items="events"
+        >
+          <template v-slot:top>
+              <v-dialog v-model="dlgEvents" max-width="700px">
+                <template v-slot:activator="{ on }">
+                  <v-btn color="primary" dark class="ml-4" v-on="on">%new%</v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">{{ dlgItemTitle }}</span>
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container>
+                      <v-text-field v-model="eEventItem.name" label="%name%" :rules="[rules.required]"></v-text-field>
+                      <div style="display:flex">
+                         <v-text-field v-model="eEventItem.script" :rules="[rules.required]" label="%script%"></v-text-field>
+                          <v-btn color="primary" dark class="my-2 ml-2" @click="selectScript">
+                      %select%</v-btn>
+                      </div>
+                      <v-checkbox v-model="eEventItem.disable" label="%disable%"></v-checkbox>
+                    </v-container>
+                  </v-card-text-->
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn class="ma-2" color="primary" @click="saveEvent">%save%</v-btn>
+                    <v-btn class="ma-2" color="primary" text outlined  @click="closeEvent">%cancel%</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+          </template>
+          <template v-slot:body="{ items }">
+              <tbody>
+                <tr v-for="(item, index) in items" :key="item.name">
+                  <td>{{item.name }}</td>
+                  <td>{{item.script}}</td>
+                  <td>{{statevent(item)}}</td>
+                  <td><span @click="editEvent(index)" class="mr-2">
+                      <v-icon small @click="">fa-pencil-alt</v-icon>
+                      </span>
+                      <span @click="deleteEvent(index)" class="mr-2">
+                      <v-icon small @click="">fa-times</v-icon></span>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+        </v-data-table>
+    </div>
+    </div>
+
   </v-container>
 </script>
 
@@ -136,6 +192,7 @@ cronInit();
 
 const SchedulerTabHelp = [
   '%urlsch-timers%',
+  '%urlsch-events%',
 ];
 
 const Scheduler = {
@@ -148,8 +205,10 @@ const Scheduler = {
                 var: value => { return patVar.test(value) || '%invalidvalue%' },
             },
             dlgTimers: false,
+            dlgEvents: false,
             editedIndex: -1,            
             eTimerItem: {id: 0, script: '', cron: '* * * * *'},
+            eEventItem: {id: 0, script: ''},
             cd: {},
             timers: [],
             headTimers: [{
@@ -169,17 +228,39 @@ const Scheduler = {
                 value: 'actions',
                 },
             ],
+            events: [],
+            headEvents: [{
+                text: '%name%',
+                value: 'name',
+                },{
+                text: '%script%',
+                value: 'script',
+                },{
+                text: '%status%',
+                value: 'active',
+                },{
+                text: '%actions%',
+                value: 'actions',
+                },
+            ],
         }
     },
     methods: {
       stattimer(item) {
         return (item.next.length > 0 ? item.next : `%disable%`)
       },
+      statevent(item) {
+        return (item.active ? '%active%' : `%disable%`)
+      },
       selectScript() {
             let comp = this;
             this.$root.newCommand(function(par) {
                 if (!!par) {
-                    comp.eTimerItem.script = par    
+                    if (!comp.tab) {
+                       comp.eTimerItem.script = par    
+                    } else {
+                       comp.eEventItem.script = par    
+                    }
                 }
             })
       },
@@ -281,10 +362,52 @@ const Scheduler = {
         },
         every(id) {
           return CronEvery[id]
-        }
+        },
+        saveEvent() {
+            let event = Object.assign({}, this.eEventItem)
+            event.active = !event.disable
+            axios
+            .post(`/api/saveevent`, event)
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.events = response.data.list
+                this.closeEvent()
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
+        closeEvent() {
+            this.dlgEvents = false
+            this.editedIndex = -1
+            this.eEventItem = {id: 0, script: ''}
+        },
+        editEvent(index) {
+            this.editedIndex = index
+            this.eEventItem = Object.assign({}, this.events[index])
+            this.eEventItem.disable = !this.eEventItem.active
+            this.dlgEvents = true
+        },
+        deleteEvent(index) {
+            let comp = this
+            this.$root.confirmYes( '%delconfirm%', 
+            function(){
+            axios
+            .get(`/api/removeevent/` + comp.events[index].id)
+            .then(response => {
+                if (response.data.error) {
+                    comp.$root.errmsg(response.data.error);
+                    return
+                }
+                comp.events = response.data.list
+            })
+            .catch(error => comp.$root.errmsg(error));
+           });   
+        },
     },
     computed: {
-        dlgTimerTitle () {
+        dlgItemTitle () {
             return this.editedIndex === -1 ? '%newitem%' : '%edititem%'
         },
     },
@@ -298,6 +421,13 @@ const Scheduler = {
             }
             this.timers = response.data.list
         }).catch(error => this.$root.errmsg(error));
+        axios.get(`/api/events`).then(response => {
+            if (response.data.error) {
+                this.$root.errmsg(response.data.error);
+                return
+            }
+            this.events = response.data.list
+        }).catch(error => this.$root.errmsg(error));        
     },
     watch: {
       tab(val) {
