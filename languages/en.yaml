@@ -123,6 +123,7 @@ initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
 invalidpsw: Invalid password
 invalidvalue: The value is invalid
+ipwhitelist: IP Whitelisting
 langres: Language Resource
 language: Language
 lastcheck: Last checked on
@@ -256,6 +257,7 @@ textarea: Multi-line text
 time: Time
 timers: Timers
 title: Title
+token: Token
 translation: Translation
 trialmode: Trial Mode
 trialdays: "%s day(s) of %s day free trial passed."

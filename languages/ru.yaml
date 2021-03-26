@@ -123,6 +123,7 @@ initvalue: Начальное значение
 invalidfield: Значение поля '%s' некорректно
 invalidpsw: Неверный пароль
 invalidvalue: Значение некорректно
+ipwhitelist: '"Белые" IP-адреса'
 langres: Языковые ресурсы
 language: Язык
 lastcheck: Последняя проверка была сделана
@@ -255,6 +256,7 @@ textarea: Многострочный текст
 time: Время
 timers: Таймеры
 title: Название
+token: Токен
 translation: Перевод
 trialmode: Пробный режим
 trialdays: "Прошло %s из %s дней бесплатного ознакомления."

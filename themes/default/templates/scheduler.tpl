@@ -135,6 +135,8 @@
                       %select%</v-btn>
                       </div>
                       <v-checkbox v-model="eEventItem.disable" label="%disable%"></v-checkbox>
+                      <v-text-field v-model="eEventItem.token" label="%token%"></v-text-field>
+                      <v-textarea v-model="eEventItem.whitelist" label="%ipwhitelist%"></v-textarea>
                     </v-container>
                   </v-card-text-->
                   <v-card-actions>
@@ -151,6 +153,8 @@
                   <td>{{item.name }}</td>
                   <td>{{item.script}}</td>
                   <td>{{statevent(item)}}</td>
+                  <td>{{item.token}}</td>
+                  <td>{{item.whitelist}}</td>
                   <td><span @click="editEvent(index)" class="mr-2">
                       <v-icon small @click="">fa-pencil-alt</v-icon>
                       </span>
@@ -238,6 +242,12 @@ const Scheduler = {
                 },{
                 text: '%status%',
                 value: 'active',
+                },{
+                text: '%token%',
+                value: 'token',
+                },{
+                text: '%ipwhitelist%',
+                value: 'whiteips',
                 },{
                 text: '%actions%',
                 value: 'actions',
