@@ -123,6 +123,7 @@ initvalue: Initial Value
 invalidfield: The value of '%s' field is invalid
 invalidpsw: Invalid password
 invalidvalue: The value is invalid
+ipaddress: IP-address
 ipwhitelist: IP Whitelisting
 langres: Language Resource
 language: Language

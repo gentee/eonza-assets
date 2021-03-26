@@ -123,6 +123,7 @@ initvalue: Начальное значение
 invalidfield: Значение поля '%s' некорректно
 invalidpsw: Неверный пароль
 invalidvalue: Значение некорректно
+ipaddress: IP-адрес
 ipwhitelist: '"Белые" IP-адреса'
 langres: Языковые ресурсы
 language: Язык
