@@ -18,6 +18,9 @@ tree:
       text: 'Path for ''eonza-test'' test folder '
       type: "2"
       var: testpath
+- name: test-data
+  values:
+    dir: '#testpath#'
 - name: test-files
   values:
     dir: '#testpath#'

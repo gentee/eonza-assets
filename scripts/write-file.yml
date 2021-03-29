@@ -18,12 +18,18 @@ params:
   type: 2
   options:
     required: true
+- name: append
+  title: '#_append#'
+  type: 0
 langs:
   en:
+    _append: Append Data
     _desc: Write a variable to a file
     _writefile: Write To File
   ru:
+    _append: Добавить данные
     _desc: Записать переменную в файл
     _writefile: Записать в файл
 code: |-
-  WriteFile(filename, GetVar(name))
+  if append : AppendFile(filename, GetVar(name))
+  else : WriteFile(filename, GetVar(name))
