@@ -40,6 +40,8 @@ params:
           value: envexists
         - title: '#.regexmatch#'
           value: match
+        - title: '#_startswith#'
+          value: starts
     - name: value
       title: '#.value#'
       type: 2
@@ -58,10 +60,12 @@ langs:
     _desc: Conditional script
     _elsevar: Else Variable
     _ifstatement: If Statement
+    _startswith: Starts With
   ru:
     _desc: Скрипт условия
     _elsevar: Переменная варианта
     _ifstatement: Конструкция Если
+    _startswith: Начинается с
 code: |-
   if Condition(elsevar, list) {
       %body%
