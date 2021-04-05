@@ -52,6 +52,7 @@ desc: Описание
 destpath: Целевая папка
 disable: Отключён
 disena: Отключить/Включить
+dislike: Не нравится
 downloadfile: Скачивание %s в %s...
 downloads: Скачать
 dup: Клонировать
@@ -87,6 +88,9 @@ export: Экспорт
 failconnect: "Не могу соединиться с программой Eonza. Запустите:"
 failed: Ошибка
 favorites: Избранные
+feedback: Обратная связь
+feedbackok: Благодарим за отзыв. Ваше мнение поможет нам улучшить программу.
+feedbacktext: Укажите любые пожелания, замечания или сообщения об ошибках
 fileexists: Файл/Папка существует
 filename: Имя файла
 files: Файлы и директории
@@ -130,6 +134,7 @@ language: Язык
 lastcheck: Последняя проверка была сделана
 licagreement: Лицензионное соглашение
 licenseurl: https://www.eonza.org/ru/docs/license.html
+like: Нравится
 list: Список
 log: Лог
 logconsole: Вывод в лог и консоль

@@ -1,10 +1,29 @@
 <script type="text/x-template" id="help">
   <v-container style="max-width: 1024px;height:100%;padding-top: 32px">
     <v-tabs v-model="tab">
+        <v-tab>%feedback%</v-tab>
         <v-tab>%about%</v-tab>
     </v-tabs>
+    <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;">
+      <div class="py-6"> 
+        <v-alert v-model="success" type="success" dismissible>
+         %feedbackok%</v-alert>
+        <v-alert v-model="iserror" type="error" dismissible>
+         {{error}}</v-alert>
+         
+       <v-btn color="blue-grey" dark :outlined="like!=1" @click="like=(like==1 ? 0 : 1)" 
+          style="text-transform:none;"><v-icon small>fa-thumbs-up</v-icon>&nbsp;%like%</v-btn>
+       <v-btn color="blue-grey" dark :outlined="like!=-1" @click="like=(like==-1 ? 0 : -1)"
+          style="text-transform:none;"><v-icon small>fa-thumbs-down</v-icon>&nbsp;%dislike%</v-btn>
+       <v-textarea class="mt-2" v-model="feedback" auto-grow label="%feedbacktext%"></v-textarea>
+       <v-btn color="primary" @click="sendfeedback">%send%</v-btn>
+          <h3 class="py-2 mt-6">%support%</h3>
+          <p><a href="mailto:[[.App.Email]]?Subject=Eonza">Email</a><br>
+          <a href="[[.App.Issue]]" target="_blank">%repissue%</a><p>
 
-    <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
+      </div>
+    </div>
+    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
           <h2 class="my-4">[[.App.Title]]</h2>
           <h3>%annotation%</h3>
           <p>%version%: <b>[[.Version]]</b> <small style="color: #777;">[[.CompileDate]]</small>
@@ -22,11 +41,6 @@
 </p>
           <h3 class="py-2">%officialsite%</h3>
           <p><strong><a href="[[.App.Homepage]]" target="_blank">[[.App.Homepage]]</a></strong></p>
-          <h3 class="py-2">%support%</h3>
-          <p><a href="mailto:[[.App.Email]]?Subject=Eonza">Email</a><br>
-          <a href="[[.App.Issue]]" target="_blank">%repissue%</a><p>
-    </div>
-    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;"> 
     </div>
   </v-container>
 </script>
@@ -37,6 +51,26 @@ const Help = {
     template: '#help',
     data: helpData,
     methods: {
+      sendfeedback() {
+        if (this.like != 0 || this.feedback) {
+            axios
+            .post(`/api/feedback`, {like: this.like, feedback: this.feedback})
+            .then(response => {
+                if (response.data.error) {
+                    this.iserror = true
+                    this.error = response.data.error
+                    return
+                }
+                this.success = true
+                this.like = 0
+                this.feedback = ''
+            })
+            .catch(error => {
+              this.iserror = true
+              this.error = error
+            });
+        }
+      },
       checkUpdate(iscache) {
            axios
             .get('/api/latest' + (!!iscache ? '?cache=true' : '' ))
@@ -59,6 +93,11 @@ const Help = {
 
 function helpData() {
     return {
+      like: 0,
+      success: false,
+      iserror: false,
+      error: '',
+      feedback: '',
       upd: {
         version: '',
         notify:  '',
