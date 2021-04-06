@@ -15,7 +15,7 @@ tree:
       var: val1
     - value: "456"
       var: val2
-    - value: "{\n\"num\": \"34\",\n\"path\": \"#outfile#\",\n\"list\": [ \n      {
+    - value: "{\n\"num\": \"34\",\n\"path\": \"#eoutfile#\",\n\"list\": [ \n      {
         \"title\": \"First Item\", \"value\": -4},\n      { \"title\": \"Second Item\",
         \"value\": \"-10\"}\n   ]\n}"
       var: token_data
@@ -23,7 +23,8 @@ tree:
   open: true
   values:
     _desc: ""
-    code: '%body%'
+    code: |
+      %body%
   children:
   - name: curdir
     values:
@@ -41,9 +42,12 @@ tree:
     name: outfile
     subst: "0"
     value: '#dir#'
+- name: source-code
+  values:
+    code: SetVar("eoutfile", Replace(GetVar("outfile"), `\`, `\\`))
 - name: run-script
   values:
-    data: "str: String message\nnum: 0x2345\nis: true\npath: \"#outfile#\"\nlist:
+    data: "str: String message\nnum: 0x2345\nis: true\npath: \"#eoutfile#\"\nlist:
       \n      - title: First Item \n        value: \"#val1#\"\n      - title: \"Second
       Item\" \n        value: \"#val2#\""
     script: data-print
@@ -53,7 +57,7 @@ tree:
     timeout: "500"
 - name: create-event
   values:
-    data: "{\n\"num\": 77,\n\"path\": \"#outfile#\",\n\"list\": [ \n      { \"title\":
+    data: "{\n\"num\": 77,\n\"path\": \"#eoutfile#\",\n\"list\": [ \n      { \"title\":
       \"First Item\", \"value\": 11},\n      { \"title\": \"Second Item\", \"value\":
       \"13\"}\n   ]\n}"
     event: test
@@ -78,7 +82,7 @@ tree:
     value: test#token_data##rand.rand#TEST_TOKEN
 - name: httprequest
   values:
-    headers: {}
+    headers: []
     method: POST
     pars:
     - name: name
