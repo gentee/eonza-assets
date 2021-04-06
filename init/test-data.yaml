@@ -54,7 +54,7 @@ tree:
     silent: true
 - name: sleep.eonza
   values:
-    timeout: "500"
+    timeout: "750"
 - name: create-event
   values:
     data: "{\n\"num\": 77,\n\"path\": \"#eoutfile#\",\n\"list\": [ \n      { \"title\":
@@ -63,7 +63,7 @@ tree:
     event: test
 - name: sleep.eonza
   values:
-    timeout: "500"
+    timeout: "750"
 - name: get-webpage
   values:
     url: http://localhost:#.eonzaport#/api/randid
@@ -97,7 +97,7 @@ tree:
     varname: ret
 - name: sleep.eonza
   values:
-    timeout: "500"
+    timeout: "750"
 - name: read-file
   values:
     filename: '#outfile#'
