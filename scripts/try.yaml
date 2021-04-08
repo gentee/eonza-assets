@@ -5,7 +5,7 @@ settings:
   desc: '#_desc#'
   loglevel: 6
   unrun: true
-  help: try
+  help: try-catch
   helplang: ru
 params:
 - name: title
