@@ -30,11 +30,13 @@ comparetype: Comparison Type
 compile: Compile
 compileok: The script has been successfully compiled.
 conditions: Conditions
+confpass: Confirm Password
 console: Console
 continue: Continue
 copy: Copy
 copyfile: Copying %s to %s
 crashed: Crashed
+createstorage: Create Storage
 cryptography: Cryptography
 curpassword: Current Password
 daily: Daily
@@ -142,6 +144,7 @@ login: Login
 loglevel: Log Level
 logout: Log Out
 logoutall: Logout All Users
+masterpass: Master Password
 menu: Menu
 messaging: Messaging
 minute: Minute
@@ -248,6 +251,7 @@ status: Status
 stdinput: standard input
 stdlib: Standard Library
 stopscript: Do you want to stop the script execution?
+storage: Storage
 stoptrial: Stop Trial Mode
 subkey: Subkey
 submit: Submit
@@ -304,6 +308,7 @@ urled-source: /docs/editor-source-code.html
 urled-compile: /docs/editor-compile.html
 urlpro-general: /docs/users.html
 urlpro-security: /docs/pro-security.html
+urlpro-storage: /docs/pro-storage.html
 urlpro-twofa: /docs/two-factor-authentication.html
 urlpro-users: /docs/users.html
 urlhelp: /docs/help.html

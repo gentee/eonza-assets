@@ -9,6 +9,7 @@
         <v-tab>%general%</v-tab>
         <v-tab>%users%</v-tab>
         <v-tab>%security%</v-tab>
+        <v-tab>%storage%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
@@ -171,6 +172,21 @@
         <v-btn @click="logoutall" :disabled="!active" color="primary" style="text-transform:none;">%logoutall%</v-btn>
     </div>
     </div>
+    <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;" >
+    <div class="pt-4">
+        <div v-if="!settings.master"> 
+            <v-text-field v-model="master" label="%masterpass%" 
+            :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
+            style="width: 250px;" @click:append="show1 = !show1"
+            :rules="[rules.required]"></v-text-field>
+            <v-text-field v-model="confmaster" label="%confpass%" 
+            :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
+                style="width: 250px;" @click:append="show1 = !show1"
+            :rules="[rules.required]"></v-text-field>
+            <v-btn @click="createstorage" color="primary" style="text-transform:none;">%createstorage%</v-btn>
+        </div>
+    </div>
+    </div>
 
   </v-container>
 </script>
@@ -188,6 +204,7 @@ const ProTabHelp = [
   '%urlpro-general%',
   '%urlpro-users%',
   '%urlpro-security%',
+  '%urlpro-storage%',
 ];
 
 function roleMasks(list) {
@@ -208,8 +225,10 @@ const Pro = {
         return {
             tab: 0,
             active: false,
-            settings: {twofa: false},
+            settings: {twofa: false, master: ''},
             show1: false,
+            master: '',
+            confmaster: '',
             trial: {},
             rules: {
                 required: value => !!value || '%required%',
@@ -260,6 +279,26 @@ const Pro = {
         }
     },
     methods: {
+        createstorage() {
+           if (!this.master) {
+               this.$root.errmsg(format("%errreq%", '%masterpass%'))
+               return
+           }
+           if (this.master != this.confmaster) {
+               this.$root.errmsg('%masterpass% != %confpass%')
+               return
+           }
+            axios
+            .post(`/api/createstorage`, {master: this.master, confmaster: this.confmaster})
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.settings = response.data.settings
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
         logoutall() {
             axios
             .get(`/api/logoutall`)

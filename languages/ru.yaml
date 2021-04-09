@@ -30,11 +30,13 @@ comparetype: Тип сравнения
 compile: Компиляция
 compileok: Скрипт был успешно скомпилирован.
 conditions: Условия
+confpass: Подверждение пароля
 console: Консоль
 continue: Продолжить
 copy: Копировать
 copyfile: Копирование %s в %s
 crashed: Сломан
+createstorage: Создать хранилище
 cryptography: Криптография
 curpassword: Текущий пароль
 daily: Ежедневно
@@ -142,6 +144,7 @@ login: Войти
 loglevel: Уровень лога
 logout: Выйти
 logoutall: Разлогинить всех пользователей
+masterpass: Мастер пароль
 menu: Меню
 messaging: Обмен сообщениями
 minute: Минута
@@ -249,6 +252,7 @@ stdinput: стандартный ввод
 stdlib: Стандартная библиотека
 stopscript: Вы хотите прекратить выполнение скрипта?
 stoptrial: Отключить пробный режим
+storage: Хранилище
 subkey: Подключ
 substvar: Заменить значения переменных
 support: Служба поддержки
@@ -303,6 +307,7 @@ urled-source: /ru/docs/editor-source-code.html
 urled-compile: /ru/docs/editor-compile.html
 urlpro-general: /ru/docs/users.html
 urlpro-security: /ru/docs/pro-security.html
+urlpro-storage: /ru/docs/pro-storage.html
 urlpro-twofa: /ru/docs/two-factor-authentication.html
 urlpro-users: /ru/docs/users.html
 urlhelp: /ru/docs/help.html
