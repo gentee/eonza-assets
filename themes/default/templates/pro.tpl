@@ -195,7 +195,38 @@
             </div>
             <div v-else> 
                <v-btn @click="encryptstorage" color="primary">%disable%</v-btn>
-               <v-btn @click="encryptstorage" color="primary">%changepass%</v-btn>
+                <v-dialog v-model="dlgStoragePass" max-width="600px">
+                    <template v-slot:activator="{ on }">
+                       <v-btn color="primary" dark class="ml-4" v-on="on">%changepass%</v-btn>
+                    </template>
+                    <v-card>
+                    <v-card-title>
+                        <span class="headline">%changepass%</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                        <v-text-field v-model="chpass.current" label="%curpassword%" :rules="[rules.required]" 
+                        :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
+                        @click:append="show1 = !show1"
+                        ></v-text-field>
+                        <v-text-field v-model="chpass.master" label="%masterpass%" :rules="[rules.required]" 
+                        :append-icon="show2 ? 'fa-eye' : 'fa-eye-slash'" :type="show2 ? 'text' : 'password'"
+                        @click:append="show2 = !show2"
+                        ></v-text-field>
+                        <v-text-field v-model="chpass.confmaster" label="%confpass%" :rules="[rules.required]" 
+                        :append-icon="show3 ? 'fa-eye' : 'fa-eye-slash'" :type="show3 ? 'text' : 'password'"
+                        @click:append="show3 = !show3"
+                        ></v-text-field>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn class="ma-2" color="primary" @click="changePassword">%changepass%</v-btn>
+                        <v-btn class="ma-2" color="primary" text outlined  @click="closeChangePassword">%cancel%</v-btn>
+                    </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
                 <v-data-table class="mt-8"
                 disable-filtering disable-pagination disable-sort hide-default-footer
                 :headers="headStorage"
@@ -293,11 +324,14 @@ const Pro = {
             active: false,
             settings: {twofa: false, master: ''},
             show1: false,
+            show2: false,
+            show3: false,
             master: '',
             confmaster: '',
             storagelist: [],
             storageis: [[.AskMaster]],
             storageenc: true,
+            chpass: {current: '', master: '', confmaster: ''},
             trial: {},
             rules: {
                 required: value => !!value || '%required%',
@@ -306,6 +340,7 @@ const Pro = {
             dlgRoles: false,
             dlgUsers: false,
             dlgStorage: false,
+            dlgStoragePass: false,
             editedIndex: -1,            
             eRoleItem: {id: 0, tasks: 1, tasksdel: 0, notifications: 1, notificationsdel: 0, allow: ''},
             eUserItem: {id: 0, nickname: '', roleid: 1},
@@ -367,6 +402,23 @@ const Pro = {
                 this.storagelist = data.list 
                 this.$root.askmaster = this.active && this.storageenc && this.storageis
             }
+        },
+        changePassword() {
+            axios
+            .post(`/api/storagepassword`, this.chpass)
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.updatestorage(response.data)
+                this.closeChangePassword()
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
+        closeChangePassword() {
+            this.dlgStoragePass = false
+            this.chpass = {current: '', master: '', confmaster: ''}
         },
         saveStorage() {
             axios
