@@ -175,26 +175,27 @@
     <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
         <div v-if="!storageis"> 
-            <v-text-field v-model="master" label="%masterpass%" 
+            <v-text-field v-model="master" label="%masterpass%" :disabled="!active"
             :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
             style="width: 250px;" @click:append="show1 = !show1"
             :rules="[rules.required]"></v-text-field>
-            <v-text-field v-model="confmaster" label="%confpass%" 
+            <v-text-field v-model="confmaster" label="%confpass%" :disabled="!active"
             :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
                 style="width: 250px;" @click:append="show1 = !show1"
             :rules="[rules.required]"></v-text-field>
-            <v-btn @click="createstorage" color="primary" style="text-transform:none;">%createstorage%</v-btn>
+            <v-btn @click="createstorage" color="primary" :disabled="!active" style="text-transform:none;">%createstorage%</v-btn>
         </div>
         <div v-else>
             <div v-if="storageenc"> 
-                <v-text-field v-model="master" label="%masterpass%" 
+                <v-text-field v-model="master" label="%masterpass%" :disabled="!active"
                 :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
                 style="width: 250px;" @click:append="show1 = !show1"
                 :rules="[rules.required]"></v-text-field>
-                <v-btn @click="decryptstorage" color="primary" style="text-transform:none;">%decrypt%</v-btn>
+                <v-btn @click="decryptstorage" color="primary" :disabled="!active">%decrypt%</v-btn>
             </div>
             <div v-else> 
-               <v-btn @click="encryptstorage" color="primary" style="text-transform:none;">%disable%</v-btn>
+               <v-btn @click="encryptstorage" color="primary">%disable%</v-btn>
+               <v-btn @click="encryptstorage" color="primary">%changepass%</v-btn>
             </div>
         </div>
     </div>
@@ -299,7 +300,7 @@ const Pro = {
                 this.storageis = data.created
                 this.storageenc = data.encrypted
                 this.storagelist = data.list 
-                this.$root.askmaster = this.storageenc && this.storageis
+                this.$root.askmaster = this.active && this.storageenc && this.storageis
             }
         },
         decryptstorage() {
@@ -373,6 +374,7 @@ const Pro = {
                 }
                 this.trial = response.data.trial
                 this.active = response.data.active
+                this.updatestorage(response.data.storage)
             })
             .catch(error => this.$root.errmsg(error))
         },

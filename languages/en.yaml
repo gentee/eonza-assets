@@ -20,6 +20,7 @@ break: Break
 button: Button
 cancel: Cancel
 changelog: Changelog
+changepass: Change Password
 checkbox: Checkbox
 checkupdate: Check for Update
 collapse: Collapse
