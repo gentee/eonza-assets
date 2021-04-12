@@ -225,8 +225,10 @@ saveasnew: Сохранить как новый
 savecopy: Сохранить копию
 savescript: Скрипт '%s' был изменён. Хотите сохранить его?
 scanqr: Отсканируйте QR код в Google Authenticator
+search: Поиск скриптов
 searchdirs: Искать только директории
 searchfiles: Искать только файлы
+secstorage: Защищённое хранилище
 security: Безопасность
 select: Выбор
 sellang: Выберите язык интерфейса
@@ -237,7 +239,6 @@ script: Скрипт
 scripts: Скрипты
 scriptterm: Выполнение скрипта было прервано
 scriptcrash: Скрипт аварийно завершил работу
-search: Поиск скриптов
 selcmd: Нажмите на скрипт чтобы добавить его
 selectupload: Выберите файлы для загрузки
 settings: Настройки

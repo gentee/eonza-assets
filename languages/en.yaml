@@ -225,8 +225,10 @@ saveasnew: Save As New
 savecopy: Save a copy
 savescript: The '%s' script was changed. Would you like to save it?
 scanqr: Scan QR code in Google Authenticator
+search: Search scripts for...
 searchdirs: Search Only for Directories
 searchfiles: Search Only for Files
+secstorage: Secure Storage
 security: Security
 select: Select
 sellang: Select the interface language
@@ -237,7 +239,6 @@ script: Script
 scripts: Scripts
 scriptterm: The script execution has been terminated
 scriptcrash: The script has crashed
-search: Search scripts for...
 selcmd: Click on the script to add
 selectupload: Select files to upload
 settings: Settings

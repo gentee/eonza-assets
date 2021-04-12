@@ -196,6 +196,59 @@
             <div v-else> 
                <v-btn @click="encryptstorage" color="primary">%disable%</v-btn>
                <v-btn @click="encryptstorage" color="primary">%changepass%</v-btn>
+                <v-data-table class="mt-8"
+                disable-filtering disable-pagination disable-sort hide-default-footer
+                :headers="headStorage"
+                :items="storagelist"
+                >
+                <template v-slot:top>
+                    <v-dialog v-model="dlgStorage" max-width="600px">
+                        <template v-slot:activator="{ on }">
+                        <strong>%secstorage%</strong><v-btn color="primary" dark class="ml-4" v-on="on">%new%</v-btn>
+                        </template>
+                        <v-card>
+                        <v-card-title>
+                            <span class="headline">{{ dlgRoleTitle }}</span>
+                        </v-card-title>
+
+                        <v-card-text>
+                            <v-container>
+                            <v-text-field v-model="eStorageItem.name" 
+                            label="%name%" :rules="[rules.required]"></v-text-field>
+                            <v-text-field v-model="eStorageItem.desc" 
+                            label="%desc%"></v-text-field>
+                            <v-text-field v-model="eStorageItem.value" v-if="!eStorageItem.id"
+                            label="%password%" :rules="[rules.required]" 
+                            :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
+                            @click:append="show1 = !show1"
+                            ></v-text-field>
+                            </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn class="ma-2" color="primary" @click="saveStorage">%save%</v-btn>
+                            <v-btn class="ma-2" color="primary" text outlined  @click="closeStorage">%cancel%</v-btn>
+                        </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </template>
+                <template v-slot:body="{ items }">
+                    <tbody>
+                        <tr v-for="(item, index) in items" :key="item.name">
+                        <td>{{item.name }}</td>
+                        <td>{{item.desc}}</td>
+                        <td><div v-show="active"><span @click="editStorage(index)" class="mr-2">
+                            <v-icon small @click="">fa-pencil-alt</v-icon>
+                            </span>
+                            <span @click="deleteStorage(index)" class="mr-2">
+                            <v-icon small @click="">fa-times</v-icon></span>
+                            </div>
+                        </td>
+                        </tr>
+                    </tbody>
+                    </template>
+                </v-data-table>
+
             </div>
         </div>
     </div>
@@ -252,9 +305,11 @@ const Pro = {
             },
             dlgRoles: false,
             dlgUsers: false,
+            dlgStorage: false,
             editedIndex: -1,            
             eRoleItem: {id: 0, tasks: 1, tasksdel: 0, notifications: 1, notificationsdel: 0, allow: ''},
             eUserItem: {id: 0, nickname: '', roleid: 1},
+            eStorageItem: {id: 0, name: '', value: '', desc: ''},
             roles: [],
             users: [],
             masks: [
@@ -291,7 +346,17 @@ const Pro = {
                 value: 'actions',
                 },
             ],
-
+            headStorage: [{
+                text: '%name%',
+                value: 'name',
+                },{
+                text: '%desc%',
+                value: 'desc',
+                },{
+                text: '%actions%',
+                value: 'actions',
+                },
+            ],
         }
     },
     methods: {
@@ -302,6 +367,45 @@ const Pro = {
                 this.storagelist = data.list 
                 this.$root.askmaster = this.active && this.storageenc && this.storageis
             }
+        },
+        saveStorage() {
+            axios
+            .post(`/api/storage`, this.eStorageItem)
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.updatestorage(response.data)
+                this.closeStorage()
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
+        closeStorage() {
+            this.dlgStorage = false
+            this.editedIndex = -1
+            this.eStorageItem = {id: 0, name: '', desc: '', value: ''}
+        },
+        editStorage(index) {
+            this.editedIndex = index
+            this.eStorageItem = Object.assign({}, this.storagelist[index])
+            this.dlgStorage = true
+        },
+        deleteStorage(index) {
+            let comp = this
+            this.$root.confirmYes( '%delconfirm%', 
+            function(){
+            axios
+            .get(`/api/removestorage/` + comp.storagelist[index].id)
+            .then(response => {
+                if (response.data.error) {
+                    comp.$root.errmsg(response.data.error);
+                    return
+                }
+                comp.updatestorage(response.data)
+            })
+            .catch(error => comp.$root.errmsg(error));
+           });   
         },
         decryptstorage() {
             this.$root.decryptstorage(this.master, this.updatestorage)
