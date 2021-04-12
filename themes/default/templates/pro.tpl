@@ -14,7 +14,7 @@
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
         <v-alert type="success" v-show="active" text outlined>%status%: %active%</v-alert>
-        <v-alert type="error" v-show="!active" text outlined color="deep-orange">%status%: %disable%</v-alert>
+        <v-alert type="error" v-show="!active" text outlined color="deep-orange">%status%: %disabled%</v-alert>
         <div style="background-color: #FFFDE7;padding: 1rem; border-radius:8px; color: #455A64; 
             border: 1px solid #37474F;">
             <h3>%trialmode%</h3>
@@ -174,7 +174,7 @@
     </div>
     <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
-        <div v-if="!settings.master"> 
+        <div v-if="!storageis"> 
             <v-text-field v-model="master" label="%masterpass%" 
             :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
             style="width: 250px;" @click:append="show1 = !show1"
@@ -184,6 +184,18 @@
                 style="width: 250px;" @click:append="show1 = !show1"
             :rules="[rules.required]"></v-text-field>
             <v-btn @click="createstorage" color="primary" style="text-transform:none;">%createstorage%</v-btn>
+        </div>
+        <div v-else>
+            <div v-if="storageenc"> 
+                <v-text-field v-model="master" label="%masterpass%" 
+                :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
+                style="width: 250px;" @click:append="show1 = !show1"
+                :rules="[rules.required]"></v-text-field>
+                <v-btn @click="decryptstorage" color="primary" style="text-transform:none;">%decrypt%</v-btn>
+            </div>
+            <div v-else> 
+               <v-btn @click="encryptstorage" color="primary" style="text-transform:none;">%disable%</v-btn>
+            </div>
         </div>
     </div>
     </div>
@@ -229,6 +241,9 @@ const Pro = {
             show1: false,
             master: '',
             confmaster: '',
+            storagelist: [],
+            storageis: [[.AskMaster]],
+            storageenc: true,
             trial: {},
             rules: {
                 required: value => !!value || '%required%',
@@ -279,6 +294,29 @@ const Pro = {
         }
     },
     methods: {
+        updatestorage(data) {
+            if (data) {
+                this.storageis = data.created
+                this.storageenc = data.encrypted
+                this.storagelist = data.list 
+                this.$root.askmaster = this.storageenc && this.storageis
+            }
+        },
+        decryptstorage() {
+            this.$root.decryptstorage(this.master, this.updatestorage)
+        },
+        encryptstorage() {
+            axios
+            .post(`/api/encryptstorage`)
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.updatestorage(response.data)
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
         createstorage() {
            if (!this.master) {
                this.$root.errmsg(format("%errreq%", '%masterpass%'))
@@ -295,7 +333,9 @@ const Pro = {
                     this.$root.errmsg(response.data.error);
                     return
                 }
-                this.settings = response.data.settings
+                this.updatestorage(response.data)
+                this.master = ''
+                this.confmaster = ''
             })
             .catch(error => this.$root.errmsg(error));
         },
@@ -504,6 +544,15 @@ const Pro = {
     watch: {
       tab(val) {
         store.commit('updateHelp', ProTabHelp[val]);
+        if (val == 3) {
+            axios.get(`/api/storage`).then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.updatestorage(response.data)
+            }).catch(error => this.$root.errmsg(error));
+        }
       }, 
     },
 };

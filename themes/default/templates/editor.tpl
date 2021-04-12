@@ -262,7 +262,7 @@ const TabHelp = [
 ];
 
 const LogLevel = [
-    {text: '%disable%', value: 0},
+    {text: '%disabled%', value: 0},
     {text: '%error%', value: 1},
     {text: '%warning%', value: 2},
     {text: '%formdata%', value: 3},

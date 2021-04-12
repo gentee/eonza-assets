@@ -34,7 +34,7 @@
                           <v-btn color="primary" dark class="my-2 ml-2" @click="selectScript">
                       %select%</v-btn>
                       </div>
-                      <v-checkbox v-model="eTimerItem.disable" label="%disable%"></v-checkbox>
+                      <v-checkbox v-model="eTimerItem.disable" label="%disabled%"></v-checkbox>
                       <table style="width: 100%">
                         <tr><td style="width: 70%">
                           <v-text-field v-model="cd.m" class="mr-2 mb-3" dense label="%minute%" placeholder="0-5,10,45" outlined hide-details @change="changecd"></v-text-field>
@@ -134,7 +134,7 @@
                           <v-btn color="primary" dark class="my-2 ml-2" @click="selectScript">
                       %select%</v-btn>
                       </div>
-                      <v-checkbox v-model="eEventItem.disable" label="%disable%"></v-checkbox>
+                      <v-checkbox v-model="eEventItem.disable" label="%disabled%"></v-checkbox>
                       <v-text-field v-model="eEventItem.token" label="%token%"></v-text-field>
                       <v-textarea v-model="eEventItem.whitelist" label="%ipwhitelist%"></v-textarea>
                     </v-container>
@@ -257,10 +257,10 @@ const Scheduler = {
     },
     methods: {
       stattimer(item) {
-        return (item.next.length > 0 ? item.next : `%disable%`)
+        return (item.next.length > 0 ? item.next : `%disabled%`)
       },
       statevent(item) {
-        return (item.active ? '%active%' : `%disable%`)
+        return (item.active ? '%active%' : `%disabled%`)
       },
       selectScript() {
             let comp = this;

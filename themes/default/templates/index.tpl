@@ -47,6 +47,14 @@
         <v-btn @click="drawer = !drawer" icon><v-icon>fas fa-bars</v-icon></v-btn>
         <v-toolbar-title>{{store.state.title}}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <div v-if="askmaster" style="display: flex;align-items: center;height: 100%">
+         <v-icon color="yellow" >fa-exclamation-triangle</v-icon>
+         <v-text-field colorx="blue" light dense class="mx-2" background-color = "white" solo small v-model="master" label="%masterpass%" type="password" hide-details
+            style="width: 150px;"></v-text-field>
+         <v-btn color="green" style="text-transform: none" @click="decryptstorage()">
+            %decrypt%
+        </v-btn>    
+        </div>
         [[if eq .User.RoleID 1]]<v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name == 0 || $route.name == 2">
             <v-icon small left>fa-plus</v-icon>&nbsp;%newscript%
         </v-btn>[[end]]
@@ -445,6 +453,30 @@ new Vue({
     router,
     store,
     methods: {
+      decryptstorage(master, callback) {
+        if (master) {
+          this.master = master
+        }
+        if (!this.master) {
+          this.$root.errmsg(format("%errreq%", '%masterpass%'))
+          return
+        }
+        axios
+        .post(`/api/decryptstorage`, {master: this.master})
+        .then(response => {
+            if (response.data.error) {
+                this.errmsg(response.data.error);
+                return
+            }
+            this.master = ''
+            if (callback) {
+              callback(response.data)
+            } else {
+              this.askmaster = false
+            }
+        })
+        .catch(error => this.errmsg(error));
+      },
       favTitle(name) {
         if (store.state.list && store.state.list[name]) {
            return store.state.list[name].title
@@ -827,6 +859,8 @@ function appData() {
       callback: null,
       leftfav: false,
       rightfav: false,
+      askmaster: [[.AskMaster]],
+      master: '',
     }
 }
 
