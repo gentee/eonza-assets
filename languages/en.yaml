@@ -167,6 +167,7 @@ newfilename: New Filename
 newfolder: New Folder
 newitem: New Item
 newscript: New Script
+newvalue: New Value
 newver: A new version is available
 nextcond: Next Condition
 nextrun: Next Run
@@ -183,6 +184,7 @@ onetimepass: One-time password
 onlinehelp: Online Help
 open: Open
 openbrowser: Open in Browser
+optional: optional
 optionalpar: Optional Parameters
 or: OR
 outputfile: Output File

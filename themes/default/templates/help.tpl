@@ -16,6 +16,7 @@
        <v-btn color="blue-grey" dark :outlined="like!=-1" @click="like=(like==-1 ? 0 : -1)"
           style="text-transform:none;"><v-icon small>fa-thumbs-down</v-icon>&nbsp;%dislike%</v-btn>
        <v-textarea class="mt-2" v-model="feedback" auto-grow label="%feedbacktext%"></v-textarea>
+       <v-text-field v-model="email" style="max-width: 250px;" label="Email (%optional%)"></v-text-field>
        <v-btn color="primary" @click="sendfeedback">%send%</v-btn>
           <h3 class="py-2 mt-6">%support%</h3>
           <p><a href="mailto:[[.App.Email]]?Subject=Eonza">Email</a><br>
@@ -54,7 +55,7 @@ const Help = {
       sendfeedback() {
         if (this.like != 0 || this.feedback) {
             axios
-            .post(`/api/feedback`, {like: this.like, feedback: this.feedback})
+            .post(`/api/feedback`, {like: this.like, feedback: this.feedback, email: this.email})
             .then(response => {
                 if (response.data.error) {
                     this.iserror = true
@@ -98,6 +99,7 @@ function helpData() {
       iserror: false,
       error: '',
       feedback: '',
+      email: '',
       upd: {
         version: '',
         notify:  '',

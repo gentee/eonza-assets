@@ -83,6 +83,7 @@
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
+                  <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlsch-timers%" target="_help">%help%</v-btn>
                     <v-spacer></v-spacer>
                     <v-btn class="ma-2" color="primary" @click="saveTimer">%save%</v-btn>
                     <v-btn class="ma-2" color="primary" text outlined  @click="closeTimer">%cancel%</v-btn>
@@ -140,6 +141,7 @@
                     </v-container>
                   </v-card-text-->
                   <v-card-actions>
+                    <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlsch-events%" target="_help">%help%</v-btn>
                     <v-spacer></v-spacer>
                     <v-btn class="ma-2" color="primary" @click="saveEvent">%save%</v-btn>
                     <v-btn class="ma-2" color="primary" text outlined  @click="closeEvent">%cancel%</v-btn>

@@ -167,6 +167,7 @@ newfilename: Новое имя файла
 newfolder: Новая папка
 newitem: Новый элемент
 newscript: Новый скрипт
+newvalue: Новое значение
 newver: Доступна новая версия
 nextcond: Следующее условие
 nextrun: Следующий запуск
@@ -183,6 +184,7 @@ onetimepass: Одноразовый пароль
 onlinehelp: Онлайн помощь
 open: Открыть
 openbrowser: Открыть в браузере
+optional: по желанию
 optionalpar: Опциональные параметры
 or: ИЛИ
 outputfile: Файл вывода

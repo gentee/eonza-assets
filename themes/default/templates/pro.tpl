@@ -75,6 +75,7 @@
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
+                    <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlpro-users%" target="_help">%help%</v-btn>
                     <v-spacer></v-spacer>
                     <v-btn class="ma-2" color="primary" @click="saveRole">%save%</v-btn>
                     <v-btn class="ma-2" color="primary" text outlined  @click="closeRole">%cancel%</v-btn>
@@ -135,6 +136,7 @@
                     </v-container>
                   </v-card-text>
                   <v-card-actions>
+                    <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlpro-users%" target="_help">%help%</v-btn>
                     <v-spacer></v-spacer>
                     <v-btn class="ma-2" color="primary" @click="saveUser">%save%</v-btn>
                     <v-btn class="ma-2" color="primary" text outlined  @click="closeUser">%cancel%</v-btn>
@@ -169,7 +171,7 @@
         :disabled="!active" @change="changesettings"
         label="%twofa%"
         ></v-checkbox>
-        <v-btn @click="logoutall" :disabled="!active" color="primary" style="text-transform:none;">%logoutall%</v-btn>
+        <v-btn @click="logoutall" :disabled="!active" color="primary">%logoutall%</v-btn>
     </div>
     </div>
     <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;" >
@@ -248,14 +250,12 @@
                             label="%name%" :rules="[rules.required]"></v-text-field>
                             <v-text-field v-model="eStorageItem.desc" 
                             label="%desc%"></v-text-field>
-                            <v-text-field v-model="eStorageItem.value" v-if="!eStorageItem.id"
-                            label="%password%" :rules="[rules.required]" 
-                            :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
-                            @click:append="show1 = !show1"
-                            ></v-text-field>
+                            <v-text-field v-model="eStorageItem.value" 
+                            :label="eStorageItem.id ? '%newvalue%' : '%value%'"></v-text-field>
                             </v-container>
                         </v-card-text>
                         <v-card-actions>
+                            <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlpro-storage%" target="_help">%help%</v-btn>
                             <v-spacer></v-spacer>
                             <v-btn class="ma-2" color="primary" @click="saveStorage">%save%</v-btn>
                             <v-btn class="ma-2" color="primary" text outlined  @click="closeStorage">%cancel%</v-btn>

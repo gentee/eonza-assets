@@ -59,7 +59,7 @@
             <v-icon small left>fa-plus</v-icon>&nbsp;%newscript%
         </v-btn>[[end]]
         <v-btn color="primary" :href="'https://www.eonza.org' + store.state.help" target="_help" class="white  font-weight-bold mx-4" outlined>
-            <v-icon small left>fa-question</v-icon>&nbsp;%onlinehelp%
+            <v-icon small left>fa-question</v-icon>&nbsp;%help%
         </v-btn>
         <v-spacer></v-spacer>
           [[if eq .User.ID 1]]
