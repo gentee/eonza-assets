@@ -2,6 +2,7 @@ abort: Прервать
 about: О программе
 access: Доступ
 actions: Действия
+activate: Активировать
 active: Активный
 addcmd: Добавить новую команду в скрипт
 addfav: Добавить в Избранные
@@ -66,6 +67,7 @@ edit: Редактировать
 edititem: Редактирование элемента
 editor: Редактор
 encoding: Конвертация
+enterkey: Ввести лицензионный ключ
 entext: Текст на английском
 envexists: Окружение существует
 equal: Равно
@@ -138,6 +140,7 @@ langres: Языковые ресурсы
 language: Язык
 lastcheck: Последняя проверка была сделана
 licagreement: Лицензионное соглашение
+licensekey: Лицензионный ключ
 licenseurl: https://www.eonza.org/ru/docs/license.html
 like: Нравится
 list: Список
@@ -199,6 +202,7 @@ personal: Персональные
 portlng: Порт
 preview: Просмотр
 programming: Программирование
+prolicense: Лицензия Pro
 prover: Pro Версия
 proverurl: https://www.eonza.org/ru/pro-version.html
 question: Вопрос
@@ -311,11 +315,13 @@ urled-parameters: /ru/docs/editor-parameters.html
 urled-language: /ru/docs/editor-language-resources.html
 urled-source: /ru/docs/editor-source-code.html
 urled-compile: /ru/docs/editor-compile.html
-urlpro-general: /ru/docs/users.html
+urlpro-general: /ru/docs/pro-general.html
+urlpro-license: /ru/docs/eonza-pro-license.html
 urlpro-security: /ru/docs/pro-security.html
 urlpro-storage: /ru/docs/pro-storage.html
 urlpro-twofa: /ru/docs/two-factor-authentication.html
 urlpro-users: /ru/docs/users.html
+urlpro-version: /ru/pro-version.html
 urlhelp: /ru/docs/help.html
 urlnotifications: /ru/docs/notifications.html
 urlscripts: /ru/docs/scripts.html

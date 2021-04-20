@@ -23,7 +23,28 @@
             <v-btn stylex="text-transform:none" @click="mode(1)" v-if="trial.mode == 0" color="primary">%starttrial%</v-btn>
             <v-btn stylex="text-transform:none" @click="mode(0)" v-if="trial.mode == 1" color="primary">%stoptrial%</v-btn>
         </div>
-        <v-btn color="green" class="my-5 white--text">%upgradepro%</v-btn>
+        <v-btn color="primary" class="my-5" :href="site + '%urlpro-license%'" target="_help">%prolicense%</v-btn>
+        <v-btn color="green" :href="site + '%urlpro-version%'" target="_help" class="my-5 white--text">%upgradepro%</v-btn>
+        <v-btn color="primary" class="my-5" @click="dlgKey = true">%enterkey%</v-btn>
+          <v-dialog v-model="dlgKey" max-width="600px">
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">%enterkey%</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-text-field v-model="licenseKey" 
+                      label="%licensekey%" :rules="[rules.required]"></v-text-field>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlpro-general%" target="_help">%help%</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn class="ma-2" color="primary" @click="activate">%activate%</v-btn>
+                    <v-btn class="ma-2" color="primary" text outlined  @click="closeKey">%cancel%</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
     </div>
     </div>
     <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
@@ -185,7 +206,7 @@
             :append-icon="show1 ? 'fa-eye' : 'fa-eye-slash'" :type="show1 ? 'text' : 'password'"
                 style="width: 250px;" @click:append="show1 = !show1"
             :rules="[rules.required]"></v-text-field>
-            <v-btn @click="createstorage" color="primary" :disabled="!active" style="text-transform:none;">%createstorage%</v-btn>
+            <v-btn @click="createstorage" color="primary" :disabled="!active">%createstorage%</v-btn>
         </div>
         <div v-else>
             <div v-if="storageenc"> 
@@ -320,6 +341,7 @@ const Pro = {
     template: '#pro',
     data() {
         return {
+            site: [[.App.Homepage]],
             tab: 0,
             active: false,
             settings: {twofa: false, master: ''},
@@ -338,6 +360,8 @@ const Pro = {
                 var: value => { return patVar.test(value) || '%invalidvalue%' },
             },
             dlgRoles: false,
+            dlgKey: false,
+            licenseKey: '',
             dlgUsers: false,
             dlgStorage: false,
             dlgStoragePass: false,
@@ -395,6 +419,25 @@ const Pro = {
         }
     },
     methods: {
+        activate() {
+            if (!this.licenseKey) {
+                this.$root.errmsg('Specify License key')
+                return
+            }
+            axios
+            .post(`/api/licensekey`, {license: this.licenseKey})
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.closeKey()
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
+        closeKey() {
+            this.dlgKey = false
+        },
         updatestorage(data) {
             if (data) {
                 this.storageis = data.created
@@ -670,6 +713,9 @@ const Pro = {
         },
     },
     mounted: function() {
+        if (this.site[this.site.length-1] == '/') {
+            this.site = this.site.substr(0, this.site.length-1)
+        }
         store.commit('updateTitle', '%prover%');
         store.commit('updateHelp', ProTabHelp[this.tab]);
         axios

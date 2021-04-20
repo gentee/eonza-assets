@@ -2,6 +2,7 @@ abort: Abort
 about: About
 access: Access
 actions: Actions
+activate: Activate
 active: Active
 addcmd: Add a new command to the script
 addfav: Add to Favorites
@@ -66,6 +67,7 @@ edit: Edit
 edititem: Edit Item
 editor: Editor
 encoding: Encoding
+enterkey: Enter License Key
 entext: English text
 envexists: Environment Exists
 equal: Equal
@@ -138,6 +140,7 @@ langres: Language Resource
 language: Language
 lastcheck: Last checked on
 licagreement: License Agreement
+licensekey: License Key
 licenseurl: https://www.eonza.org/docs/license.html
 like: Like
 list: List
@@ -199,6 +202,7 @@ personal: Personal
 portlng: Port
 preview: Preview
 programming: Programming
+prolicense: Pro License
 prover: Pro Version
 proverurl: https://www.eonza.org/pro-version.html
 question: Question
@@ -312,11 +316,13 @@ urled-parameters: /docs/editor-parameters.html
 urled-language: /docs/editor-language-resources.html
 urled-source: /docs/editor-source-code.html
 urled-compile: /docs/editor-compile.html
-urlpro-general: /docs/users.html
+urlpro-general: /docs/pro-general.html
+urlpro-license: /docs/eonza-pro-license.html
 urlpro-security: /docs/pro-security.html
 urlpro-storage: /docs/pro-storage.html
 urlpro-twofa: /docs/two-factor-authentication.html
 urlpro-users: /docs/users.html
+urlpro-version: /pro-version.html
 urlhelp: /docs/help.html
 urlnotifications: /docs/notifications.html
 urlscripts: /docs/scripts.html
