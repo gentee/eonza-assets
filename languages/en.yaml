@@ -17,6 +17,7 @@ archive: Archive
 ask: Ask
 asknew: Ask If Newer
 autocheck: Automatic Check for Updates
+blocked: Blocked
 break: Break
 button: Button
 cancel: Cancel
@@ -55,6 +56,7 @@ delscript: Are you sure you want to delete this script?
 depscript: The '%s' script is used in other scripts (%s)
 desc: Description
 destpath: Destination Folder
+difdrive: Different drive
 disable: Disable
 disabled: Disabled
 disena: Disable/Enable
@@ -84,6 +86,7 @@ errscriptname: The '%s' script has already existed
 errtasklimit: The number of concurrently running scripts in Playground mode has been exceeded [%v]
 events: Events
 everytime: Every,minute(s),hour(s),day(s),month(s),week(s)
+exceeded: Number of licenses is exceeded
 excludefile: Exclude Wildcard or RegExp
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
@@ -91,6 +94,8 @@ exitalert: The program has just been closed
 exitonerror: Exit on error
 expand: Expand
 expandall: Expand All
+expired: Expired
+expireson: Expires on
 export: Export
 failconnect: "Cannot connect to the Eonza program. Run:"
 failed: Failed
@@ -131,6 +136,7 @@ includesrc: Include Source Code
 info: Information
 inherit: Inherit
 initvalue: Initial Value
+invalid: Invalid
 invalidfield: The value of '%s' field is invalid
 invalidpsw: Invalid password
 invalidvalue: The value is invalid
@@ -178,9 +184,11 @@ nickname: Nickname
 no: No
 none: None
 not: NOT
+notactivated: Not activated
 notaskpassword: Don't ask for password on startup
 notifications: Notifications
 number: Number
+numbercomp: Number of computers
 officialsite: Official Site
 ok: OK
 onetimepass: One-time password

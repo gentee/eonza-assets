@@ -16,13 +16,26 @@
         <v-alert type="success" v-show="active" text outlined>%status%: %active%</v-alert>
         <v-alert type="error" v-show="!active" text outlined color="deep-orange">%status%: %disabled%</v-alert>
         <div style="background-color: #FFFDE7;padding: 1rem; border-radius:8px; color: #455A64; 
-            border: 1px solid #37474F;">
+            border: 1px solid #37474F;" v-if="license.status < NOTACTIVATED">
             <h3>%trialmode%</h3>
             <p v-if="trial.mode >=0"><b>{{trialday}}</b></p>
             <p v-else><b>%trialend%</b></p>
             <v-btn stylex="text-transform:none" @click="mode(1)" v-if="trial.mode == 0" color="primary">%starttrial%</v-btn>
             <v-btn stylex="text-transform:none" @click="mode(0)" v-if="trial.mode == 1" color="primary">%stoptrial%</v-btn>
         </div>
+        <div style="background-color: #FFFDE7;padding: 1rem; border-radius:8px; color: #455A64; 
+            border: 1px solid #37474F;margin-top: 1em;" v-if="license.status">
+            <div>%licensekey%: {{license.license}}<br>
+            %numbercomp%: {{license.volume}}
+            </div>
+            <div><span v-if="license.expire">%expireson%: {{license.expire}}</span></div>
+            <div>%status%: <v-chip class="ma-2" :color="LicStatus[license.status].color" 
+               :text-color="LicStatus[license.status].txtcolor" style="font-weight:bold;">
+             <v-icon left>{{LicStatus[license.status].icon}}</v-icon>
+             {{LicStatus[license.status].title}} 
+             </v-chip> <v-btn color="primary" v-if="license.status == NOTACTIVATED">%activate%</v-btn>
+            </div>
+         </div>
         <v-btn color="primary" class="my-5" :href="site + '%urlpro-license%'" target="_help">%prolicense%</v-btn>
         <v-btn color="green" :href="site + '%urlpro-version%'" target="_help" class="my-5 white--text">%upgradepro%</v-btn>
         <v-btn color="primary" class="my-5" @click="dlgKey = true">%enterkey%</v-btn>
@@ -325,6 +338,19 @@ const ProTabHelp = [
   '%urlpro-storage%',
 ];
 
+const NOTACTIVATED = 6;
+
+const LicStatus = [
+    {title: `None`, color: `red`, txtcolor: `white`, icon: `fa-exclamation-circle`},
+	{title: `%invalid%`, color: `red`, txtcolor: `white`, icon: `fa-exclamation-circle`},
+	{title: `%blocked%`, color: `red`, txtcolor: `white`, icon: `fa-exclamation-circle`},
+	{title: `%expired%`, color: `red`, txtcolor: `white`, icon: `fa-exclamation-circle`},
+	{title: `%difdrive%`, color: `red`, txtcolor: `white`, icon: `fa-exclamation-circle`},
+    {title: `%exceeded%`, color: `red`, txtcolor: `white`, icon: `fa-exclamation-circle`},
+    {title: `%notactivated%`, color: `yellow`, txtcolor: `grey darken-3`, icon: `fa-exclamation-circle`},
+    {title: `%active%`, color: `green`, txtcolor: `white`, icon: `fa-check-circle`},
+];
+
 function roleMasks(list) {
     for (let i=0; i < list.length; i++) {
         let item = list[i]
@@ -343,6 +369,7 @@ const Pro = {
         return {
             site: [[.App.Homepage]],
             tab: 0,
+            license: {status: 0, license: ''},
             active: false,
             settings: {twofa: false, master: ''},
             show1: false,
@@ -427,10 +454,7 @@ const Pro = {
             axios
             .post(`/api/licensekey`, {license: this.licenseKey})
             .then(response => {
-                if (response.data.error) {
-                    this.$root.errmsg(response.data.error);
-                    return
-                }
+                this.license = response.data
                 this.closeKey()
             })
             .catch(error => this.$root.errmsg(error));
@@ -727,6 +751,7 @@ const Pro = {
             }
             this.active = response.data.active
             this.trial = response.data.trial
+            this.license = response.data.license
             this.settings = response.data.settings
         })
         .catch(error => this.$root.errmsg(error));

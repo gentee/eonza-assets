@@ -17,6 +17,7 @@ archive: Архивация
 ask: Спрашивать
 asknew: Спрашивать если новее
 autocheck: Автоматическая проверка обновлений
+blocked: Заблокирован
 break: Прервать
 button: Кнопка
 cancel: Отмена
@@ -55,6 +56,7 @@ delscript: Вы уверены, что хотите удалить этот ск
 depscript: Скрипт '%s' используется в других скриптах (%s)
 desc: Описание
 destpath: Целевая папка
+difdrive: Другой диск
 disable: Отключить
 disabled: Отключён
 disena: Отключить/Включить
@@ -84,6 +86,7 @@ errscriptname: Скрипт '%s' уже существует
 errtasklimit: Превышено количество одновременно работающих скриптов  в режиме Playground [%v]
 events: События
 everytime: Каждые,минут,часов,дня,месяцев,недель
+exceeded: Превышено количество лицензий
 excludefile: Исключать по маске или рег.выраж.
 exit: Выход
 exitconfirm: Вы уверены, что хотите выйти из программы?
@@ -91,6 +94,8 @@ exitalert: Программа только что была закрыта
 exitonerror: Завершать работу в случае ошибки
 expand: Раскрыть
 expandall: Раскрыть все
+expired: Просрочен
+expireson: Истекает
 export: Экспорт
 failconnect: "Не могу соединиться с программой Eonza. Запустите:"
 failed: Ошибка
@@ -131,6 +136,7 @@ includesrc: Вставлять исходный код
 info: Информация
 inherit: Наследовать
 initvalue: Начальное значение
+invalid: Недействительный
 invalidfield: Значение поля '%s' некорректно
 invalidpsw: Неверный пароль
 invalidvalue: Значение некорректно
@@ -178,9 +184,11 @@ nickname: Псевдоним
 no: Нет
 none: Нет
 not: НЕ
+notactivated: Не активирован
 notaskpassword: Не просить пароль при запуске
 notifications: Уведомления
 number: Число
+numbercomp: Количество компьютеров
 officialsite: Официальный сайт
 ok: OK
 onetimepass: Одноразовый пароль
