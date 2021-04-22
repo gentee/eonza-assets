@@ -86,7 +86,7 @@ errscriptname: Скрипт '%s' уже существует
 errtasklimit: Превышено количество одновременно работающих скриптов  в режиме Playground [%v]
 events: События
 everytime: Каждые,минут,часов,дня,месяцев,недель
-exceeded: Превышено количество лицензий
+exceeded: Достигнуто максимальное количество лицензий
 excludefile: Исключать по маске или рег.выраж.
 exit: Выход
 exitconfirm: Вы уверены, что хотите выйти из программы?
@@ -146,6 +146,7 @@ langres: Языковые ресурсы
 language: Язык
 lastcheck: Последняя проверка была сделана
 licagreement: Лицензионное соглашение
+licenseinfo: Лицензионная информация
 licensekey: Лицензионный ключ
 licenseurl: https://www.eonza.org/ru/docs/license.html
 like: Нравится

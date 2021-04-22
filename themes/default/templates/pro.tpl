@@ -25,6 +25,7 @@
         </div>
         <div style="background-color: #FFFDE7;padding: 1rem; border-radius:8px; color: #455A64; 
             border: 1px solid #37474F;margin-top: 1em;" v-if="license.status">
+            <h3>%licenseinfo%</h3>
             <div>%licensekey%: {{license.license}}<br>
             %numbercomp%: {{license.volume}}
             </div>
@@ -33,7 +34,7 @@
                :text-color="LicStatus[license.status].txtcolor" style="font-weight:bold;">
              <v-icon left>{{LicStatus[license.status].icon}}</v-icon>
              {{LicStatus[license.status].title}} 
-             </v-chip> <v-btn color="primary" v-if="license.status == NOTACTIVATED">%activate%</v-btn>
+             </v-chip> <v-btn color="primary" @click="refreshKey" v-if="license.status == NOTACTIVATED">%activate%</v-btn>
             </div>
          </div>
         <v-btn color="primary" class="my-5" :href="site + '%urlpro-license%'" target="_help">%prolicense%</v-btn>
@@ -446,6 +447,18 @@ const Pro = {
         }
     },
     methods: {
+        refreshKey() {
+            axios
+            .get(`/api/activatekey`)
+            .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
+                this.license = response.data
+            })
+            .catch(error => this.$root.errmsg(error));
+        },
         activate() {
             if (!this.licenseKey) {
                 this.$root.errmsg('Specify License key')
@@ -454,6 +467,10 @@ const Pro = {
             axios
             .post(`/api/licensekey`, {license: this.licenseKey})
             .then(response => {
+                if (response.data.error) {
+                    this.$root.errmsg(response.data.error);
+                    return
+                }
                 this.license = response.data
                 this.closeKey()
             })

@@ -86,7 +86,7 @@ errscriptname: The '%s' script has already existed
 errtasklimit: The number of concurrently running scripts in Playground mode has been exceeded [%v]
 events: Events
 everytime: Every,minute(s),hour(s),day(s),month(s),week(s)
-exceeded: Number of licenses is exceeded
+exceeded: Maximum number of licenses exceeded
 excludefile: Exclude Wildcard or RegExp
 exit: Exit
 exitconfirm: Are you sure you want to exit the program?
@@ -146,6 +146,7 @@ langres: Language Resource
 language: Language
 lastcheck: Last checked on
 licagreement: License Agreement
+licenseinfo: License Information
 licensekey: License Key
 licenseurl: https://www.eonza.org/docs/license.html
 like: Like
