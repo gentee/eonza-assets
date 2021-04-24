@@ -55,10 +55,10 @@
             %decrypt%
         </v-btn>    
         </div>
-        [[if eq .User.RoleID 1]]<v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold" outlined v-if="$route.name == 0 || $route.name == 2">
+        [[if eq .User.RoleID 1]]<v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold ml-4" outlined v-if="$route.name == 0 || $route.name == 2">
             <v-icon small left>fa-plus</v-icon>&nbsp;%newscript%
         </v-btn>[[end]]
-        <v-btn color="primary" :href="'https://www.eonza.org' + store.state.help" target="_help" class="white  font-weight-bold mx-4" outlined>
+        <v-btn color="primary" :href="'https://www.eonza.org' + store.state.help" target="_help" class="white  font-weight-bold ml-4" outlined>
             <v-icon small left>fa-question</v-icon>&nbsp;%help%
         </v-btn>
         <v-spacer></v-spacer>
