@@ -35,7 +35,6 @@
             %checkupdate%
           </v-btn>[[end]]
           </p>
-          <p><strong><a href="%proverurl%" target="_blank">%prover%</a></strong></p>
           <p>Copyright [[.App.Copyright]]<br>
           
           <strong><a class="py-3" href="%licenseurl%" target="_blank">%licagreement%</a></strong>
