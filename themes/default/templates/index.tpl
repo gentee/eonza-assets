@@ -531,8 +531,7 @@ new Vue({
                     comp.connect()
                     task = {port: port}
                   }
-                  let portTask = task.port + [[.PortShift]]
-                  window.open(window.location.protocol + '//' + window.location.hostname + ':' + portTask,
+                  window.open(window.location.protocol + '//' + window.location.hostname + ':' + task.port,
                     '_blank');
                 };
                 hostrun(this, response.data.id, response.data.port);

@@ -65,8 +65,7 @@ const Tasks = {
         return
       }
       if (task.status < stFinished ) {
-        let port = task.port + [[.PortShift]]
-        window.open(window.location.protocol + '//' + window.location.hostname + ':' + port, '_blank');
+        window.open(window.location.protocol + '//' + window.location.hostname + ':' + task.port, '_blank');
       } else {
         window.open('/task/'+task.id, '_blank');
       }
