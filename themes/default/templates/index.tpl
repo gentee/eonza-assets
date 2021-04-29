@@ -764,6 +764,7 @@ new Vue({
         },
         wsCmd({data}) {
           let cmd = JSON.parse(data);
+          console.log('cmd', cmd)
           switch (cmd.cmd) {
            case WcStatus:
             let list = store.state.tasks
@@ -780,6 +781,7 @@ new Vue({
                 if (cmd.finish && cmd.status >= stFinished) {
                   list[i].finish = cmd.finish
                 }
+                break
               }
             }
             if (!!cmd.task && i == list.length ) {
