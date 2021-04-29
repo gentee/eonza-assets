@@ -764,7 +764,6 @@ new Vue({
         },
         wsCmd({data}) {
           let cmd = JSON.parse(data);
-          console.log('cmd', cmd)
           switch (cmd.cmd) {
            case WcStatus:
             let list = store.state.tasks

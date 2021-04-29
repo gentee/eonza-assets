@@ -253,39 +253,48 @@ tree:
         value: '#hextest#'
         var: unbase64
 - name: source-code
+  open: true
   values:
     _desc: Clipboard
     code: '%body%'
   children:
-  - name: copy-to-clipboard
+  - name: try
+    open: true
     values:
-      text: '#cliptext#'
-  - name: get-clipboard
-    values:
-      varname: clip1
-  - name: get-clipboard
-    values:
-      clear: true
-      varname: clip2
-  - name: get-clipboard
-    values:
-      clear: false
-      varname: clip3
-  - name: assertions
-    values:
-      list:
-      - cmp: equal
-        not: false
-        value: '#cliptext#'
-        var: clip1
-      - cmp: equal
-        not: false
-        value: '#clip1#'
-        var: clip2
-      - cmp: equal
-        not: false
-        value: ""
-        var: clip3
+      title: Clipboard error
+    children:
+    - name: write-console
+      values:
+        text: Clipboard tests
+    - name: copy-to-clipboard
+      values:
+        text: '#cliptext#'
+    - name: get-clipboard
+      values:
+        varname: clip1
+    - name: get-clipboard
+      values:
+        clear: true
+        varname: clip2
+    - name: get-clipboard
+      values:
+        clear: false
+        varname: clip3
+    - name: assertions
+      values:
+        list:
+        - cmp: equal
+          not: false
+          value: '#cliptext#'
+          var: clip1
+        - cmp: equal
+          not: false
+          value: '#clip1#'
+          var: clip2
+        - cmp: equal
+          not: false
+          value: ""
+          var: clip3
 - name: foreach-line-file
   values:
     filename: '#ftxt#'
