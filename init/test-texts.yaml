@@ -49,6 +49,8 @@ tree:
         var: myhex
       - value: '#dir#/test.csv'
         var: fcsv
+      - value: '#dir#/test.ini'
+        var: fini
   - name: create-dir
     values:
       path: '#dir#'
@@ -84,6 +86,76 @@ tree:
       algorithm: MD5
       filename: '#flines#'
       resultvar: hashlines
+- name: source-code
+  open: true
+  values:
+    _desc: INI Files
+    code: '%body%'
+  children:
+  - name: set-variables
+    values:
+      list:
+      - value: |-
+          root = Root User
+          [My section]
+          Name = John Doe
+          Active = true
+          pi=3.1415
+        var: inidata
+  - name: write-file
+    values:
+      filename: '#fini#'
+      name: inidata
+  - name: read-ini-values
+    values:
+      filename: '#fini#'
+      list:
+      - def: Ooops
+        key: root
+        var: rootname
+      - def: noname
+        key: name
+        var: inoname
+  - name: read-ini-values
+    values:
+      filename: '#fini#'
+      list:
+      - def: ""
+        key: Name
+        var: iname
+      - def: "false"
+        key: Active
+        var: iactive
+      - def: "0"
+        key: pi
+        var: ipi
+      - def: Unknown
+        key: unknown
+        var: iunknown
+      section: My section
+  - name: read-ini-values
+    values:
+      filename: '#fini#'
+      list:
+      - def: Undefined
+        key: mykey
+        var: nosec
+      section: No Section
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: Root Usernoname
+        var: '#rootname##inoname#'
+      - cmp: equal
+        not: false
+        value: John Doetrue3.1415Unknown
+        var: '#iname##iactive##ipi##iunknown#'
+      - cmp: equal
+        not: false
+        value: Undefined
+        var: nosec
 - name: source-code
   open: true
   values:
@@ -253,7 +325,6 @@ tree:
         value: '#hextest#'
         var: unbase64
 - name: source-code
-  open: true
   values:
     _desc: Clipboard
     code: '%body%'

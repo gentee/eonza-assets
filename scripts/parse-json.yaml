@@ -2,7 +2,7 @@ settings:
   name: parse-json
   title: '#_name#'
   desc: '#_desc#'
-  path: "#.stdlib#/#.encoding#"  
+  path: "#.stdlib#/#.dataparsing#"  
   loglevel: 6
   help: parse-json
   helplang: ru

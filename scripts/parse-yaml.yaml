@@ -1,7 +1,7 @@
 settings:
   name: parse-yaml
   title: '#_name#'
-  path: '#.stdlib#/#.encoding#'
+  path: '#.stdlib#/#.dataparsing#'
   desc: '#_desc#'
   loglevel: 6
   unrun: true

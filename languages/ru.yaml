@@ -44,6 +44,7 @@ cryptography: Криптография
 curpassword: Текущий пароль
 daily: Ежедневно
 database: Базы данных
+dataparsing: Разбор данных
 date: Дата
 day: День
 debug: Отладка

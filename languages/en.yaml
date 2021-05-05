@@ -44,6 +44,7 @@ cryptography: Cryptography
 curpassword: Current Password
 daily: Daily
 database: Database
+dataparsing: Data Parsing
 date: Date
 day: Day
 debug: Debug
