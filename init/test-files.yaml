@@ -36,6 +36,7 @@ tree:
       - func: appendpath
         param: eonza-test
       name: testpath
+      subst: "0"
       value: '#dir#'
   - name: set-variable
     values:
@@ -43,6 +44,7 @@ tree:
       - func: appendpath
         param: short.txt
       name: shortfile
+      subst: "0"
       value: '#testpath#'
   - name: set-variable
     values:
@@ -50,6 +52,7 @@ tree:
       - func: appendpath
         param: file10.bin
       name: file10
+      subst: "0"
       value: '#testpath#'
   - name: set-variable
     values:
@@ -57,6 +60,7 @@ tree:
       - func: appendpath
         param: sub path
       name: subpath
+      subst: "0"
       value: '#testpath#'
   - name: set-variable
     values:
@@ -64,6 +68,7 @@ tree:
       - func: appendpath
         param: short.txt.ec
       name: shortdec
+      subst: "0"
       value: '#subpath#'
 - name: if.eonza
   values:
@@ -100,6 +105,71 @@ tree:
     onlyexist: true
     path: unknown.file
 - name: source-code
+  open: true
+  values:
+    _desc: Template
+    code: '%body%'
+  children:
+  - name: set-variables
+    values:
+      list:
+      - value: |-
+          User: #user#
+          Status: #status#
+        var: tpl
+  - name: write-file
+    values:
+      filename: '#testpath#/template.txt'
+      name: tpl
+  - name: set-variables
+    values:
+      list:
+      - value: Alex Strong
+        var: user
+      - value: Active
+        var: status
+  - name: create-file-from-template
+    values:
+      outputfile: '#testpath#/tpl1.txt'
+      template: <#testpath#/template.txt>
+  - name: set-variable
+    values:
+      list: []
+      name: tpl1
+      subst: "1"
+      value: '#tpl#'
+  - name: set-variables
+    values:
+      list:
+      - value: John Doe
+        var: user
+      - value: Disabled
+        var: status
+  - name: create-file-from-template
+    values:
+      outputfile: '#testpath#/tpl2.txt'
+      template: '#user# / #status#'
+  - name: read-file
+    values:
+      filename: '#testpath#/tpl1.txt'
+      name: tplres
+  - name: read-file
+    values:
+      filename: '#testpath#/tpl2.txt'
+      name: tpl2res
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: '#tpl1#'
+        var: tplres
+      - cmp: equal
+        not: false
+        value: John Doe / Disabled
+        var: tpl2res
+- name: source-code
+  open: true
   values:
     _desc: Copy & Move
     code: '%body%'
