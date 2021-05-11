@@ -52,6 +52,7 @@
         <v-tab v-show="isform > 0">%form%</v-tab>
         <v-tab v-show="isconsole">%console%</v-tab>
         <v-tab v-show="islog">%log%</v-tab>
+        <v-tab v-show="isreport">%reports%</v-tab>
         <v-tab v-show="issrc">%sourcecode%</v-tab>
     </v-tabs>
       <div style="height:calc(100% - 48px);overflow-y:auto;" id="console">
@@ -122,6 +123,10 @@
           </div>
         </div>
         <div v-show="tab==4">
+          <div id="reports">
+          </div>
+        </div>
+        <div v-show="tab==5">
           [[.Source]]
         </div>
       </div>
@@ -356,6 +361,20 @@ new Vue({
             this.iscontinue = this.form.length == 0 || this.form[this.form.length-1].type != PButton
             this.tab = 1
             break         
+          case WcReport:
+            let report = JSON.parse(cmd.message)
+            console.log('cmd', report)
+            if (!this.isreport) {
+              this.isreport = true
+            }
+            /*let shouldLogScroll = this.console.scrollTop + 
+                  this.console.clientHeight === this.console.scrollHeight;
+            logout.innerHTML += log2color(cmd.message) + '<br>';
+            if (shouldLogScroll) {
+              this.console.scrollTop = this.console.scrollHeight;
+            }*/
+            this.tab = 4
+            break
           case WcProgress:
             let prog = JSON.parse(cmd.message)
             let i = 0
@@ -417,6 +436,7 @@ new Vue({
       this.console = document.getElementById("console")
       this.stdcur = document.getElementById("stdcur")
       this.logout = document.getElementById("logout")
+      this.reports = document.getElementById("reports")
       [[if .IsScript]]
          this.connect();
       [[end]]
@@ -437,10 +457,12 @@ function appData() {
       console: null,
       logout: null,      
       stdcur: null,
+      reports: null,
       isform: 0,
       iscontinue: true,
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: [[if len .Logout]]true[[else]]false[[end]],
+      isreport: false,
       issrc: [[if len .Source]]true[[else]]false[[end]],
       form: [],
       formid: -1,

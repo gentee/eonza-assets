@@ -367,6 +367,7 @@ const WcLogout = 4
 const WcForm = 5
 const WcProgress = 6
 const WcNotify = 7
+const WcReport = 8
 
 const SysSuspend = 1
 const SysResume = 2
