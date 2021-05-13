@@ -262,21 +262,24 @@ Vue.component('c-textarea', {
             }
             let v = ''
             if (newmode) /*&& !!this.vals[this.par.name])*/ {
-                imode = true        
-                v = this.vals[this.par.name].trim()
-                if (v[0] != '<') {
-                    if (v.startsWith('# ') || v.startsWith('## ') || v.startsWith('### ')) {
-                        axios.post(`/tools/md`, {data: v})
-                        .then(response => {
-                            if (response.data.error) {
-                                this.html = '<pre>' + response.data.error + '</pre>'
-                            } else {
-                                this.html = removeScripts(response.data.data)
-                            }
-                        })
-                        .catch(error => this.$root.errmsg(error))
-                    } else {
-                        v = '<pre>' + v + '</pre>'
+                imode = true   
+                v = this.vals[this.par.name]
+                if (v) {
+                    v = v.trim()
+                    if (v[0] != '<') {
+                        if (v.startsWith('# ') || v.startsWith('## ') || v.startsWith('### ')) {
+                            axios.post(`/tools/md`, {data: v})
+                            .then(response => {
+                                if (response.data.error) {
+                                    this.html = '<pre>' + response.data.error + '</pre>'
+                                } else {
+                                    this.html = removeScripts(response.data.data)
+                                }
+                            })
+                            .catch(error => this.$root.errmsg(error))
+                        } else {
+                            v = '<pre>' + v + '</pre>'
+                        }
                     }
                 }
                 this.html = removeScripts(v)

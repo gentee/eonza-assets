@@ -123,7 +123,15 @@
           </div>
         </div>
         <div v-show="tab==4">
-          <div id="reports">
+          <div id="reports" class="mt-4">
+          <v-tabs v-model="curReport" dark background-color="blue darken-3" show-arrows continuous>
+          <v-tabs-slider color="blue lighten-3"></v-tabs-slider>
+            <v-tab  v-for="(rep, i) in reportslist" :key="i" >
+              {{rep.title}}
+            </v-tab>
+          </v-tabs>
+          <div v-show="curReport==i" v-for="(rep, i) in reportslist" v-html="rep.body"  :key="i" >
+          </div>
           </div>
         </div>
         <div v-show="tab==5">
@@ -142,6 +150,12 @@
 <!--script src="/js/vuex.min.js"></script-->
 
 <script>
+const Reports = [
+  [[range .Reports]]
+     {title: [[.Title]], body: [[.Body]]},
+  [[end]]
+];
+
 const changed = {
   methods: {
     change() {
@@ -363,16 +377,12 @@ new Vue({
             break         
           case WcReport:
             let report = JSON.parse(cmd.message)
-            console.log('cmd', report)
             if (!this.isreport) {
               this.isreport = true
             }
-            /*let shouldLogScroll = this.console.scrollTop + 
-                  this.console.clientHeight === this.console.scrollHeight;
-            logout.innerHTML += log2color(cmd.message) + '<br>';
-            if (shouldLogScroll) {
-              this.console.scrollTop = this.console.scrollHeight;
-            }*/
+            this.reportslist.push(report)
+            this.curReport = this.reportslist.length-1
+            console.log('rep', this.curReport, this.reportslist)
             this.tab = 4
             break
           case WcProgress:
@@ -462,13 +472,15 @@ function appData() {
       iscontinue: true,
       isconsole: [[if len .Stdout]]true[[else]]false[[end]],
       islog: [[if len .Logout]]true[[else]]false[[end]],
-      isreport: false,
+      isreport: [[if len .Reports]]true[[else]]false[[end]],
       issrc: [[if len .Source]]true[[else]]false[[end]],
       form: [],
       formid: -1,
       fields: [],
       values: {},
       progress: [],
+      reportslist: Reports,
+      curReport: 0,
 
       cmd: null,
       question: false,
