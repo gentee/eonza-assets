@@ -123,15 +123,16 @@
           </div>
         </div>
         <div v-show="tab==4">
-          <div id="reports" class="mt-4">
+          <div id="reports" class="mt-4" style="position: relative">
           <v-tabs v-model="curReport" dark background-color="blue darken-3" show-arrows continuous>
           <v-tabs-slider color="blue lighten-3"></v-tabs-slider>
             <v-tab  v-for="(rep, i) in reportslist" :key="i" >
               {{rep.title}}
             </v-tab>
           </v-tabs>
-          <div v-show="curReport==i" v-for="(rep, i) in reportslist" v-html="rep.body"  :key="i" >
+          <div class="pa-4" v-show="curReport==i" v-for="(rep, i) in reportslist" v-html="rep.body" :key="i" >
           </div>
+          <v-btn @click="savereport" color="primary" style="position:absolute;right: 3em;top: 6em;"><v-icon left small>fa-save</v-icon>&nbsp;%savefile%</v-btn>
           </div>
         </div>
         <div v-show="tab==5">
@@ -215,6 +216,13 @@ new Vue({
     el: '#app',
     data: appData,
     methods: {
+      savereport() {
+        let url = `/api/savereport`
+        [[if .IsScript]]
+          url = `/savereport` 
+        [[end]]
+        window.location = url + `?taskid=${ [[.ID]] }&reportid=` + this.curReport
+      },
       enterconsole() {
         axios
         .post(`/stdin?taskid=${ [[.ID]] }`,{message: this.cmdline})
@@ -382,7 +390,6 @@ new Vue({
             }
             this.reportslist.push(report)
             this.curReport = this.reportslist.length-1
-            console.log('rep', this.curReport, this.reportslist)
             this.tab = 4
             break
           case WcProgress:

@@ -240,6 +240,7 @@ runsilently: Run Silently
 save: Save
 saveasnew: Save As New
 savecopy: Save a copy
+savefile: Save As File
 savescript: The '%s' script was changed. Would you like to save it?
 scanqr: Scan QR code in Google Authenticator
 search: Search scripts for...

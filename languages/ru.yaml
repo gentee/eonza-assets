@@ -240,6 +240,7 @@ runsilently: Запустить скрытно
 save: Сохранить
 saveasnew: Сохранить как новый
 savecopy: Сохранить копию
+savefile: Сохранить как файл
 savescript: Скрипт '%s' был изменён. Хотите сохранить его?
 scanqr: Отсканируйте QR код в Google Authenticator
 search: Поиск скриптов
