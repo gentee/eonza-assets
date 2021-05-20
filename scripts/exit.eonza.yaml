@@ -13,11 +13,20 @@ params:
   type: 4
   options:
     default: "0"
+- name: timeout
+  title: '#_timeout#'
+  type: 4
+  options:
+    default: "0"
 langs:
   en:
     _desc: Stop the script
     _exitcode: Exit Code
+    _timeout: Timeout (msec)
   ru:
     _desc: Прекратить работу скрипта
     _exitcode: Код возврата
-code: exit(code)
+    _timeout: Время ожидания (msec)    
+code: |
+  if timeout > 0 : sleep(timeout)
+  exit(code)

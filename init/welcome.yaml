@@ -121,9 +121,48 @@ tree:
       text: '#.continue#'
       type: "7"
       var: btn
+- name: foreach-file
+  open: true
+  values:
+    onlyfiles: true
+    path: '#.apppath#'
+    recursive: "true"
+    varname: ifile
+  children:
+  - name: source-code
+    open: true
+    values:
+      code: |-
+        str apath = Macro("#.apppath#")
+        str dir = Macro("#ifile.dir#")
+        if *dir > *apath {
+            dir = Right(dir, *dir - *apath-1)
+            SetVar("ifile", JoinPath(dir, GetVar("ifile")))
+        }
+  - name: set-variable
+    values:
+      list:
+      - func: append
+        param: '#ifile# | #ifile.size#&nbsp;| #ifile.time##.r##.n#'
+      name: flist
+      subst: "0"
+- name: create-report
+  values:
+    body: |+
+      # List of Eonza files
+
+      Eonza folder: **#.apppath#**
+      Filename | Size |Time
+      --------|-------|-------
+      #flist#
+
+
+    format: "0"
+    title: Eonza File List
 - name: exit.eonza
   values:
     _ifcond: GetVar("btn") == "skip"
+    timeout: "1000"
 - name: set-variable
   values:
     _ifcond: '*GetVar("site") == 0'
@@ -150,16 +189,34 @@ tree:
     - func: length
       param: ""
     name: size
+    subst: "0"
     value: '#answer#'
-- name: write-console
+- name: set-variable
   values:
-    text: |
+    list: []
+    name: webpage
+    subst: "0"
+    value: |
       Page size: #size#
       Title: #title[1]#
-- name: write-console
+- name: set-variable
   values:
     _ifcond: IsVarObj("desc") && *GetVarObj("desc") > 1
-    text: 'Description: #desc[1]#'
+    list:
+    - func: append
+      param: '#.r##.n#Description: #desc[1]#'
+    name: webpage
+    subst: "0"
+- name: write-console
+  values:
+    text: '#webpage#'
+- name: create-report
+  values:
+    body: '#webpage#'
+    title: Web-page info
+- name: sleep.eonza
+  values:
+    timeout: "1000"
 langs:
   en:
     _name: Welcome
