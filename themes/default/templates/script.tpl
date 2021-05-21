@@ -219,7 +219,11 @@ new Vue({
       savereport() {
         let url = `/api/savereport`
         [[if .IsScript]]
-          url = `/savereport` 
+          if (this.status < stFinished) {
+            url = `/savereport` 
+          } else {
+            url =  window.location.protocol + '//' + window.location.hostname + ':' + '[[.URLPort]]' + url
+          }
         [[end]]
         window.location = url + `?taskid=${ [[.ID]] }&reportid=` + this.curReport
       },
