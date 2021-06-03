@@ -678,15 +678,22 @@ new Vue({
         })
         .catch(error => this.errmsg(error));
       },
-      loadTasks() {
+      loadTasks(page, callback) {
+        let req = '/api/tasks'
+        if (!!page) {
+          req += '?page=' + page
+        }
         axios
-        .get('/api/tasks')
+        .get(req)
         .then(response => {
             if (response.data.error) {
                 this.errmsg(response.data.error);
                 return
             }
             store.commit('updateTasks', response.data.list);
+            if (callback) {
+              callback(response.data.page, response.data.allpages)
+            }
         })
         .catch(error => this.errmsg(error));
       },

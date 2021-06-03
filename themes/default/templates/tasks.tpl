@@ -26,6 +26,8 @@
           </td>
         </tr>
       </table>
+      <v-pagination v-model="page" :length="allpages" v-if="allpages>1"
+      ></v-pagination>
     </div>
   </v-container>
 </script>
@@ -70,18 +72,32 @@ const Tasks = {
         window.open('/task/'+task.id, '_blank');
       }
     },
+    setpage(page, allpages) {
+      this.page = page
+      this.allpages = allpages
+    },
     remove(id) {
+      let req = '/api/remove/' + id
+      if (this.page != 1) {
+        req += '?page=' + this.page;
+      }
       axios
-      .get('/api/remove/' + id)
+      .get(req)
       .then(response => {
         if (response.data.error) {
           this.$root.errmsg(response.data.error);
           return
         }
         store.commit('updateTasks', response.data.list);
+        this.setpage(response.data.page, response.data.allpages)
       })
       .catch(error => this.$root.errmsg(error));
     },
+  },
+  watch: {
+    page(newval) {
+      this.$root.loadTasks(newval, this.setpage)
+    }
   },
   computed: {
     list: function() { return store.state.tasks },
@@ -89,12 +105,14 @@ const Tasks = {
   mounted() {
     store.commit('updateTitle', '%taskmanager%');
     store.commit('updateHelp', '%urltaskmanager%');
-    this.$root.loadTasks()
+    this.$root.loadTasks(this.page, this.setpage)
   }
 };
 
 function tasksData() {
     return {
+      page: 1,
+      allpages: 1,
       heads: [ '%script%','%startedby%','%status%', '%start%', '%finish%', 
             '%actions%',
 
