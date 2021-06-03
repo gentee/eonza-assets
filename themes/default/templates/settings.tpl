@@ -18,11 +18,16 @@
       [[if .Tray]]
       <v-checkbox v-model="options.common.hidetray" label="%hidetray%" @change="change"></v-checkbox>
       [[end]]
-      <v-select label="%autocheck%" @change="change"
+      <v-select label="%autocheck%" @change="change" style="max-width: 300px;"
         v-model="options.common.autoupdate" :items="period" 
         item-text="title"
         item-value="value"
         ></v-select>
+      <div style="color: #777;"><strong>%taskmanager%</strong></div>
+      <v-text-field v-model.number="options.common.removeafter" type="number"  style="max-width: 300px;"
+      label="%removeafter%" @change="change"></v-text-field>
+      <v-text-field v-model.number="options.common.maxtasks" type="number"  style="max-width: 300px;"
+      label="%maxtasks%" @change="change"></v-text-field>
     </div>
     </div>
     <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
@@ -181,6 +186,7 @@ const Settings = {
             .catch(error => this.$root.errmsg(error));
         },
         save() {
+//            this.options.common.removeafter = Number(this.options.common.removeafter)
             this.$root.checkChanged(() => axios
             .post(`/api/settings`, this.options)
             .then(response => {

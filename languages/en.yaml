@@ -159,6 +159,7 @@ loglevel: Log Level
 logout: Log Out
 logoutall: Logout All Users
 masterpass: Master Password
+maxtasks: Maximum number of tasks 
 menu: Menu
 messaging: Messaging
 minute: Minute
@@ -223,6 +224,7 @@ registry: Registry
 regex: Regular Expression
 regexmatch: RegEx Match
 remaintime: Remaining Time
+removeafter: Remove automatically after X days
 removefav: Remove from Favorites
 repissue: Report issue
 replace: Replace

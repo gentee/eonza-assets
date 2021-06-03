@@ -159,6 +159,7 @@ loglevel: Уровень лога
 logout: Выйти
 logoutall: Разлогинить всех пользователей
 masterpass: Мастер пароль
+maxtasks: Mаксимальное количество задач
 menu: Меню
 messaging: Обмен сообщениями
 minute: Минута
@@ -223,6 +224,7 @@ registry: Реестр
 regex: Регулярное выражение
 regexmatch: RegEx Cовпадение
 remaintime: Оставшееся время
+removeafter: Удалять автоматически после X дней
 removefav: Удалить из Избранных
 repissue: Сообщить о проблеме
 replace: Заменить
