@@ -1,6 +1,8 @@
 <script type="text/x-template" id="tasks">
   <v-container style="height:100%;padding-top: 40px;">
     <div style="height:calc(100% - 0px);overflow-y: auto;">
+      <v-btn @click="refreshtasks" color="primary" class="mt-4 ml-8">
+          <v-icon small>fa-sync-alt</v-icon>&nbsp;{{refresh}}</v-btn>
       <table class="table" cellspacing="0">
         <tr><th v-for="item in heads">{{item}}</th></tr>
         <tr v-for="task in list">
@@ -93,6 +95,9 @@ const Tasks = {
       })
       .catch(error => this.$root.errmsg(error));
     },
+    refreshtasks() {
+      this.$root.loadTasks(this.page, this.setpage)
+    },
   },
   watch: {
     page(newval) {
@@ -101,6 +106,8 @@ const Tasks = {
   },
   computed: {
     list: function() { return store.state.tasks },
+    refresh: function() { return '%refresh%' + ( store.state.newtasks ? 
+                  `  (+${store.state.newtasks})` : '' )}
   },
   mounted() {
     store.commit('updateTitle', '%taskmanager%');

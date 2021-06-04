@@ -294,6 +294,7 @@ const store = new Vuex.Store({
       active: null,
       list: null,
       tasks: [],
+      newtasks: 0,
       nfy: nfy.list,
       unread: nfy.unread,
       isfav: defisfav,
@@ -334,6 +335,9 @@ const store = new Vuex.Store({
     },
     updateTasks (state, tasks) {
       state.tasks = tasks;
+    },
+    updateNewTasks (state, newtasks) {
+      state.newtasks = newtasks;
     },
     updateNfy (state, nfy) {
       state.nfy = nfy || [];
@@ -691,6 +695,7 @@ new Vue({
                 return
             }
             store.commit('updateTasks', response.data.list);
+            store.commit('updateNewTasks', 0);
             if (callback) {
               callback(response.data.page, response.data.allpages)
             }
@@ -774,24 +779,24 @@ new Vue({
           switch (cmd.cmd) {
            case WcStatus:
             let list = store.state.tasks
-            if (!list) {
-               return 
-            }
-            let i = 0
-            for (; i < list.length; i++) {
-              if (list[i].id == cmd.taskid) {
-                list[i].status = cmd.status
-                if (cmd.message) {
-                  list[i].message = cmd.message
+            let found = false
+            if (list) {
+              for (let i = 0; i < list.length; i++) {
+                if (list[i].id == cmd.taskid) {
+                  list[i].status = cmd.status
+                  if (cmd.message) {
+                    list[i].message = cmd.message
+                  }
+                  if (cmd.finish && cmd.status >= stFinished) {
+                    list[i].finish = cmd.finish
+                  }
+                  found = true
+                  break
                 }
-                if (cmd.finish && cmd.status >= stFinished) {
-                  list[i].finish = cmd.finish
-                }
-                break
               }
             }
-            if (!!cmd.task && i == list.length ) {
-              list.push(cmd.task)
+            if (!found) {
+              store.commit('updateNewTasks', store.state.newtasks + 1);
             }
             store.commit('updateTasks', list);
             break
