@@ -24,7 +24,9 @@
               <span class="mr-2" v-show="task.status == stSuspended">
               <v-icon color="primary" small @click="terminate(task.id)">fa-times</v-icon></span>
               <span class="mr-2" v-show="task.status >= stFinished && task.todel">
-              <v-icon color="primary" small @click="remove(task.id)">fa-times</v-icon></span>
+              <v-icon color="primary" small v-if="!task.locked" @click="remove(task.id)">fa-times</v-icon></span>
+              <v-icon color="primary" small @click="lock(task.id)" v-if="task.locked">fa-lock</v-icon></span>
+              <v-icon color="primary" small @click="lock(task.id)" v-if="!task.locked">fa-unlock-alt</v-icon></span>
           </td>
         </tr>
       </table>
@@ -78,8 +80,8 @@ const Tasks = {
       this.page = page
       this.allpages = allpages
     },
-    remove(id) {
-      let req = '/api/remove/' + id
+    taskaction(id, action) {
+      let req = `/api/${action}/${id}`
       if (this.page != 1) {
         req += '?page=' + this.page;
       }
@@ -95,6 +97,12 @@ const Tasks = {
       })
       .catch(error => this.$root.errmsg(error));
     },
+    remove(id) {
+      this.taskaction(id, 'remove')
+    },
+    lock(id) {
+      this.taskaction(id, 'lock')
+    },
     refreshtasks() {
       this.$root.loadTasks(this.page, this.setpage)
     },
@@ -106,8 +114,8 @@ const Tasks = {
   },
   computed: {
     list: function() { return store.state.tasks },
-    refresh: function() { return '%refresh%' + ( store.state.newtasks ? 
-                  `  (+${store.state.newtasks})` : '' )}
+    refresh: function() { return '%refresh%' + (store.state.newtasks ? 
+                  `  (+${store.state.newtasks})` : '' )},
   },
   mounted() {
     store.commit('updateTitle', '%taskmanager%');
