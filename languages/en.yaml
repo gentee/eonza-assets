@@ -319,6 +319,7 @@ users: Users
 waitfinish: Wait until application finishes
 waiting: Waiting
 warning: Warning
+webscraping: Web Scraping
 weekday: Weekday
 weekly: Weekly
 weekshort: "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
