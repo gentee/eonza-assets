@@ -72,7 +72,7 @@ tree:
 - name: message
   values:
     _ifcond: showinfo
-    custbtns: []
+    custbtns: {}
     icon: info-circle
     retbtn: msgbtn
     text: '#welcome.hello#'
@@ -173,16 +173,6 @@ tree:
   values:
     url: '#site#'
     varname: answer
-- name: regex-find
-  values:
-    regex: <title>(.*)</title>
-    resultvar: title
-    varname: answer
-- name: regex-find
-  values:
-    regex: name="[D|d]escription" content="(.*)"
-    resultvar: desc
-    varname: answer
 - name: set-variable
   values:
     list:
@@ -191,6 +181,17 @@ tree:
     name: size
     subst: "0"
     value: '#answer#'
+- name: parse-html
+  values:
+    html: '#answer#'
+    selectors:
+    - attrib: ""
+      selector: title
+      var: title
+    - attrib: content
+      func: abspath
+      selector: meta[name="description"]
+      var: desc
 - name: set-variable
   values:
     list: []
@@ -198,15 +199,8 @@ tree:
     subst: "0"
     value: |
       Page size: #size#
-      Title: #title[1]#
-- name: set-variable
-  values:
-    _ifcond: IsVarObj("desc") && *GetVarObj("desc") > 1
-    list:
-    - func: append
-      param: '#.r##.n#Description: #desc[1]#'
-    name: webpage
-    subst: "0"
+      Title: #title#
+      Description: #desc#
 - name: write-console
   values:
     text: '#webpage#'
