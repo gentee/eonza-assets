@@ -411,6 +411,14 @@ tree:
     name: newhash
     subst: "0"
     value: '#lines#'
+- name: set-variable
+  values:
+    list:
+    - func: substr
+      param: "4"
+    name: subs
+    subst: "0"
+    value: Это русский текст
 - name: assertions
   values:
     list:
@@ -430,6 +438,10 @@ tree:
       not: false
       value: 2d36d680bc64f274b34fc6f9a420ab09
       var: txtout
+    - cmp: equal
+      not: false
+      value: русский текст
+      var: subs
 - name: foreach-line-file
   open: true
   values:
