@@ -147,7 +147,7 @@
           <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id < 4"
+            v-if="item.id < 5"
             link
           >
             <div style="width: 44px;">
@@ -163,11 +163,11 @@
           <v-list-item :to="item.route"
             v-for="item in navitems"
             :key="item.title"
-            v-if="item.id > 3"
+            v-if="item.id > 4"
             link
           >
             <div style="width: 44px;">
-              <v-badge v-if="item.id==4" :content="store.state.unread ? store.state.unread : store.state.nfy.length" :value="store.state.unread ? store.state.unread : store.state.nfy.length" :color="store.state.unread ? 'red darken-2' : 'grey darken-2'" overlap>
+              <v-badge v-if="item.id==5" :content="store.state.unread ? store.state.unread : store.state.nfy.length" :value="store.state.unread ? store.state.unread : store.state.nfy.length" :color="store.state.unread ? 'red darken-2' : 'grey darken-2'" overlap>
                  <v-icon size="28px">{{ item.icon }}</v-icon>
               </v-badge>
               <v-icon size="28px" v-else>{{ item.icon }}</v-icon>
@@ -210,6 +210,7 @@
 [[template "editor" .]]
 [[template "tasks" .]]
 [[template "scheduler" .]]
+[[template "browser" .]]
 [[template "notifications" .]]
 [[if .Pro]][[template "pro" .]][[end]]
 [[template "settings" .]]
@@ -259,9 +260,14 @@ const routes = [{
     name: 7,
     component: Scheduler,
   },
+  {
+    path: '/browser',
+    name: 8,
+    component: Browser,
+  },
 [[if .Pro]]  {
     path: '/pro',
-    name: 8,
+    name: 9,
     component: Pro,
   },[[end]]
 ];
@@ -843,10 +849,11 @@ function appData() {
 [[if eq .User.RoleID 1]] { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' }, [[end]]
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
 [[if eq .User.RoleID 1]] { id: 3, title: '%scheduler%', icon: 'fa-calendar-alt', route: '/scheduler' }, [[end]]
-        { id: 4, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
-        { id: 5, title: '%settings%', icon: 'fa-tools', route: '/settings' },
-[[if and .Pro (eq .User.RoleID 1)]] { id: 7, title: '%prover%', icon: 'fa-donate', route: '/pro' },[[end]] /*fa-hand-helping*/
-        { id: 6, title: '%help%', icon: 'fa-life-ring', route: '/help' },
+[[if eq .User.RoleID 1]] { id: 4, title: '%browser%', icon: 'fa-globe', route: '/browser' }, [[end]]
+        { id: 5, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
+        { id: 6, title: '%settings%', icon: 'fa-tools', route: '/settings' },
+[[if and .Pro (eq .User.RoleID 1)]] { id: 8, title: '%prover%', icon: 'fa-donate', route: '/pro' },[[end]] /*fa-hand-helping*/
+        { id: 7, title: '%help%', icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],
       menus: [

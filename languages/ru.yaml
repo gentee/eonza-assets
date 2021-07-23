@@ -19,6 +19,7 @@ asknew: Спрашивать если новее
 autocheck: Автоматическая проверка обновлений
 blocked: Заблокирован
 break: Прервать
+browser: Браузер
 button: Кнопка
 cancel: Отмена
 changelog: История изменений
@@ -253,7 +254,6 @@ security: Безопасность
 select: Выбор
 sellang: Выберите язык интерфейса
 setpassword: Установить пароль
-settings: Настройки
 scheduler: Планировщик
 script: Скрипт
 scripts: Скрипты
@@ -337,6 +337,7 @@ urlpro-storage: /ru/docs/pro-storage.html
 urlpro-twofa: /ru/docs/two-factor-authentication.html
 urlpro-users: /ru/docs/users.html
 urlpro-version: /ru/pro-version.html
+urlbrowser: /ru/docs/browser.html
 urlhelp: /ru/docs/help.html
 urlnotifications: /ru/docs/notifications.html
 urlscripts: /ru/docs/scripts.html

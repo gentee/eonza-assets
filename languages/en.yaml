@@ -19,6 +19,7 @@ asknew: Ask If Newer
 autocheck: Automatic Check for Updates
 blocked: Blocked
 break: Break
+browser: Browser
 button: Button
 cancel: Cancel
 changelog: Changelog
@@ -253,7 +254,6 @@ security: Security
 select: Select
 sellang: Select the interface language
 setpassword: Set Password
-settings: Settings
 scheduler: Scheduler  
 script: Script
 scripts: Scripts
@@ -338,6 +338,7 @@ urlpro-storage: /docs/pro-storage.html
 urlpro-twofa: /docs/two-factor-authentication.html
 urlpro-users: /docs/users.html
 urlpro-version: /pro-version.html
+urlbrowser: /docs/browser.html
 urlhelp: /docs/help.html
 urlnotifications: /docs/notifications.html
 urlscripts: /docs/scripts.html
