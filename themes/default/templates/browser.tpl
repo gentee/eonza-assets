@@ -26,7 +26,7 @@
                       label="%scripts%" auto-grow dense
                       ></v-textarea>
                       <v-checkbox
-                      v-model="eBrowserItem.settings.body" label="Get HTML body"
+                      v-model="eBrowserItem.settings.html" label="Get HTML content"
                       ></v-checkbox>
                     </v-container>
                   </v-card-text>
@@ -82,7 +82,7 @@ const Browser = {
     closeBrowser() {
         this.dlgBrowser = false
         this.editedIndex = -1
-        this.eBrowserItem = {id: 0, scripts: '', urls: '', settings: {body: false}}
+        this.eBrowserItem = {id: 0, scripts: '', urls: '', settings: {html: false}}
     },
     addCommand() {
         let comp = this;
@@ -142,7 +142,7 @@ function browserData() {
     return {
         dlgBrowser: false,
         editedIndex: -1,            
-        eBrowserItem: {id: 0, settings: {body: false}},
+        eBrowserItem: {id: 0, settings: {html: false}},
         scriptsKey: 0,
         browsers: [],
         rules: {
