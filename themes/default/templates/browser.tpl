@@ -26,7 +26,7 @@
                       label="%scripts%" auto-grow dense
                       ></v-textarea>
                       <v-checkbox
-                      v-model="eBrowserItem.settings.html" label="Get HTML content"
+                      v-model="eBrowserItem.settings.html" label="%gethtml%"
                       ></v-checkbox>
                     </v-container>
                   </v-card-text>

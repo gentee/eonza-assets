@@ -120,6 +120,7 @@ forms: Формы и сообщения
 function: Функция
 functions: Функции
 general: Общие
+gethtml: Получить содержимое HTML
 globconst: Глобальные константы
 help: Помощь
 hide: Скрыть
