@@ -139,6 +139,7 @@ includesrc: Include Source Code
 info: Information
 inherit: Inherit
 initvalue: Initial Value
+install-chrome-ext: How to install Eonza Chrome extension
 invalid: Invalid
 invalidfield: The value of '%s' field is invalid
 invalidpsw: Invalid password
@@ -340,6 +341,7 @@ urlpro-twofa: /docs/two-factor-authentication.html
 urlpro-users: /docs/users.html
 urlpro-version: /pro-version.html
 urlbrowser: /docs/browser.html
+urlchrome: /docs/chrome-extension.html
 urlhelp: /docs/help.html
 urlnotifications: /docs/notifications.html
 urlscripts: /docs/scripts.html

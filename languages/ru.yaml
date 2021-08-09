@@ -139,6 +139,7 @@ includesrc: Вставлять исходный код
 info: Информация
 inherit: Наследовать
 initvalue: Начальное значение
+install-chrome-ext: Как установить расширение Eonza для Chrome
 invalid: Недействительный
 invalidfield: Значение поля '%s' некорректно
 invalidpsw: Неверный пароль
@@ -339,6 +340,7 @@ urlpro-twofa: /ru/docs/two-factor-authentication.html
 urlpro-users: /ru/docs/users.html
 urlpro-version: /ru/pro-version.html
 urlbrowser: /ru/docs/browser.html
+urlchrome: /ru/docs/chrome-extension.html
 urlhelp: /ru/docs/help.html
 urlnotifications: /ru/docs/notifications.html
 urlscripts: /ru/docs/scripts.html

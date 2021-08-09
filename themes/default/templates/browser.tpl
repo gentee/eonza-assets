@@ -10,6 +10,7 @@
               <v-dialog v-model="dlgBrowser" max-width="700px">
                 <template v-slot:activator="{ on }">
                   <v-btn color="primary" dark class="ml-4" v-on="on">%new%</v-btn>
+                  <strong><a href="https://www.eonza.org%urlchrome%" target="_blank" class="mx-6">%install-chrome-ext%</a></strong>
                 </template>
                 <v-card>
                   <v-card-title>
