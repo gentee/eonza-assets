@@ -23,8 +23,8 @@ params:
   title: '#_subst#'
   type: 3
   options:
-    initial: "0"
-    default: "0"
+    initial: "1"
+    default: "1"
     type: int
     items:
     - title: '#.no#'
