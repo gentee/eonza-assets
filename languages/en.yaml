@@ -195,6 +195,7 @@ notaskpassword: Don't ask for password on startup
 notifications: Notifications
 number: Number
 numbercomp: Number of computers
+office: Office
 officialsite: Official Site
 ok: OK
 onetimepass: One-time password
