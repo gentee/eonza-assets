@@ -21,10 +21,10 @@ params:
 langs:
   en:
     _desc: Replace variables in ODF/ODT template
-    _name: Odf/Odt Template
+    _name: ODT Template
     _template: Template (*.odt)
   ru:
     _desc: Заменить переменные в ODF/ODT шаблоне
-    _name: Шаблон Odf/Odt
+    _name: Шаблон ODT
     _template: Шаблон (*.odt)
 code: OdtTemplate(template, outputfile)
