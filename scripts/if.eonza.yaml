@@ -34,6 +34,8 @@ params:
         items:
         - title: '#.equal#'
           value: equal
+        - title: '#_contains#'
+          value: contains
         - title: '#.fileexists#'
           value: fileexists
         - title: '#.envexists#'
@@ -58,11 +60,13 @@ params:
 langs:
   en:
     _desc: Conditional script
+    _contains: Contains
     _elsevar: Else Variable
     _ifstatement: If Statement
     _startswith: Starts With
   ru:
     _desc: Скрипт условия
+    _contains: Содержит
     _elsevar: Переменная варианта
     _ifstatement: Конструкция Если
     _startswith: Начинается с

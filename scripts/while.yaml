@@ -31,12 +31,16 @@ params:
         items:
         - title: '#.equal#'
           value: equal
+        - title: '#_contains#'
+          value: contains
         - title: '#.fileexists#'
           value: fileexists
         - title: '#.envexists#'
           value: envexists
         - title: '#.regexmatch#'
           value: match
+        - title: '#_startswith#'
+          value: starts
     - name: value
       title: '#.value#'
       type: 2
@@ -54,9 +58,13 @@ langs:
   en:
     _desc: Conditional loop
     _while: While Statement
+    _contains: Contains
+    _startswith: Starts With
   ru:
     _desc: Условный цикл
     _while: Условный цикл
+    _contains: Содержит
+    _startswith: Начинается с
 code: |-
   while Condition("", list) {
       %body%
