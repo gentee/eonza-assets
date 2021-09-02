@@ -42,6 +42,10 @@ tree:
     name: outfile
     subst: "0"
     value: '#dir#'
+- name: delete-file
+  values:
+    onlyexist: true
+    path: '#outfile#'
 - name: source-code
   values:
     code: SetVar("eoutfile", Replace(GetVar("outfile"), `\`, `\\`))
@@ -63,7 +67,7 @@ tree:
     event: test
 - name: sleep.eonza
   values:
-    timeout: "750"
+    timeout: "1000"
 - name: get-webpage
   values:
     url: http://localhost:#.eonzaport#/api/randid
@@ -78,7 +82,7 @@ tree:
     - func: hash
       param: sha256
     name: sign
-    subst: "0"
+    subst: "1"
     value: test#token_data##rand.rand#TEST_TOKEN
 - name: httprequest
   values:

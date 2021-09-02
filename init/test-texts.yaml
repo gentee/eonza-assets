@@ -164,7 +164,7 @@ tree:
   children:
   - name: set-variable
     values:
-      list: []
+      list: {}
       name: csvdata
       subst: "0"
       value: |-
@@ -325,6 +325,7 @@ tree:
         value: '#hextest#'
         var: unbase64
 - name: source-code
+  open: true
   values:
     _desc: Clipboard
     code: '%body%'
@@ -409,7 +410,7 @@ tree:
     - func: hash
       param: ""
     name: newhash
-    subst: "0"
+    subst: "1"
     value: '#lines#'
 - name: set-variable
   values:
@@ -417,7 +418,7 @@ tree:
     - func: substr
       param: "4"
     name: subs
-    subst: "0"
+    subst: "1"
     value: Это русский текст
 - name: assertions
   values:
