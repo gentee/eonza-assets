@@ -5,7 +5,7 @@ settings:
   desc: '#_desc#'
   loglevel: 6
   unrun: true
-  help: foreach-line-csv
+  help: foreach-xlsx
   helplang: ru
 params:
 - name: xlsxfile
