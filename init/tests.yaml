@@ -71,6 +71,10 @@ tree:
 - name: test-email
 - name: test-html
 - name: test-sql
+- name: test121
+- name: test-office
+  values:
+    dir: '#testpath#'
 langs:
   en:
     _desc: Run all default tests

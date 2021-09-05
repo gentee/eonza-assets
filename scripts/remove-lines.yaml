@@ -2,6 +2,7 @@ settings:
   name: remove-lines
   title: '#_name#'
   desc: '#_desc#'
+  path: "#.stdlib#/#.text#"    
   loglevel: 6
   unrun: true
   help: remove-lines
