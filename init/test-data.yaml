@@ -101,7 +101,7 @@ tree:
     varname: ret
 - name: sleep.eonza
   values:
-    timeout: "750"
+    timeout: "1000"
 - name: read-file
   values:
     filename: '#outfile#'
