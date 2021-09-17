@@ -10,6 +10,7 @@ params:
   type: 2
 tree:
 - name: source-code
+  open: true
   values:
     _desc: Set file and dir names
     code: '%body%'
@@ -23,6 +24,12 @@ tree:
         var: short
       - value: test password
         var: psw
+      - value: aut_o i_n_c (тест).inc.txt
+        var: autoinc
+      - value: '*'
+        var: star
+      - value: aut_o i_n_c (тест)
+        var: incname
   - name: write-console
     values:
       text: Test files scripts...
@@ -70,6 +77,22 @@ tree:
       name: shortdec
       subst: "0"
       value: '#subpath#'
+  - name: set-variable
+    values:
+      list:
+      - func: escapefile
+        param: ""
+      name: incfile
+      subst: "0"
+      value: aut:o i\n/c (тест).inc.txt
+  - name: set-variable
+    values:
+      list:
+      - func: appendpath
+        param: '#incfile#'
+      name: incfile
+      subst: "0"
+      value: '#subpath#'
 - name: if.eonza
   values:
     list:
@@ -107,6 +130,69 @@ tree:
 - name: source-code
   open: true
   values:
+    _desc: Auto increment
+    code: '%body%'
+  children:
+  - name: set-variable
+    values:
+      list: []
+      name: incoriginal
+      subst: "1"
+      value: '#incfile#'
+  - name: for.eonza
+    open: true
+    values:
+      final: "4"
+      index: index
+      initial: "1"
+    children:
+    - name: auto-increment-filename
+      values:
+        filename: '#incfile#'
+        resultvar: incfile
+    - name: write-file
+      values:
+        filename: '#incfile#'
+        name: index
+  - name: read-file
+    values:
+      filename: '#incoriginal#'
+      name: incout
+  - name: auto-increment-filename
+    values:
+      filename: '#incoriginal#'
+      resultvar: incfile
+  - name: write-file
+    values:
+      filename: '#incfile#'
+      name: star
+  - name: for.eonza
+    open: true
+    values:
+      final: "4"
+      index: index
+      initial: "1"
+    children:
+    - name: read-file
+      values:
+        filename: '#subpath#/#incname# (#index#).inc.txt'
+        name: tmp
+    - name: set-variable
+      values:
+        list:
+        - func: append
+          param: '#tmp#'
+        name: incout
+        subst: "1"
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: 1234*
+        var: incout
+- name: source-code
+  values:
     _desc: Template
     code: '%body%'
   children:
@@ -134,7 +220,7 @@ tree:
       template: <#testpath#/template.txt>
   - name: set-variable
     values:
-      list: []
+      list: {}
       name: tpl1
       subst: "1"
       value: '#tpl#'
@@ -169,7 +255,6 @@ tree:
         value: John Doe / Disabled
         var: tpl2res
 - name: source-code
-  open: true
   values:
     _desc: Copy & Move
     code: '%body%'
