@@ -10,7 +10,6 @@ params:
   type: 2
 tree:
 - name: source-code
-  open: true
   values:
     _desc: Set file and dir names
     code: '%body%'
@@ -93,6 +92,92 @@ tree:
       name: incfile
       subst: "0"
       value: '#subpath#'
+- name: source-code
+  open: true
+  values:
+    _desc: Path
+    code: |-
+      Println("OS=", GetConst("os"))
+      %body%
+  children:
+  - name: parse-filename
+    values:
+      filename: myfile
+      varname: mf
+  - name: parse-filename
+    values:
+      filename: mypath/дата.txt
+      varname: df
+  - name: parse-filename
+    values:
+      _ifcond: GetConst("os") == "windows"
+      filename: C:\папка\log234.tar.gz
+      varname: wf
+  - name: parse-filename
+    values:
+      _ifcond: GetConst("os") != "windows"
+      filename: /home/usr/папка/log234.tar.gz
+      varname: wf
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: ""
+        var: mf.dir
+      - cmp: equal
+        not: false
+        value: myfile
+        var: mf.filename
+      - cmp: equal
+        not: false
+        value: ""
+        var: mf.ext
+      - cmp: equal
+        not: false
+        value: mypath
+        var: df.dir
+      - cmp: equal
+        not: false
+        value: дата.txt
+        var: df.filename
+      - cmp: equal
+        not: false
+        value: txt
+        var: df.ext
+      - cmp: equal
+        not: false
+        value: дата
+        var: df.fileonly
+      - cmp: equal
+        not: false
+        value: log234.tar.gz
+        var: wf.filename
+      - cmp: equal
+        not: false
+        value: log234.tar
+        var: wf.fileonly
+      - cmp: equal
+        not: false
+        value: gz
+        var: wf.ext
+  - name: assertions
+    values:
+      _ifcond: GetConst("os") == "windows"
+      list:
+      - cmp: equal
+        not: false
+        value: C:\папка
+        var: wf.dir
+  - name: assertions
+    values:
+      _ifcond: GetConst("os") != "windows"
+      list:
+      - cmp: equal
+        not: false
+        value: /home/usr/папка
+        var: wf.dir
+  - name: return.eonza
 - name: if.eonza
   values:
     list:
@@ -128,14 +213,13 @@ tree:
     onlyexist: true
     path: unknown.file
 - name: source-code
-  open: true
   values:
     _desc: Auto increment
     code: '%body%'
   children:
   - name: set-variable
     values:
-      list: []
+      list: {}
       name: incoriginal
       subst: "1"
       value: '#incfile#'
