@@ -93,12 +93,9 @@ tree:
       subst: "0"
       value: '#subpath#'
 - name: source-code
-  open: true
   values:
     _desc: Path
-    code: |-
-      Println("OS=", GetConst("os"))
-      %body%
+    code: '%body%'
   children:
   - name: parse-filename
     values:
@@ -177,7 +174,6 @@ tree:
         not: false
         value: /home/usr/папка
         var: wf.dir
-  - name: return.eonza
 - name: if.eonza
   values:
     list:
