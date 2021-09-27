@@ -34,3 +34,4 @@ code: |
   if *ext? : fileonly = Left(fileonly, *fileonly - *ext - 1)
   ret["fileonly"] = fileonly
   SetVar(varname, obj(ret))
+  SetVar(varname, filename)
