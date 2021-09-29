@@ -39,11 +39,8 @@ tree:
   - name: create-dir
     values:
       path: '#dir#'
-  - name: create-dir
-    disable: true
-    values:
-      path: '#retdir#'
   - name: source-code
+    disable: true
     values:
       code: |-
         Asset("files/tests/test.docx", JoinPath(Macro("#dir#"), "test.docx"))
@@ -51,6 +48,26 @@ tree:
         Asset("files/tests/test.ods", JoinPath(Macro("#dir#"), "test.ods"))
         Asset("files/tests/test.xlsx", JoinPath(Macro("#dir#"), "test.xlsx"))
         Asset("files/tests/rows.xlsx", JoinPath(Macro("#dir#"), "rows.xlsx"))
+  - name: foreach-line
+    open: true
+    values:
+      text: |-
+        test.docx
+        test.odt
+        test.ods
+        test.xlsx
+        rows.xlsx
+        pattern.docx
+        pattern.odt
+        pattern.ods
+        pattern.xlsx
+        list.xlsx
+      varname: assetfile
+    children:
+    - name: source-code
+      values:
+        code: |
+          Asset(Macro("files/tests/#assetfile#"), JoinPath(Macro("#dir#"), Macro("#assetfile#")))
 - name: set-variables
   values:
     list:
@@ -66,6 +83,73 @@ tree:
       var: myvalue
 - name: source-code
   open: true
+  values:
+    _desc: Create docs
+    code: '%body%'
+  children:
+  - name: set-variables
+    values:
+      list:
+      - value: result
+        var: lname
+  - name: create-docs-from-excel
+    values:
+      columns: id,name,company
+      list:
+      - output: ""
+        pattern: '#dir#/pattern.docx'
+      - output: '#usr.name#'
+        pattern: '#dir#/pattern.ods'
+      - output: '#lname#'
+        pattern: '#dir#/pattern.xlsx'
+      - output: '#usr.id# - #usr.name#'
+        pattern: '#dir#/pattern.odt'
+      outputdir: '#dir#/list'
+      varname: usr
+      xlsxfile: '#dir#/list.xlsx'
+  - name: foreach-file
+    open: true
+    values:
+      path: '#dir#/list'
+      recursive: false
+      varname: fd
+    children:
+    - name: source-code
+      values:
+        code: SetVar("doccount", GetVarInt("doccount")+1)
+  - name: get-excel-cells
+    values:
+      list:
+      - cell: B3
+        sheet: ""
+        var: xlid
+      - cell: B5
+        sheet: ""
+        var: xlcompany
+      - cell: C2
+        sheet: My List
+        var: xlc
+      xlsxfile: '#dir#/list/result.xlsx'
+  - name: assertions
+    values:
+      list:
+      - cmp: equal
+        not: false
+        value: "12"
+        var: doccount
+      - cmp: equal
+        not: false
+        value: "10"
+        var: xlid
+      - cmp: equal
+        not: false
+        value: Google Inc.
+        var: xlcompany
+      - cmp: equal
+        not: false
+        value: 10 - John Doe
+        var: xlc
+- name: source-code
   values:
     _desc: Test XLSX rows
     code: '%body%'
@@ -137,6 +221,7 @@ tree:
           "username": "Иван Иванович"
       }
 - name: source-code
+  open: true
   values:
     _desc: Test Office scripts
     code: '%body%'
