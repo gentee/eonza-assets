@@ -124,6 +124,7 @@ gethtml: Получить содержимое HTML
 globconst: Глобальные константы
 help: Помощь
 hide: Скрыть
+hideduptasks: Скрывать повторяющиеся задачи
 hidetray: Скрывать иконку в трее
 history: История
 home: Главная

@@ -28,6 +28,7 @@
       label="%removeafter%" @change="change"></v-text-field>
       <v-text-field v-model.number="options.common.maxtasks" type="number"  style="max-width: 300px;"
       label="%maxtasks%" @change="change"></v-text-field>
+      <v-checkbox v-model="options.common.hideduptasks" label="%hideduptasks%" @change="change"></v-checkbox>
     </div>
     </div>
     <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >

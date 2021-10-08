@@ -124,6 +124,7 @@ gethtml: Get HTML Content
 globconst: Global Constants
 help: Help
 hide: Hide
+hideduptasks: Hide duplicate tasks 
 hidetray: Hide Tray Icon
 history: History
 home: Home
