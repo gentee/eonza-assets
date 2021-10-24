@@ -353,7 +353,7 @@ new Vue({
             }
             let shouldLogScroll = this.console.scrollTop + 
                   this.console.clientHeight === this.console.scrollHeight;
-            logout.innerHTML += log2color(cmd.message) + '<br>';
+            logout.innerHTML += log2color(cmd.message).replace(/\n/g, "<br>" );
             if (shouldLogScroll) {
               this.console.scrollTop = this.console.scrollHeight;
             }
