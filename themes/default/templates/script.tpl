@@ -330,7 +330,7 @@ new Vue({
             }
             let shouldScroll = this.console.scrollTop + 
                   this.console.clientHeight === this.console.scrollHeight;
-            stdout.innerHTML += escapeHTML(cmd.message) + '<br>';
+            stdout.innerHTML += escapeHTML(cmd.message).replace(/\n/g, "<br>" );
             if (shouldScroll) {
               this.console.scrollTop = this.console.scrollHeight;
             }
