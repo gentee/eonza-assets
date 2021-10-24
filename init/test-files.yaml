@@ -29,6 +29,8 @@ tree:
         var: star
       - value: aut_o i_n_c (тест)
         var: incname
+      - value: Ver
+        var: towrite
   - name: write-console
     values:
       text: Test files scripts...
@@ -582,6 +584,22 @@ tree:
       not: false
       value: '#md5short#'
       var: md5shortdec
+- name: write-file
+  values:
+    append: false
+    filename: '#shortfile#'
+    name: towrite
+    text: -#towrite#-
+- name: write-file
+  values:
+    append: true
+    filename: '#shortfile#'
+    name: ""
+    text: +#towrite#
+- name: read-file
+  values:
+    filename: '#shortfile#'
+    name: restowrite
 - name: delete-dir
   values:
     path: '#testpath#'
@@ -592,6 +610,10 @@ tree:
       not: true
       value: ""
       var: testpath
+    - cmp: equal
+      not: false
+      value: '#towrite#-#towrite#-+Ver'
+      var: restowrite
 - name: write-console
   values:
     text: Success

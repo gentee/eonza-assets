@@ -5,14 +5,15 @@ settings:
   path: "#.stdlib#/#.files#"  
   help: write-file
   helplang: ru
-  loglevel: 4
+  loglevel: 6
   unrun: true
 params:
 - name: name
   title: '#.varname#'
   type: 2
-  options:
-    required: true
+- name: text
+  title: '#.text#'
+  type: 1
 - name: filename
   title: '#.filename#'
   type: 2
@@ -31,5 +32,7 @@ langs:
     _desc: Записать переменную в файл
     _writefile: Записать в файл
 code: |-
-  if append : AppendFile(filename, GetVar(name))
-  else : WriteFile(filename, GetVar(name))
+  str out = ?( *name?, GetVar(name), "")
+  if *text? : out += text
+  if append : AppendFile(filename, out)
+  else : WriteFile(filename, out)
