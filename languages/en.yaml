@@ -99,6 +99,7 @@ expandall: Expand All
 expired: Expired
 expireson: Expires on
 export: Export
+extensions: Extensions
 failconnect: "Cannot connect to the Eonza program. Run:"
 failed: Failed
 favorites: Favorites
@@ -335,6 +336,7 @@ urled-parameters: /docs/editor-parameters.html
 urled-language: /docs/editor-language-resources.html
 urled-source: /docs/editor-source-code.html
 urled-compile: /docs/editor-compile.html
+urlextensions: /docs/extensions.html
 urlpro-general: /docs/pro-general.html
 urlpro-license: /docs/eonza-pro-license.html
 urlpro-security: /docs/pro-security.html
