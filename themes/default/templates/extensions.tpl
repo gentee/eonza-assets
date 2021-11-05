@@ -1,28 +1,41 @@
 <script type="text/x-template" id="extensions">
   <v-container style="height:100%;padding-top: 40px;">
     <div style="height:calc(100% - 0px);overflow-y: auto;padding-top: 1rem">
-        <v-alert v-for="(item,i) in list" border="left" colored-border
-          :color="i < unread ? 'blue darken-1' : 'blue lighten-4'" elevation="2">
-      <div style="color: #333;" v-html="item.text"></div>
-      <div style="text-align: right">
-         <span style="font-size:smaller;color: #777;font-style: italic">{{item.script}} {{item.user}}@{{item.role}} {{item.time}}</span> <v-btn icon small @click="remove(item.hash)" v-show="item.todel"><v-icon small color="blue">fa-trash-alt</v-icon></v-btn>
+        <v-card v-for="(item,i) in list" elevation="2" class="mx-2" 
+        :style="item.installed ? 'border-left: 8px solid #64DD17' : ''">
+          <div style="display:inline-flex;width: 100%;">
+      <div style="flex-grow: 1;">
+        <v-card-title v-text="item.title"></v-card-title>
+        <v-card-subtitle v-text="item.desc"></v-card-subtitle>
       </div>
-      </v-alert>
+      <div class="pa-4">
+        <v-btn color="primary" xclick="remove(item.hash)" v-show="item.installed"
+        ><v-icon small>fa-trash-alt</v-icon>&nbsp;%uninstall%</v-btn>
+        <v-btn color="primary" xclick="remove(item.hash)" v-show="!item.installed"><v-icon small >fa-download</v-icon>&nbsp;%install%</v-btn>
+    </div>
+  </div>
+      </v-card>
     </div>
   </v-container>
 </script>
 
 <script>
-const ext = {
-  list: [ [[range .Nfy.List]]
-    {text: '[[.Text]]', time: '[[.Time]]', todel: [[.ToDel]], script: '[[.Script]]'},
-  [[end]] ]
-}
-
 const Extensions = {
   template: '#extensions',
   data: extensionsData,
   methods: {
+    loadExtensions() {
+        axios
+        .get('/api/extensions')
+        .then(response => {
+            if (response.data.error) {
+                this.$root.errmsg(response.data.error);
+                return
+            }
+            this.list = response.data.list
+        })
+        .catch(error => this.$root.errmsg(error));
+      },
 /*    remove(id) {
       axios
       .get('/api/removeext/' + id)
@@ -35,18 +48,16 @@ const Extensions = {
       .catch(error => this.$root.errmsg(error));
     },*/
   },
-  computed: {
-    list: function() { return store.state.ext },
-  },
   mounted() {
     store.commit('updateTitle', '%extensions%');
     store.commit('updateHelp', '%urlextensions%');
-    //this.$root.loadExt()
+    this.loadExtensions();
   }
 };
 
 function extensionsData() {
     return {
+        list: [],
     }
 }
 </script>

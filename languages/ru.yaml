@@ -141,6 +141,7 @@ includesrc: Вставлять исходный код
 info: Информация
 inherit: Наследовать
 initvalue: Начальное значение
+install: Установить
 install-chrome-ext: Как установить расширение Eonza для Chrome
 invalid: Недействительный
 invalidfield: Значение поля '%s' некорректно
@@ -328,6 +329,7 @@ weekday: День недели
 weekly: Еженедельно
 weekshort: "Вс,Пн,Вт,Ср,Чт,Пт,Сб"
 yes: Да
+uninstall: Удалить
 urleditor: /ru/docs/editor.html
 urled-script: /ru/docs/editor-script.html
 urled-settings: /ru/docs/editor-settings.html
