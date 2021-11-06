@@ -99,7 +99,6 @@ expandall: Раскрыть все
 expired: Просрочен
 expireson: Истекает
 export: Экспорт
-extensions: Расширения
 failconnect: "Не могу соединиться с программой Eonza. Запустите:"
 failed: Ошибка
 favorites: Избранные
@@ -211,6 +210,7 @@ or: ИЛИ
 outputfile: Файл вывода
 overwrite: Перезаписывать существующие
 overwritenew: Перезаписать если новее
+packages: Расширения
 parameters: Параметры
 password: Пароль
 paste: Вставить
@@ -337,7 +337,7 @@ urled-parameters: /ru/docs/editor-parameters.html
 urled-language: /ru/docs/editor-language-resources.html
 urled-source: /ru/docs/editor-source-code.html
 urled-compile: /ru/docs/editor-compile.html
-urlextensions: /ru/docs/extensions.html
+urlpackages: /ru/docs/packages.html
 urlpro-general: /ru/docs/pro-general.html
 urlpro-license: /ru/docs/eonza-pro-license.html
 urlpro-security: /ru/docs/pro-security.html

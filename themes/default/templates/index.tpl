@@ -211,7 +211,7 @@
 [[template "tasks" .]]
 [[template "scheduler" .]]
 [[template "browser" .]]
-[[template "extensions" .]]
+[[template "packages" .]]
 [[template "notifications" .]]
 [[if .Pro]][[template "pro" .]][[end]]
 [[template "settings" .]]
@@ -272,9 +272,9 @@ const routes = [{
     component: Pro,
   },[[end]]
   {
-    path: '/extensions',
+    path: '/packages',
     name: 10,
-    component: Extensions,
+    component: Packages,
   },
 ];
 
@@ -854,7 +854,7 @@ function appData() {
         { id: 0, title: '%scripts%', icon: 'fa-play-circle', route: '/' },
 [[if eq .User.RoleID 1]] { id: 1, title: '%editor%', icon: 'fa-edit', route: '/editor' }, [[end]]
         { id: 2, title: '%taskmanager%', icon: 'fa-tasks', route: '/tasks' },
-[[if eq .User.RoleID 1]] { id: 5, title: '%extensions%', icon: 'fa-cubes', route: '/extensions' }, [[end]]
+[[if eq .User.RoleID 1]] { id: 5, title: '%packages%', icon: 'fa-cubes', route: '/packages' }, [[end]]
 [[if eq .User.RoleID 1]] { id: 3, title: '%scheduler%', icon: 'fa-calendar-alt', route: '/scheduler' }, [[end]]
 [[if eq .User.RoleID 1]] { id: 4, title: '%browser%', icon: 'fa-globe', route: '/browser' }, [[end]]
         { id: 6, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
