@@ -331,6 +331,7 @@ weekly: Weekly
 weekshort: "Sun,Mon,Tue,Wed,Thu,Fri,Sat"
 yes: Yes
 uninstall: Uninstall
+unpkgconfirm: Are you sure you want to uninstall this package?
 urleditor: /docs/editor.html
 urled-script: /docs/editor-script.html
 urled-settings: /docs/editor-settings.html

@@ -330,6 +330,7 @@ weekly: Еженедельно
 weekshort: "Вс,Пн,Вт,Ср,Чт,Пт,Сб"
 yes: Да
 uninstall: Удалить
+unpkgconfirm: Вы уверены, что хотите удалить этот пакет?
 urleditor: /ru/docs/editor.html
 urled-script: /ru/docs/editor-script.html
 urled-settings: /ru/docs/editor-settings.html
