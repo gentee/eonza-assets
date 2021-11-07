@@ -32,7 +32,7 @@
         <v-card-actions>
           <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlpro-general%" target="_help">%help%</v-btn>
           <v-spacer></v-spacer>
-          <v-btn class="ma-2" color="primary" xclick="savePackage">%save%</v-btn>
+          <v-btn class="ma-2" color="primary" @click="savePackage">%save%</v-btn>
           <v-btn class="ma-2" color="primary" text outlined  @click="closePackage">%cancel%</v-btn>
         </v-card-actions>
       </v-card>
@@ -93,12 +93,23 @@ const Packages = {
                 this.$root.errmsg(response.data.error);
                 return
             }
+            this.editItem = item
             this.dlgTitle = item.title
             this.settings = response.data
             this.dlgPackage = true
-            console.log('settings', this.settings)
         })
         .catch(error => this.$root.errmsg(error));
+      },
+      savePackage() {
+        axios
+        .post('/api/savepackage/'+this.editItem.name, omit(this.settings.values))
+        .then(response => { 
+          if (response.data.error) {
+            this.errmsg(response.data.error);
+            return;
+          }
+          this.closePackage()
+        });
       },
       closePackage() {
             this.dlgPackage = false
@@ -116,17 +127,8 @@ function packagesData() {
       dlgPackage: false,
       list: [],
       dlgTitle: '',
-      settings: {
-        params: [{
-          name: "test",
-          title: "OOOPS",
-          options: {},
-          type: 2
-        }],
-        values: {
-          test: "this is a value"
-        },
-      }
+      editItem: {},
+      settings: {}
     }
 }
 </script>
