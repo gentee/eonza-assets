@@ -102,6 +102,7 @@ const Home = {
       this.path = ret.path
       this.breads = ret.breads
       this.viewlist()
+      store.commit('updateFolder', !name || name=='/' ? '' : this.path);
       return false
     },
     getFavList() { 
@@ -239,6 +240,14 @@ const Home = {
     store.commit('updateTitle', '%scripts%');
     store.commit('updateHelp', '%urlscripts%');
     this.$root.loadList(this.viewlist);
+    if (store.state.folder && store.state.folder != '/') {
+      let paths = store.state.folder.split('/')
+      let pop = paths.pop()
+      if (paths.length > 0) {
+         this.path = paths.join('/')
+      }
+      this.folder(pop)
+    }
     this.getFavList()
   },
 };

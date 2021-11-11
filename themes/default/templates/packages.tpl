@@ -9,7 +9,7 @@
         <v-card-subtitle v-text="item.desc"></v-card-subtitle>
       </div>
       <div class="pa-4">
-        <v-btn color="primary" @click="editSettings(item)" v-show="item.installed"
+        <v-btn color="primary" @click="editSettings(item)" v-show="item.installed && item.hasparams"
         ><v-icon small>fa-cog</v-icon>&nbsp;%settings%</v-btn>
         <v-btn @click="uninstall(item.name)" v-show="item.installed"
         ><v-icon color="primary" small>fa-trash-alt</v-icon>&nbsp;%uninstall%</v-btn>

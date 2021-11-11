@@ -312,6 +312,7 @@ const store = new Vuex.Store({
       isfav: defisfav,
       favs: deffavs,
       clipboard: null,
+      folder: '',
       script: {
           settings: {
           },
@@ -347,6 +348,9 @@ const store = new Vuex.Store({
     },
     updateTasks (state, tasks) {
       state.tasks = tasks;
+    },
+    updateFolder (state, name) {
+      state.folder = name;
     },
     updateNewTasks (state, newtasks) {
       state.newtasks = newtasks;
