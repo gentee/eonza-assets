@@ -63,6 +63,7 @@ disable: Отключить
 disabled: Отключён
 disena: Отключить/Включить
 dislike: Не нравится
+documentation: Документация
 downloadfile: Скачивание %s в %s...
 downloads: Скачать
 dup: Клонировать
@@ -210,7 +211,7 @@ or: ИЛИ
 outputfile: Файл вывода
 overwrite: Перезаписывать существующие
 overwritenew: Перезаписать если новее
-packages: Расширения
+packages: Пакеты
 parameters: Параметры
 password: Пароль
 paste: Вставить
@@ -290,6 +291,7 @@ suspend: Остановить
 suspended: Остановлен
 taskmanager: Диспетчер задач
 tasks: Задачи
+tempdir: Временная директория
 terminated: Прерван
 tests: Тесты
 text: Текст

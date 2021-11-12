@@ -63,6 +63,7 @@ disable: Disable
 disabled: Disabled
 disena: Disable/Enable
 dislike: Dislike
+documentation: Documentation
 downloadfile: Downloading %s to %s...
 downloads: Downloads
 dup: Duplicate
@@ -291,6 +292,7 @@ suspend: Suspend
 suspended: Suspended
 taskmanager: Task Manager
 tasks: Tasks
+tempdir: Temporary directory
 terminated: Terminated
 tests: Tests
 text: Text

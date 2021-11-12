@@ -1,7 +1,7 @@
 <script type="text/x-template" id="packages">
   <v-container style="height:100%;padding-top: 40px;">
     <div style="height:calc(100% - 0px);overflow-y: auto;padding-top: 1rem">
-        <v-card v-for="(item,i) in list" elevation="2" class="mx-2" 
+        <v-card v-for="(item,i) in list" elevation="2" class="ma-2" 
         :style="item.installed ? 'border-left: 8px solid #64DD17' : ''">
           <div style="display:inline-flex;width: 100%;">
       <div style="flex-grow: 1;">
