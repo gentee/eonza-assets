@@ -58,7 +58,7 @@
         [[if eq .User.RoleID 1]]<v-btn color="primary" to="/editor?scriptname=new" class="white  font-weight-bold ml-4" outlined v-if="$route.name == 0 || $route.name == 2">
             <v-icon small left>fa-plus</v-icon>&nbsp;%newscript%
         </v-btn>[[end]]
-        <v-btn color="primary" :href="'https://www.eonza.org' + store.state.help" target="_help" class="white  font-weight-bold ml-4" outlined>
+        <v-btn color="primary" :href="'https://www.eonza.org' + store.state.help" target="_help" class="white  font-weight-bold ml-4" outlined title="%doconline%">
             <v-icon small left>fa-book</v-icon>&nbsp;%documentation%
         </v-btn>
         <v-spacer></v-spacer>
@@ -927,6 +927,20 @@ function clone(src) {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function prefLang(helplang) {
+  let langs = []
+  let pref = ''
+  if (!!helplang) {
+    langs = helplang.split(',')
+  }
+  for (let i=0; i < langs.length; i++) {
+    if (langs[i] == [[.Lang]] ) {
+      pref = langs[i] + '/'
+    }
+  }
+  return pref
 }
 
 </script>

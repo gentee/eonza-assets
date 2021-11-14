@@ -65,17 +65,16 @@ Vue.component('card', {
         optional() { return this.cmds[this.active.name].optional },
         gethelp() { 
             let cmd = this.cmds[this.active.name]
-            let langs = []
-            let pref = ''
-            if (!!cmd.helplang) {
-                langs = cmd.helplang.split(',')
+            if (!cmd.help) {
+                return '';
             }
-            for (let i=0; i < langs.length; i++) {
-                if (langs[i]== [[.Lang]] ) {
-                    pref = langs[i] + '/'
-                }
+            let ref = prefLang(cmd.helplang);
+            if (cmd.help[0] == '@') {
+                ref += "packages/" + cmd.help.substr(1)
+            } else {
+                ref += "scripts/" + cmd.help
             }
-            return "https://www.eonza.org/" + pref +  "scripts/" + cmd.help + ".html"
+            return "https://www.eonza.org/" + ref + ".html"
         },
     },
     methods: {

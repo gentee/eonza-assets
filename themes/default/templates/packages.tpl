@@ -2,13 +2,16 @@
   <v-container style="height:100%;padding-top: 40px;">
     <div style="height:calc(100% - 0px);overflow-y: auto;padding-top: 1rem">
         <v-card v-for="(item,i) in list" elevation="2" class="ma-2" 
-        :style="item.installed ? 'border-left: 8px solid #64DD17' : ''">
+        :style="item.installed ? 'border-left: 8px solid #64DD17' : ''"
+        >
           <div style="display:inline-flex;width: 100%;">
       <div style="flex-grow: 1;">
         <v-card-title v-text="item.title"></v-card-title>
         <v-card-subtitle v-text="item.desc"></v-card-subtitle>
       </div>
       <div class="pa-4">
+        <v-btn  target="_help" :href="item.help" v-show="item.help" title="%doconline%"
+        ><v-icon color="primary" >fa-info-circle</v-icon></v-btn>
         <v-btn color="primary" @click="editSettings(item)" v-show="item.installed && item.hasparams"
         ><v-icon small>fa-cog</v-icon>&nbsp;%settings%</v-btn>
         <v-btn @click="uninstall(item.name)" v-show="item.installed"
@@ -45,6 +48,14 @@ const Packages = {
   template: '#packages',
   data: packagesData,
   methods: {
+    setHelp(list) {
+      for (let i = 0; i < list.length; i++) {
+          let item = list[i]
+          list[i].help = "https://www.eonza.org/" + prefLang(item.helplang) +
+                    "packages/" + item.help + ".html"
+      }
+      return list
+    },
     loadPackages() {
         axios
         .get('/api/packages')
@@ -53,7 +64,7 @@ const Packages = {
                 this.$root.errmsg(response.data.error);
                 return
             }
-            this.list = response.data.list
+            this.list = this.setHelp(response.data.list)
         })
         .catch(error => this.$root.errmsg(error));
       },
@@ -65,7 +76,7 @@ const Packages = {
                 this.$root.errmsg(response.data.error);
                 return
             }
-            this.list = response.data.list
+            this.list = this.setHelp(response.data.list)
         })
         .catch(error => this.$root.errmsg(error));
       },
@@ -80,7 +91,7 @@ const Packages = {
                     comp.$root.errmsg(response.data.error);
                     return
                 }
-                comp.list = response.data.list
+                comp.list = comp.setHelp(response.data.list)
             })
             .catch(error => comp.$root.errmsg(error));
         }); 
