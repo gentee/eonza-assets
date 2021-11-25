@@ -201,7 +201,7 @@ function log2color(input) {
   let color = {'INFO': 'egreen', 'FORM': 'eblue', 'WARN': 'eyellow', 'ERROR': 'ered'}
   for (let key in color) {
     if (color.hasOwnProperty(key)) {
-      input = input.replace("["+key+"]", '<span class="'+color[key]+'">[' + key+ ']</span>');
+      input = input.replaceAll("["+key+"]", '<span class="'+color[key]+'">[' + key+ ']</span>');
     }
   }
   return input
