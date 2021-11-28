@@ -343,7 +343,13 @@ new Vue({
             if (!cmd.message) {
               cmd.message = '&nbsp;';
             } else {
+              if (!this.isconsole) {
+                this.isconsole = true
+              }
               cmd.message = escapeHTML(cmd.message)
+              if (this.tab==0) {
+                this.tab = 2
+              }
             }
             this.stdcur.innerHTML = cmd.message;
             break

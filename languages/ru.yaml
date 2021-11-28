@@ -162,7 +162,7 @@ list: Список
 log: Лог
 logconsole: Вывод в лог и консоль
 login: Войти
-loglevel: Уровень лога
+loglevel: Уровень логирования
 logout: Выйти
 logoutall: Разлогинить всех пользователей
 masterpass: Мастер пароль
