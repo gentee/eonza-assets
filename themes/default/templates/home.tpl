@@ -18,7 +18,7 @@
         </div>
         <v-breadcrumbs :items="breads" large v-show="!search" class="pt-0 pl-2 pb-1">
           <template v-slot:item="{ item }">
-          <v-breadcrumbs-item href="#" @click="return folder('/' + item.path)":disabled="item.disabled">
+          <v-breadcrumbs-item href="#" @click="return folder('/' + item.path)" :disabled="item.disabled">
             {{item.text}}
           </v-breadcrumbs-item>
           </template>
@@ -74,6 +74,7 @@
 </script>
 
 <script>
+var homeComponent;
 const Home = {
   template: '#home',
   data: homeData,
@@ -237,6 +238,7 @@ const Home = {
       return this.curfavlist},
   },
   mounted: function() {
+    homeComponent = this
     store.commit('updateTitle', '%scripts%');
     store.commit('updateHelp', '%urlscripts%');
     this.$root.loadList(this.viewlist);

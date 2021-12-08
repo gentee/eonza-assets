@@ -155,7 +155,7 @@
             </div>
 
             <v-list-item-content>
-              <v-list-item-title class="font-weight-bold">{{ item.title }}</v-list-item-title>
+              <v-list-item-title class="font-weight-bold" @click="navclick(item.id)">{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -473,6 +473,13 @@ new Vue({
     router,
     store,
     methods: {
+      navclick(id) {
+        if (id == 0 && router.currentRoute.name == '0') {
+           if (store.state.folder && store.state.folder != '/') {
+              homeComponent.folder('/')
+           }
+        }
+      },
       decryptstorage(master, callback) {
         if (master) {
           this.master = master
