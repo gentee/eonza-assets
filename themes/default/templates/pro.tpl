@@ -206,6 +206,11 @@
         :disabled="!active" @change="changesettings"
         label="%twofa%"
         ></v-checkbox>
+        <v-checkbox
+        v-model="settings.autofill"
+        :disabled="!active" @change="changesettings"
+        label="%autofill%"
+        ></v-checkbox>
         <v-btn @click="logoutall" :disabled="!active" color="primary">%logoutall%</v-btn>
     </div>
     </div>
