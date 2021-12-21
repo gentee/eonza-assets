@@ -112,6 +112,7 @@ feedbacktext: Please post any feature requests or bug reports
 fileexists: File/Dir Exists
 filename: Filename
 files: Files and directories
+fillas: Fill Out As
 finish: Finish
 finished: Finished
 folder: Folder
@@ -251,9 +252,11 @@ rootkey: Root Key
 run: Run
 runsilently: Run Silently
 save: Save
+saveas: Save As
 saveasnew: Save As New
 savecopy: Save a copy
 savefile: Save As File
+saveform: Save Form Data
 savescript: The '%s' script was changed. Would you like to save it?
 scanqr: Scan QR code in Google Authenticator
 search: Search scripts for...

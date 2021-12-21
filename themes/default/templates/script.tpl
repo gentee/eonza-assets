@@ -91,6 +91,26 @@
                :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:values}"></component>
             <v-btn v-show="iscontinue" color="primary" style="text-transform:none"
                class="ma-2 white--text" @click="sendform">%continue%</v-btn>
+            [[if .IsAutoFill]]
+            <div class="mb-2" v-show="afvisible">
+              <div style="display:inline-flex;align-items:center;">
+                <v-checkbox v-model="afcheck" label="%saveform%"></v-checkbox>
+                <v-btn class="ml-5" elevation="2" icon small color="primary" v-show="!afexpand"
+                    @click="afexpand = true">
+                    <v-icon small>fa-angle-down</v-icon>
+                </v-btn>
+                <v-btn class="ml-5" elevation="2" icon small color="primary" v-show="afexpand"
+                   @click="afexpand = false">
+                  <v-icon small>fa-angle-up</v-icon>
+              </v-btn>
+             </div>
+               <div v-show="afexpand" style="max-width: 600px;">
+                 <v-select outlined :items = "aflist" label="%fillas%" v-model="afcurlist" @change="changeFill" dense>
+                </v-select>
+                <v-text-field v-model="afname" label="%saveas%"></v-text-field>
+              </div>
+            </div>
+            [[end]]
           </div>
         </div>
         <div v-show="tab==2">
@@ -277,6 +297,34 @@ new Vue({
             }
          })
          .catch(error => this.errmsg(error));
+      [[if .IsAutoFill]]
+      if (this.afvisible) {
+        let url =  window.location.protocol + '//' + window.location.hostname + ':' + 
+            '[[.URLPort]]' + '/api/saveform';
+        let afform = {
+          _afcheck: this.afcheck,
+          _name: this.afname
+        }
+        if (this.afcheck) {
+         for (let i = 0; i < this.form.length; i++) {
+            let item = this.form[i]
+            if (item.type == PTextarea || item.type == PSingleText || item.type == PNumber ||
+                item.type == PCheckbox || item.type == PSelect) {
+                afform[item.var] = this.values[item.var]
+            }
+          }
+        }
+        axios.post(url, {ref: this.ref, form: afform})
+        .then(response => {
+           if (response.data.error) {
+             this.errmsg(response.data.error);
+              return
+            }
+         })
+         .catch(error => this.errmsg(error));
+      }
+      [[end]]
+
       },
       validateCmdLine: function(e) {
         if (e.keyCode === 13) {
@@ -309,6 +357,61 @@ new Vue({
         })
         .catch(error => this.errmsg(error));
       },
+      [[if .IsAutoFill]]
+      changeFill() {
+        this.afname = this.afcurlist
+        for (let i = 0; i < this.autofill.length; i++) {
+          if (this.autofill[i]._name == this.afcurlist) {
+            console.log(i, this.afnames)
+            for (let k = 0; k < this.afnames.length; k++)  {
+              let name = this.afnames[k]
+              if (this.autofill[i].hasOwnProperty(name)) {
+                this.$set(this.values, name, this.autofill[i][name])
+              }
+            }
+            break
+          }
+        }
+      },
+      getAutoFill() {
+        this.aflist = []
+        this.afname = ''
+        let url =  window.location.protocol + '//' + window.location.hostname + ':' + 
+            '[[.URLPort]]' + '/api/autofill'
+        axios
+        .post(url, {ref: this.ref})
+        .then(response => {
+           if (response.data.error) {
+             this.errmsg(response.data.error);
+              return
+            }
+            if (response.data.autofill) {
+              this.autofill = response.data.autofill;
+              if (this.autofill.length > 0) {
+                let latest = this.autofill[0]
+                let shift = 0
+                this.afcheck = latest._afcheck
+                if (this.afcheck) {
+                    for (let i = 0; i < this.afnames.length; i++)  {
+                      let name = this.afnames[i]
+                      if (latest.hasOwnProperty(name)) {
+                          this.$set(this.values, name, latest[name])
+                      }
+                    }
+                  this.afname = this.autofill[0]._name
+                  this.afcurlist = this.autofill[0]._name
+                } else {
+                  shift = 1
+                }
+                for (let i = shift; i < this.autofill.length; i++) {
+                  this.aflist.push(this.autofill[i]._name)
+                }
+              }
+            }
+         })
+         .catch(error => this.errmsg(error));
+      },
+      [[end]]
       wsCmd({data}) {
         let cmd = JSON.parse(data);
         switch (cmd.cmd) {
@@ -368,6 +471,12 @@ new Vue({
             }
             break
           case WcForm:
+            this.ref = cmd.ref || ''
+            this.autoFill = []
+            this.afcheck = false
+            this.afvisible = false
+            this.afexpand = false
+            this.afnames = []
             this.isform++
             this.form = JSON.parse(cmd.message) 
             this.formid = cmd.status || 0
@@ -389,9 +498,19 @@ new Vue({
                 value = value != '0' && value != 'false' && !!value
               } 
               this.$set(this.values, item.var, value)
+              if (item.type == PTextarea || item.type == PSingleText || item.type == PNumber ||
+                item.type == PCheckbox || item.type == PSelect) {
+                  this.afnames.push(item.var)
+                  this.afvisible = true
+              }
             }
             this.iscontinue = this.form.length == 0 || this.form[this.form.length-1].type != PButton
             this.tab = 1
+            [[if .IsAutoFill]]
+            if (this.afvisible) {
+               this.getAutoFill()
+            }
+            [[end]]
             break         
           case WcReport:
             let report = JSON.parse(cmd.message)
@@ -498,7 +617,15 @@ function appData() {
       progress: [],
       reportslist: Reports,
       curReport: 0,
-
+      afcheck: 0,
+      afvisible: false,
+      aflist: [],
+      afcurlist: '',
+      afname: '',
+      afexpand: false,
+      afnames: [],
+      autoFill: [],
+      ref: '',
       cmd: null,
       question: false,
       asktitle: "",

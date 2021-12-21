@@ -8,7 +8,7 @@
     <v-tabs v-model="tab">
         <v-tab>%general%</v-tab>
         <v-tab>%users%</v-tab>
-        <v-tab>%security%</v-tab>
+        <v-tab>%settings%</v-tab>
         <v-tab>%storage%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
@@ -202,14 +202,15 @@
     <div v-show="tab==2" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
         <v-checkbox
-        v-model="settings.twofa"
-        :disabled="!active" @change="changesettings"
-        label="%twofa%"
-        ></v-checkbox>
-        <v-checkbox
         v-model="settings.autofill"
         :disabled="!active" @change="changesettings"
         label="%autofill%"
+        ></v-checkbox>
+        <div style="color: #777;"><strong>%security%</strong></div>
+        <v-checkbox
+        v-model="settings.twofa"
+        :disabled="!active" @change="changesettings"
+        label="%twofa%"
         ></v-checkbox>
         <v-btn @click="logoutall" :disabled="!active" color="primary">%logoutall%</v-btn>
     </div>
