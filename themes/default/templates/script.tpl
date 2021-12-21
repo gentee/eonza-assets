@@ -362,7 +362,6 @@ new Vue({
         this.afname = this.afcurlist
         for (let i = 0; i < this.autofill.length; i++) {
           if (this.autofill[i]._name == this.afcurlist) {
-            console.log(i, this.afnames)
             for (let k = 0; k < this.afnames.length; k++)  {
               let name = this.afnames[k]
               if (this.autofill[i].hasOwnProperty(name)) {
