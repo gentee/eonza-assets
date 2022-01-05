@@ -121,6 +121,19 @@
         </v-data-table>
 </script>
 
+<script type="text/x-template" id="c-checklist">
+    <v-data-table
+    dense hide-default-footer disable-pagination
+    @input="changeSelect()"
+    v-model="selected"
+    :headers="headers"
+    :items="items"
+    item-key="_id"
+    show-select
+    class="elevation-1 my-4"
+  >
+  </v-data-table>
+</script>
 
 <script>
 
@@ -134,6 +147,7 @@ const PHTMLText = 6;
 const PButton = 7;
 const PDynamic = 8;
 const PPassword = 9;
+const PCheckList = 10;
 
 const PTypes = [
     {text: '%checkbox%', value: 0, comp: 'c-checkbox'},
@@ -146,6 +160,7 @@ const PTypes = [
     {text: '%button%', value: 7, comp: 'c-button'},
     {text: '%dynamic%', value: 8, comp: ''},
     {text: '%password%', value: 9, comp: 'c-password'},
+    {text: '%checklist%', value: 10, comp: 'c-checklist'},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 function removeScripts(input) {
@@ -505,6 +520,51 @@ Vue.component('c-password', {
             return true
         },
       }
+    },
+    props: {
+        par: Object,
+        vals: Object,
+    },
+});
+
+Vue.component('c-checklist', {
+    template: '#c-checklist',
+    mixins: [changed],
+    data() {return {
+        singleSelect: false,
+        selected: [],
+        headers: [],
+        items: [],
+      }
+    },
+    methods: {
+        changeSelect(){
+            let selected = []
+            for (let i = 0; i< this.selected.length; i++) {
+                selected.push(this.selected[i]._id)
+            }
+            this.vals[this.par.name].selected = selected
+        }
+    },
+    mounted(){
+        let data = JSON.parse(this.par.title)
+        this.headers = data.headers
+        let check = data.selected
+        if (!check) {
+            check = '_selected'
+        }
+        this.vals[this.par.name] = {
+            selected: [],
+            check: check,
+            var: this.par.name
+        }
+        this.items = data.items
+        for (let i=0; i < this.items.length; i++) {
+            this.items[i]._id = i
+            if (!!this.items[i][check]) {
+                this.selected.push({_id: i})
+            }
+        }
     },
     props: {
         par: Object,

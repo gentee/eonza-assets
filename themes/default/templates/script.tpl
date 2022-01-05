@@ -282,8 +282,11 @@ new Vue({
                 this.values[item.var] = btn.value
               }
             }
+            if (item.type == PCheckList) {
+              this.values[item.var] = JSON.stringify(this.values[item.var])
+            }
         }
-
+        this.fields = []
         axios
         .post(`/form?taskid=${ [[.ID]] }`,{formid: this.formid, values: this.values, skip: skip})
         .then(response => {
