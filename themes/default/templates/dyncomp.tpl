@@ -531,6 +531,7 @@ Vue.component('c-checklist', {
     template: '#c-checklist',
     mixins: [changed],
     data() {return {
+        check: '',
         singleSelect: false,
         selected: [],
         headers: [],
@@ -549,10 +550,7 @@ Vue.component('c-checklist', {
     mounted(){
         let data = JSON.parse(this.par.title)
         this.headers = data.headers
-        let check = data.selected
-        if (!check) {
-            check = '_selected'
-        }
+        let check = data.check
         this.vals[this.par.name] = {
             selected: [],
             check: check,
@@ -561,8 +559,10 @@ Vue.component('c-checklist', {
         this.items = data.items
         for (let i=0; i < this.items.length; i++) {
             this.items[i]._id = i
-            if (!!this.items[i][check]) {
-                this.selected.push({_id: i})
+        }
+        if (!!data.selected) {
+            for (let i = 0; i < data.selected.length; i++) {
+                this.selected.push({_id: data.selected[i]})
             }
         }
     },
