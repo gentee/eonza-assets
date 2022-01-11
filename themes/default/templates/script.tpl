@@ -480,7 +480,8 @@ new Vue({
             this.afexpand = false
             this.afnames = []
             this.isform++
-            this.form = JSON.parse(cmd.message) 
+            let formdata = JSON.parse(cmd.message) 
+            this.form = formdata.list
             this.formid = cmd.status || 0
             this.fields = []
             this.values = {}
@@ -500,8 +501,8 @@ new Vue({
                 value = value != '0' && value != 'false' && !!value
               } 
               this.$set(this.values, item.var, value)
-              if (item.type == PTextarea || item.type == PSingleText || item.type == PNumber ||
-                item.type == PCheckbox || item.type == PSelect) {
+              if (formdata.autofill && (item.type == PTextarea || item.type == PSingleText || 
+                item.type == PNumber || item.type == PCheckbox || item.type == PSelect)) {
                   this.afnames.push(item.var)
                   this.afvisible = true
               }
