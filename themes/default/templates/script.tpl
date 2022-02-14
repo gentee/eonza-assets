@@ -317,7 +317,7 @@ new Vue({
             }
           }
         }
-        axios.post(url, {ref: this.ref, form: afform})
+        axios.post(url, {taskid: [[.ID]], userid: [[.UserID]], ref: this.ref, form: afform})
         .then(response => {
            if (response.data.error) {
              this.errmsg(response.data.error);
@@ -381,7 +381,7 @@ new Vue({
         let url =  window.location.protocol + '//' + window.location.hostname + ':' + 
             '[[.URLPort]]' + '/api/autofill'
         axios
-        .post(url, {ref: this.ref})
+        .post(url, {taskid: [[.ID]], userid: [[.UserID]], ref: this.ref})
         .then(response => {
            if (response.data.error) {
              this.errmsg(response.data.error);
