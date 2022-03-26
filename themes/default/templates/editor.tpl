@@ -1,7 +1,12 @@
 <script type="text/x-template" id="editor">
   <v-container style="height:100%;padding-top: 40px">
     <v-toolbar dense flat=true>
-      <v-icon v-if="script.embedded" left small>fa-lock</v-icon><v-toolbar-title>{{script.langtitle}}</v-toolbar-title>
+      <v-icon v-if="script.embedded" left small>fa-lock</v-icon><v-toolbar-title>{{script.langtitle}}
+        <v-btn icon color="primary" target="_help" title="%doconline%" v-show="help"
+             :href="help">
+               <v-icon>fa-question-circle</v-icon>
+        </v-btn>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
         <v-menu left>
             <template v-slot:activator="{ on: history }">
@@ -561,6 +566,19 @@ const Editor = Vue.component('editor', {
         }
     },
     computed: {
+        help() {
+          if (!this.script.settings.help) {
+            return ''
+          }
+          let path = 'scripts/'
+          let name = this.script.settings.help
+          if (name[0] == '@') {
+            path = 'packages/'
+            name = name.substring(1)
+          }
+          return 'https://www.eonza.org/' +  ([[.Lang]] != 'en' ? [[.Lang]] + '/' : "") +
+                 path + name + ".html";
+        },
         langText() {
           return (this.langid != 'en' ? "%translation%" : "%entext%")
         },
