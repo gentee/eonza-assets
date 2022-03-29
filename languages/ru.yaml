@@ -25,6 +25,7 @@ browser: Браузер
 button: Кнопка
 buttonlink: Кнопочная ссылка
 cancel: Отмена
+center: По центру
 changelog: История изменений
 changepass: Изменить пароль
 checkbox: Чекбокс
@@ -122,6 +123,7 @@ folder: Папка
 foldername: Имя папки
 forgotpsw: Забыли пароль?
 form: Форма
+formalign: Выравнивание форм
 formdata: Данные формы
 formopen: "Форма: откройте %s чтобы продолжить выполнение скрипта"
 forms: Формы и сообщения
@@ -159,6 +161,7 @@ ipwhitelist: '"Белые" IP-адреса'
 langres: Языковые ресурсы
 language: Язык
 lastcheck: Последняя проверка была сделана
+left: Слева
 licagreement: Лицензионное соглашение
 licenseinfo: Лицензионная информация
 licensekey: Лицензионный ключ

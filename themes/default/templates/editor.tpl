@@ -257,6 +257,11 @@ const Langs = [
    [[range $key, $native := .Langs ]]{text: '[[$native]]', value: '[[$key]]'},[[end]]
 ];
 
+const Align = [
+  {text: '%left%', value: 0},
+  {text: '%center%', value: 1},
+];
+
 const TabHelp = [
   '%urled-script%',
   '%urled-settings%',

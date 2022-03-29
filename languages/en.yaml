@@ -25,6 +25,7 @@ browser: Browser
 button: Button
 buttonlink: Button Link
 cancel: Cancel
+center: Center
 changelog: Changelog
 changepass: Change Password
 checkbox: Checkbox
@@ -122,6 +123,7 @@ folder: Folder
 foldername: Folder Name
 forgotpsw: Forgot Password?
 form: Form
+formalign: Forms Alignment
 formdata: Form Data
 formopen: "Form: open %s to continue the script execution"
 forms: Forms & Messages
@@ -159,6 +161,7 @@ ipwhitelist: IP Whitelisting
 langres: Language Resource
 language: Language
 lastcheck: Last checked on
+left: Left
 licagreement: License Agreement
 licenseinfo: License Information
 licensekey: License Key

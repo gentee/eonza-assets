@@ -41,10 +41,14 @@
     </div>
     </div>
     <div v-show="tab==2" style="height: calc(100% - 106px);overflow-y:auto;"> 
-    <div class="pt-4">
+        <div class="pt-4">
         <v-select label="%language%" @change="change"
             v-model="options.user.lang"
             :items="Langs" 
+        ></v-select>
+        <v-select label="%formalign%" @change="change"
+        v-model="options.user.formalign"
+        :items="Align" 
         ></v-select>
         </div>
     </div>

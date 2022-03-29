@@ -85,7 +85,7 @@
           <tr><td>%finish%: </td><td>{{finish}}</td></tr>
           </table>
         </div>
-        <div v-show="tab==1" stylex="display:flex;justify-content: center;">
+        <div v-show="tab==1" [[if eq .FormAlign 1]]style="display:flex;justify-content: center;"[[end]]>
          <div class="pl-6" style="max-height: 100%;overflow-y: auto;max-width: 1024px;flex-grow:1">
             <component v-for="comp in fields" v-on:btnclick="btnclick($event)"
                :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:values}"></component>
