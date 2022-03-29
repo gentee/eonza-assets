@@ -85,8 +85,8 @@
           <tr><td>%finish%: </td><td>{{finish}}</td></tr>
           </table>
         </div>
-        <div v-show="tab==1">
-         <div class="pl-6" style="max-height: 100%;overflow-y: auto;max-width: 1024px;">
+        <div v-show="tab==1" stylex="display:flex;justify-content: center;">
+         <div class="pl-6" style="max-height: 100%;overflow-y: auto;max-width: 1024px;flex-grow:1">
             <component v-for="comp in fields" v-on:btnclick="btnclick($event)"
                :is="PTypes[comp.type].comp" v-bind="{par:comp, vals:values}"></component>
             <v-btn v-show="iscontinue" color="primary" style="text-transform:none"
@@ -275,7 +275,7 @@ new Vue({
             if ( item.type == PHTMLText ) {
               delete this.values[item.var]
             }
-            if ( item.type == PButton ) {
+            if ( item.type == PButton || item.type == PButtonLink ) {
               if (!btn || btn.name != item.var) {
                 delete this.values[item.var]
               } else {

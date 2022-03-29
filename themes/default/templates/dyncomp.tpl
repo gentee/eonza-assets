@@ -32,6 +32,10 @@
     <v-btn :color="(!!par.options.default ? 'primary': '')" style="text-transform: none;margin-right: 1rem;margin-bottom:8px;" @click="btnclick">{{par.title}}</v-btn>
 </script>
 
+<script type="text/x-template" id="c-buttonlink">
+    <li style="padding: 0px 0px 6px 0px" ><a href="#" @click="btnclick">{{par.title}}</a></li>
+</script>
+
 <script type="text/x-template" id="c-singletext">
     <v-text-field  v-model="vals[par.name]" @input="change"
          :label="par.title" :options="par.options" :rules="[rules]"
@@ -148,6 +152,7 @@ const PButton = 7;
 const PDynamic = 8;
 const PPassword = 9;
 const PCheckList = 10;
+const PButtonLink = 11;
 
 const PTypes = [
     {text: '%checkbox%', value: 0, comp: 'c-checkbox'},
@@ -161,6 +166,7 @@ const PTypes = [
     {text: '%dynamic%', value: 8, comp: ''},
     {text: '%password%', value: 9, comp: 'c-password'},
     {text: '%checklist%', value: 10, comp: 'c-checklist'},
+    {text: '%buttonlink%', value: 11, comp: 'c-buttonlink'},
 ];//.sort((a,b) => (a.text > b.text) ? 1 : ((b.text > a.text) ? -1 : 0));
 
 function removeScripts(input) {
@@ -357,7 +363,32 @@ Vue.component('c-button', {
                if (typeof this.par.options.initial !== 'undefined' ) {
                   value = this.par.options.initial
                }
-               skip = this.par.options.flags && this.par.options.flags.includes('skip')
+               if (this.par.options.flags) {
+                    skip = this.par.options.flags.includes('skip')
+               }
+            }
+            this.$emit('btnclick', {name: this.par.name, value: value, skip: skip} );
+        }
+    },
+    props: {
+        par: Object,
+        vals: Object,
+    },
+});
+
+Vue.component('c-buttonlink', {
+    template: '#c-buttonlink',
+    methods: {
+        btnclick() {
+            let skip = false
+            let value = true
+            if (this.par.options) {
+               if (typeof this.par.options.initial !== 'undefined' ) {
+                  value = this.par.options.initial
+               }
+               if (this.par.options.flags) {
+                    skip = this.par.options.flags.includes('skip')
+               }
             }
             this.$emit('btnclick', {name: this.par.name, value: value, skip: skip} );
         }

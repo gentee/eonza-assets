@@ -23,6 +23,7 @@ blocked: Blocked
 break: Break
 browser: Browser
 button: Button
+buttonlink: Button Link
 cancel: Cancel
 changelog: Changelog
 changepass: Change Password
