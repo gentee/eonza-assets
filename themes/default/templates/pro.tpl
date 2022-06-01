@@ -408,7 +408,6 @@ const Pro = {
                 this.storagelist = data.list 
                 this.$root.askmaster = this.active && this.storageenc && this.storageis
             }
-            console.log(data, this.active, this.$root.askmaster)
         },
         changePassword() {
             axios

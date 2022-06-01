@@ -12,6 +12,7 @@
   font-family: "Font Awesome 5 Brands";
   font-weight: 400;
 }
+
 @font-face {
   font-family: "Font Awesome 5 Free";
   font-style: normal;
@@ -26,6 +27,7 @@
   font-family: "Font Awesome 5 Free";
   font-weight: 400;
 }
+
 @font-face {
   font-family: "Font Awesome 5 Free";
   font-style: normal;
@@ -99,7 +101,7 @@ v-content {
   border-left: 2px dotted #1976d2;
 }
 
-.cmd-active > .tree-item {
+.cmd-active>.tree-item {
   background-color: #1976d2;
   color: #fff;
 }
