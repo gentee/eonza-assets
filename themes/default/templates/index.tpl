@@ -870,7 +870,7 @@ function appData() {
 [[if eq .User.RoleID 1]] { id: 4, title: '%browser%', icon: 'fa-globe', route: '/browser' }, [[end]]
         { id: 6, title: '%notifications%', icon: 'fa-bell', route: '/notifications' },
         { id: 7, title: '%settings%', icon: 'fa-tools', route: '/settings' },
-[[if and .Pro (eq .User.RoleID 1)]] { id: 9, title: '%prover%', icon: 'fa-donate', route: '/pro' },[[end]] /*fa-hand-helping*/
+[[if and .Pro (eq .User.RoleID 1)]] { id: 9, title: '%advanced%', icon: 'fa-shapes', route: '/pro' },[[end]] /*fa-hand-helping*/
         { id: 8, title: '%help%', icon: 'fa-life-ring', route: '/help' },
 //        { id: 3, title: 'Support', icon: 'fa-life-ring' },
       ],

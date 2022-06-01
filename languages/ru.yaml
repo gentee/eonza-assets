@@ -7,6 +7,7 @@ active: Активный
 addcmd: Добавить новую команду в скрипт
 addfav: Добавить в Избранные
 additional: Дополнительные настройки
+advanced: Для продвинутых
 advsettings: Расширенные настройки
 algorithm: Алгоритм
 allow: Разрешать
@@ -232,8 +233,6 @@ portlng: Порт
 preview: Просмотр
 programming: Программирование
 prolicense: Лицензия Pro
-prover: Pro Версия
-proverurl: https://www.eonza.org/ru/pro-version.html
 question: Вопрос
 recently: Недавно запущенные
 recursive: Рекурсивный поиск

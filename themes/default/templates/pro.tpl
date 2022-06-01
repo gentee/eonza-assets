@@ -6,62 +6,11 @@
         </v-btn>
     </v-toolbar-->
     <v-tabs v-model="tab">
-        <v-tab>%general%</v-tab>
         <v-tab>%users%</v-tab>
         <v-tab>%settings%</v-tab>
         <v-tab>%storage%</v-tab>
     </v-tabs>
     <div v-show="tab==0" style="height: calc(100% - 106px);overflow-y:auto;" >
-    <div class="pt-4">
-        <v-alert type="success" v-show="active" text outlined>%status%: %active%</v-alert>
-        <v-alert type="error" v-show="!active" text outlined color="deep-orange">%status%: %disabled%</v-alert>
-        <div style="background-color: #FFFDE7;padding: 1rem; border-radius:8px; color: #455A64; 
-            border: 1px solid #37474F;" v-if="license.status < NOTACTIVATED">
-            <h3>%trialmode%</h3>
-            <p v-if="trial.mode >=0"><b>{{trialday}}</b></p>
-            <p v-else><b>%trialend%</b></p>
-            <v-btn stylex="text-transform:none" @click="mode(1)" v-if="trial.mode == 0" color="primary">%starttrial%</v-btn>
-            <v-btn stylex="text-transform:none" @click="mode(0)" v-if="trial.mode == 1" color="primary">%stoptrial%</v-btn>
-        </div>
-        <div style="background-color: #FFFDE7;padding: 1rem; border-radius:8px; color: #455A64; 
-            border: 1px solid #37474F;margin-top: 1em;" v-if="license.status">
-            <h3>%licenseinfo%</h3>
-            <div>%licensekey%: {{license.license}}<br>
-            %numbercomp%: {{license.volume}}
-            </div>
-            <div><span v-if="license.expire">%expireson%: {{license.expire}}</span></div>
-            <div>%status%: <v-chip class="ma-2" :color="LicStatus[license.status].color" 
-               :text-color="LicStatus[license.status].txtcolor" style="font-weight:bold;">
-             <v-icon left>{{LicStatus[license.status].icon}}</v-icon>
-             {{LicStatus[license.status].title}} 
-             </v-chip> <v-btn color="primary" @click="refreshKey" v-if="license.status == NOTACTIVATED">%activate%</v-btn>
-            </div>
-         </div>
-        <v-btn color="primary" class="my-5" :href="site + '%urlpro-license%'" target="_help">%prolicense%</v-btn>
-        <v-btn color="green" :href="site + '%urlpro-version%'" target="_help" class="my-5 white--text">%upgradepro%</v-btn>
-        <v-btn color="primary" class="my-5" @click="dlgKey = true">%enterkey%</v-btn>
-          <v-dialog v-model="dlgKey" max-width="600px">
-                <v-card>
-                  <v-card-title>
-                    <span class="headline">%enterkey%</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-container>
-                      <v-text-field v-model="licenseKey" 
-                      label="%licensekey%" :rules="[rules.required]"></v-text-field>
-                    </v-container>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-btn class="ma-2" color="primary" href="https://www.eonza.org%urlpro-general%" target="_help">%help%</v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn class="ma-2" color="primary" @click="activate">%activate%</v-btn>
-                    <v-btn class="ma-2" color="primary" text outlined  @click="closeKey">%cancel%</v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-    </div>
-    </div>
-    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
         <div class="pt-4">
           <v-data-table
           disable-filtering disable-pagination disable-sort hide-default-footer
@@ -199,7 +148,7 @@
         </v-data-table>
         </div>
     </div>
-    <div v-show="tab==2" style="height: calc(100% - 106px);overflow-y:auto;" >
+    <div v-show="tab==1" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
         <v-checkbox
         v-model="settings.autofill"
@@ -215,7 +164,7 @@
         <v-btn @click="logoutall" :disabled="!active" color="primary">%logoutall%</v-btn>
     </div>
     </div>
-    <div v-show="tab==3" style="height: calc(100% - 106px);overflow-y:auto;" >
+    <div v-show="tab==2" style="height: calc(100% - 106px);overflow-y:auto;" >
     <div class="pt-4">
         <div v-if="!storageis"> 
             <v-text-field v-model="master" label="%masterpass%" :disabled="!active"
@@ -339,7 +288,6 @@ const Masks = {
 }
 
 const ProTabHelp = [
-  '%urlpro-general%',
   '%urlpro-users%',
   '%urlpro-security%',
   '%urlpro-storage%',
@@ -453,38 +401,6 @@ const Pro = {
         }
     },
     methods: {
-        refreshKey() {
-            axios
-            .get(`/api/activatekey`)
-            .then(response => {
-                if (response.data.error) {
-                    this.$root.errmsg(response.data.error);
-                    return
-                }
-                this.license = response.data
-            })
-            .catch(error => this.$root.errmsg(error));
-        },
-        activate() {
-            if (!this.licenseKey) {
-                this.$root.errmsg('Specify License key')
-                return
-            }
-            axios
-            .post(`/api/licensekey`, {license: this.licenseKey})
-            .then(response => {
-                if (response.data.error) {
-                    this.$root.errmsg(response.data.error);
-                    return
-                }
-                this.license = response.data
-                this.closeKey()
-            })
-            .catch(error => this.$root.errmsg(error));
-        },
-        closeKey() {
-            this.dlgKey = false
-        },
         updatestorage(data) {
             if (data) {
                 this.storageis = data.created
@@ -492,6 +408,7 @@ const Pro = {
                 this.storagelist = data.list 
                 this.$root.askmaster = this.active && this.storageenc && this.storageis
             }
+            console.log(data, this.active, this.$root.askmaster)
         },
         changePassword() {
             axios
@@ -752,9 +669,6 @@ const Pro = {
         },
     },
     computed: {
-        trialday() {
-           return format('%trialdays%', this.trial.count, 30)
-       },
         dlgRoleTitle () {
             return this.editedIndex === -1 ? '%newitem%' : '%edititem%'
         },
@@ -763,7 +677,7 @@ const Pro = {
         if (this.site[this.site.length-1] == '/') {
             this.site = this.site.substr(0, this.site.length-1)
         }
-        store.commit('updateTitle', '%prover%');
+        store.commit('updateTitle', '%advanced%');
         store.commit('updateHelp', ProTabHelp[this.tab]);
         axios
         .get(`/api/prosettings`)
@@ -796,7 +710,7 @@ const Pro = {
     watch: {
       tab(val) {
         store.commit('updateHelp', ProTabHelp[val]);
-        if (val == 3) {
+        if (val == 2) {
             axios.get(`/api/storage`).then(response => {
                 if (response.data.error) {
                     this.$root.errmsg(response.data.error);
